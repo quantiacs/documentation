@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>ui</title>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but ui doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<script>
+    function showHideMenuItem(e){
+        const next = e.nextElementSibling;
+        const showHideIcon = e.getElementsByClassName('sidebar_menu_button')[0];
+        if (next.classList.contains('ul_hide')) {
+            next.classList.remove('ul_hide');
+            showHideIcon.classList.add('sidebar_menu_button_open');
+        } else {
+            next.classList.add('ul_hide');
+            showHideIcon.classList.remove('sidebar_menu_button_open');
+        }
+    }
+</script>
+<div id="app" class="theme-container" :class="pageClasses">
+    <navbar @toggle-sidebar="toggleSidebar">
+        <router-link to='/' class="home-link">
+            <span class="site-name">Foo</span>
+        </router-link>
+        <div class="links">
+            <navlinks class="can-hide">
+                xxx
+            </navlinks>
+        </div>
+    </navbar>
+
+    <div class="main-container">
+        <div
+                class="sidebar-mask"
+                @click="toggleSidebar(false)"
+        ></div>
+
+        <sidebar
+                @toggle-sidebar="toggleSidebar"
+        >
+            <navlinks>
+                xxx
+            </navlinks>
+            <div id="searchbox" role="search" class="searchbox"><div class="caption"><span class="caption-text">Быстрый поиск</span> <div class="searchformwrapper"><form action="search.html" method="get" class="search"><input type="text" name="q"> <input type="submit" value="Поиск"> <input type="hidden" name="check_keywords" value="yes"> <input type="hidden" name="area" value="default"></form></div></div></div>
+
+            <div role="navigation" aria-label="main navigation" class="sidebar-links"><div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Быстрый старт</span> <span class="sidebar_menu_button sidebar_menu_button_open"></span></p> <ul class="current
+      "><li class="toctree-l1 current"><a href="#" class="reference internal current">Быстрый старт</a> <ul><li class="toctree-l2"><a href="#quantiacs" class="reference internal">Что такое quantiacs?</a></li> <li class="toctree-l2"><a href="#id2" class="reference internal">Начало работы</a></li> <li class="toctree-l2"><a href="#id9" class="reference internal">Вебинар. Как начать работу на платформе</a></li> <li class="toctree-l2"><a href="#id10" class="reference internal">Вебинар. Создаем стратегию с помощью шаблонов</a></li> <li class="toctree-l2"><a href="#id11" class="reference internal">Готовы к большему?</a></li></ul></li></ul></div> <div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Основные возможности</span> <span class="sidebar_menu_button "></span></p> <ul class=" ul_hide
+      "><li class="toctree-l1 "><a href="functional/functional_data.html" class="reference internal ">Финансовые данные</a></li> <li class="toctree-l1 "><a href="functional/functional_quality.html" class="reference internal ">Оценка качества стратегии</a></li> <li class="toctree-l1 "><a href="functional/functional_improvement_algorithms.html" class="reference internal ">Улучшение алгоритмов</a></li></ul></div> <div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Описание функций</span> <span class="sidebar_menu_button "></span></p> <ul class=" ul_hide
+      "><li class="toctree-l1 "><a href="available_functions/data_load_functions.html" class="reference internal ">Data loading</a></li> <li class="toctree-l1 "><a href="available_functions/evaluation.html" class="reference internal ">Evaluation</a></li> <li class="toctree-l1 "><a href="available_functions/improve_algorithm.html" class="reference internal ">Improve the strategy</a></li></ul></div> <div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Соревнования</span> <span class="sidebar_menu_button "></span></p> <ul class=" ul_hide
+      "><li class="toctree-l1 "><a href="home_competition_main.html" class="reference internal ">Основные положения о соревнованиях</a></li></ul></div> <div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Примеры</span> <span class="sidebar_menu_button "></span></p> <ul class=" ul_hide
+      "><li class="toctree-l1 "><a href="examples/examples_first.html" class="reference internal ">Стратегия торговли по ценам открытия</a></li> <li class="toctree-l1 "><a href="examples/examples_buy_and_hold.html" class="reference internal ">A 10-minute Buy-and-Hold Template</a></li> <li class="toctree-l1 "><a href="examples/examples_advance_decline_line.html" class="reference internal ">Buy-and-Hold Strategy with Advance/Decline Line</a></li> <li class="toctree-l1 "><a href="examples/examples_sRoc_wma_roc.html" class="reference internal ">Technical Analysis Template: sRoC = WMA + RoC</a></li> <li class="toctree-l1 "><a href="examples/examples_sRoc_Stochastic.html" class="reference internal ">Technical Analysis Template: sRoC + Stochastic Oscillator</a></li> <li class="toctree-l1 "><a href="examples/examples_trend_based_strategy.html" class="reference internal ">Trend based strategy</a></li> <li class="toctree-l1 "><a href="examples/examples_prepared_fundamental_data.html" class="reference internal ">Prepared fundamental data</a></li></ul></div> <div class="sidebar-group"><p onclick="showHideMenuItem(this)" class="caption"><span class="caption-text">Теоретическая основа</span> <span class="sidebar_menu_button "></span></p> <ul class=" ul_hide
+      "><li class="toctree-l1 "><a href="theoretical_basis.html" class="reference internal ">Алгоритмическая торговля</a></li> <li class="toctree-l1 "><a href="quality/sharpe.html" class="reference internal ">Sharpe Ratio</a></li></ul></div></div>
+
+        </sidebar>
+
+        <page> <!-- :sidebar-items="sidebarItems"> -->
+            <div class="content">
+                <div role="navigation" aria-label="navigation" class="body-header">
+                    <ul class="breadcrumbs">
+                        <li><a href="index.html">Docs</a> »</li>
+                        <li>Что такое quantiacs?</li>
+                    </ul>
+                    <ul class="page-nav">
+                        <li class="prev"><a href="index.html" title="previous chapter">← &lt;no title&gt;</a></li>
+                        <li class="next"><a href="index_3.html" title="next chapter">Быстрый старт →</a></li>
+                    </ul>
+                </div>
+                <hr>
+                <div role="main" class="content">
+                    <div id="id1" class="section"><h1>Быстрый старт<a href="#id1" title="Permalink to this headline"
+                                                                      class="headerlink">¶</a></h1>
+                        <div id="quantiacs" class="section"><h2>Что такое quantiacs?<a href="#quantiacs"
+                                                                                     title="Permalink to this headline"
+                                                                                     class="headerlink">¶</a></h2>
+                            <p><strong>quantiacs</strong> — компания, которая занимается разработкой инструментов для
+                                создания торговых стратегий.</p>
+                            <p>Мы <strong>предлагаем</strong> пользователям</p>
+                            <ul class="simple">
+                                <li><p><strong>участвовать в розыгрыше 500 тысяч рублей за квартал</strong>, отправив
+                                    стратегии в <a href="/contest" target="_blank">соревнования</a>.</p></li>
+                                <li><p><a href="https://github.com/qntnet/data-relay" target="_blank">открытые
+                                    инструменты</a> для выгрузки <strong>данных</strong> с финансовых
+                                    <strong>бирж</strong>.</p></li>
+                                <li><p><a href="https://github.com/qntnet/qnt-python" target="_blank">открытые
+                                    инструменты</a> для <strong>создания</strong> торговых <strong>стратегий</strong>.
+                                    Вы можете <strong>применить их для частной торговли</strong>.</p></li>
+                                <li><p><strong>протестировать</strong> финансовые <strong>идеи</strong>.</p></li>
+                                <li><p>дружественное комьюнити и <strong>быструю обратную связь</strong> в <a
+                                        href="https://vk.com/quantiacsrussia" target="_blank">vk</a>, <a
+                                        href="https://t.me/quantiacsrussia" target="_blank">Telegram</a>.</p></li>
+                            </ul>
+                            <blockquote>
+                                <div><p>Стратегии создаются на языке <strong>python</strong> или <strong>scala</strong>.
+                                </p></div>
+                            </blockquote>
+                            <p>Разрабатывайте стратегий в <strong>Jupyter Notebook</strong> или <strong>Jupyter
+                                lab</strong>.</p>
+                            <blockquote>
+                                <div><p><strong>даём инстансы до 8 гб</strong> оперативной памяти <strong>на</strong>
+                                    каждую <strong>стратегию.</strong></p></div>
+                            </blockquote>
+                        </div>
+                        <div id="id2" class="section"><h2>Начало работы<a href="#id2" title="Permalink to this headline"
+                                                                          class="headerlink">¶</a></h2>
+                            <p><strong>Цель.</strong> Познакомить вас с тем как создавать и тестировать идеи финансовых
+                                стратегий, на примере.</p>
+                            <p><strong>Необходимые условия.</strong></p>
+                            <ul class="simple">
+                                <li><p><a href="/personalpage/registration" target="_blank" class="tip">Зарегистрируйтесь
+                                    на платформе</a></p></li>
+                                <li><p><a href="/personalpage/strategies" target="_blank" class="tip">Откройте вкладку
+                                    стратегии в разработке.</a></p></li>
+                            </ul>
+                            <p class="tip">Нажмите **создать стратегию** или **скопируйте** любой **шаблон** готовых
+                                стратегий.</p>
+                            <div id="id3" class="section"><h3>Исторические финансовые данные<a href="#id3"
+                                                                                               title="Permalink to this headline"
+                                                                                               class="headerlink">¶</a>
+                            </h3>
+                                <p>Возьмём исторические цены компаний Google и Apple за последние 4*365 дней,
+                                    отсортированные в хронологическом порядке</p>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.data</span> <span class="kn">as</span> <span class="nn">qndata</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">qndata</span><span class="o">.</span><span
+                                                class="n">load_data</span><span class="p">(</span>
+                       <span class="n">assets</span><span class="o">=</span><span class="p">[</span><span class="s1">'NASDAQ:AAPL'</span><span
+                                                class="p">,</span> <span class="s1">'NASDAQ:GOOGL'</span><span
+                                                class="p">],</span>
+                       <span class="n">tail</span> <span class="o">=</span> <span class="n">dt</span><span
+                                                class="o">.</span><span class="n">timedelta</span><span
+                                                class="p">(</span><span class="n">days</span><span
+                                                class="o">=</span><span class="mi">4</span><span class="o">*</span><span
+                                                class="mi">365</span><span class="p">),</span>
+                       <span class="n">forward_order</span><span class="o">=</span><span class="bp">True</span><span
+                                                class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span
+                                            class="n">sel</span><span class="p">(</span><span
+                                            class="n">field</span><span class="o">=</span><span class="s2">"open"</span><span
+                                            class="p">)</span><span class="o">.</span><span
+                                            class="n">to_pandas</span><span class="p">()</span><span
+                                            class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th>asset</th>
+                                            <th>NASDAQ:AAPL</th>
+                                            <th>NASDAQ:GOOGL</th>
+                                        </tr>
+                                        <tr>
+                                            <th>time</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>2020-08-03</th>
+                                            <td>12118.40</td>
+                                            <td>1491.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-04</th>
+                                            <td>12222.84</td>
+                                            <td>1486.71</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-05</th>
+                                            <td>12250.28</td>
+                                            <td>1476.82</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-06</th>
+                                            <td>12365.36</td>
+                                            <td>1476.15</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-07</th>
+                                            <td>12678.96</td>
+                                            <td>1509.04</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="id4" class="section"><h3>Создание финансовой стратегии<a href="#id4"
+                                                                                              title="Permalink to this headline"
+                                                                                              class="headerlink">¶</a>
+                            </h3>
+                                <blockquote>
+                                    <div><p>Стратегии на платформе создаются в виде <strong>весов</strong> от
+                                        финансового <strong>партфеля</strong>.</p></div>
+                                </blockquote>
+                                <p>Например вы хотите торговать акциями компаний Google и Apple.</p>
+                                <ul class="simple">
+                                    <li><p><strong>Сколько процентов</strong> от капитала <strong>инвестировать</strong>
+                                        в Google, а сколько в Apple, чтобы заработать завтра? - <strong>задача
+                                            алгоритма</strong>.</p></li>
+                                    <li><p><strong>Каждый</strong> торговый <strong>день проценты</strong> могут
+                                        <strong>менятся</strong>. Вы <strong>получаете прибыль</strong>, если угадываете
+                                        направления цен или <strong>теряете капитал</strong>.</p></li>
+                                </ul>
+                                <blockquote>
+                                    <div><p>Идея стратегии. Вёзмём абсолютные изменения цен открытия. Цена текущего дня
+                                        минус цена предыдущего дня.
+                                        Получившиеся изменения возмём как веса активов.</p></div>
+                                </blockquote>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">price_open</span> <span
+                                            class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                            class="n">sel</span><span class="p">(</span><span
+                                            class="n">field</span><span class="o">=</span><span class="s2">"open"</span><span
+                                            class="p">)</span>
+<span class="n">strategy</span> <span class="o">=</span> <span class="n">price_open</span> <span
+                                                class="o">-</span> <span class="n">price_open</span><span
+                                                class="o">.</span><span class="n">shift</span><span
+                                                class="p">(</span><span class="n">time</span><span
+                                                class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <p>Абсолютные изменения цен:</p>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">strategy</span><span
+                                            class="o">.</span><span class="n">to_pandas</span><span
+                                            class="p">()</span><span class="o">.</span><span class="n">tail</span><span
+                                            class="p">()</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th>asset</th>
+                                            <th>NASDAQ:AAPL</th>
+                                            <th>NASDAQ:GOOGL</th>
+                                        </tr>
+                                        <tr>
+                                            <th>time</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>2020-08-10</th>
+                                            <td>-67.76</td>
+                                            <td>-18.2400</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-11</th>
+                                            <td>-70.70</td>
+                                            <td>3.2000</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-12</th>
+                                            <td>-164.78</td>
+                                            <td>-6.8755</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-13</th>
+                                            <td>440.44</td>
+                                            <td>21.0855</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-14</th>
+                                            <td>44.66</td>
+                                            <td>5.4000</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p>Превращаем их в веса для нашего портфеля.</p>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">weights</span> <span
+                                            class="o">=</span> <span class="n">strategy</span> <span class="o">/</span> <span
+                                            class="nb">abs</span><span class="p">(</span><span class="n">strategy</span><span
+                                            class="p">)</span><span class="o">.</span><span class="n">sum</span><span
+                                            class="p">(</span><span class="s1">'asset'</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">weights</span><span
+                                            class="o">.</span><span class="n">to_pandas</span><span
+                                            class="p">()</span><span class="o">.</span><span class="n">tail</span><span
+                                            class="p">()</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th>asset</th>
+                                            <th>NASDAQ:AAPL</th>
+                                            <th>NASDAQ:GOOGL</th>
+                                        </tr>
+                                        <tr>
+                                            <th>time</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>2020-08-10</th>
+                                            <td>-0.787907</td>
+                                            <td>-0.212093</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-11</th>
+                                            <td>-0.956698</td>
+                                            <td>0.043302</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-12</th>
+                                            <td>-0.959946</td>
+                                            <td>-0.040054</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-13</th>
+                                            <td>0.954313</td>
+                                            <td>0.045687</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-14</th>
+                                            <td>0.892129</td>
+                                            <td>0.107871</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <blockquote>
+                                    <div><p>Алгорим считает какие веса портфеля должны быть на открытии торгов
+                                        следующего дня.</p></div>
+                                </blockquote>
+                                <p>В следующий торговый день <strong>2020-08-17</strong> (понедельник) <strong>алгоритм
+                                    распределит капитал</strong> так, чтобы <strong>0.892129</strong> составляли акции
+                                    компании <strong>AAPL</strong> и <strong>0.107871</strong>
+                                    компании <strong>GOOGL</strong></p></div>
+                            <div id="id5" class="section"><h3>Проверка финансовой стратегии<a href="#id5"
+                                                                                              title="Permalink to this headline"
+                                                                                              class="headerlink">¶</a>
+                            </h3>
+                                <ul class="simple">
+                                    <li><p><strong>Сколько</strong> вы сможете <strong>заработать или потерять</strong>?
+                                        - показывает <strong>эквити</strong>.</p></li>
+                                    <li><p><strong>Хорошая идея или нет</strong> - показывает <a
+                                            href="/documentation/ru/quality/sharpe.html" class="reference external">кофициент
+                                        шарпа</a>. Чем больше тем лучше. У хороших стратегий график стремится от левого
+                                        нижнего угла к правому верхнему.</p></li>
+                                </ul>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.stats</span>   <span class="kn">as</span> <span class="nn">qnstats</span>
+<span class="n">stat</span> <span class="o">=</span> <span class="n">qnstats</span><span class="o">.</span><span
+                                                class="n">calc_stat</span><span class="p">(</span><span
+                                                class="n">data</span><span class="p">,</span> <span
+                                                class="n">weights</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span
+                                                class="n">to_pandas</span><span class="p">()</span><span
+                                                class="o">.</span><span class="n">tail</span><span class="p">())</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th>field</th>
+                                            <th>equity</th>
+                                            <th>relative_return</th>
+                                            <th>volatility</th>
+                                            <th>underwater</th>
+                                            <th>max_drawdown</th>
+                                            <th>sharpe_ratio</th>
+                                            <th>mean_return</th>
+                                            <th>bias</th>
+                                            <th>instruments</th>
+                                            <th>avg_turnover</th>
+                                            <th>avg_holding_time</th>
+                                        </tr>
+                                        <tr>
+                                            <th>time</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>2020-08-10</th>
+                                            <td>0.466479</td>
+                                            <td>0.014505</td>
+                                            <td>0.277919</td>
+                                            <td>-0.542720</td>
+                                            <td>-0.664973</td>
+                                            <td>-0.696295</td>
+                                            <td>-0.193513</td>
+                                            <td>-1.000000</td>
+                                            <td>2.0</td>
+                                            <td>1.201497</td>
+                                            <td>1.658224</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-11</th>
+                                            <td>0.471410</td>
+                                            <td>0.010569</td>
+                                            <td>0.277976</td>
+                                            <td>-0.537887</td>
+                                            <td>-0.664973</td>
+                                            <td>-0.690718</td>
+                                            <td>-0.192003</td>
+                                            <td>-0.913396</td>
+                                            <td>2.0</td>
+                                            <td>1.203822</td>
+                                            <td>1.666114</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-12</th>
+                                            <td>0.457143</td>
+                                            <td>-0.030265</td>
+                                            <td>0.278233</td>
+                                            <td>-0.551872</td>
+                                            <td>-0.664973</td>
+                                            <td>-0.698488</td>
+                                            <td>-0.194343</td>
+                                            <td>-1.000000</td>
+                                            <td>2.0</td>
+                                            <td>1.203890</td>
+                                            <td>1.665696</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-13</th>
+                                            <td>0.449022</td>
+                                            <td>-0.017764</td>
+                                            <td>0.278343</td>
+                                            <td>-0.559833</td>
+                                            <td>-0.664973</td>
+                                            <td>-0.724633</td>
+                                            <td>-0.201697</td>
+                                            <td>1.000000</td>
+                                            <td>2.0</td>
+                                            <td>1.203835</td>
+                                            <td>1.665697</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-14</th>
+                                            <td>0.448528</td>
+                                            <td>-0.001100</td>
+                                            <td>0.278333</td>
+                                            <td>-0.560317</td>
+                                            <td>-0.664973</td>
+                                            <td>-0.728930</td>
+                                            <td>-0.202885</td>
+                                            <td>1.000000</td>
+                                            <td>2.0</td>
+                                            <td>1.204111</td>
+                                            <td>1.664291</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <blockquote>
+                                    <div><p>Обратите внимание на последнию строчку (2020-08-14).</p></div>
+                                </blockquote>
+                                <p>Величина equity = 0.448528 означает, что первоночальный папитал “1” уменьшился до
+                                    “0.448528”
+                                    Кожфицент sharpe_ratio -0.728930 отрицательный.</p>
+                                <p>Как ведут себя <strong>прибыль и стабильность</strong> её получения можно посмотреть
+                                    <strong>на графиках</strong>.</p>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.graph</span>   <span class="kn">as</span> <span class="nn">qngraph</span>
+<span class="n">equity</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span
+                                                class="n">to_pandas</span><span class="p">()[</span><span class="s2">"equity"</span><span
+                                                class="p">]</span>
+<span class="n">qngraph</span><span class="o">.</span><span class="n">make_plot_filled</span><span
+                                                class="p">(</span><span class="n">equity</span><span
+                                                class="o">.</span><span class="n">index</span><span
+                                                class="p">,</span> <span class="n">equity</span><span class="p">,</span> <span
+                                                class="n">name</span><span class="o">=</span><span class="s2">"PnL (Equity)"</span><span
+                                                class="p">,</span> <span class="nb">type</span><span
+                                                class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
+
+<span class="n">sharpe</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span
+                                                class="n">to_pandas</span><span class="p">()[</span><span class="s2">"sharpe_ratio"</span><span
+                                                class="p">]</span><span class="o">.</span><span
+                                                class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span
+                                                class="p">)</span>
+<span class="n">qngraph</span><span class="o">.</span><span class="n">make_plot_filled</span><span
+                                                class="p">(</span><span class="n">sharpe</span><span
+                                                class="o">.</span><span class="n">index</span><span
+                                                class="p">,</span> <span class="n">sharpe</span><span class="p">,</span> <span
+                                                class="n">name</span><span class="o">=</span><span class="s2">"sharpe_ratio"</span><span
+                                                class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <blockquote>
+                                    <div><p>Вывод данную стратегию лучше не использовать в торговле.</p></div>
+                                </blockquote>
+                            </div>
+                            <div id="id6" class="section"><h3>Отправка стратегии в конкурс<a href="#id6"
+                                                                                             title="Permalink to this headline"
+                                                                                             class="headerlink">¶</a>
+                            </h3>
+                                <p class="tip">Если стратеия имеет шарп большей 1, вы можете принять участие в
+                                    соревнованиях (<a href="/documentation/ru/quality/major.html">подробнее</a>):</p>
+                                <ul class="simple">
+                                    <li><p>проверте коллерирует ли стратегия с уже отправленными соревнованиями. Если
+                                        всё ок переходите к следующему шагу</p></li>
+                                </ul>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="n">qnstats</span><span
+                                            class="o">.</span><span class="n">print_correlation</span><span
+                                            class="p">(</span><span class="n">weights</span><span
+                                            class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <ul class="simple">
+                                    <li><p>вызовите функцию write_output передав в неё веса, которые сгенерировала
+                                        стратегия.</p></li>
+                                </ul>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.stepper</span> <span class="kn">as</span> <span class="nn">qnstepper</span>
+<span class="n">qnstepper</span><span class="o">.</span><span class="n">write_output</span><span class="p">(</span><span
+                                                class="n">weights</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <ul class="simple">
+                                    <li><p>в вашем личном кабинете, в разделе стратегии выберите стратегию и нажмите
+                                        значёк отправки стратегии</p></li>
+                                </ul>
+                            </div>
+                            <div id="id7" class="section"><h3>Полный код стратегии<a href="#id7"
+                                                                                     title="Permalink to this headline"
+                                                                                     class="headerlink">¶</a></h3>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.data</span> <span class="kn">as</span> <span class="nn">qndata</span>
+<span class="kn">import</span> <span class="nn">qnt.stats</span>   <span class="kn">as</span> <span
+                                                class="nn">qnstats</span>
+<span class="kn">import</span> <span class="nn">qnt.stepper</span> <span class="kn">as</span> <span
+                                                class="nn">qnstepper</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">qndata</span><span class="o">.</span><span
+                                                class="n">load_data</span><span class="p">(</span>
+                       <span class="n">assets</span><span class="o">=</span><span class="p">[</span><span class="s1">'NASDAQ:AAPL'</span><span
+                                                class="p">,</span> <span class="s1">'NASDAQ:GOOGL'</span><span
+                                                class="p">],</span>
+                       <span class="n">tail</span> <span class="o">=</span> <span class="n">dt</span><span
+                                                class="o">.</span><span class="n">timedelta</span><span
+                                                class="p">(</span><span class="n">days</span><span
+                                                class="o">=</span><span class="mi">4</span><span class="o">*</span><span
+                                                class="mi">365</span><span class="p">),</span>
+                       <span class="n">forward_order</span><span class="o">=</span><span class="bp">True</span><span
+                                                class="p">)</span>
+
+
+<span class="n">price_open</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                                class="n">sel</span><span class="p">(</span><span class="n">field</span><span
+                                                class="o">=</span><span class="s2">"open"</span><span class="p">)</span>
+<span class="n">strategy</span> <span class="o">=</span> <span class="n">price_open</span> <span
+                                                class="o">-</span> <span class="n">price_open</span><span
+                                                class="o">.</span><span class="n">shift</span><span
+                                                class="p">(</span><span class="n">time</span><span
+                                                class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">weights</span> <span class="o">=</span> <span class="n">strategy</span> <span class="o">/</span> <span
+                                                class="nb">abs</span><span class="p">(</span><span
+                                                class="n">strategy</span><span class="p">)</span><span
+                                                class="o">.</span><span class="n">sum</span><span
+                                                class="p">(</span><span class="s1">'asset'</span><span
+                                                class="p">)</span>
+
+
+<span class="n">stat</span> <span class="o">=</span> <span class="n">qnstats</span><span class="o">.</span><span
+                                                class="n">calc_stat</span><span class="p">(</span><span
+                                                class="n">data</span><span class="p">,</span> <span
+                                                class="n">weights</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span
+                                                class="n">to_pandas</span><span class="p">()</span><span
+                                                class="o">.</span><span class="n">tail</span><span class="p">())</span>
+
+<span class="n">qnstats</span><span class="o">.</span><span class="n">print_correlation</span><span
+                                                class="p">(</span><span class="n">weights</span><span class="p">,</span> <span
+                                                class="n">data</span><span class="p">)</span>
+
+<span class="n">qnstepper</span><span class="o">.</span><span class="n">write_output</span><span class="p">(</span><span
+                                                class="n">weights</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="id8" class="section"><h3>Улучшаем алгоритм<a href="#id8"
+                                                                                  title="Permalink to this headline"
+                                                                                  class="headerlink">¶</a></h3>
+                                <p>Для примера мы использовали две компании Google и Apple, но нам <strong>доступно
+                                    большое количество других компаний</strong>.</p>
+                                <p>Посмотрим как покажет себя алгоритм если будем <strong>торговать ликвидными
+                                    компаниями</strong> и попробуем <strong>уменьшить количество сделок</strong> в
+                                    портфеле.</p>
+                                <p>Для этого будем брать максимальные значения весов портфеля за последние 10 дней.</p>
+                                <div class="highlight-python notranslate">
+                                    <div class="highlight"><pre><span></span><span class="kn">import</span> <span
+                                            class="nn">qnt.data</span> <span class="kn">as</span> <span class="nn">qndata</span>
+<span class="kn">import</span> <span class="nn">qnt.stats</span>   <span class="kn">as</span> <span
+                                                class="nn">qnstats</span>
+<span class="kn">import</span> <span class="nn">qnt.stepper</span> <span class="kn">as</span> <span
+                                                class="nn">qnstepper</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">qndata</span><span class="o">.</span><span
+                                                class="n">load_data</span><span class="p">(</span>
+                       <span class="n">tail</span> <span class="o">=</span> <span class="n">dt</span><span
+                                                class="o">.</span><span class="n">timedelta</span><span
+                                                class="p">(</span><span class="n">days</span><span
+                                                class="o">=</span><span class="mi">4</span><span class="o">*</span><span
+                                                class="mi">365</span><span class="p">),</span>
+                       <span class="n">forward_order</span><span class="o">=</span><span class="bp">True</span><span
+                                                class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_weights_strategy</span><span class="p">(</span><span
+                                                class="n">data</span><span class="p">):</span>
+    <span class="n">price_open</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                                class="n">sel</span><span class="p">(</span><span class="n">field</span><span
+                                                class="o">=</span><span class="s2">"open"</span><span class="p">)</span>
+    <span class="n">strategy</span> <span class="o">=</span> <span class="n">price_open</span> <span class="o">-</span> <span
+                                                class="n">price_open</span><span class="o">.</span><span
+                                                class="n">shift</span><span class="p">(</span><span
+                                                class="n">time</span><span class="o">=</span><span
+                                                class="mi">1</span><span class="p">)</span>
+
+    <span class="n">strategy</span> <span class="o">=</span> <span class="n">strategy</span> <span
+                                                class="o">*</span> <span class="n">data</span><span
+                                                class="o">.</span><span class="n">sel</span><span
+                                                class="p">(</span><span class="n">field</span><span
+                                                class="o">=</span><span class="s2">"is_liquid"</span><span
+                                                class="p">)</span>
+
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">strategy</span> <span
+                                                class="o">/</span> <span class="nb">abs</span><span
+                                                class="p">(</span><span class="n">strategy</span><span
+                                                class="p">)</span><span class="o">.</span><span
+                                                class="n">sum</span><span class="p">(</span><span
+                                                class="s1">'asset'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">weights</span>
+
+
+<span class="k">def</span> <span class="nf">get_reduce_number_trades</span><span class="p">(</span><span class="n">weights</span><span
+                                                class="p">,</span> <span class="n">day_rolling</span><span
+                                                class="p">):</span>
+    <span class="k">return</span> <span class="n">weights</span><span class="o">.</span><span
+                                                class="n">rolling</span><span class="p">({</span><span
+                                                class="s2">"time"</span><span class="p">:</span> <span class="n">day_rolling</span><span
+                                                class="p">})</span><span class="o">.</span><span
+                                                class="n">max</span><span class="p">()</span>
+
+
+<span class="n">weights_clean</span> <span class="o">=</span> <span class="n">get_weights_strategy</span><span
+                                                class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">get_reduce_number_trades</span><span
+                                                class="p">(</span><span class="n">weights_clean</span><span
+                                                class="p">,</span>
+                                   <span class="n">day_rolling</span> <span class="o">=</span> <span
+                                                class="mi">10</span><span class="p">)</span>
+
+
+
+<span class="n">stat</span> <span class="o">=</span> <span class="n">qnstats</span><span class="o">.</span><span
+                                                class="n">calc_stat</span><span class="p">(</span><span
+                                                class="n">data</span><span class="p">,</span> <span
+                                                class="n">weights</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span
+                                                class="n">to_pandas</span><span class="p">()</span><span
+                                                class="o">.</span><span class="n">tail</span><span class="p">())</span>
+
+<span class="n">qnstats</span><span class="o">.</span><span class="n">print_correlation</span><span
+                                                class="p">(</span><span class="n">weights</span><span class="p">,</span> <span
+                                                class="n">data</span><span class="p">)</span>
+
+<span class="n">qnstepper</span><span class="o">.</span><span class="n">write_output</span><span class="p">(</span><span
+                                                class="n">weights</span><span class="p">)</span>
+</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <table border="1" class="dataframe">
+                                        <thead>
+                                        <tr style="text-align: right;">
+                                            <th>field</th>
+                                            <th>equity</th>
+                                            <th>relative_return</th>
+                                            <th>volatility</th>
+                                            <th>underwater</th>
+                                            <th>max_drawdown</th>
+                                            <th>sharpe_ratio</th>
+                                            <th>mean_return</th>
+                                            <th>bias</th>
+                                            <th>instruments</th>
+                                            <th>avg_turnover</th>
+                                            <th>avg_holding_time</th>
+                                        </tr>
+                                        <tr>
+                                            <th>time</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>2020-08-10</th>
+                                            <td>1.593945</td>
+                                            <td>-0.004482</td>
+                                            <td>0.236717</td>
+                                            <td>-0.011803</td>
+                                            <td>-0.329837</td>
+                                            <td>0.516429</td>
+                                            <td>0.122248</td>
+                                            <td>1.0</td>
+                                            <td>951.0</td>
+                                            <td>0.098621</td>
+                                            <td>20.868946</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-11</th>
+                                            <td>1.572682</td>
+                                            <td>-0.013340</td>
+                                            <td>0.236853</td>
+                                            <td>-0.024986</td>
+                                            <td>-0.329837</td>
+                                            <td>0.495218</td>
+                                            <td>0.117294</td>
+                                            <td>1.0</td>
+                                            <td>951.0</td>
+                                            <td>0.098591</td>
+                                            <td>20.870772</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-12</th>
+                                            <td>1.599595</td>
+                                            <td>0.017113</td>
+                                            <td>0.236704</td>
+                                            <td>-0.008301</td>
+                                            <td>-0.329837</td>
+                                            <td>0.556694</td>
+                                            <td>0.131772</td>
+                                            <td>1.0</td>
+                                            <td>951.0</td>
+                                            <td>0.098665</td>
+                                            <td>20.874677</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-13</th>
+                                            <td>1.605007</td>
+                                            <td>0.003384</td>
+                                            <td>0.236706</td>
+                                            <td>-0.004945</td>
+                                            <td>-0.329837</td>
+                                            <td>0.557238</td>
+                                            <td>0.131901</td>
+                                            <td>1.0</td>
+                                            <td>951.0</td>
+                                            <td>0.098590</td>
+                                            <td>20.858870</td>
+                                        </tr>
+                                        <tr>
+                                            <th>2020-08-14</th>
+                                            <td>1.603470</td>
+                                            <td>-0.000957</td>
+                                            <td>0.236606</td>
+                                            <td>-0.005898</td>
+                                            <td>-0.329837</td>
+                                            <td>0.536024</td>
+                                            <td>0.126826</td>
+                                            <td>1.0</td>
+                                            <td>951.0</td>
+                                            <td>0.098747</td>
+                                            <td>20.914003</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="highlight-default notranslate">
+                                    <div class="highlight"><pre><span></span>WARNING! This strategy correlates with other strategies.
+The number of systems with a larger Sharpe ratio and correlation larger than 0.8: 3
+The max correlation value (with systems with a larger Sharpe ratio): 0.9511156122825762
+Current sharpe ratio(3y): 0.5360242631712083
+
+write output: /root/fractions.nc.gz
+</pre>
+                                    </div>
+                                </div>
+                                <blockquote>
+                                    <div><p>Видим, что стратегия начала зарабатывать деньги. Есть и другие способы
+                                        улучшения алгоритма.</p></div>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <div id="id9" class="section"><h2>Вебинар. Как начать работу на платформе<a href="#id9"
+                                                                                                    title="Permalink to this headline"
+                                                                                                    class="headerlink">¶</a>
+                        </h2>
+                            <p><a href="https://youtu.be/OkHIk0rCiyE" class="reference external"><img alt="video"
+                                                                                                      src="https://i.ytimg.com/vi/OkHIk0rCiyE/maxresdefault.jpg"></a>
+                            </p></div>
+                        <div id="id10" class="section"><h2>Вебинар. Создаем стратегию с помощью шаблонов<a href="#id10"
+                                                                                                           title="Permalink to this headline"
+                                                                                                           class="headerlink">¶</a>
+                        </h2>
+                            <p><a href="https://youtu.be/l71ac08I0Tg" class="reference external"><img alt="video"
+                                                                                                      src="https://i.ytimg.com/vi/l71ac08I0Tg/maxresdefault.jpg"></a>
+                            </p></div>
+                        <div id="id11" class="section"><h2>Готовы к большему?<a href="#id11"
+                                                                                title="Permalink to this headline"
+                                                                                class="headerlink">¶</a></h2>
+                            <p>Пока мы лишь кратко представили самые основные возможности платформы
+                                <strong>quantiacs</strong> — остаток этого руководства посвящён более детальному
+                                рассмотрению этих и других возможностей, поэтому советуем прочитать его целиком!</p>
+                        </div>
+                    </div>
+
+                    <!--page 2-->
+                    <div id="id2" class="section"><h1>Создаем первую стратегию<a href="#id1"
+                                                                                 title="Permalink to this headline"
+                                                                                 class="headerlink">¶</a></h1>
+                        <p>Ниже приведены основные шаги, которые могут быть включены в каждую стратегию.</p>
+                        <div id="id2" class="section"><h2>1. Подготовка<a href="#id2" title="Permalink to this headline"
+                                                                          class="headerlink">¶</a></h2>
+                            <p>Сначала нужно подготовить рабочее пространство - загрузить данные и библиотеки</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span
+                                        class="c1"># Import basic libraries.</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="kn">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Import quantiacs libraries.</span>
+<span class="kn">import</span> <span class="nn">qnt.data</span>    <span class="kn">as</span> <span
+                                            class="nn">qndata</span>
+<span class="kn">import</span> <span class="nn">qnt.stepper</span> <span class="kn">as</span> <span
+                                            class="nn">qnstepper</span>
+<span class="kn">import</span> <span class="nn">qnt.stats</span>   <span class="kn">as</span> <span
+                                            class="nn">qnstats</span>
+<span class="kn">import</span> <span class="nn">qnt.graph</span>   <span class="kn">as</span> <span
+                                            class="nn">qngraph</span>
+<span class="kn">import</span> <span class="nn">qnt.forward_looking</span> <span class="kn">as</span> <span class="nn">qnfl</span> <span
+                                            class="c1"># forward looking checking</span>
+</pre>
+                                </div>
+                            </div>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="c1"># load historical data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">qndata</span><span class="o">.</span><span
+                                            class="n">load_data</span><span class="p">(</span><span
+                                            class="n">min_date</span> <span class="o">=</span> <span class="s2">"2017-01-01"</span><span
+                                            class="p">,</span>
+                        <span class="n">max_date</span> <span class="o">=</span> <span class="bp">None</span><span
+                                            class="p">,</span>
+                        <span class="n">dims</span>     <span class="o">=</span> <span class="p">(</span><span
+                                            class="s2">"time"</span><span class="p">,</span> <span
+                                            class="s2">"field"</span><span class="p">,</span> <span
+                                            class="s2">"asset"</span><span class="p">))</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>“ data “- это xarray.DataArray, который содержит исторические данные. Например,
+                                мы хотим получить цены открытия и закрытия акций Apple:</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="n">apple_close</span> <span
+                                        class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                        class="n">loc</span><span class="p">[::,</span> <span
+                                        class="s2">"close"</span><span class="p">,</span> <span
+                                        class="s2">"NASDAQ:AAPL"</span><span class="p">]</span>
+<span class="n">apple_open</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                            class="n">loc</span><span class="p">[::,</span> <span
+                                            class="s2">"open"</span><span class="p">,</span> <span class="s2">"NASDAQ:AAPL"</span><span
+                                            class="p">]</span>
+
+<span class="c1"># you can also work with pandas:</span>
+<span class="c1"># apple_close = data.loc[::, "close", :].to_pandas()["NASDAQ:AAPL"]</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>Таблицу доступных данных можно посмотреть здесь. Некоторые другие данные:</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="n">all_close</span> <span
+                                        class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                        class="n">loc</span><span class="p">[::,</span> <span
+                                        class="s2">"close"</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">all_open</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                            class="n">loc</span><span class="p">[::,</span> <span
+                                            class="s2">"open"</span><span class="p">,</span> <span class="p">:]</span>
+
+<span class="c1"># boolean parameter. True if the stock is in top 500 most liquid stocks over the last month</span>
+<span class="n">liquid</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span
+                                            class="n">loc</span><span class="p">[::,</span> <span
+                                            class="s2">"is_liquid"</span><span class="p">,</span> <span
+                                            class="p">:]</span>
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id3" class="section"><h2>2. Распределение весов<a href="#id3"
+                                                                                   title="Permalink to this headline"
+                                                                                   class="headerlink">¶</a></h2>
+                            <p>Предположим, у нас есть торговая идея - инвестировать больше, если цена открытия низкая.
+                                Эта гипотеза может быть выражена через формулу:</p>
+                            <p><span class="MathJax_Preview" style="color: inherit;"></span>
+                            <div class="MathJax_Display" style="text-align: center;"><span class="MathJax"
+                                                                                           id="MathJax-Element-1-Frame"
+                                                                                           tabindex="0"
+                                                                                           style="text-align: center; position: relative;"
+                                                                                           data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;><mfrac><mn>1</mn><mrow><mi>o</mi><mi>p</mi><mi>e</mi><mi>n</mi></mrow></mfrac></math>"
+                                                                                           role="presentation"><nobr
+                                    aria-hidden="true"><span class="math" id="MathJax-Span-1"
+                                                             style="width: 2.871em; display: inline-block;"><span
+                                    style="display: inline-block; position: relative; width: 2.359em; height: 0px; font-size: 122%;"><span
+                                    style="position: absolute; clip: rect(0.72em, 1002.36em, 3.23em, -999.997em); top: -2.2em; left: 0em;"><span
+                                    class="mrow" id="MathJax-Span-2"><span class="mfrac" id="MathJax-Span-3"><span
+                                    style="display: inline-block; position: relative; width: 2.154em; height: 0px; margin-right: 0.105em; margin-left: 0.105em;"><span
+                                    style="position: absolute; clip: rect(3.179em, 1000.41em, 4.152em, -999.997em); top: -4.659em; left: 50%; margin-left: -0.254em;"><span
+                                    class="mn" id="MathJax-Span-4" style="font-family: MathJax_Main;">1</span><span
+                                    style="display: inline-block; width: 0px; height: 3.998em;"></span></span><span
+                                    style="position: absolute; clip: rect(3.384em, 1002.05em, 4.357em, -999.997em); top: -3.327em; left: 50%; margin-left: -1.022em;"><span
+                                    class="mrow" id="MathJax-Span-5"><span class="mi" id="MathJax-Span-6"
+                                                                           style="font-family: MathJax_Math-italic;">o</span><span
+                                    class="mi" id="MathJax-Span-7"
+                                    style="font-family: MathJax_Math-italic;">p</span><span class="mi"
+                                                                                            id="MathJax-Span-8"
+                                                                                            style="font-family: MathJax_Math-italic;">e</span><span
+                                    class="mi" id="MathJax-Span-9"
+                                    style="font-family: MathJax_Math-italic;">n</span></span><span
+                                    style="display: inline-block; width: 0px; height: 3.998em;"></span></span><span
+                                    style="position: absolute; clip: rect(0.873em, 1002.15em, 1.232em, -999.997em); top: -1.278em; left: 0em;"><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 2.154em; height: 0px;"></span><span
+                                    style="display: inline-block; width: 0px; height: 1.078em;"></span></span></span></span></span><span
+                                    style="display: inline-block; width: 0px; height: 2.205em;"></span></span></span><span
+                                    style="display: inline-block; overflow: hidden; vertical-align: -1.122em; border-left: 0px solid; width: 0px; height: 2.816em;"></span></span></nobr><span
+                                    class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math
+                                    xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mfrac><mn>1</mn><mrow><mi>o</mi><mi>p</mi><mi>e</mi><mi>n</mi></mrow></mfrac></math></span></span>
+                            </div>
+                            <script type="math/tex; mode=display" id="MathJax-Element-1">\frac{1}{open} </script>
+                            </p> <p>Мы можем распределить капитал, присваивая веса инструментам портфеля. (читать
+                                подробнее <a href="#" class="reference external">здесь</a>):</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="n">weights</span> <span class="o">=</span> <span
+                                        class="mi">1</span><span class="o">/</span><span class="n">all_open</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>Вы можете реализовать и протестировать любую идею, какую захотите. Некоторые другие
+                                примеры:</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="c1"># buy all positions: weights = all_open/all_open</span>
+<span class="c1"># sell all positions: weights = -all_open/all_open</span>
+<span class="c1"># the more price change, the more we buy = (all_close - all_open)/all_open</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>Обратите внимание, что мы торгуем только ликвидными акциями. Можно сформировать выходные
+                                веса:</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="n">output</span> <span
+                                        class="o">=</span> <span class="n">weights</span><span class="o">*</span><span
+                                        class="n">liquid</span>
+
+
+<span class="c1"># If you worked with pandas and weigths is pandas.Dataframe:</span>
+<span class="c1"># output = xr.DataArray(weights.values, dims = ["time","asset"], coords= {"time":weights.index,"asset":weights.columns} )</span>
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id4" class="section"><h2>3. Оценка эффективности<a href="#id4"
+                                                                                    title="Permalink to this headline"
+                                                                                    class="headerlink">¶</a></h2>
+                            <p>После того, как мы построили алгоритм, нам нужно его оценить. Для начала нам нужно
+                                рассчитать статистику.</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="c1"># calc_stat calculate statistic on a relevenat time frame window</span>
+<span class="n">stat</span> <span class="o">=</span> <span class="n">qnstats</span><span class="o">.</span><span
+                                            class="n">calc_stat</span><span class="p">(</span><span
+                                            class="n">data</span><span class="p">,</span> <span
+                                            class="n">output</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span
+                                            class="n">to_pandas</span><span class="p">()</span><span
+                                            class="o">.</span><span class="n">tail</span><span class="p">())</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>Результаты алгоритма, рассчитанные на исторических данных,
+                                обычно представлены на <a href="#" class="reference external">графике прибыли
+                                    (equity)</a> чтобы понять поведение совокупной прибыли:</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="c1"># show plot with profit and losses:</span>
+<span class="n">performance</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span
+                                            class="n">to_pandas</span><span class="p">()[</span><span class="s2">"equity"</span><span
+                                            class="p">]</span>
+<span class="n">qngraph</span><span class="o">.</span><span class="n">make_plot_filled</span><span
+                                            class="p">(</span><span class="n">performance</span><span class="o">.</span><span
+                                            class="n">index</span><span class="p">,</span> <span
+                                            class="n">performance</span><span class="p">,</span> <span
+                                            class="n">name</span><span class="o">=</span><span
+                                            class="s2">"PnL (Equity)"</span><span class="p">,</span> <span class="nb">type</span><span
+                                            class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
+</pre>
+                                </div>
+                            </div>
+                            <p><img alt="Equity" src="../../_images/equity.png"></p>
+                            <p>Мы используем набор <a href="#" class="reference external">критериев</a> для оценки
+                                производительности.
+                                Вы можете отправить свой алгоритм и принять участие в соревнованиях, если он пройдет все
+                                <a href="#" class="reference external">фильтры</a>.</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span class="c1"># Actual sharpe on a relevant timeframe. </span>
+<span class="c1"># According to the rules the Sharpe ratio must be greater than 1:</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stat</span><span class="p">[</span><span
+                                            class="o">-</span><span class="mi">1</span><span class="p">:]</span><span
+                                            class="o">.</span><span class="n">sel</span><span class="p">(</span><span
+                                            class="n">field</span> <span class="o">=</span> <span
+                                            class="p">[</span><span class="s2">"sharpe_ratio"</span><span
+                                            class="p">])</span><span class="o">.</span><span
+                                            class="n">transpose</span><span class="p">()</span><span
+                                            class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+
+<span class="c1"># According to the rules the correlation with other strategies must be less than 90%:</span>
+<span class="n">qnstats</span><span class="o">.</span><span class="n">print_correlation</span><span
+                                            class="p">(</span><span class="n">output</span><span
+                                            class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="id5" class="section"><h2>4. Отправка стратегии<a href="#id5"
+                                                                                  title="Permalink to this headline"
+                                                                                  class="headerlink">¶</a></h2>
+                            <p>Если вы достаточно удовлетворены своим алгоритмом и он соответствует всем требованиям, вы
+                                можете отправить его.</p>
+                            <div class="highlight-python notranslate">
+                                <div class="highlight"><pre><span></span><span
+                                        class="c1"># Finally, write the output</span>
+<span class="n">qnstepper</span><span class="o">.</span><span class="n">write_output</span><span class="p">(</span><span
+                                            class="n">output</span><span class="p">)</span>
+</pre>
+                                </div>
+                            </div>
+                            <p>На этом этапе код готов к отправке. Просто нажмите на кнопку отправки на странице вашего
+                                аккаунта,
+                                и мы оценим вашу стратегию на наших серверах!</p>
+                            <p><a href="#" class="reference external">СОЗДАТЬ СТРАТЕГИЮ</a></p>
+                            <p>Не забудьте <a href="#" class="reference external">зарегистрироваться на платформе</a>
+                            </p></div>
+                    </div>
+                    <div id="examples" class="section"><h1>Examples?<a href="#examples"
+                                                                       title="Permalink to this headline"
+                                                                       class="headerlink">¶</a></h1>
+                        <p><a href="https://vueschool.io/lessons/vuejs-conditionals?friend=vuejs" target="_blank"
+                              rel="sponsored noopener"
+                              title="Узнайте, как работать с условной отрисовкой в бесплатном уроке Vue School">Узнайте,
+                            как работать с условной отрисовкой в бесплатном уроке Vue School</a></p>
+                        <div id="v-if" class="section"><h2><code class="docutils literal notranslate"><span class="pre">v-if</span></code><a
+                                href="#v-if" title="Permalink to this headline" class="headerlink">¶</a></h2>
+                            <p>Директива <code class="docutils literal notranslate"><span class="pre">v-if</span></code>
+                                используется для рендеринга блока по условию. Блок будет отображаться только в том
+                                случае, если выражение директивы возвращает значение, приводимое к true.</p>
+                            <p>Также можно добавить блок «иначе», используя директиву <code
+                                    class="docutils literal notranslate"><span class="pre">v-else</span></code>:</p>
+                            <div id="v-if-template" class="section"><h3>Условные группы с использованием <code
+                                    class="docutils literal notranslate"><span class="pre">v-if</span></code> и <code
+                                    class="docutils literal notranslate"><span
+                                    class="pre">&lt;template&gt;</span></code><a href="#v-if-template"
+                                                                                 title="Permalink to this headline"
+                                                                                 class="headerlink">¶</a></h3>
+                                <p>Поскольку <code class="docutils literal notranslate"><span
+                                        class="pre">v-if</span></code> — директива, она должна быть указана в одном
+                                    конкретном теге. Но что если мы хотим управлять отображением сразу нескольких
+                                    элементов? В таком случае можно применить <code
+                                            class="docutils literal notranslate"><span class="pre">v-if</span></code> к
+                                    псевдоэлементу <code class="docutils literal notranslate"><span class="pre">&lt;template&gt;</span></code>,
+                                    который служит невидимой обёрткой и сам в результатах отрисовки не появляется.</p>
+                            </div>
+                            <div id="v-else" class="section"><h3><code class="docutils literal notranslate"><span
+                                    class="pre">v-else</span></code><a href="#v-else" title="Permalink to this headline"
+                                                                       class="headerlink">¶</a></h3>
+                                <p>Для указания блока «иначе» для <code class="docutils literal notranslate"><span
+                                        class="pre">v-if</span></code> можно использовать директиву <code
+                                        class="docutils literal notranslate"><span class="pre">v-else</span></code>:</p>
+                                <p>Элемент с директивой <code class="docutils literal notranslate"><span class="pre">v-else</span></code>
+                                    должен следовать сразу за элементом с директивой <code
+                                            class="docutils literal notranslate"><span class="pre">v-if</span></code>
+                                    или <code class="docutils literal notranslate"><span
+                                            class="pre">v-else-if</span></code>, иначе он не будет распознан.</p></div>
+                            <div id="v-else-if" class="section"><h3><code class="docutils literal notranslate"><span
+                                    class="pre">v-else-if</span></code><a href="#v-else-if"
+                                                                          title="Permalink to this headline"
+                                                                          class="headerlink">¶</a></h3>
+                                <blockquote>
+                                    <div><p style="
+    margin-top: -3.6rem;
+    padding-top: -0.4rem;
+">Добавлено в версии 2.1.0+</p></div>
+                                </blockquote>
+                                <p>Как следует из названия, <code class="docutils literal notranslate"><span
+                                        class="pre">v-else-if</span></code> служит в качестве блока «else if» для
+                                    директивы <code class="docutils literal notranslate"><span
+                                            class="pre">v-if</span></code>. Можно объединять эти директивы в длинные
+                                    цепочки:</p>
+                                <p>Как и <code class="docutils literal notranslate"><span
+                                        class="pre">v-else</span></code>, <code
+                                        class="docutils literal notranslate"><span class="pre">v-else-if</span></code>
+                                    должен следовать сразу за элементом с <code
+                                            class="docutils literal notranslate"><span class="pre">v-if</span></code>
+                                    или <code class="docutils literal notranslate"><span
+                                            class="pre">v-else-if</span></code>.</p></div>
+                            <div id="key" class="section"><h3>Управление повторным использованием элементов при помощи
+                                <code class="docutils literal notranslate"><span class="pre">key</span></code><a
+                                        href="#key" title="Permalink to this headline" class="headerlink">¶</a></h3>
+                                <p>Vue старается управлять элементами DOM настолько эффективно, насколько это возможно,
+                                    зачастую переиспользуя их вместо того чтобы создавать заново. Кроме улучшения
+                                    производительности, у этого подхода есть и другие преимущества. Например, если вы
+                                    позволяете пользователю переключаться между несколькими возможными типами
+                                    логина:</p>
+                                <p>Изменение <code class="docutils literal notranslate"><span
+                                        class="pre">loginType</span></code> в коде выше не сотрёт то, что пользователь
+                                    ввёл в поле. Оба шаблона используют одни и те же элементы, поэтому <code
+                                            class="docutils literal notranslate"><span class="pre">&lt;input&gt;</span></code>
+                                    не заменяется — только его <code class="docutils literal notranslate"><span
+                                            class="pre">placeholder</span></code>.</p>
+                                <p>Попробуйте сами, введя что-нибудь в поле ввода и нажав на кнопку переключения:</p>
+                                <p>Иногда такое поведение нежелательно, поэтому Vue можно явно указать: «эти элементы
+                                    должны быть полностью независимы, не надо их переиспользовать». Для этого всего лишь
+                                    нужно указать уникальное значение ключа <code
+                                            class="docutils literal notranslate"><span class="pre">key</span></code>:
+                                </p>
+                                <p>Теперь эти поля ввода будут отрисовываться заново при каждом переключении:</p>
+                                <p>Обратите внимание, элементы <code class="docutils literal notranslate"><span
+                                        class="pre">&lt;label&gt;</span></code> всё ещё эффективно переиспользуются,
+                                    поскольку для них <code class="docutils literal notranslate"><span
+                                            class="pre">key</span></code> не указаны.</p></div>
+                        </div>
+                        <div id="v-show" class="section"><h2><code class="docutils literal notranslate"><span
+                                class="pre">v-show</span></code><a href="#v-show" title="Permalink to this headline"
+                                                                   class="headerlink">¶</a></h2>
+                            <p>Ещё одну возможность условного отображения предоставляет директива <code
+                                    class="docutils literal notranslate"><span class="pre">v-show</span></code>.
+                                Используется она так же:</p>
+                            <p>Разница в том, что элемент с <code class="docutils literal notranslate"><span
+                                    class="pre">v-show</span></code> будет всегда оставаться в DOM, а изменяться будет
+                                лишь свойство <code class="docutils literal notranslate"><span
+                                        class="pre">display</span></code> в его параметрах CSS.</p>
+                            <p class="tip">`v-show` не работает на элементе `` и не работает с `v-else`.
+                                <div id="v-if-v-show" class="section"><h2><code
+                                        class="docutils literal notranslate"><span class="pre">v-if</span></code> в
+                                    сравнении с <code class="docutils literal notranslate"><span
+                                            class="pre">v-show</span></code><a href="#v-if-v-show"
+                                                                               title="Permalink to this headline"
+                                                                               class="headerlink">¶</a></h2>
+                            <p><code class="docutils literal notranslate"><span class="pre">v-if</span></code>
+                                производит «настоящую» условную отрисовку, удостоверяясь что подписчики событий и
+                                дочерние компоненты внутри блока должным образом уничтожаются и воссоздаются при
+                                изменении истинности управляющего условия.</p>
+                            <p><code class="docutils literal notranslate"><span class="pre">v-if</span></code> <strong>ленивый</strong>:
+                                если условие ложно на момент первоначальной отрисовки, он не произведёт никаких действий
+                                — условный блок не будет отображён, пока условие не станет истинным.</p>
+                            <p><code class="docutils literal notranslate"><span class="pre">v-show</span></code>,
+                                напротив, куда проще: элемент всегда присутствует в DOM, и только CSS-свойство
+                                переключается в зависимости от условия.</p>
+                            <p>В целом, у <code class="docutils literal notranslate"><span
+                                    class="pre">v-if</span></code> выше затраты на переключения, а у <code
+                                    class="docutils literal notranslate"><span class="pre">v-show</span></code> больше
+                                затрат на первичную отрисовку. Так что если вы предполагаете, что переключения будут
+                                частыми, используйте <code class="docutils literal notranslate"><span
+                                        class="pre">v-show</span></code>, если же редкими или маловероятными — <code
+                                        class="docutils literal notranslate"><span class="pre">v-if</span></code>.</p>
+                        </div>
+                        <div id="v-if-v-for" class="section"><h2><code class="docutils literal notranslate"><span
+                                class="pre">v-if</span></code> вместе с <code class="docutils literal notranslate"><span
+                                class="pre">v-for</span></code><a href="#v-if-v-for" title="Permalink to this headline"
+                                                                  class="headerlink">¶</a></h2>
+                            <p class="tip">Совместное использование `v-if` и `v-for` **не рекомендуется**. Подробнее
+                                можно изучить в разделе
+                                [рекомендаций](/v2/style-guide/#Избегайте-использования-v-if-с-v-for-важно).</p>
+                            <p>При совместном использовании <code class="docutils literal notranslate"><span
+                                    class="pre">v-if</span></code> и <code class="docutils literal notranslate"><span
+                                    class="pre">v-for</span></code>, директива <code
+                                    class="docutils literal notranslate"><span class="pre">v-for</span></code> имеет
+                                более высокий приоритет. Подробнее на странице <a href="list.html#v-for-%D0%B8-v-if"
+                                                                                  class="reference external">отрисовки
+                                    списков</a>.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-nav">
+                <div class="inner">
+                    <ul class="page-nav">
+                        <li class="prev"><a href="index.html" title="previous chapter">← &lt;no title&gt;</a></li>
+                        <li class="next"><a href="index_3.html" title="next chapter">Быстрый старт →</a></li>
+                    </ul>
+                    <about-feedback></about-feedback>
+                    <!--                        <div role="contentinfo" class="footer">-->
+                    <!--                            © Copyright 2020, quantiacs.-->
+                    <!--                            <br>-->
+                    <!--                            Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.0+ with <a-->
+                    <!--                                href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.-->
+                    <!--                        </div>-->
+                </div>
+            </div>
+    </div>
+    <!--                <h1 id="my-page-content">My page content-->
+    <!--                    <a class="headerlink" href="my-page-content">¶</a>-->
+    <!--                </h1>-->
+
+    <!--                <div class="section">-->
+    <!--                    <p>section 2</p>-->
+    <!--                </div>-->
+    <footer-quantiacs></footer-quantiacs>
+    </page>
+</div>
+
+</div>
+<!-- built files will be auto injected -->
+</body>
+</html>

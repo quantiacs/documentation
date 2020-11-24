@@ -1,0 +1,140 @@
+@require './vuepress/styles/config'
+
+/* fix anchor link positioning  for fixed navbar */
+// FIXME this is not enough as it works only for section headers
+$anchorHeight = ($navbarHeight + 0.5rem)
+.content .section
+  margin-top -($anchorHeight)
+  padding-top $anchorHeight
+  margin-bottom 0
+  &:hover
+    .headerlink
+        opacity: 1
+
+  .toctree-l1
+    padding-top 5px
+    padding-bottom 5px
+  .toctree-l2
+    padding-top 5px
+    padding-bottom 5px
+
+.content
+   // FIXME: sphinx should provide a citation-reference?
+  .footnote-reference, .label, dt, p
+    margin-top -($navbarHeight)
+    padding-top $navbarHeight
+  & a:focus
+    // remove outline because padding mess it up
+    outline none
+
+
+/* Use # as symbol for anchor headerlinks */
+h1, h2, h3, h4, h5, h6
+  &:hover a.headerlink
+    &::after
+      visibility visible
+      content "#"
+
+a.headerlink
+  font-size 0.85em
+  visibility hidden
+  &:hover
+    text-decoration none
+
+ul.page-nav
+  list-style none
+  & li
+    display inline-block
+
+.body-header
+  display flex
+  & ul.page-nav
+    flex-grow 1
+    list-style none
+    list-style-position inside
+    text-align right
+    margin-right 30px
+    & li + li:before
+      content "|"
+      padding 0 1em
+
+ul.breadcrumbs
+  list-style none
+  & li
+    display inline-block
+
+
+
+/** index page **/
+.toctree-wrapper .caption
+  // same as h2
+  font-weight 600
+  line-height 1.25
+  font-size 1.65rem
+  padding-bottom .3rem
+  border-bottom 1px solid $borderColor
+
+
+
+/** footer **/
+.footer
+  clear both
+  min-height 2rem
+  padding-top 1rem
+  overflow auto
+  color grey
+  font-size small
+  line-height 1.5rem
+
+
+/** pygments style **/
+//.content .highlight
+//  border-radius 6px
+//
+//// force background color from pygments
+//.content .highlight pre
+//  background-color inherit
+//
+//.content .highlighted
+//  background-color #fbe54e
+//  font-weight bold
+//  padding 0 4px
+
+/*** admonitions based on custom-blocks.styl */
+.admonition
+  padding .1rem 1.5rem
+  border-left-width .5rem
+  border-left-style solid
+  margin 1rem 0
+  // default color
+  background-color #e2e2e2
+  border-color #787878
+
+  .admonition-title
+    font-weight 600
+    margin-bottom -0.4rem
+  &.tip, &.hint
+    background-color #f3f5f7
+    border-color #42b983
+  &.important, &.note
+    background-color #e5f1fb
+    border-color #5faaea
+  &.warning, &.caution
+    background-color rgba(255,229,100,.3)
+    border-color darken(#ffe564, 35%)
+    color darken(#ffe564, 70%)
+    .custom-block-title
+      color darken(#ffe564, 50%)
+    a
+      color $textColor
+  &.danger, &.error
+    background-color #ffe6e6
+    border-color darken(red, 20%)
+    color darken(red, 70%)
+    .custom-block-title
+      color darken(red, 40%)
+    a
+      color $textColor
+
+blockquote
+  margin-left -0.4rem

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html {% if language is not none %} lang="{{ language }}" {% endif %}>
+<head>
+    <meta charset="{{ encoding }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    {{- metatags }}
+    {%- block htmltitle %}
+    <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+    {%- endblock %}
+    {#
+    <meta name="description" content="{{ description }}">
+    #}
+    {%- block css %}
+    <!--    <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1)}}">-->
+    <link rel="stylesheet" href="{{ pathto('_static/theme.css', 1)}}">
+    <link rel="stylesheet" href="{{ pathto('_static/sphinx_press_theme.css', 1)}}">
+    {%- for css in css_files %}
+    {%- if css|attr("rel") %}
+    <link rel="{{ css.rel }}" href="{{ pathto(css.filename, 1) }}" type="text/css" {% if css.title is not none %}
+          title="{{ css.title }}" {% endif %}/>
+    {%- else %}
+    <link rel="stylesheet" href="{{ pathto(css, 1) }}" type="text/css"/>
+    {%- endif %}
+    {%- endfor %}
+    {%- endblock %}
+
+    {%- block scripts %}
+    {# FIXME: use link-preload #}
+    <script type="text/javascript" id="documentation_options" data-url_root="{{ pathto('', 1) }}"
+            src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
+
+    <!-- sphinx script_files -->
+    {%- for scriptfile in script_files %}
+    {{ js_tag(scriptfile) }}
+    {%- endfor %}
+
+    {# press js #}
+    <script src="{{ pathto('_static/theme-vendors.js', 1)}}"></script>
+    <script src="{{ pathto('_static/theme.js', 1)}}" defer></script>
+    {%- endblock %}
+    {%- if pageurl %}
+    <link rel="canonical" href="{{ pageurl }}"/>
+    {%- endif %}
+    {# TODO: opensearch #}
+    {%- if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+    {%- endif %}
+
+    {%- include "util/linktags.html" %}
+    {%- block extrahead %} {% endblock %}
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="shortcut icon" href="/favicons/preview.png" type="image/png">
+    <link rel="image_src" href="/favicons/preview.png"/>
+    <meta property="og:image" content="https://sun9-16.userapi.com/c855036/v855036190/1cff94/xQzlQlewERs.jpg"/>
+    <meta property="og:image:secure_url"
+          content="https://sun9-16.userapi.com/c855036/v855036190/1cff94/xQzlQlewERs.jpg"/>
+    <meta property="og:image:type" content="image/jpeg"/>
+    <meta property="og:image:width" content="700"/>
+    <meta property="og:image:height" content="500"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="CACHE-CONTROL" content="no-cache"/>
+    <script>
+        function showHideMenuItem(e){
+            const next = e.nextElementSibling;
+            const showHideIcon = e.getElementsByClassName('sidebar_menu_button')[0];
+            if (next.classList.contains('ul_hide')) {
+                next.classList.remove('ul_hide');
+                showHideIcon.classList.add('sidebar_menu_button_open');
+            } else {
+                next.classList.add('ul_hide');
+                showHideIcon.classList.remove('sidebar_menu_button_open');
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="app" class="theme-container" :class="pageClasses">
+    {%- block container %}
+    {%- block header %}{%- include "util/navbar.html" %}{% endblock %}
+
+    {# close sidebar when clicked out of it #}
+    <div class="sidebar-mask" @click="toggleSidebar(false)">
+    </div>
+
+    {%- block sidebar %}
+    <sidebar @toggle-sidebar="toggleSidebar">
+        {# sidebar navlinks displayed only on mobile #}
+        <navlinks>
+            {% block side_links %}
+            {%- include "util/navlinks.html" %}
+            {%- include "util/extlinks.html" %}
+            {% endblock %}
+        </navlinks>
+<!--        {% block sidebars %}-->
+<!--        {%- include "util/sidetoc.html" %}-->
+<!--        {% endblock %}-->
+        {%- if sidebars != None %}
+        {%- for sidebartemplate in sidebars %}
+        {%- include sidebartemplate %}
+        {%- endfor %}
+        {%- endif %}
+    </sidebar>
+    {%- endblock %}
+
+    <page>
+        {%- block document %}
+        {% block body_header %}
+        {%- include "util/bodyheader.html" %}
+        {%- endblock body_header %}
+        <div class="content" role="main">
+            {% block body %} {% endblock %}
+        </div>
+        <div class="page-nav">
+            <div class="inner">
+                {%- block footer %}
+                {%- include "util/pagenav.html" %}
+                <!--                {%- include "util/footer.html" %}-->
+                {%- endblock footer %}
+                <about-feedback></about-feedback>
+            </div>
+        </div>
+        <footer-quantnet></footer-quantnet>
+        {%- endblock %}
+    </page>
+
+    {%- endblock container %}
+</div>
+{% block footer_scripts %}
+{% endblock %}
+</body>
+</html>
