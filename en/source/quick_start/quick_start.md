@@ -1,151 +1,168 @@
-# About the platform
+## About the platform
 
 **Quantiacs** — a company that develops tools for creating trading strategies.
 
-We **invite** users
-* **to participate in the drawing of 500 thousand rubles every quarter**, by sending strategies to the <a href='/contest' target='_blank'>competition</a>.
+> We **offer** users
+* win a cash prize by participating in <a href='/contest' target='_blank'>competition</a>.
+* test financial ideas. You can apply them for private trade.
+
+> We provide:
+* development environment **Jupyter Notebook** or **JupyterLab**.
+* Instances up to 8 GB of RAM for each strategy;.
 * <a href='https://github.com/qntnet/data-relay' target='_blank'>open tools</a> for downloading **data** from financial **exchanges**.
-* <a href='https://github.com/qntnet/qnt-python' target='_blank'>open tools</a> for **creating** trading **strategies**. You can **apply them for private trade**.
-* **test** trading **ideas**.
-* friendly community and **fast feedback** in <a href='https://vk.com/quantnetrussia' target='_blank'>vk</a>, <a href='https://t.me/quantnetrussia' target='_blank'>Telegram</a>.
+* <a href='https://github.com/qntnet/qnt-python' target='_blank'>open tools</a> for **creating** trading **strategies**.
+* examples of strategies.
 
-Develop strategies in **Jupyter Notebook** or **JupyterLab**. 
->**We provide instances up to 8GB** RAM **for** each **strategy**.
+<p class="tip">The necessary conditions</p>
 
-# Getting started
-
-**The necessary conditions**
 * <a class="tip" href='/personalpage/registration' target='_blank'>Register on the platform</a>
 * <a class="tip" href='/personalpage/strategies' target='_blank'>Open the strategy development tab</a>
 * Click "create strategy" or "copy" any template of ready-made articles.
 
-Below are the main steps involved in most strategies. You can copy the [entire strategy](#) and open it in your account.
+Below are the main steps involved in most strategies.
 
 
-## 1. Preparations
+## Building strategies
+
+### Example for stocks
+
+
+> Strategy idea. The current day's price minus the previous day's price for the top 500 liquid instruments. We take the resulting changes as the weights of assets in the portfolio.
+
+```python
+import qnt.data as qndata
+import qnt.stats as qnstats
+import qnt.output as output
+
+data = qndata.stocks.load_data(tail=6 * 365)
+
+price_open = data.sel(field="open")
+price_open_one_day_ago = price_open.shift(time=1)
+
+strategy = price_open - price_open_one_day_ago
+
+weights = strategy * data.sel(field="is_liquid")
+weights = weights / abs(strategy).sum('asset')
+weights = output.clean(weights, data, "stocks")
+
+statistics = qnstats.calc_stat(data, weights)
+output.check(weights, data, "stocks")
+
+output.write(weights)
+```
+
+
+### Example for futures
+
+
+> Strategy idea. The current day's price minus the previous day's price for futures. We take the resulting changes as the weights of assets in the portfolio.
+
+```python
+import qnt.data as qndata
+import qnt.stats as qnstats
+import qnt.output as output
+import qnt.ta as qnta
+
+futures = qndata.stocks.load_data(tail=8 * 365)
+
+price_open = futures.sel(field="open")
+price_open_one_day_ago = qnta.shift(price_open, periods=1)
+
+strategy = price_open - price_open_one_day_ago
+
+weights = strategy / abs(strategy).sum('asset')
+
+statistics = qnstats.calc_stat(futures, weights)
+output.check(weights, futures, "futures")
+
+output.write(weights)
+```
+
+### 1. Preparations
 
 At first one needs to prepare the workspace - load data and libraries
 
 ```python
-import xarray as xr
-import numpy as np
-import pandas as pd
+import qnt.data as qndata
+import qnt.stats as qnstats
+import qnt.output as output
+import qnt.ta as qnta
 
-import qnt.data    as qndata
-import qnt.stepper as qnstepper
-import qnt.stats   as qnstats
-import qnt.graph   as qngraph
-import qnt.ta      as qnta
-import qnt.forward_looking as qnfl
-import qnt.exposure as qne
-import datetime as dt
-
-data = qndata.load_data(min_date = "2017-01-01",
-                        max_date = None,
-                        dims     = ("time", "field", "asset"))
+data = qndata.stocks.load_data(tail=6 * 365)
 ```
 
-"data" is xarray.DataArray that contains stocks historical data. For instance, we want Apple stock open and close prices:
+**data** is xarray.DataArray that contains **stocks historical data** for the last 6 * 365 days. 
+The table of available data can be viewed here.
+
+Get opening prices for today and yesterday:
 
 ```python
-apple_close = data.loc[::, "close", "NASDAQ:AAPL"]
-apple_open = data.loc[::, "open", "NASDAQ:AAPL"]
-
-# you can also work with pandas:
-# apple_close = data.loc[::, "close", :].to_pandas()["NASDAQ:AAPL"]
+price_open = data.sel(field="open")
+price_open_one_day_ago = qnta.shift(price_open, periods=1)
 ```
 
-Available data explanation is [here](user_guide/data.md). Some other data:
+### 2. Weights allocation
+> The trading algorithm uses financial data to form the weights, in proportion to which the capital is distributed. 
+
+A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
+
+<p class="tip">For each date, the algorithm calculates what portfolio weights should be at the opening of the next day's trading.</p>
+
+We will distribute the capital as the **difference** between **prices** for today and yesterday:
 ```python
-all_close = data.loc[::, "close", :]
-all_open = data.loc[::, "open", :]
-liquid = data.loc[::, "is_liquid", :]
+strategy = price_open - price_open_one_day_ago
 ```
-Liquid is a True/False xarray DataArray. A true value for a specific day for a specific company means that the stock has been in the top 500 liquid stocks in the last month.
-
-
-## 2. Weights allocation
-The trading algorithm uses financial data to form the weights, in proportion to which the capital is distributed. A positive weight means a long position (buy), a negative value means a short position (sell).
-
-Suppose, we have a traiding idea - invest money when the growth in stock price is positive. In other words, we want to redistribute capital between portfolio instruments every day in proportion to the formula:
-
-```math
-\begin{cases}
-0, close_i < delay(close_i)\\ 1, close_i > delay(close_i)
-\end{cases}
-```
-where index i indicates specific stock (detailed description of algorithmic trading is [here](/theory/theoretical_basis.md)).
-
-We can allocate capital by assigning weights to the portfolio instuments:
-```python
-changes = qnta.change(all_close, 122)
-weights = xr.where(changes > 0, 1, 0)
-```
-
-You can implement and test any idea you want. Some other examples:
-```python
-# buy all positions: weights = all_open/all_open
-# sell all positions: weights = -all_open/all_open
-# the more price change, the more we buy = (all_close - all_open)/all_open
-```
-
-Notice that we trade only liquid stocks. One can form output weights:
+We will trade the top 500 **liquid companies**:
 
 ```python
-output = weights*liquid
+weights = strategy * data.sel(field="is_liquid")
+```
+**data.sel(field = “is_liquid“)** is xarray.DataArray. A value of **1** on a particular day for a particular company means that the stock has been **in the top 500 liquid stocks** for the last full month.
 
-# If you worked with pandas and weigths is pandas.Dataframe:
-# output = xr.DataArray(weights.values, dims = ["time","asset"], coords= {"time":weights.index,"asset":weights.columns} )
-```
-
-Output normalization, weights sum for one day should be <= 1:
+We **normalize** % of capital for all companies:
 ```python
-output = output / abs(output).sum('asset')
+weights = weights / abs(strategy).sum('asset')
 ```
-Accourding to the rules, we should fix exposure:
+Let's try to **remove** the main financial **risks** from the strategy. The function includes **exposure** correction, **neutralization**.
 ```python
-output = qne.drop_bad_days(output)
-qnstats.check_exposure(output)
+weights = output.clean(weights, data, "stocks")
 ```
-```python
-Ok. The exposure check succeed.
-```
-
-
-## 3. Perfomance estimation
-Once we have constructed an algorithm we need to evaluate it. At first, we need to calculate statistic.
-```python
-stat = qnstats.calc_stat(data, output)
-display(stat.to_pandas().tail())
-```
-Algorithm results, calculated on historical data, are usually presented on an [equity graph](/theory/theoretical_basis.md) in order to understand the behavior of the cumulative profit:
+### 3. Performance estimation
+After we have built the algorithm, we need to evaluate it. First, we need to **calculate statistics**.
 
 ```python
-performance = stat.to_pandas()["equity"]
+statistics = qnstats.calc_stat(data, weights)
+display(statistics.to_pandas().tail())
+```
+
+Algorithm results, calculated on historical data, are usually presented on an equity graph in order to understand the behavior of the cumulative profit:
+
+```python
+import qnt.graph as qngraph
+performance = statistics.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
 ```
 
 ![Equity](equity.png)
+### 4. Submit
 
-We use a set of [criteria](/quality/rules.md) to evaluate the performance. You can submit your algorithm and take part in a competition if it passes all the [requirements](/quality/major.md).
-
-For instance, according to the rules the Sharpe ratio must be greater than 1, the correlation with other strategies must be less than 90%:
+The function will **show possible problems** that the strategy has
 ```python
-display(stat[-1:].sel(field = ["sharpe_ratio"]).transpose().to_pandas())
-qnstats.print_correlation(output, data)
+output.check(weights, data, "stocks")
 ```
 
-## 4. Submit
+If everything is ok, **save** the portfolio **weights** that the algorithm generates
 
-If you are satisfied enough with your algorithm and it passes all the requirements you can submit it.
 ```python
-qnstepper.write_output(output)
+output.write(weights)
 ```
 
-At this stage, the code is ready for submission. Just click on the submission button on your account page and we will evaluate your strategy live on our servers!
+<p class="tip">To participate in the competition:</p>
 
-[Copy entire strategy](#)
+* <a class="tip" href='/personalpage/strategies' target='_blank'>open your personal account</a>.
+* choose your strategy.
+* **click** on the **"Submit"** button.
 
-Don't forget to [register on the platform](https://quantiacs.io/personalpage/registration).
+### Ready for More?
 
-Here we briefly presented the most basic features of the **Quantiacs** platform - the rest of this guide is devoted to a more detailed explanation of these and other features.
+We’ve briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features with much finer details, so make sure to read through it all!

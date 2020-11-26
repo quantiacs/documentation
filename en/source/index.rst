@@ -45,7 +45,7 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Templates
+   :caption: Examples
 
    examples/examples_first.md
    examples/examples_buy_and_hold.ipynb
