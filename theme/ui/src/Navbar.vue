@@ -4,12 +4,11 @@
       <div class="logoWrapper"><a class="logo quantiacs-logo" href="/">Home</a></div>
       <nav class="dropdownmenu">
         <ul>
-          <li><a class="nav-link" target="_self" href="/">Home</a></li>
           <li><a class="nav-link" target="_self" href="/contest">About</a></li>
           <li><a class="nav-link" target="_self" href="/documentation/en/">Documentation</a></li>
           <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
-          <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Old version</a></li>
+          <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Legacy Version</a></li>
         </ul>
       </nav>
       <div class="headerWrapper">
@@ -23,7 +22,7 @@
               <li><a class="nav-link" href="/documentation/en/" target="_self">Documentation</a></li>
               <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
-              <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Old version</a></li>
+              <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Legacy Version</a></li>
             </ul>
           </nav>
         </div>

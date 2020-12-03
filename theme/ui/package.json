@@ -11,17 +11,17 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.3",
     "url-utm-params": "^0.1.0",
-    "vue": "^2.5.16",
+    "vue": "^2.6.12",
     "vue-analytics": "^5.22.1",
     "vue-yandex-metrika": "^1.8.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0-rc.9",
-    "@vue/cli-plugin-eslint": "^3.0.0-rc.9",
-    "@vue/cli-service": "^3.0.0-rc.9",
-    "stylus": "^0.54.5",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
+    "stylus": "^0.54.8",
     "stylus-loader": "^3.0.2",
-    "vue-template-compiler": "^2.5.16"
+    "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
     "root": true,

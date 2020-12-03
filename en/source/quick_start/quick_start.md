@@ -63,7 +63,7 @@ import qnt.stats as qnstats
 import qnt.output as output
 import qnt.ta as qnta
 
-futures = qndata.stocks.load_data(tail=8 * 365)
+futures = qndata.futures.load_data(min_date="2006-01-01")
 
 price_open = futures.sel(field="open")
 price_open_one_day_ago = qnta.shift(price_open, periods=1)
