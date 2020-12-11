@@ -15,7 +15,7 @@
 
 * <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform;
 * Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>;
-* Create a strategy from scratch or clone of the provided templates;
+* Create a strategy from scratch or clone one of the provided templates;
 * Submit strategies and monitor their live performance in your private area.
 
 Below are the main steps involved in most strategies.
