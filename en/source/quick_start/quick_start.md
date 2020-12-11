@@ -9,24 +9,23 @@
 * up to free **8 GB of RAM** for each trading strategy;
 * access to historical **data** for stocks, futures and cryptocurrencies;
 * trading strategy **templates** for getting started;
-* **prize money**. Participate to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots. Winners are receiving 10% of the generated profits without any downside risk.
+* **prize money**. Participate to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots. Allocations will be made to winners and quants will receive 10% of the generated profits without any downside risk.
 
 <p class="tip">Get started with Quantiacs!</p>
 
 * <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform;
 * Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>;
 * Create a strategy from scratch or clone one of the provided templates;
-* Submit strategies and monitor their live performance in your private area.
-
-Below are the main steps involved in most strategies.
+* Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
 
 
 ## Building strategies
 
-### Example for stocks
+Our platform allows you to code trading strategies in a simple and compact way. The trading algorithm should distribute fractions of the available capital (in other words, allocation weights) to the available assets. Our backtester will take care of simulating the performance of the system.
 
+### A basic example for stocks
 
-> Strategy idea. The current day's price minus the previous day's price for the top 500 liquid instruments. We take the resulting changes as the weights of assets in the portfolio.
+This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the minimum traded volume in USD over the last 30 trading days. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the stragegy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
 
 ```python
 import qnt.data as qndata
@@ -41,7 +40,7 @@ price_open_one_day_ago = price_open.shift(time=1)
 strategy = price_open - price_open_one_day_ago
 
 weights = strategy * data.sel(field="is_liquid")
-weights = weights / abs(strategy).sum('asset')
+weights = weights / abs(strategy).sum("asset")
 weights = output.clean(weights, data, "stocks")
 
 statistics = qnstats.calc_stat(data, weights)
@@ -51,10 +50,9 @@ output.write(weights)
 ```
 
 
-### Example for futures
+### A basic example for futures
 
-
-> Strategy idea. The current day's price minus the previous day's price for futures. We take the resulting changes as the weights of assets in the portfolio.
+Here we apply the same idea to futures contracts.
 
 ```python
 import qnt.data as qndata
@@ -69,7 +67,7 @@ price_open_one_day_ago = qnta.shift(price_open, periods=1)
 
 strategy = price_open - price_open_one_day_ago
 
-weights = strategy / abs(strategy).sum('asset')
+weights = strategy / abs(strategy).sum("asset")
 
 statistics = qnstats.calc_stat(futures, weights)
 output.check(weights, futures, "futures")
