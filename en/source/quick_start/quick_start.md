@@ -78,7 +78,7 @@ output.write(weights)
 
 ### The detailed steps
 
-#### 1. Preparations
+#### 1. Preparation
 
 The first step consists in preparing the workspace, importing the needed libraries and loading the data:
 
@@ -91,7 +91,7 @@ import qnt.ta as qnta
 data = qndata.stocks.load_data(tail=6 * 365)
 ```
 
-**data** is an xarray.DataArray structure which contains **stocks historical data** for the last 6 * 365 calendar days, i.e. the last 6 years.
+**data** is an xarray.DataArray structure which contains **stock historical data** for the last 6 * 365 calendar days, i.e. the last 6 years.
 
 As the strategy uses price shifts to define weights, we define two auxiliary variables: the price of the assets at the session's open today and yesterday:
 
@@ -110,7 +110,7 @@ This example allocates weights proportionally to the **difference** between **pr
 ```python
 strategy = price_open - price_open_one_day_ago
 ```
-and trades the top 500 **liquid companies** ranked according to the USD traded volume in the last calendar month: 
+and trades the top 500 **liquid companies** ranked according to the USD traded volume in the last full calendar month: 
 
 ```python
 weights = strategy * data.sel(field="is_liquid")
@@ -124,19 +124,18 @@ We **normalize** allocations so that we are fully invested:
 weights = weights / abs(strategy).sum("asset")
 ```
 
-The call to the "clean" function corrects exposure for passing competition filters (more at <a href='/contest' target='_blank'>competitions</a>):
+The call to the "clean" function corrects exposure and automatically fixes obstacles for passing competition filters (more at <a href='/contest' target='_blank'>competitions</a>): large exposure to a single stock (more than 5%) and exposure to illiquid assets:
 ```python
 weights = output.clean(weights, data, "stocks")
 ```
 #### 3. Performance estimation
-After we have built the algorithm, we need to evaluate it. First, we need to **calculate statistics**.
+After we have built the algorithm, we can evaluate its performance **calculating statistics**:
 
 ```python
 statistics = qnstats.calc_stat(data, weights)
 display(statistics.to_pandas().tail())
 ```
-
-Algorithm results, calculated on historical data, are usually presented on an equity graph in order to understand the behavior of the cumulative profit:
+The first impression on the algorithm result can be obtained by displaying an equity chart which shows the cumulative profits and losses:
 
 ```python
 import qnt.graph as qngraph
@@ -147,12 +146,14 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", ty
 ![Equity](equity.png)
 #### 4. Submit
 
-The function will **show possible problems** that the strategy has
+Once you are satisfied with the quality of your algorithm you can submit it. The algorithm will be processed daily on our servers and it will accumulate a track record on live data. Each contest has a submission phase, during which you can submit code and replace it with new algos (you can have at most 50 running algorithms in your area), and a live phase, where submissions cannot be replaced and develop a track record.
+
+The "check" function will **show possible problems** that your strategy has:
 ```python
 output.check(weights, data, "stocks")
 ```
 
-If everything is ok, **save** the portfolio **weights** that the algorithm generates
+If everything is ok, **save** the portfolio **weights** that the algorithm generates calling the "write" function:
 
 ```python
 output.write(weights)
@@ -160,10 +161,10 @@ output.write(weights)
 
 <p class="tip">To participate in the competition:</p>
 
-* <a class="tip" href='/personalpage/strategies' target='_blank'>open your personal account</a>.
-* choose your strategy.
+* <a class="tip" href='/personalpage/strategies' target='_blank'>open</a> your personal account;
+* choose your strategy;
 * **click** on the **"Submit"** button.
 
 ### Ready for More?
 
-We’ve briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features with much finer details, so make sure to read through it all!
+Here we have briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features in more detail , so make sure to read through it all!
