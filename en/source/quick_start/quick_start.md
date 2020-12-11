@@ -52,7 +52,7 @@ output.write(weights)
 
 ### A basic example for futures
 
-Here we apply the same idea to futures contracts.
+Here we apply the same idea to futures contracts. All futures contracts we provide are liquid, so we don't need to apply any liquidity filter.
 
 ```python
 import qnt.data as qndata
@@ -75,7 +75,9 @@ output.check(weights, futures, "futures")
 output.write(weights)
 ```
 
-### 1. Preparations
+### The detailed steps
+
+#### 1. Preparations
 
 At first one needs to prepare the workspace - load data and libraries
 
@@ -98,7 +100,7 @@ price_open = data.sel(field="open")
 price_open_one_day_ago = qnta.shift(price_open, periods=1)
 ```
 
-### 2. Weights allocation
+#### 2. Weights allocation
 > The trading algorithm uses financial data to form the weights, in proportion to which the capital is distributed. 
 
 A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
@@ -124,7 +126,7 @@ Let's try to **remove** the main financial **risks** from the strategy. The func
 ```python
 weights = output.clean(weights, data, "stocks")
 ```
-### 3. Performance estimation
+#### 3. Performance estimation
 After we have built the algorithm, we need to evaluate it. First, we need to **calculate statistics**.
 
 ```python
@@ -141,7 +143,7 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", ty
 ```
 
 ![Equity](equity.png)
-### 4. Submit
+#### 4. Submit
 
 The function will **show possible problems** that the strategy has
 ```python
