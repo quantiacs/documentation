@@ -25,7 +25,7 @@ Our platform allows you to code trading strategies in a simple and compact way. 
 
 ### A basic example for stocks
 
-This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the USD traded volume in the last calendar month. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the stragegy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the USD traded volume in the last full calendar month. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
 
 ```python
 import qnt.data as qndata
