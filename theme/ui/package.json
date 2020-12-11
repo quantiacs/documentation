@@ -12,8 +12,7 @@
     "sass-loader": "^9.0.3",
     "url-utm-params": "^0.1.0",
     "vue": "^2.6.12",
-    "vue-analytics": "^5.22.1",
-    "vue-yandex-metrika": "^1.8.3"
+    "vue-analytics": "^5.22.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.12.1",
