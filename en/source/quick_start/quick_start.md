@@ -4,18 +4,19 @@
 
 > We **offer** to users:
 * a space to develop code and test ideas for forecasting global financial markets based on **Jupyter Notebook** and **JupyterLab**;
-* support for Python and Scala;
-* the power of the full conda data science ecosystem;
-* up to 8 GB of RAM for each trading strategy;
-* access to historical data for stocks, futures and cryptocurrencies;
-* trading strategy templates for getting started.
-* prize money. Participating to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots.
+* support for **Python** and **Scala**;
+* the power of the full **Anaconda** data science ecosystem;
+* up to free **8 GB of RAM** for each trading strategy;
+* access to historical **data** for stocks, futures and cryptocurrencies;
+* trading strategy **templates** for getting started;
+* **prize money**. Participate to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots. Winners are receiving 10% of the generated profits without any downside risk.
 
 <p class="tip">Get started with Quantiacs!</p>
 
-* <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform
-* Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>
-* Create a strategy from scratch or clone of the provided templates.
+* <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform;
+* Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>;
+* Create a strategy from scratch or clone of the provided templates;
+* Submit strategies and monitor their live performance in your private area.
 
 Below are the main steps involved in most strategies.
 
