@@ -31,11 +31,12 @@ This basic example uses the top 500 stocks in the US market according to a liqui
 import qnt.data as qndata
 import qnt.stats as qnstats
 import qnt.output as output
+import qnt.ta as qnta
 
 data = qndata.stocks.load_data(tail=6 * 365)
 
 price_open = data.sel(field="open")
-price_open_one_day_ago = price_open.shift(time=1)
+price_open_one_day_ago = qnta.shift(price_open, periods=1)
 
 strategy = price_open - price_open_one_day_ago
 
@@ -79,7 +80,7 @@ output.write(weights)
 
 #### 1. Preparations
 
-At first one needs to prepare the workspace - load data and libraries
+The first step consists in preparing the workspace: import needed libraries and load data:
 
 ```python
 import qnt.data as qndata
@@ -90,10 +91,9 @@ import qnt.ta as qnta
 data = qndata.stocks.load_data(tail=6 * 365)
 ```
 
-**data** is xarray.DataArray that contains **stocks historical data** for the last 6 * 365 days. 
-The table of available data can be viewed here.
+**data** is an xarray.DataArray structure which contains **stocks historical data** for the last 6 * 365 calendar days, i.e. the last 6 years.
 
-Get opening prices for today and yesterday:
+As the strategy uses price shifts to define weights, we define two auxiliary variables: the price of the assets at the session's open today and yesterday:
 
 ```python
 price_open = data.sel(field="open")
