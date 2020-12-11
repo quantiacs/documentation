@@ -1,23 +1,21 @@
 ## About the platform
 
-**Quantiacs** — a company that develops tools for creating trading strategies.
+**Quantiacs** hosts quantitative trading contests since 2014 and has allocated more than 30M USD to winning algorithms on futures markets. We are expanding the universe of assets you can use and adding new tools.
 
-> We **offer** users
-* win a cash prize by participating in <a href='/contest' target='_blank'>competition</a>.
-* test financial ideas. You can apply them for private trade.
+> We **offer** to users:
+* a space to develop code and test ideas for forecasting global financial markets based on **Jupyter Notebook** and **JupyterLab**;
+* support for Python and Scala;
+* the power of the full conda data science ecosystem;
+* up to 8 GB of RAM for each trading strategy;
+* access to historical data for stocks, futures and cryptocurrencies;
+* trading strategy templates for getting started.
+* prize money. Participating to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots.
 
-> We provide:
-* development environment **Jupyter Notebook** or **JupyterLab**.
-* Instances up to 8 GB of RAM for each strategy;.
-* <a href='https://github.com/qntnet/data-relay' target='_blank'>open tools</a> for downloading **data** from financial **exchanges**.
-* <a href='https://github.com/qntnet/qnt-python' target='_blank'>open tools</a> for **creating** trading **strategies**.
-* examples of strategies.
+<p class="tip">Get started with Quantiacs!</p>
 
-<p class="tip">The necessary conditions</p>
-
-* <a class="tip" href='/personalpage/registration' target='_blank'>Register on the platform</a>
-* <a class="tip" href='/personalpage/strategies' target='_blank'>Open the strategy development tab</a>
-* Click "create strategy" or "copy" any template of ready-made articles.
+* <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform
+* Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>
+* Create a strategy from scratch or clone of the provided templates.
 
 Below are the main steps involved in most strategies.
 
