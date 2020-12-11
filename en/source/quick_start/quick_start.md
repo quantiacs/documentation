@@ -25,7 +25,7 @@ Our platform allows you to code trading strategies in a simple and compact way. 
 
 ### A basic example for stocks
 
-This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the minimum traded volume in USD over the last 30 trading days. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the stragegy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the USD traded volume in the last calendar month. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the stragegy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
 
 ```python
 import qnt.data as qndata
@@ -80,7 +80,7 @@ output.write(weights)
 
 #### 1. Preparations
 
-The first step consists in preparing the workspace: import needed libraries and load data:
+The first step consists in preparing the workspace, importing the needed libraries and loading the data:
 
 ```python
 import qnt.data as qndata
@@ -100,29 +100,31 @@ price_open = data.sel(field="open")
 price_open_one_day_ago = qnta.shift(price_open, periods=1)
 ```
 
-#### 2. Weights allocation
-> The trading algorithm uses financial data to form the weights, in proportion to which the capital is distributed. 
+#### 2. Weight allocation
 
-A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
+Quantiacs uses an exposure-based backtester. The trading algorithm should define the fractions of capital which will distributed to the assets (allocation weights). A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
 
-<p class="tip">For each date, the algorithm calculates what portfolio weights should be at the opening of the next day's trading.</p>
+<p class="tip">Note that algorithm decisions can use all data available at the close of the session, and will be applied at the opening of the next day's session. The chosen allocation weights are translated to positions (number of contracts to be bought/sold) immediately after the close of the session and transactions are exectuted at the open of the next day.</p>
 
-We will distribute the capital as the **difference** between **prices** for today and yesterday:
+This example allocates weights proportionally to the **difference** between **prices** for today and yesterday:
 ```python
 strategy = price_open - price_open_one_day_ago
 ```
-We will trade the top 500 **liquid companies**:
+and trades the top 500 **liquid companies** ranked according to the USD traded volume in the last calendar month: 
 
 ```python
 weights = strategy * data.sel(field="is_liquid")
 ```
-**data.sel(field = “is_liquid“)** is xarray.DataArray. A value of **1** on a particular day for a particular company means that the stock has been **in the top 500 liquid stocks** for the last full month.
 
-We **normalize** % of capital for all companies:
+**data.sel(field = “is_liquid“)** is an xarray.DataArray structure: a value of **1** on a given day for a given company means that this company is among the most liquid 500 companies according to our liquidity criterion.
+
+We **normalize** allocations so that we are fully invested:
+
 ```python
-weights = weights / abs(strategy).sum('asset')
+weights = weights / abs(strategy).sum("asset")
 ```
-Let's try to **remove** the main financial **risks** from the strategy. The function includes **exposure** correction, **neutralization**.
+
+The call to the "clean" function corrects exposure for passing competition filters (more at <a href='/contest' target='_blank'>competitions</a>):
 ```python
 weights = output.clean(weights, data, "stocks")
 ```
