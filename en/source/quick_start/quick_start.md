@@ -124,7 +124,7 @@ We **normalize** allocations so that we are fully invested:
 weights = weights / abs(strategy).sum("asset")
 ```
 
-The call to the "clean" function corrects exposure and automatically fixes obstacles for passing competition filters (more at <a href='/contest' target='_blank'>competitions</a>): large exposure to a single stock (more than 5%) and exposure to illiquid assets:
+The call to the "clean" function corrects exposure and automatically fixes obstacles for passing competition filters (more at <a href='/contest' target='_blank'>competitions</a>), for example large exposure to a single stock (more than 5%) and exposure to illiquid assets:
 ```python
 weights = output.clean(weights, data, "stocks")
 ```
