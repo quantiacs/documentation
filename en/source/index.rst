@@ -32,15 +32,6 @@ Contents
    reference/neutralization.md
    reference/operators.md
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Algorithm quality
-
-   /quality/rules.md
-   /quality/sharpe.md
-   /quality/unique.md
-   /quality/major.md
-   /quality/isos.md
 
 
 .. toctree::

@@ -25,7 +25,8 @@ Our platform allows you to code trading strategies in a simple and compact way. 
 
 ### A basic example for stocks
 
-This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the USD traded volume in the last full calendar month. The idea is very simple: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+**The idea is very simple**: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+This basic example uses the top 500 stocks in the US market according to a liquidity criterion: the USD traded volume in the last full calendar month.
 
 ```python
 import qnt.data as qndata
@@ -40,7 +41,7 @@ price_open_one_day_ago = qnta.shift(price_open, periods=1)
 
 strategy = price_open - price_open_one_day_ago
 
-weights = strategy * data.sel(field="is_liquid")
+weights = strategy * data.sel(field="is_liquid") # Only for stocks
 weights = weights / abs(strategy).sum("asset")
 weights = output.clean(weights, data, "stocks")
 
@@ -113,7 +114,7 @@ strategy = price_open - price_open_one_day_ago
 and trades the top 500 **liquid companies** ranked according to the USD traded volume in the last full calendar month: 
 
 ```python
-weights = strategy * data.sel(field="is_liquid")
+weights = strategy * data.sel(field="is_liquid") # Only for stocks
 ```
 
 **data.sel(field = “is_liquid“)** is an xarray.DataArray structure: a value of **1** on a given day for a given company means that this company is among the most liquid 500 companies according to our liquidity criterion.
