@@ -3,7 +3,7 @@
 Once we have constructed an algorithm and plotted equity on historical data, we need to use a set of criteria to evaluate the performance. All current competition rules are available [here](https://quantiacs.io/contest).
 
 ## Statistics
-First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. Annualized SR must be at least greater than 1 for the In-Sample test. "calc_stat" function allows to calculate of all the statistics of an algorithm.
+First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. The annualized SR must be at least greater than 1 for the In-Sample test. The "calc_stat" function allows to calculate the complete statistics of an algorithm.
 
 **Function**
 ```python
@@ -16,12 +16,12 @@ qnt.stats.calc_stat(data, portfolio_history, slippage_factor=0.05, roll_slippage
 
 |Parameter|Explanation|
 |---|---|
-|data|xarray DataArray with market data of the companies your algorithm invests in.|
-|portfolio_history|xarray DataArray filled with portfolio weights, corresponding to the investing algorithm.|
-|slippage_factor|Transactions are punished with slippage equal to a given fraction of ATR14. We evaluate submissions using 5% of ATR14 for slippage. Read more about slippage [here](https://quantiacs.io/documentation/ru/theoretical_basis.html#id5)|
-|roll_slippage_factor| |
+|data|xarray DataArray with market data of the companies your algorithm invests in |
+|portfolio_history|xarray DataArray filled with portfolio weights, corresponding to the investing algorithm |
+|slippage_factor|transactions are punished with slippage equal to a given fraction of ATR14|
+|roll_slippage_factor| slippage for rolls of futures contracts|
 |min_periods|minimal number of days|
-|max_periods|max number of days for rolling|
+|max_periods|max number of days|
 |per_asset|calculate stats per asset|
 |points_per_year| |
 
@@ -45,28 +45,32 @@ The output is xarray with all statistics.
 
 **Example**
 
-Assume you chose "buy and hold" strategy and formed output weights:
+Let us assume that you are writing a **buy and hold** strategy:
 
 ```python
-import qnt.data    as qndata
+import qnt.data as qndata
 import datetime as dt
 import qnt.stats as qnstats        # key statistics
 import qnt.graph as qngraph        # graphical tools
 from IPython.display import display
+
 # load historical data
 data = qndata.load_data(
                        tail = dt.timedelta(days=4*365),
                        dims = ("time", "field", "asset"),
                        forward_order=True)
+                       
 is_liquid = data.loc[:,"is_liquid",:].to_pandas()
+
 # set and normalize weights:
 weights = is_liquid.div(is_liquid.abs().sum(axis=1, skipna=True), axis=0)
 weights = weights.fillna(0.0)
+
 #convert to xarray before statistics calculation
 output = weights.unstack().to_xarray()
 ```
 
-When the weights are formed, one can calculate statistic in order to evaluate algorithm on a historical data:
+After the weights have been computed, one can calculate the statistics in order to evaluate the algorithm on historical data:
 
 ```python
 stat = qnstats.calc_stat(data, output, slippage_factor=0.05)
@@ -108,17 +112,17 @@ qngraph.make_plot_filled(SRchart.index, SRchart, color="#F442C5", name="Rolling 
 
 ## Exposure filter
 
-It is worth using a few instruments for the trading algorithm. Even if the strategy is right, unpredictable world events/news may cause irreparable damage (for instance, [1](https://www.ft.com/content/be040b3a-5c96-11ea-b0ab-339c2307bcd4) and [2](https://www.themoscowtimes.com/2020/03/06/russias-tinkoff-bank-shares-fall-as-founder-indicted-in-us-a69538)).
+A stock algorithm can be submitted <ins>only when</ins> it meets the following criterion: the maximum allocation to each instrument does not exceed 5 % of the invested capital.
 
-A good way to diversify risks is to increase the number of instruments in the investment portfolio. The algorithm can be submitted <ins>only when</ins> it meets the following criterion - the maximum investment in each instrument does not exceed 5 percent of the invested capital.
+Quantiacs implements this criterion within some tolerance limit.
 
-However, this rule contains concessions aimed at eliminating disputable situations. Below is a more detailed description of the requirement. Let's introduce MP - the maximum percent of the invested capital, distributed per instrument. The exposure filter is passed if one of the conditions is met:
-- The MP can be from 5% to 10%  no more than 5 days per year.
-- The cumulative excess of the MP for all shares is calculated. The average daily value should not exceed 2 %.
+Let us introduce MP, the maximum percentage of the invested capital to an asset. The exposure filter is passed if one of the following conditions is met:
+- the MP can be from 5% to 10%  no more than 5 days per year;
+- the cumulative excess of the MP for all assets is calculated. The average daily value should not exceed 2 %.
 
 The hard limit is 10%. It means that if MP exceeds 10% your algorithm does not pass the filter.
 
-One can use the check_exposure function in order to check this requirement.
+One can use the "check_exposure" function in order to check this requirement.
 
 **Function**
 ```python
