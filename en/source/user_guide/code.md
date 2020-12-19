@@ -1,12 +1,9 @@
 # Code organization
 
-Here are some notes about the code organization. In the root of jupyter, you will find:
+When you work inside the Quantiacs Jupyter environment you will have access to a root directory with several files. The most important are:
 
-- `strategy.ipynb` - place your strategy code here.
-Please optimize the final version of your code before submitting it. Parts with useless code affect the calculation time and, finally, testing time. 
-A separate jupyter notebook is more suitable for experiments (for instance,`research.ipynb`).
+- **strategy.ipynb** - this file contains your strategy for submission. We recommend using a separate instance of a jupyter notebook (which you can call for example research.ipynb) for research. Once you are ready to submit, you should remove unnecessary components and submit the optimized version in the strategy.ipynb file.
 
-- `init.ipynb` - one can use it for additional dependencies of your strategy.
-(e.g., keras or sklearn). With a step-by-step calculation, this notebook will only run once to prepare the environment before launch `strategy.ipynb`.
+- **init.ipynb** - this file can be used for the additional dependencies of your strategy, like keras or sklearn.
 
-- `precheck.ipynb` - allows you to pre-check your strategy. We advise you to run this notebook before submitting and fix all ERROR and WARNING cases. Solving `precheck.ipynb` is much faster than a day-to-day strategy test when submitting to a competition.
+- **precheck.ipynb** - this file allows you to pre-check your strategy. We advise you to run this notebook before submitting and fix all ERROR and WARNING cases.
