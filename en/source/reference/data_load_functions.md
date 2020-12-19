@@ -1,12 +1,12 @@
 # Data loading
 
 <p class="tip">
-This section contains detailed API reference documentation. It is intended for people who are already familiar with the Quantiacs platform. One may prefer to visit  <a href="/documentation/en/getting-started/first/first.html">Getting started page</a> for the first time.
+This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/getting-started/first/first.html">Quick start</a> page.
 </p>
 
 ## Assets
 
-Available financial instruments with brief information can be downloaded using the following function:
+The available financial instruments with a brief information can be downloaded using the following function:
 
 **Function**
 
@@ -53,17 +53,17 @@ assets = qndata.load_assets(min_date = '2015-01-01', max_date = '2018-01-01') # 
 # assets = qndata.load_assets(max_date = '2020-01-01')
 ```
 
-Or load last several years information:
+or load a fixed number of years:
 
 ```python
 import qnt.data as qndata          # data loading and manipulation
-assets = qndata.load_assets(tail = dt.timedelta(days=4*365))
+assets = qndata.load_assets(tail = dt.timedelta(days=365*4))
 ```
 
 
 ## Market data
 
-Market data is mainly connected to stocks' daily prices. [This](https://quantiacs.io/referee/template/14262139/html) template shows how to download market data.
+Market data can be loaded using:
 
 **Function**
 
@@ -90,7 +90,7 @@ qnt.data.load_data(
 
 **Output**
 
-The output is xarray DataArray with historical data for selected assets.
+The output is an xarray DataArray with historical data for the selected assets:
 
 |asset<br/>time|NASDAQ:AAPL<br/> |NASDAQ:GOOGL<br/> |
 |---|---|---|
@@ -101,11 +101,12 @@ The output is xarray DataArray with historical data for selected assets.
 |2016-09-15|3188.08|790.01|
 
 **Example**
+
 One can load market data for Apple Inc and Google Inc for the past 4 years:
 
 ```python
 import qnt.data as qndata          # data loading and manipulation
-data = qnt.data.load_data(tail = dt.timedelta(days=4*365),
+data = qnt.data.load_data(tail = dt.timedelta(days=365*4),
                         dims=("time", "field", "asset"),
                         assets=['NASDAQ:AAPL', 'NASDAQ:GOOGL'],
                         forward_order=True)
@@ -131,8 +132,6 @@ open_price.to_pandas().head()
 
 ## Fundamental data
 
-[This](https://quantiacs.io/referee/template/15325118/html) template shows how to download prepared fundamental data.
-
 **Function**
 
 ```python
@@ -147,28 +146,28 @@ qnt.data.secgov_load_indicators(assets, time_coord, standard_indicators=None, bu
 |---|---|
 |assets|the list of dicts with info for the desired tickers|
 |time_coord|xarray DataArray with the time interval|
-|standard_indicators|the list of standart fundamental indicators|
+|standard_indicators|the list of standard fundamental indicators|
 |builders|list of IndicatorBuilder or PeriodIndicatorBuilder classes. This parameter is designed for the custom uploading of the sec.gov facts|
 |start_date_offset|datetime.timedelta, tail size of data. min_date = max_date - tail|
 |fill_strategy|function, filling strategy|
 
 **Output**
 
-The output is xarray DataArray with historical fundamental data.
+The output is an xarray DataArray with historical fundamental data.
 
 **Example**
 
-We have collected and processed a large amount of fundamental data for users. One can find the list of prepared data [here](https://quantiacs.io/documentation/ru/functional/functional_data.html). Below are two ways to download prepared data.
+We have collected and processed a large amount of fundamental data for users. One can find the list of prepared data [here](https://quantiacs.io/documentation/ru/functional/functional_data.html). Data can be loaded in two ways.
 
 The first way is just to list the desired data labels.
 
 ```python
 data_lbls = ['assets', 'liabilities']
 # One can load corresponding data
-fun_data1 = qnt.data.secgov_load_indicators(assets,time_coord = data.time, standard_indicators = data_lbls)
+fun_data1 = qnt.data.secgov_load_indicators(assets, time_coord = data.time, standard_indicators = data_lbls)
 ```
 
-The second way to load fundamental data is more complicated but gives user more options. Each report for the [Securities and Exchange Commission](https://www.sec.gov/) contains facts that are listed [here](http://xbrlview.fasb.org/yeti/). One can make their builder that takes a name and a list of desired facts. Some indicators are instant and updated regularly within each report.
+The second way to load the fundamental data is more complicated but it gives to the user more options. Each report for the [Securities and Exchange Commission](https://www.sec.gov/) contains facts that are listed [here](http://xbrlview.fasb.org/yeti/). There are instant indicators which are updated regularly within each report:
 
 ```python
 instant_data_list = [InstantIndicatorBuilder('assets' , ['us-gaap:Assets'], True),
@@ -177,7 +176,7 @@ instant_data_list = [InstantIndicatorBuilder('assets' , ['us-gaap:Assets'], True
                                                        'us-gaap:CommonStockSharesIssued'], True)]
 ```
 
-Others are periodical and correspond to a certain period. For example, operating expenses and sales. For periodical indicators, you can receive information with the quarter, annual frequency, or 'last twelve month' value. For these purposes put 'qf','af' or 'ltm' correspondingly:
+Other indicators are periodic, like operating expenses and sales. For periodic indicators, you can receive information with the quarter, annual frequency, or 'last twelve month' value. For these purposes use 'qf','af' or 'ltm':
 
 ```python
 period_data_list = [PeriodIndicatorBuilder('operating_expense', ['us-gaap:OperatingExpenses'], True, 'qf'),
