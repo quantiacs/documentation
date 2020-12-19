@@ -1,25 +1,25 @@
 # Stocks
 
-Quantiacs provides data for companies listed on the NYSE and NASDAQ. The data can be divided into three groups:
+Quantiacs provides data for companies listed on the NYSE and NASDAQ. Here we will discuss:
 - [General information about tickers](https://quantiacs.io/documentation/en/user_guide/data.html#id2)
 - [Market data](https://quantiacs.io/documentation/en/user_guide/data.html#id3)
 - [Fundamental data](https://quantiacs.io/documentation/en/user_guide/data.html#id4)
 
-## Available instruments
-Let's download information about the instruments available for trading for the previous 5 years:
+## General information about tickers
+The informations about the available stocks in the last 5 years can be obtained specifying the lookback period in calendar days multiplied by the number of years:
 
 ```python
 import qnt.data as qndata 
 import datetime as dt
 
-assets = qndata.load_assets(tail=dt.timedelta(days=5*365))
+assets = qndata.load_assets(tail=dt.timedelta(days=365*5))
 ```
-или
+or defining the starting point in time:
 ```python
 assets = qndata.load_assets(min_date="2015-01-01")
 ```
 
-There are 1002 financial instruments available. For each of them, brief information is provided:
+The information on each asset can be inspected with:
 
 ```python
 assets[0]
@@ -35,20 +35,18 @@ assets[0]
  'FIGI': 'BBG000C1H7Y2'}
 ```
 
-> You can find a complete list [here](https://quantiacs.io/documentation/ru/user_guide/functional_data_market_full_list.html)
+> You can find a complete list [here](https://quantiacs.io/documentation/ru/user_guide/functional_data_market_full_list.html).
 
 
 ## Market data
 
-> We recommend using data from 2015. Market share prices have been available since 2000.
-
-To download market data, just use the following function:
+Market data can be downloaded using the following call:
 
 ```python
-import qnt.data    as qndata
-import datetime    as dt
+import qnt.data as qndata
+import datetime as dt
 
-data = qndata.load_data(tail = dt.timedelta(days = 4*365),
+data = qndata.load_data(tail = dt.timedelta(days = 365*4),
                         forward_order = True)
 
 price_open = data.sel(field="open")
@@ -59,35 +57,32 @@ volume_day = data.sel(field="vol")
 is_liquid = data.sel(field="is_liquid")
 ```
 
-| Data name | Description |
+| Data field | Description |
 | ------------------ | -------- |
-| open               | Open is the price at which a security first trades upon the opening of an exchange on a trading day. Daily open price. |
+| open               | open is the daily open price, i.e. the price at which a security trades when the exchange opens. |
 | close              | Daily close price. |
 | high               | Daily high price. |
 | low                | Daily low price. |
-| vol                | Daily volume of trading in number of shares.|
+| vol                | Daily number of traded shares. |
 | divs               | Dividends from shares. |
-| split              | It indicates stock split. Split = 2.0 means that on this day there was a split of shares 2 to 1: the number of shares doubled, and their price halved. |
-| split\_cumprod     | split\_cumprod  & The product of split values from the very beginning. Used to restore original prices. |
-| is\_liquid         | We trade only liquid stocks, so this option determines whether this stock can be traded. This is top 500 most liquid stocks over the last month (sorted by trading volume = sum(close*vol) ). It changes once a month. |
+| split              | It indicates a stock split. Split = 2.0 means that on this day there was a split of shares 2 to 1: the number of shares doubled, and their price halved. |
+| split\_cumprod     | The product of split values from the very beginning. It can be used for restoring original prices. |
+| is\_liquid         | This option determines whether this stock is liquid enough for trading. A stock is liquid if it is part of the top 500 stocks in terms of traded dollar volume over the last full calendar month. |
 
 _Table 1. Available market data._
 
-**Uploading certain companies**
--------------------
+Stocks and data fields can be selected by the user specifying the **companies** to **trade** in the **assets_names** variable.
 
-You can also limit the data loading by specifying the tools that interest you. In the **assets_names** variable, specify the **companies** you want to **trade**.
-
-For example, you can generate a list of previously downloaded assets:
+First, generate a list of all previously downloaded assets:
 ```python
 assets_names = [i["id"] for i in assets]
 ```
-Or set the companies manually:
+Then, after inspection, set the company names manually:
 
 ```python
 assets_names=['NASDAQ:AAPL', 'NASDAQ:GOOGL']
 
-data = qndata.load_data(tail = dt.timedelta(days = 5*365),
+data = qndata.load_data(tail = dt.timedelta(days = 365*5),
                         assets=assets_names,
                         forward_order = True)
 
@@ -157,12 +152,11 @@ price_open.to_pandas().tail()
 
 ## Fundamental data
 
-[This] (https://quantiacs.io/referee/template/15325118/html) template shows how to download prepared fundamental data.
+Fundamental data can be retrieved by using instant or periodic indicators.
 
 ### Instant indicators.
 
-They reflect the current state of the company. The value has been updated with
-every report released.
+Instant indicators reflect the current state of the company.
 
 | Data name   | Description                                                                                                                                                       |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -175,17 +169,17 @@ every report released.
 | debt\_st               | Short term debt                                                                                                                                                 |
 | goodwill               | Goodwill                                                                                                                                                        |
 | inventory              | Total inventory                                                                                                                                                 |
-| ivestment\_short\_term | Short-Term investments                                                                                                                                          |
+| investment\_short\_term | Short-term investments                                                                                                                                          |
 | invested\_capital      | Invested capital                                                                                                                                                |
 | shares                 | Total shares outstanding. If reports do not contain such information we can use issued shares.|
-| ppent                  | Property Plant and Equipment Net                                                                                                                                |
+| ppent                  | Property plant and equipment net                                                                                                                                |
 | cash\_equivalent       | Cash equivalents are investment securities that are meant for short-term investing; they have high credit quality and are highly liquid. |
 
 _Table 2. Instant indicators._
 
-### Periodical indicators.
+### Periodic indicators.
 
-They correspond to a certain period. For example, income and sales. For periodical indicators, you can receive information with the quarter, annual frequency, or 'last twelve-month' value.
+Periodic indicators correspond to a certain period. For periodic indicators, you can receive information with the quarter, annual frequency, or 'last twelve-month' value.
 
 |   Data name  | Description                                |
 | ------------------- | ----------------------------------------- |
@@ -196,14 +190,14 @@ They correspond to a certain period. For example, income and sales. For periodic
 | divs\_ltm / divs\_af / divs\_qf | Dividends |
 | eps\_ltm / eps\_af / eps\_qf | Earnings per share |
 | income\_ltm / income\_af / income\_qf /  | Income |
-| interest\_expense\_ltm / interest\_expense\_af / interest\_expense\_qf | Interest expense |
+| interest\_expense\_ltm / interest\_expense\_af / interest\_expense\_qf | Interest expenses |
 | operating\_expense\_ltm / operating\_expense\_af / operating\_expense\_qf | Operating expenses |
 | operating\_income\_ltm / operating\_income\_af / operating\_income\_qf | Operating income |
-| rd\_expense\_ltm / rd\_expense\_af / rd\_expense\_qf | Research and development expense |
-| sales\_ps\_ltm / sales\_ps\_af / sales\_ps\_qf | sales per share |
-| sga\_expense\_ltm / sga\_expense\_af / sga\_expense\_qf   | Selling, general & administrative expense |
+| rd\_expense\_ltm / rd\_expense\_af / rd\_expense\_qf | Research and development expenses |
+| sales\_ps\_ltm / sales\_ps\_af / sales\_ps\_qf | Sales per share |
+| sga\_expense\_ltm / sga\_expense\_af / sga\_expense\_qf   | Selling, general & administrative expenses |
 
 _Table 3. Periodical indicators._
 
-We use the fundamental data from the company's reports stored in the EDGAR database. One can find information manually, by entering company ticket on a U.S. Securities and Exchange Commission [website](https://www.sec.gov/edgar/searchedgar/companysearch.htm). Reports consist of facts that are represented mainly in XBRL format. Available facts labels can be found [here](http://xbrlview.fasb.org/yeti).
+We use the fundamental data from the company's reports stored in the EDGAR database. One can find information manually, by entering the company ticker on the U.S. Securities and Exchange Commission [website](https://www.sec.gov/edgar/searchedgar/companysearch.html). The reports consist of facts that are represented mainly in XBRL format. Available facts labels can be found [here](http://xbrlview.fasb.org/yeti).
 
