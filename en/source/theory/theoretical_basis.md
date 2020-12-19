@@ -4,9 +4,9 @@
 
 ## Вasic concepts
 
-Algorithmic trading means that the decision to buy or sell financial securities on the stock exchange is made based on a predetermined algorithm, with the intent to make a profit. On our platform, it is a python script that takes historical data as an input and gives a decision to buy/sell stock as output.
+The decision to buy or sell financial securities uses a predetermined algorithm, with the intent to make a profit. On our platform, this algo is a python script which takes historical data as an input and gives a decision to buy/sell  as output.
 
-Say we have a capital $1M and want to invest in a portfolio consisting of three stocks: Apple Inc (AAPL), Alphabet Inc Class C (GOOG), Tesla Inc (TSLA). Let's have a look at the open price of these stocks for some period. Open is the price at which a security first trades upon the opening of an exchange on a trading day. We use historical data from the NASDAQ exchange as input:
+Let us say that we have a capital of 1M USD and we want to invest in a portfolio consisting of three stocks: Apple Inc (AAPL), Alphabet Inc Class C (GOOG), Tesla Inc (TSLA). Let us have a look at the open price of these stocks for some period. The open price is the price at which a security first trades upon the opening of an exchange on a trading day. We use historical data from the NASDAQ exchange as input:
 
 | date         | AAPL   | GOOG     | TSLA   |
 |:------------:| ------:| --------:| ------:|
@@ -16,15 +16,15 @@ Say we have a capital $1M and want to invest in a portfolio consisting of three 
 
 _Table 1: Stock open price in USD. NASDAQ exchange._
 
-Now we need to come up with an algorithm by which our capital will be allocated between stocks. The algorithm is an intelligent search of some world event reflected in data. Usually, it is based on some idea. Suppose we have a hypothesis - invest more if open price is low. A hypothesis can be expressed through the formula:
+Now we need to define an algorithm which allocates our capital to stocks. The algorithm can be seen as an intelligent search of some world event reflected in data. Suppose that we have a simple hypothesis: invest more if open price is low. This hypothesis can be expressed through the formula:
 
 
 ```math
 \label{alpha1}
-    \frac{1}{\textbf{open}},
+    \frac{1}{\textbf{open}}.
 ```
 
-Hereinafter we will stand bold symbols for vectors. We can receive a matrix form of the algorithm by applying formula (2) to the table 1:
+Hereinafter we will use bold symbols for vectors. We can receive a matrix form of the algorithm by applying formula (2) to the table 1:
 
 | date         | AAPL          | GOOG          | TSLA          |
 |:------------:| -------------:| -------------:| -------------:|
@@ -34,7 +34,7 @@ Hereinafter we will stand bold symbols for vectors. We can receive a matrix form
 
 _Table 2: Matrix form of the algorithm._
 
-Capital is distributed in proportion to the values of the matrix. To receive the shares of capital invested in each stock, the matrix (table 2) must be normalized  ``$` l_1 `$``) norm) to one for each day:
+The capital is distributed in proportion to the values of the matrix. To receive the shares of capital invested in each stock, the matrix (table 2) must be normalized  (``$` l_1 `$`` norm) to one for each day:
 
 | date         | AAPL   | GOOG   | TSLA   |
 |:------------:| ------:| ------:| ------:|
@@ -44,12 +44,11 @@ Capital is distributed in proportion to the values of the matrix. To receive the
 
 _Table 3: Final weights of the algorithm._
 
-Thus, $1M·0.6228 = $622,800 was allocated for AAPL on Mar 02, 2020; GOOG and TSLA received $130,100 and $247,200 correspondingly. Matrix values (3) are called weights of the algorithm.
+Thus, $1M·0.6228 = 622,800$ USD were allocated for AAPL on Mar 02, 2020; GOOG and TSLA received $130,100$ USD and $247,200$ USD. The matrix values (3) are called weights of the algorithm.
 
 ## Long Position vs. Short Position
-----------------------------------
 
-To sell a stock, one just needs to assign it a negative weight in the algorithm.Assume, you have the following weights:
+To sell a stock, one needs simply to assign it a negative weight in the algorithm. Let us assume that you have the following weights:
 
 |date          | AAPL | GOOG | TSLA |
 | ------------ | ---- | ---- | ---- |
@@ -57,9 +56,9 @@ To sell a stock, one just needs to assign it a negative weight in the algorithm.
 
 
 The positive sign means that we hold a long position (buy shares); the
-negative sign means we hold a short position (sell shares). Thus, the
-capital 1M will be allocated in the following proportions:
-$400,000 to AAPL; $400,000 to GOOG; $-200,000 to TSLA.
+negative sign means that we hold a short position (sell shares). Thus, the
+1M USD capital will be allocated in the following proportions:
+$400,000$ USD to AAPL; $400,000$ USD to GOOG; $-200,000$ to TSLA.
 
 **Details**
 
@@ -79,8 +78,8 @@ to several risks:
     the person from whom they were borrowed.
 
 -   The potential losses in a short sale can be endless, because
-    theoretically the maximum price of shares is unlimited. On the other
-    hand, the share price will not fall below zero, so the maximum
+    theoretically the maximum price of a stock is unlimited. On the other
+    hand, the stock price will not fall below zero, so the maximum
     profit is limited.
 
 -   Even if the estimate is correct, the moment may be inappropriate. It
@@ -106,7 +105,6 @@ can be scaled easily.
 
 
 ![pnl](./pictures/PnL.PNG)
-_Pic. 1_
 
 
 Relative returns simply indicate how much the capital has changed. For
@@ -122,7 +120,7 @@ fractions:
 
 Sometimes it's important to understand how equity (cumulative profit,
 PnL) is calculated. Say we allocate our capital in a proportion to the
-vector of *weights* for the ``$`i^{th}`$`` day. Thus we buy shares at *open*
+vector of **weights** for the ``$`i^{th}`$`` day. Thus we buy shares at **open**
 price and receive the following positions:
 
 ```math
@@ -132,7 +130,7 @@ price and receive the following positions:
 
 where bold variables stand for vectors in the space of shares; division
 is elementwise. For the next day, an algorithm will generate a new
-vector of ``$`\textit{weigths}[i+1]`$`` that will redistribute our capital
+vector of **weigths** that will redistribute our capital
 into new positions. Redistribution of portfolio instruments leads to
 capital losses associated mainly with the broker's commission and the
 *slippage*.
@@ -159,7 +157,7 @@ days of the true range (**TR**) values:
 \begin{gathered}
 \label{ATR}
     \textbf{TR}[i] = max(
-\textbf{high}[i] - \textbf{low}[i]; \textbf{high}[i] - \textbf{close}[i-1]; \textbf{close}[i-1] - \textbf{low}[i]), \end{gathered}
+\textbf{high}[i] - \textbf{low}[i]; |\textbf{high}[i] - \textbf{close}[i-1]|; |\textbf{close}[i-1] - \textbf{low}[i]|), \end{gathered}
 ```
 
 ```math
@@ -176,9 +174,8 @@ Now we can introduce the equity formula for the i day:
 ```
 
 ## Algorithm quality
-------------------
 
-Once we have constructed an algorithm and plotted an equity on a historical data, we need to use a set of criteria to evaluate the performance. All current competition rules are available [here](https://quantiacs.io/contest).
+Once we have constructed an algorithm and plotted an equity on a historical data, we need to use a set of criteria to evaluate the performance.
 
 ### Sharpe Ratio
 
@@ -196,13 +193,10 @@ The numerator is an average daily return. The book size changes with the size of
 
 The denominator is a standard deviation of the portfolio’s excess return. Another way to think about the denominator is that it means volatility.
 
-Thus, the Sharpe ratio is the return per unit of risk (volatility). The greater the Sharpe ratio, the better (Fig.2). To submit a strategy successfully, the SR should be higher than 1 over the last 3 years.
+Thus, the Sharpe ratio is the return per unit of risk (volatility). The greater the Sharpe ratio, the better (second figure). To submit a strategy successfully, the SR should be higher than 1 in the in-sample period.
 
 ![Sharpe low](./pictures/low_sharpe_1.28.PNG)
 ![Sharpe high](./pictures/high_sharpe_7.62.PNG)
-Figure 2: Equity charts for different algorithms. Upper: ``$` \text{SR} = 1.28 `$``.
-Lower: ``$` \text{SR} = 7.62 `$``
-
 
 **Details**
 
@@ -230,65 +224,49 @@ where ``$` \overline{rr} `$`` - denotes the expected value of relative returns. 
     \text{SR} = \frac{\sqrt[N]{[\prod\limits_{i=1}^{N} (rr_i + 1)]^T} - 1}{\sqrt{\frac{T}{N}\sum\limits_{i=1}^{N} (rr_{i}  - \overline{rr}) }}.
 ```
 
-For annual Sharpe ratio one can put T= 252 - trading days per year. We use annual (T= 252) Sharpe ratio (11) to estimate algorithms on our platform.
+For annual Sharpe ratio one can put T= 252 - trading days per year. We use the annual (T= 252) Sharpe ratio to estimate algorithms on our platform.
 
 ### Uniqueness
 
-  Every good trading algorithm is a signal that reflects the imperfection of the market. The more capital involved in the signal, the less marginal this signal. A good algorithm must minimize intersection with well-known and already existing signals. Uniqueness can be defined as a maximum correlation of the algorithm to the pool of the existing algorithms: 
+ A good algorithm must minimize the overlap with well-known and already existing signals. Uniqueness can be defined in terms of the maximum correlation of the algorithm to the pool of the existing algorithms: 
 
 ```math
-r_{XY} = \frac{\text{cov}_{\textbf{X}\textbf{Y}}}{\sigma_{\textbf{X}} \sigma_{\textbf{Y}}} = \frac{\sum (\textbf{X} - \overline{\textbf{X}})(\textbf{Y} - \overline{\textbf{Y}})}{\sqrt{\sum (\textbf{X} - \overline{\textbf{X}})^2(\textbf{Y} - \overline{\textbf{Y}})^2}}
+r_{XY} = \frac{\text{cov}_{\textbf{X}\textbf{Y}}}{\sigma_{\textbf{X}} \sigma_{\textbf{Y}}}
 ```
 
-where ``$` \textbf{X}, \textbf{Y} `$`` are daily relative returns. The lower the correlation, the better. According to the rules, your algorithm must have a correlation coefficient lower than 0.9 over the last 3 years; otherwise, you need to have the largest Sharpe ratio among the correlated algorithms.
-
-### Diversification of risks
-
-It is worth to use a few instruments for the trading algorithm. Even if the strategy is right, unpredictable world events/news may cause irreparable damage (for instance, 
-[1](https://www.ft.com/content/be040b3a-5c96-11ea-b0ab-339c2307bcd4) and
-[2](https://www.themoscowtimes.com/2020/03/06/russias-tinkoff-bank-shares-fall-as-founder-indicted-in-us-a69538)).
-
-A good way to diversify risks is to increase the number of instruments in the investment portfolio. After that we can set a maximum stock weight to 0.05. It means that we will allocate no more than 5% of our equity to the each stock.
-
-There are many such news every year - they merge with the information noise and we forget them. However, they are reflected in historical data and strongly affect profit in the future. According to the rules, your algorithm must pass [exposure filter](https://quantiacs.io/documentation/ru/available_functions/evaluation.html#exposure-filter). You can use the suggested [tools](https://quantiacs.io/documentation/ru/available_functions/improve_algorithm.html#exposures-improving) to avoid filtering out the algorithm due to exposure filter.
-
-## Is and Os
--------
+## In Sample and Out of Sample
 
   Overfitting is easy. If one tries a significant amount of algorithm
-  configurations, backtest can be fitted to any desired performance. The
-  number of guidelines can help to avoid overfitting and estimate a real
-  algorithm value.
+  configurations, backtest can be fitted to any desired performance. Overfitting 
+  can be avoided by splitting the data into an In Sample and and an Out of Sample
+  slices.
 
 **In sample**
 
-  By \"sample\" we mean a data sample. Thus, *in-sample* (IS) is an
-  observed historical data, an analogue of the training set in machine
-  learning. In order to prevent overfitting, one can test the model using
-  a longer history or improve *in-sample* requirements.
+  By \"sample\" we mean a data sample. An *In-Sample* (IS) set is the
+  analogue of a training set in machine
+  learning.
 
 **Out of sample**
 
-  The *out-of-sample* (OS) is an analogue of the testing set in machine
-  learning. It is real-time data. We take each algorithm, test it day by
-  day in a real environment and monitor its performance. It is wrong when
-  an algorithm changes its strategy with time. All conditions must be
-  consistent.
+  The *out-of-sample* (OS) set is the analogue of the testing set in machine
+  learning. It is good practice to develop your algorithm on IS data and test
+  it on OS unseen data.
 
 **Competition**
 
-  Say you are participating in Quantiacs Contest in the 6 months competition and create an algorithm for stock trading. According to the rules, you have a good Sharpe (>1) and low correlation (<0.9) over the previous 3 years. The backtest for this 3 years is in-sample (Fig.3). Say we measure SR in-sample - SR_IS. The real time test for 6 months is out-of-sample and gives SR_OS. All strategies are rated by min(SR_IS, SR_OS). The larger the better.
+  The performace of a good algorithm OS does not degradate respect to the IS period.
 
 ![IS OS](./pictures/home_competition_main_isos.png)
 
 
 ## Improving the algorithm
-### Neutralization
---------------
 
- Let's analyse the stock performance of 500 large companies listed on
-stock exchanges in the United States. The so called index S&P500. As
-one can see, the market growth on average. S&P500 return varies widely
+### Neutralization
+
+Let us analyse the stock performance of 500 large companies listed on
+stock exchanges in the United States, the so-called S&P500 index. As
+one can see, the market grows on average. S&P500 return vary widely
 from a few percent to over 20% in some
 [years](https://www.cnbc.com/2017/06/18/the-sp-500-has-already-met-its-average-return-for-a-full-year.html).
 Does it mean that simply opening a long positions is a good idea?
@@ -296,37 +274,26 @@ Does it mean that simply opening a long positions is a good idea?
 ![sp500](./pictures/SnP500.PNG)
 
 
-Despite the growth, the Sharpe ratio of S&P500 is less than 1. One of
-the main reason - periodic financial crises. There are some of them:
+Unfortunately, periodic financial crises occur:
 
--   1987 year. "Black Monday." The Dow Jones Index fell 22.6% in the
-    United States. The reason is the massive outflow of investors from
-    regional markets.
+-   1987, the Black Monday. 
 
--   2000-2003. The Crash of the Dotcoms. The crisis caused by the
-    massive investment of money in Internet projects.
+-   2000-2003, The Crash of the Dotcoms.
 
--   2007--2008. Great Recession. The combination of banks unable to
-    provide funds to businesses, and homeowners paying down debt rather
-    than borrowing and spending, resulted in the Great Recession that
-    began in the U.S. officially in December 2007 and lasted until June
-    2009, thus extending over 19 months.
+-   2007-2008. the Financial Crisis.
 
 The consequences of crises are visible on the chart and appear as market
-drops of up to 30%. It is dangerous to think that the crisis is horror
-stories from the past. The beginning of 2020 is marked by the fall of
-the economy caused by Coronavirus.
-
-**Neutralization**
+drops of up to 30%. It is dangerous to think that crises are horror
+stories from the past. 
 
 We can exclude the market influence by balancing long/short positions
-for our algorithm. So, it will be a market-neutral. The neutralization
+for our algorithm. So, it will be a market-neutral algo. The neutralization
 could be done for the whole market or each industry (or smaller group).
 Mathematically, market neutralization is elementary.
 
 Say, we a have a vector of **weights<sub>i</sub>** for i day, given by
-the algorithm. In order to make the algorithm a market-neutral, one
-needs to apply the following equation for each day:
+the algorithm. In order to make the algorithm a market-neutral one, it is
+enough to apply the following equation for each day:
 
 **neutralized\_weights<sub>i</sub>** = **weights<sub>i</sub>** - mean(**weights<sub>i</sub>**).
 
