@@ -1,17 +1,17 @@
-# Cryptocurrency
-Quantiacs provides up-to-date data - transaction price and volume - for the following cryptocurrencies: 'BCH', 'BTC', 'EOS', 'ETH', 'LTC', 'USDT', 'XRP'. 
--------------
+# Cryptocurrencies
 
-Let's download the available cryptocurrency data for the last 5 years:
+Quantiacs provides up-to-date data - transaction price and volume - for the following cryptocurrencies: Bitcoin (BTC), Bitcoin Cash (BCH), EOS, Ethereum (ETH), Litecoin (LTC),  Tether (USDT) and Ripple (XRP). 
+
+The available cryptocurrency data for the last 5 years can be downloaded using:
 ```python
 import qnt.data    as qndata
 import datetime    as dt
 
-crypto_data = qndata.load_cryptocurrency_data(tail = dt.timedelta(days = 5*365),
+crypto_data = qndata.load_cryptocurrency_data(tail = dt.timedelta(days = 365 * 5),
                         forward_order = True)
 ```
 
-Available cryptocurrencies:
+The list of available cryptocurrencies can be obtained as:
 ```python
 crypto_data.asset
 ```
@@ -23,21 +23,21 @@ crypto_data.field
 ```
 ![crypto_field](./pictures/crypto_field.PNG)
 
-| Data | Description |
+| Data field | Description |
 | ------------------ | -------- |
-| open               | Open is the price at which the cryptocurrency is traded for the first time during the corresponding hour.|
-| close              | End of the hour price. |
+| open               | First price in the selected hour.|
+| close              | Last price in the selected hour. |
 | high               | Highest hourly price. |
 | low                | Lowest hourly price. |
-| vol                | Hourly trading volume. Expressed in the number of cryptocurrencies.|
+| vol                | Hourly trading volume in the related cryptocurrency value.|
 
-Let's say we are interested in the highest hourly price for BTC:
+Let us say that we are interested in the highest hourly price for BTC. We can use:
 
 ```python
 BTC_high = crypto_data.sel(field = 'high').sel(asset = 'BTC')
 ```
 
-One can visualize data:
+Data can be visualized using:
 
 ```python
 import plotly.graph_objs as go         # lib for charts
@@ -54,6 +54,3 @@ fig.show()
 ```
 
 ![crypto_high](./pictures/crypto_high.PNG)
-
-
-[This template](https://quantiacs.io/referee/template/14015755/html) implements the triangle method for cryptocurrency in detail. You can also use an [empty template](https://quantiacs.io/referee/template/13767170/html) for working with cryptocurrency.
