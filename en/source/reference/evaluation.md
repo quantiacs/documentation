@@ -23,7 +23,7 @@ qnt.stats.calc_stat(data, portfolio_history, slippage_factor=0.05, roll_slippage
 |min_periods|minimal number of days|
 |max_periods|max number of days|
 |per_asset|calculate stats per asset|
-|points_per_year| |
+|points_per_year|how many points per year to take as the basis for calculating the Sharpe ratio and mean the return
 
 **Output**
 

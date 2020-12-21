@@ -5,10 +5,8 @@ Quantiacs provides up-to-date data - transaction price and volume - for the foll
 The available cryptocurrency data for the last 5 years can be downloaded using:
 ```python
 import qnt.data    as qndata
-import datetime    as dt
 
-crypto_data = qndata.load_cryptocurrency_data(tail = dt.timedelta(days = 365 * 5),
-                        forward_order = True)
+crypto_data = qndata.crypto.load_data(tail = 365 * 5)
 ```
 
 The list of available cryptocurrencies can be obtained as:
@@ -21,7 +19,7 @@ For each of them hourly data is provided. It contains **5 parameters**:
 ```python
 crypto_data.field
 ```
-![crypto_field](./pictures/crypto_field.PNG)
+![crypto_field](./pictures/crypto_fields.PNG)
 
 | Data field | Description |
 | ------------------ | -------- |

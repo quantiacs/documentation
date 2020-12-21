@@ -1,22 +1,21 @@
 # Stocks
 
 Quantiacs provides data for companies listed on the NYSE and NASDAQ. Here we will discuss:
-- [General information about tickers](https://quantiacs.io/documentation/en/user_guide/data.html#id2)
-- [Market data](https://quantiacs.io/documentation/en/user_guide/data.html#id3)
-- [Fundamental data](https://quantiacs.io/documentation/en/user_guide/data.html#id4)
+- [General information about tickers](#general-information-about-tickers)
+- [Market data](#market-data)
+- [Fundamental data](#fundamental-data)
 
 ## General information about tickers
 The informations about the available stocks in the last 5 years can be obtained specifying the lookback period in calendar days multiplied by the number of years:
 
 ```python
 import qnt.data as qndata 
-import datetime as dt
 
-assets = qndata.load_assets(tail=dt.timedelta(days=365*5))
+assets = qndata.stocks.load_list(tail= 365*5)
 ```
 or defining the starting point in time:
 ```python
-assets = qndata.load_assets(min_date="2015-01-01")
+assets = qndata.stocks.load_list(min_date="2015-01-01")
 ```
 
 The information on each asset can be inspected with:
@@ -35,7 +34,7 @@ assets[0]
  'FIGI': 'BBG000C1H7Y2'}
 ```
 
-> You can find a complete list [here](https://quantiacs.io/documentation/ru/user_guide/functional_data_market_full_list.html).
+> You can find a complete list [here](https://quantiacs.io/documentation/en/user_guide/functional_data_market_full_list.html).
 
 
 ## Market data
@@ -44,10 +43,7 @@ Market data can be downloaded using the following call:
 
 ```python
 import qnt.data as qndata
-import datetime as dt
-
-data = qndata.load_data(tail = dt.timedelta(days = 365*4),
-                        forward_order = True)
+data = qndata.stocks.load_data(tail = 5*365, dims = ("time", "field", "asset"))
 
 price_open = data.sel(field="open")
 price_close = data.sel(field="close")
@@ -82,9 +78,7 @@ Then, after inspection, set the company names manually:
 ```python
 assets_names=['NASDAQ:AAPL', 'NASDAQ:GOOGL']
 
-data = qndata.load_data(tail = dt.timedelta(days = 365*5),
-                        assets=assets_names,
-                        forward_order = True)
+data = qndata.stocks.load_data(tail= 365*5, assets=assets_names)
 
 price_open = data.sel(field="open")   
 ```

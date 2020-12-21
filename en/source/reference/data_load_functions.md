@@ -1,7 +1,7 @@
 # Data loading
 
 <p class="tip">
-This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/getting-started/first/first.html">Quick start</a> page.
+This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
 ## Assets
@@ -157,7 +157,7 @@ The output is an xarray DataArray with historical fundamental data.
 
 **Example**
 
-We have collected and processed a large amount of fundamental data for users. One can find the list of prepared data [here](https://quantiacs.io/documentation/ru/functional/functional_data.html). Data can be loaded in two ways.
+Data can be loaded in two ways.
 
 The first way is just to list the desired data labels.
 
