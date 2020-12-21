@@ -38,13 +38,11 @@ Contents
    :maxdepth: 1
    :caption: Examples
 
-   examples/examples_first.md
-   examples/examples_buy_and_hold.ipynb
-   examples/examples_advance_decline_line.ipynb
-   examples/examples_sRoc_wma_roc.ipynb
-   examples/examples_sRoc_Stochastic.ipynb
-   examples/examples_trend_based_strategy.ipynb
-   examples/examples_prepared_fundamental_data.ipynb
+   examples/blank_template_for_developing.ipynb
+   examples/quick_start.ipynb
+   examples/trend_based_strategy.ipynb
+   examples/futures_trend_following_with_custom_args.ipynb
+
 
 .. toctree::
    :maxdepth: 2
