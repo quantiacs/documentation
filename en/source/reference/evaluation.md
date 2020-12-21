@@ -23,25 +23,25 @@ qnt.stats.calc_stat(data, portfolio_history, slippage_factor=0.05, roll_slippage
 |min_periods|minimal number of days|
 |max_periods|max number of days|
 |per_asset|calculate stats per asset|
-|points_per_year|how many points per year to take as the basis for calculating the Sharpe ratio and mean the return
+|points_per_year|how many points per year to take as the basis for calculating mean the return
 
 **Output**
 
 The output is xarray with all statistics.
 
-|Output columns|
-|---|
-|equity|
-|relative_return|
-|volatility|
-|underwater|
-|max_drawdown|
-|sharpe_ratio|
-|mean_return|
-|bias|
-|instruments|
-|avg_turnover|
-|avg_holding_time|
+|Output columns|Explanation|
+|---|---|
+|equity|Profit strategy|
+|relative_return| Relative equity change|
+|volatility|Annualized Standard deviation of relative return|
+|underwater|The decrease in profit from the highest peak|
+|max_drawdown|Minimum of underwater|
+|mean_return|Annualized mean return|
+|sharpe_ratio|Annualized mean return / Annualized volatility|
+|bias|sum(position) / sum( abs(position) ) per day|
+|instruments|Number of traded financial instruments|
+|avg_turnover|Average monthly turnover of positions in the portfolio (one year)|
+|avg_holding_time|Average position holding time for one year|
 
 **Example**
 
