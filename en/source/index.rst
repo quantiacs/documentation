@@ -35,7 +35,7 @@ Contents
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Examples
 
    examples/blank_template_for_developing.ipynb
