@@ -20,6 +20,7 @@ Contents
    user_guide/data.md
    user_guide/functional_quality.md
    user_guide/code.md
+   user_guide/local_development.md
    user_guide/passFilters.md
 
 .. toctree::
