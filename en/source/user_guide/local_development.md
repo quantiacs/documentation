@@ -7,7 +7,7 @@ For this purpose, do these steps:
 1. Install [anaconda](https://www.anaconda.com/products/individual) (v2020.02 is recommended)
 2. Create an isolated environment for strategies development:
     ```bash
-    conda create --name qntdev quantnet::qnt quantnet::ta-lib conda-forge::dash
+    conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::dash=1.18 python=3.7
     ```
 Then set your API key. You can find it in your profile on https://quantiacs.io/personalpage/homepage .
 ```bash
@@ -55,7 +55,7 @@ conda env config vars set -n qntdev API_KEY={your_api_key_here}
 
 5. Use this command to start your strategy:
    ```bash
-python3 strategy.py
+    python3 strategy.py
    ```
 
 6. When you finish with your strategy, you need to upload 
