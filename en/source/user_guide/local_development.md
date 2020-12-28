@@ -9,7 +9,7 @@ For this purpose, do these steps:
     ```bash
     conda create --name qntdev quantnet::qnt quantnet::ta-lib conda-forge::dash
     ```
-Then set your API key. You can find it in your profile on https://quantiacs.io .
+Then set your API key. You can find it in your profile on https://quantiacs.io/personalpage/homepage .
 ```bash
 conda env config vars set -n qntdev API_KEY={your_api_key_here}
 ```
@@ -55,10 +55,8 @@ conda env config vars set -n qntdev API_KEY={your_api_key_here}
 
 5. Use this command to start your strategy:
    ```bash
-   API_KEY='{your_api_key}' python3 strategy.py
+python3 strategy.py
    ```
-
-   > API_KEY can be found in the user's [personal account](https://quantiacs.io/personalpage/homepage).
 
 6. When you finish with your strategy, you need to upload 
 your code the Jupyter Notebook on [https://quantiacs.io](https://quantiacs.io).
