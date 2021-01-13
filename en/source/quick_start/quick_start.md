@@ -156,7 +156,7 @@ The second check computes the In-Sample Sharpe ratio of your system. In this cas
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 
-If everything is ok, **save** the portfolio **weights** that the algorithm generates calling the "write" function:
+If everything is ok, **save** the portfolio **weights** that the algorithm generates calling the **write** function:
 
 ```python
 output.write(weights)
@@ -166,7 +166,7 @@ output.write(weights)
 
 * <a class="tip" href='/personalpage/strategies' target='_blank'>open</a> your personal account;
 * choose your strategy;
-* **click** on the **"Submit"** button.
+* **click** on the **Submit** button.
 
 ### Ready for More?
 
