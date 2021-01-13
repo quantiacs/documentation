@@ -15,7 +15,7 @@
 
 * <a class="tip" href='/personalpage/registration' target='_blank'>Register</a> to the platform;
 * Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>;
-* Create a strategy from scratch or clone one of the provided templates; after cloning you will be able to edit your strategy.ipynb file in Jupyter Notebook or JupyterLab;
+* Create a strategy from scratch or clone one of the provided templates; after cloning you will be able to edit your **strategy.ipynb** file in **Jupyter Notebook** or **JupyterLab**;
 * Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
 
 
