@@ -86,7 +86,7 @@ This example allocates weights proportionally to the **difference** between **pr
 ```python
 strategy = price_open - price_open_one_day_ago
 ```
-and trades all futures contracts which Quantiacs make available. Note that we **normalize** positions so that we are fully invested:
+and trades all futures contracts which Quantiacs makes available. Note that we **normalize** positions so that we are fully invested:
 
 ```python
 weights = strategy / abs(strategy).sum("asset")
