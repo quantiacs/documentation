@@ -119,12 +119,12 @@ The call will produce:
 
 * **equity**: the cumulative value of profits and losses since inception (1M USD);
 * **relative_return**: the relative daily variation of **equity**;
-* **volatility**: the volatility of the investment since inception (i.e. the annulaized standard deviation of the daily returns);
+* **volatility**: the volatility of the investment since inception (i.e. the annualized standard deviation of the daily returns);
 * **underwater**: the time evolution of drawdowns;
 * **max_drawdown**: the absolute minimum of the underwater chart;
 * **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 1 for taking part to contests;
 * **mean_return**: the annualized mean return of the investment since inception;
-* **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a shor-only system;
+* **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one;
 * **instruments**: the number of instruments which get allocations on a given day;
 * **avg_turnover**: the average turnover;
 * **avg_holding_time**: the average holding time in days.
