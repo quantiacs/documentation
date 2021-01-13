@@ -145,7 +145,7 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 
 Once you are satisfied with the quality of your algorithm you can submit it. The algorithm will be processed daily on our servers and it will accumulate a track record on live data. Each contest has a submission phase, during which you can submit code and replace it with new algos (you can have at most 50 running algorithms in your area), and a live phase, where submissions cannot be replaced and develop a track record.
 
-The "check" function will **show possible problems** that your strategy has:
+The **check** function will **show possible problems** that your strategy has:
 ```python
 output.check(weights, data, "futures")
 ```
