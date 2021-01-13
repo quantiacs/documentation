@@ -115,6 +115,20 @@ We can display the values of statistical indicators on a cumulative basis, assum
 display(statistics.to_pandas().tail())
 ```
 
+The call will produce:
+
+* **equity**: the cumulative value of profits and losses since inception (1M USD);
+* **relative_return**: the relative daily variation of **equity**;
+* **volatility**: the volatility of the investment since inception (i.e. the annulaized standard deviation of the daily returns);
+* **underwater**: the time evolution of drawdowns;
+* **max_drawdown**: the absolute minimum of the underwater chart;
+* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 1 for taking part to contests;
+* **mean_return**: the annualized mean return of the investment since inception;
+* **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a shor-only system;
+* **instruments**: the number of instruments which get allocations on a given day;
+* **avg_turnover**: the average turnover;
+* **avg_holding_time**: the average holding time in days.
+
 ![Statistical indicators](table.png)
 
 and produce a chart which shows the cumulative profits and losses:
@@ -125,7 +139,8 @@ performance = statistics.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 ```
 
-![Equity](futures.png)
+![Equity](newplot.png)
+
 #### 4. Submit
 
 Once you are satisfied with the quality of your algorithm you can submit it. The algorithm will be processed daily on our servers and it will accumulate a track record on live data. Each contest has a submission phase, during which you can submit code and replace it with new algos (you can have at most 50 running algorithms in your area), and a live phase, where submissions cannot be replaced and develop a track record.
