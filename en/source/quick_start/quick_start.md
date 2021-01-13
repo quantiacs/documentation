@@ -80,7 +80,7 @@ price_open_one_day_ago = qnta.shift(price_open, periods=1)
 
 Quantiacs uses an exposure-based backtester. The trading algorithm should define the fractions of capital which will be distributed to the assets (allocation weights). A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
 
-<p class="tip">Note that algorithm decisions can use all data available at the close of the session, and will be applied at the opening of the next day's session. The chosen allocation weights are translated to positions (number of contracts to be bought/sold) immediately after the close of the session and transactions are exectuted at the open of the next day.</p>
+<p class="tip">Note that algorithm decisions can use all data available at the close of the session, and will be applied at the opening of the next day's session. The chosen allocation weights are translated to positions (number of contracts to be bought/sold) immediately after the close of the session and transactions are executed at the open of the next day.</p>
 
 This example allocates weights proportionally to the **difference** between **prices** for today and yesterday:
 ```python
