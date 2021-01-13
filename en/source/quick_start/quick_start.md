@@ -95,7 +95,7 @@ weights = strategy / abs(strategy).sum("asset")
 The call to the **clean** function performs two operations:
 
 1) if there are trading days where the user did not specify any exposure, an exposure of "0" (no allocation) will be used;
-2) if the total sum of the absolute exposure is larger than 1, normalization to 1 will be applied (i.e. max. allowed leverage is 1);
+2) if the total sum of the absolute exposure is larger than 1, normalization to 1 will be applied (i.e. max. allowed leverage is 1).
 
 ```python
 weights = output.clean(weights, futures, "futures")
