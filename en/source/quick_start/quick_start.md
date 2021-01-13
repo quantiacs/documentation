@@ -129,6 +129,8 @@ The call will produce:
 * **avg_turnover**: the average turnover;
 * **avg_holding_time**: the average holding time in days.
 
+A detailed explanation can be found inspecting th source code for the library in your directory at **/qnt/stats.py**
+
 ![Statistical indicators](table.png)
 
 and produce a chart which shows the cumulative profits and losses:
