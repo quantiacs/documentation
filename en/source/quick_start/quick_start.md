@@ -156,6 +156,8 @@ The second check computes the In-Sample Sharpe ratio of your system. In this cas
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 
+![Check](check.png)
+
 If everything is ok, **save** the portfolio **weights** that the algorithm generates calling the **write** function:
 
 ```python
