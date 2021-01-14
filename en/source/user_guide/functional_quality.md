@@ -34,7 +34,9 @@ We can plot the equity chart on historical data by adding:
 ```python
 import qnt.stats as qnstats
 import qnt.graph as qngraph
+
 statistics = qnstats.calc_stat(data, weights)
+
 performance = statistics.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 ```
