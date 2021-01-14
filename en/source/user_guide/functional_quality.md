@@ -39,7 +39,7 @@ performance = statistics.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 ```
 
-
+![plot](./pictures/newplot.png)
 
 
 
