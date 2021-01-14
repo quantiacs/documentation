@@ -16,7 +16,7 @@ When you work inside the Quantiacs Jupyter environment you will have access to a
 
 **conda** is our preferred package manager but you can use also **pip** in the **init** file.
 
-- **precheck.ipynb**: this file allows you to pre-check your strategy. We advise you to run this notebook before submitting and fix all ERROR and WARNING cases.
+- **precheck.ipynb**: This file allows you to pre-check your strategy. Strategies need to pass filters for being accepted to our contests: for example, the In-Sample Sharpe ratio should be larger than 1 at submission time. We advise you to run this notebook before submitting your **strategy** and fix all ERROR and WARNING messages.
 
-- **strategy.ipynb**  this file contains your strategy for submission. We recommend using a separate instance of a jupyter notebook (which you can call for example research.ipynb) for research. Once you are ready to submit, you should remove unnecessary components and submit the optimized version in the strategy.ipynb file.
+- **strategy.ipynb**: This file MUST contain your strategy for submission. We recommend using a separate instance of a jupyter notebook (which you can call for example **research.ipynb**) for development. Once you are ready to submit, you should remove unnecessary components and submit the optimized version coded in the **strategy.ipynb** file.
 
