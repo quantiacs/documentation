@@ -78,6 +78,13 @@ in_sample_slice = weights.sel(time=slice("2006-01-01", None))
 statistics = qnstats.calc_stat(data, in_sample_slice)
 ```
 
+Results can be displayed calling:
+```python
+display(statistics.to_pandas().tail())
+```
+![long](./pictures/long.png)
+
+
 
 
 
