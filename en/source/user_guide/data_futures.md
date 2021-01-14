@@ -10,7 +10,7 @@ future_list = qndata.futures.load_list()
 future_list
 ```
 
-The command returns a list with all available futures contracts, with their identifiyng symbols and full names:
+The command returns a list with all available futures contracts, with their identifying symbols and full names:
 
 ```python
 [{'id': 'F_AD', 'name': 'Australian Dollar'},
