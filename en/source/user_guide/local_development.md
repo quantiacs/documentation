@@ -11,6 +11,8 @@ You can follow these easy steps and create an isolated environment on your machi
     ```
 3. Set your API key. You can find it in your profile on your personal Quantiacs area.
 
+   ![key](./pictures/key.png)
+
     ```bash
     conda env config vars set -n qntdev API_KEY={your_api_key_here}
     ```
