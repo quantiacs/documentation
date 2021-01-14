@@ -1,10 +1,18 @@
 # Cryptocurrencies
 
-Quantiacs provides up-to-date data - transaction price and volume - for the following cryptocurrencies: Bitcoin (BTC), Bitcoin Cash (BCH), EOS, Ethereum (ETH), Litecoin (LTC),  Tether (USDT) and Ripple (XRP). 
+Quantiacs provides up-to-date hourly data - price and volume - for the following cryptocurrencies: 
 
-The available cryptocurrency data for the last 5 years can be downloaded using:
+* Bitcoin (BTC); 
+* Bitcoin Cash (BCH);
+* EOS;
+* Ethereum (ETH);
+* Litecoin (LTC);
+* Ripple (XRP);
+* Tether (USDT). 
+
+The available cryptocurrency data for the last 5 years can be loaded using:
 ```python
-import qnt.data    as qndata
+import qnt.data as qndata
 
 crypto_data = qndata.crypto.load_data(tail = 365 * 5)
 ```
