@@ -11,23 +11,37 @@ import qnt.ta as qnta
 import qnt.data as qndata
 import qnt.output as qnout
 
-data = qndata.futures_load_data(tail=365 * 15, assets= ['F_ES'])
+data = qndata.futures_load_data(tail=365 * 15, assets= ["F_ES"])
 
-close = data.sel(field='close')
+close = data.sel(field="close")
 
 sma150 = qnta.sma(close, 150)
 sma20  = qnta.sma(close, 20)
 
 weights = xr.where(sma150 < sma20, 1, 0)
 
-weights = qnout.clean(weights, data)
+weights = weights / abs(weights).sum("asset")
 
-qnout.check(weights, data)
+weights = qnout.clean(weights, data, "futures")
+
+qnout.check(weights, data, "futures")
 
 qnout.write(weights)
 ```
 
-plotted the equity chart on historical data, we use a set of criteria to evaluate the performance. Current competition rules are available [here](https://quantiacs.io/contest).
+We can plot the equity chart on historical data by adding:
+
+```python
+import qnt.stats as qnstats
+import qnt.graph as qngraph
+statistics = qnstats.calc_stat(data, weights)
+performance = statistics.to_pandas()["equity"]
+qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
+```
+
+
+
+
 
 ## Sharpe ratio
 >The key performance indicator is the Sharpe ratio.
