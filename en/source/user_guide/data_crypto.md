@@ -31,39 +31,34 @@ For each cryptocurrency data are available on an hourly resolution. **crypto_dat
 
 ![crypto_coords](./pictures/coords_cry.png)
 
-It contains **5 parameters**:
-```python
-crypto_data.field
-```
-![crypto_field](./pictures/crypto_fields.PNG)
+Specific fields are given by:
 
 | Data field | Description |
 | ------------------ | -------- |
-| open               | First price in the selected hour.|
-| close              | Last price in the selected hour. |
-| high               | Highest hourly price. |
-| low                | Lowest hourly price. |
-| vol                | Hourly trading volume in the related cryptocurrency value.|
+| open               | First price in a given hour.|
+| close              | Last price in a given hour. |
+| high               | Highest price in a given hour. |
+| low                | Lowest price in a given hour. |
+| vol                | Hourly trading volume.|
 
-Let us say that we are interested in the highest hourly price for BTC. We can use:
+Let us say that we are interested in the highest hourly price for BTC. We can extract it using:
 
 ```python
 BTC_high = crypto_data.sel(field = 'high').sel(asset = 'BTC')
 ```
 
-Data can be visualized using:
+The data can be visualized using:
 
 ```python
-import plotly.graph_objs as go         # lib for charts
+import plotly.graph_objs as go
 
-trend_fig = [
-    go.Scatter(
-        x = BTC_high.to_pandas().index,
-        y = BTC_high,
-        line = dict(width=1,color='black'))]
-# draw chart
+trend_fig = [go.Scatter(
+    x = BTC_high.to_pandas().index,
+    y = BTC_high,
+    line = dict(width=1,color='black'))]
+
 fig = go.Figure(data = trend_fig)
-fig.update_yaxes(fixedrange=False) # unlock vertical scrolling
+fig.update_yaxes(fixedrange=False)
 fig.show()
 ```
 
