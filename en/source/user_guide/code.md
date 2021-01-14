@@ -6,9 +6,12 @@ When you work inside the Quantiacs Jupyter environment you will have access to a
 
 - **qnt** - This directory contains the source code of the Quantiacs backtester, including all functions to deal with data and statistical indicators. You can use it as a reference if you are interested in the details of the evaluation. If you have a question or find a bug, please contact us at info@quantiacs.com. Note that the sub-directory **ta** contains useful technical indicators.
 
-- **init.ipynb** - This file can be used for installing the additional libraries needed by your strategy, like keras or sklearn. The evaluator will run this file once to prepare the environment for your strategy. As Jupyter allows you to run shell commands using !, you can for example type:
+- **init.ipynb** - This file can be used for installing the additional libraries needed by your strategy, like keras or sklearn. The evaluator will run this file once to prepare the environment for your strategy. Let us suppose you want to use seaborn for visualizing data,https://seaborn.pydata.org/. As Jupyter allows you to run shell commands using !, you can for example type:
 
-! conda install -y scikit-learn
+```python
+! conda install -y seaborn
+```
+
 
 - **precheck.ipynb** - this file allows you to pre-check your strategy. We advise you to run this notebook before submitting and fix all ERROR and WARNING cases.
 
