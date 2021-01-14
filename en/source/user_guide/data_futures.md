@@ -92,13 +92,25 @@ The command returns a list with all available futures contracts, with their iden
 
 ##  Using the data
 
-Suppose that we want to use in a strategy the data for the last 5 years. We can use:
+Suppose that we want to use in a strategy the data for the last 15 years. We can use:
 
 ```python
 import qnt.data as qndata
 
-futures_data = qndata.futures.load_data(tail = 365*5, dims = ("time", "field", "asset"))
+futures_data = qndata.futures.load_data(tail = 365*15, dims = ("time", "field", "asset"))
+```
 
+The variable **futures_data** is an xarray.DataArray structure whose coordinates are: 
+
+* **time**: a date in format yyyy-mm-dd;
+* **field**: an attribute, for example the opening daily price;
+* **asset**: the identifying symbol for the asset, for example **F_BP** for the British Pound/US Dollar ratio.
+
+![coords](./pictures/coords.png)
+
+Specific fields can be extracted using:
+
+```python
 futures_open  = futures_data.sel(field="open")
 futures_close = futures_data.sel(field="close")
 futures_high  = futures_data.sel(field="high")
