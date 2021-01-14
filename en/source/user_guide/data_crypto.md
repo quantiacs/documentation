@@ -17,13 +17,16 @@ import qnt.data as qndata
 crypto_data = qndata.crypto.load_data(tail = 365 * 5)
 ```
 
-The list of available cryptocurrencies can be obtained as:
+The list of available cryptocurrencies can be obtained writing:
 ```python
 crypto_data.asset
 ```
 ![crypto_asset](./pictures/crypto_asset.PNG)
 
-For each of them hourly data is provided. It contains **5 parameters**:
+For each cryptocurrency data are available on an hourly resolution. **crypto_data** is an xarray.DataArray 
+
+
+It contains **5 parameters**:
 ```python
 crypto_data.field
 ```
