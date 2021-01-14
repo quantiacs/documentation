@@ -1,5 +1,5 @@
 # Futures
-Quantiacs provides data for 75 global futures contracts. The underlying assets are currency ratios, stock indices, bonds, and commodities from the world's futures exchanges.
+Quantiacs provides data for 75 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
 ##  List of futures
 The information about available futures contracts can be obtained using:
@@ -7,105 +7,106 @@ The information about available futures contracts can be obtained using:
 ```python
 import qnt.data as qndata
 future_list = qndata.futures.load_list()
-```
-
-For each futures, a brief information is provided:
-```python
 future_list
 ```
+
+The command returns a list with all available futures contracts, with their identifiyng symbols and full names:
+
 ```python
-[{'id': 'A6', 'name': 'Australian Dollar'},
- {'id': 'AE', 'name': 'Aex Index'},
- {'id': 'AH', 'name': 'Bberg Commodity Index'},
- {'id': 'B6', 'name': 'British Pound'},
- {'id': 'CB', 'name': 'Crude Oil Brent'},
- {'id': 'CC', 'name': 'Cocoa'},
- {'id': 'CF', 'name': 'Eurex Conf Long-Term'},
- {'id': 'CL', 'name': 'Crude Oil WTI'},
- {'id': 'CT', 'name': 'Cotton #2'},
- {'id': 'D6', 'name': 'Canadian Dollar'},
- {'id': 'DM', 'name': 'Mdax Index'},
- {'id': 'DX', 'name': 'U.S. Dollar Index'},
- {'id': 'DY', 'name': 'DAX Index'},
- {'id': 'E6', 'name': 'Euro FX'},
- {'id': 'ES', 'name': 'S&P 500 E-Mini'},
- {'id': 'EW', 'name': 'S&P Midcap E-Mini'},
- {'id': 'F', 'name': '3-Month Euroswiss'},
- {'id': 'FB', 'name': 'Stoxx Banks 600'},
- {'id': 'FP', 'name': 'OMX Helsinki 25'},
- {'id': 'FS', 'name': 'Stoxx 50'},
- {'id': 'FY', 'name': 'Stoxx Europe 600'},
- {'id': 'G', 'name': '10-Year Long Gilt'},
- {'id': 'GC', 'name': 'Gold'},
- {'id': 'GE', 'name': 'Eurodollar'},
- {'id': 'GF', 'name': 'Feeder Cattle'},
- {'id': 'GG', 'name': 'Euro Bund'},
- {'id': 'GX', 'name': 'Euro Buxl'},
- {'id': 'HE', 'name': 'Lean Hogs'},
- {'id': 'HF', 'name': 'Euro Schatz'},
- {'id': 'HG', 'name': 'High Grade Copper'},
- {'id': 'HR', 'name': 'Euro Bobl'},
- {'id': 'J6', 'name': 'Japanese Yen'},
- {'id': 'KC', 'name': 'Coffee'},
- {'id': 'L', 'name': '3-Month Sterling'},
- {'id': 'L6', 'name': 'Brazilian Real'},
- {'id': 'LE', 'name': 'Live Cattle'},
- {'id': 'LF', 'name': 'ICE Gas Oil LS'},
- {'id': 'LO', 'name': 'ICE Heating Oil'},
- {'id': 'LS', 'name': 'Lumber'},
- {'id': 'M6', 'name': 'Mexican Peso'},
- {'id': 'MX', 'name': 'CAC 40'},
- {'id': 'N6', 'name': 'New Zealand Dollar'},
- {'id': 'NG', 'name': 'Natural Gas'},
- {'id': 'NQ', 'name': 'Nasdaq 100 E-Mini'},
- {'id': 'NY', 'name': 'Nikkei 225'},
- {'id': 'OJ', 'name': 'Orange Juice'},
- {'id': 'PA', 'name': 'Palladium'},
- {'id': 'PL', 'name': 'Platinum'},
- {'id': 'QR', 'name': 'Russell 2000 E-Mini'},
- {'id': 'R6', 'name': 'Russian Ruble'},
- {'id': 'RB', 'name': 'Gasoline RBOB'},
- {'id': 'RF', 'name': 'Euro/Swiss'},
- {'id': 'RP', 'name': 'Euro/Pound'},
- {'id': 'RY', 'name': 'Euro/Yen'},
- {'id': 'S6', 'name': 'Swiss Franc'},
- {'id': 'SB', 'name': 'Sugar #11'},
- {'id': 'SI', 'name': 'Silver'},
- {'id': 'SZ', 'name': 'Swiss Market Index'},
- {'id': 'T6', 'name': 'South African Rand'},
- {'id': 'TV', 'name': 'Eurex 3Month EuriBor'},
- {'id': 'VI', 'name': 'S&P 500 VIX'},
- {'id': 'X', 'name': 'FTSE 100'},
- {'id': 'YM', 'name': 'Dow Futures Mini'},
- {'id': 'ZB', 'name': 'T-Bond'},
- {'id': 'ZC', 'name': 'Corn'},
- {'id': 'ZF', 'name': '5-Year T-Note'},
- {'id': 'ZL', 'name': 'Soybean Oil'},
- {'id': 'ZM', 'name': 'Soybean Meal'},
- {'id': 'ZN', 'name': '10-Year T-Note'},
- {'id': 'ZO', 'name': 'Oats'},
- {'id': 'ZQ', 'name': '30-Day Fed Funds'},
- {'id': 'ZR', 'name': 'Rough Rice'},
- {'id': 'ZS', 'name': 'Soybean'},
- {'id': 'ZT', 'name': '2-Year T-Note'},
- {'id': 'ZW', 'name': 'Wheat'}]
+[{'id': 'F_AD', 'name': 'Australian Dollar'},
+ {'id': 'F_AE', 'name': 'Aex Index'},
+ {'id': 'F_AH', 'name': 'Bberg Commodity Index'},
+ {'id': 'F_AX', 'name': 'DAX Index'},
+ {'id': 'F_BC', 'name': 'Crude Oil Brent'},
+ {'id': 'F_BG', 'name': 'ICE Gas Oil LS'},
+ {'id': 'F_BO', 'name': 'Soybean Oil'},
+ {'id': 'F_BP', 'name': 'British Pound'},
+ {'id': 'F_C', 'name': 'Corn'},
+ {'id': 'F_CA', 'name': 'CAC 40'},
+ {'id': 'F_CC', 'name': 'Cocoa'},
+ {'id': 'F_CD', 'name': 'Canadian Dollar'},
+ {'id': 'F_CF', 'name': 'Eurex Conf Long-Term'},
+ {'id': 'F_CL', 'name': 'Crude Oil WTI'},
+ {'id': 'F_CT', 'name': 'Cotton #2'},
+ {'id': 'F_DM', 'name': 'Mdax Index'},
+ {'id': 'F_DT', 'name': 'Euro Bund'},
+ {'id': 'F_DX', 'name': 'U.S. Dollar Index'},
+ {'id': 'F_EB', 'name': 'Eurex 3Month EuriBor'},
+ {'id': 'F_EC', 'name': 'Euro FX'},
+ {'id': 'F_ED', 'name': 'Eurodollar'},
+ {'id': 'F_ES', 'name': 'S&P 500 E-Mini'},
+ {'id': 'F_F', 'name': '3-Month Euroswiss'},
+ {'id': 'F_FB', 'name': 'Stoxx Banks 600'},
+ {'id': 'F_FC', 'name': 'Feeder Cattle'},
+ {'id': 'F_FP', 'name': 'OMX Helsinki 25'},
+ {'id': 'F_FV', 'name': '5-Year T-Note'},
+ {'id': 'F_FY', 'name': 'Stoxx Europe 600'},
+ {'id': 'F_GC', 'name': 'Gold'},
+ {'id': 'F_GS', 'name': '10-Year Long Gilt'},
+ {'id': 'F_GX', 'name': 'Euro Buxl'},
+ {'id': 'F_HG', 'name': 'High Grade Copper'},
+ {'id': 'F_HO', 'name': 'ICE Heating Oil'},
+ {'id': 'F_JY', 'name': 'Japanese Yen'},
+ {'id': 'F_KC', 'name': 'Coffee'},
+ {'id': 'F_LB', 'name': 'Lumber'},
+ {'id': 'F_LC', 'name': 'Live Cattle'},
+ {'id': 'F_LN', 'name': 'Lean Hogs'},
+ {'id': 'F_LR', 'name': 'Brazilian Real'},
+ {'id': 'F_LX', 'name': 'FTSE 100'},
+ {'id': 'F_MD', 'name': 'S&P Midcap E-Mini'},
+ {'id': 'F_MP', 'name': 'Mexican Peso'},
+ {'id': 'F_ND', 'name': 'New Zealand Dollar'},
+ {'id': 'F_NG', 'name': 'Natural Gas'},
+ {'id': 'F_NQ', 'name': 'Nasdaq 100 E-Mini'},
+ {'id': 'F_NR', 'name': 'Rough Rice'},
+ {'id': 'F_NY', 'name': 'Nikkei 225'},
+ {'id': 'F_O', 'name': 'Oats'},
+ {'id': 'F_OJ', 'name': 'Orange Juice'},
+ {'id': 'F_PA', 'name': 'Palladium'},
+ {'id': 'F_PL', 'name': 'Platinum'},
+ {'id': 'F_RB', 'name': 'Gasoline RBOB'},
+ {'id': 'F_RF', 'name': 'Euro/Swiss'},
+ {'id': 'F_RP', 'name': 'Euro/Pound'},
+ {'id': 'F_RR', 'name': 'Russian Ruble'},
+ {'id': 'F_RU', 'name': 'Russell 2000 E-Mini'},
+ {'id': 'F_RY', 'name': 'Euro/Yen'},
+ {'id': 'F_S', 'name': 'Soybean'},
+ {'id': 'F_SB', 'name': 'Sugar #11'},
+ {'id': 'F_SF', 'name': 'Swiss Franc'},
+ {'id': 'F_SI', 'name': 'Silver'},
+ {'id': 'F_SM', 'name': 'Soybean Meal'},
+ {'id': 'F_SS', 'name': '3-Month Sterling'},
+ {'id': 'F_SX', 'name': 'Swiss Market Index'},
+ {'id': 'F_TR', 'name': 'South African Rand'},
+ {'id': 'F_TU', 'name': '2-Year T-Note'},
+ {'id': 'F_TY', 'name': '10-Year T-Note'},
+ {'id': 'F_UB', 'name': 'Euro Bobl'},
+ {'id': 'F_US', 'name': 'T-Bond'},
+ {'id': 'F_UZ', 'name': 'Euro Schatz'},
+ {'id': 'F_VX', 'name': 'S&P 500 VIX'},
+ {'id': 'F_W', 'name': 'Wheat'},
+ {'id': 'F_XX', 'name': 'Stoxx 50'},
+ {'id': 'F_YM', 'name': 'Dow Futures Mini'},
+ {'id': 'F_ZQ', 'name': '30-Day Fed Funds'}]
 ```
 
-##  Downloading the data
+##  Using the data
 
-Suppose that we want to download the data for the last 5 years. We can use:
+Suppose that we want to use in a strategy the data for the last 5 years. We can use:
 
 ```python
 import qnt.data as qndata
 
 futures_data = qndata.futures.load_data(tail = 365*5, dims = ("time", "field", "asset"))
 
-futures_open = futures_data.sel(field="open")
+futures_open  = futures_data.sel(field="open")
 futures_close = futures_data.sel(field="close")
-futures_high = futures_data.sel(field="high")
-futures_low = futures_data.sel(field="low")
-volume_day = futures_data.sel(field="vol")
+futures_high  = futures_data.sel(field="high")
+futures_low   = futures_data.sel(field="low")
+
+volume_day    = futures_data.sel(field="vol")
 open_interest = futures_data.sel(field="oi")
+
 contracts_roll_over = futures_data.sel(field="roll")
 ```
 
@@ -115,29 +116,28 @@ contracts_roll_over = futures_data.sel(field="roll")
 | close              | Closing daily price. |
 | high               | Highest daily price.|
 | low                | Lowest daily price. |
-| vol                | Daily trading volume in number of contracts.|
-| oi                 | The total number of outstanding contracts.|
-| roll              | Futures contracts rollover information.|
+| vol                | Daily trading volume (number of contracts).|
+| oi                 | Total number of outstanding contracts.|
+| roll              | Futures contract rollover information.|
 
-Let us say that we are interested in British pound futures. We can get the close price as follows:
+Values for specific contracts can be obtained selecting the asset. Let us say that we are interested in British pound futures. We can get the close price as follows:
 
 ```python
 GBP_USD = futures_data.sel(asset = 'F_BP').sel(field = 'close')
 ```
 
-For visualizing the data we can use:
+For visualizing the data we can use for example the plotly library (https://plotly.com/):
 
 ```python
-import plotly.graph_objs as go         # lib for charts
-trend_fig = [
-    go.Scatter(
-        x = GBP_USD.to_pandas().index,
-        y = GBP_USD,
-        line = dict(width=1,color='black'))]
+import plotly.graph_objs as go
 
-# draw chart
+trend_fig = [go.Scatter(
+    x = GBP_USD.to_pandas().index,
+    y = GBP_USD,
+    line = dict(width=1, color='black'))]
+
 fig = go.Figure(data = trend_fig)
-fig.update_yaxes(fixedrange=False) # unlock vertical scrolling
+fig.update_yaxes(fixedrange=False)
 fig.show()
 ```
 
