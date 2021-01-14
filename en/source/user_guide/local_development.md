@@ -9,10 +9,11 @@ You can follow these easy steps and create an isolated environment on your machi
     ```bash
     conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::dash=1.18 python=3.7
     ```
-3. Then set your API key. You can find it in your profile on your personal Quantiacs area.
-```bash
-conda env config vars set -n qntdev API_KEY={your_api_key_here}
-```
+3. Set your API key. You can find it in your profile on your personal Quantiacs area.
+
+    ```bash
+    conda env config vars set -n qntdev API_KEY={your_api_key_here}
+    ```
 
 4. Activate your environment if not yet activated:
    ```bash
