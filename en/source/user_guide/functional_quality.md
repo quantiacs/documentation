@@ -84,6 +84,8 @@ display(statistics.to_pandas().tail())
 ```
 ![long](./pictures/long.png)
 
+Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 1!**
+
 
 
 
