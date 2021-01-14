@@ -163,5 +163,5 @@ The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spo
 ```python
 import qnt.data as qndata
 
-btc_data = qndata.cryptofutures.load_data(tail = 8*365, dims = ("time", "field", "asset"))
+btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ("time", "field", "asset"))
 ```
