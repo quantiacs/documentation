@@ -59,7 +59,7 @@ You can follow these easy steps and create an isolated environment on your machi
    )
    ```
 
-6. Use this command to start your strategy (replace **python** with **python3** if your default python version is 2):
+6. Use this command to run your strategy (replace **python** with **python3** if your default python version is 2):
    ```bash
     python strategy.py
    ```
