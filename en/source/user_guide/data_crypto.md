@@ -23,8 +23,13 @@ crypto_data.asset
 ```
 ![crypto_asset](./pictures/crypto_asset.PNG)
 
-For each cryptocurrency data are available on an hourly resolution. **crypto_data** is an xarray.DataArray 
+For each cryptocurrency data are available on an hourly resolution. **crypto_data** is an xarray.DataArray structure whose coordinates are:
 
+* **time**: a date-time in format yyyy-mm-ddTHH-MM-SS;
+* **field**: an attribute, for example the opening hourly price;
+* **asset**: the identifying symbol for the asset, for example ETH for Ethereum.
+
+![crypto_coords](./pictures/coords_cry.png)
 
 It contains **5 parameters**:
 ```python
