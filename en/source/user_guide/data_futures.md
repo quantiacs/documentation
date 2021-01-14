@@ -108,6 +108,7 @@ The variable **futures_data** is an xarray.DataArray structure whose coordinates
 
 ![coords](./pictures/coords.png)
 
+
 Specific fields can be extracted using:
 
 ```python
