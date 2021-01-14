@@ -41,7 +41,24 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 
 ![plot](./pictures/newplot.png)
 
-Key statistical indicators can be obtained by calling the **calc_stat** function. It can be called in 3 different ways:
+Key statistical indicators can be obtained by calling the **calc_stat** function. Some indicators are defined on a daily basis:
+
+* **equity**: the cumulative value of profits and losses since inception (1M USD);
+* **relative_return**: the relative daily variation of **equity**;
+* **underwater**: the time evolution of drawdowns;
+* **max_drawdown**: the absolute minimum of the underwater chart;
+* **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one;
+* **instruments**: the number of instruments which get allocations on a given day.
+
+Other indicators imply an average over time:
+
+* **volatility**: the volatility of the investment since inception (i.e. the annualized standard deviation of the daily returns);
+* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 1 for taking part to contests;
+* **mean_return**: the annualized mean return of the investment since inception;
+* **avg_turnover**: the average turnover;
+* **avg_holding_time**: the average holding time in days.
+
+The **calc_stat** function can be called in 3 different ways which affect the lookback periods for averages:
 
 * default arguments: 
 ```python
@@ -57,7 +74,7 @@ The results will be displayed on a rolling basis, i.e. they will include all las
 
 * specifying the beginning of the in-sample period:
 ```python
-in_sample_slice = weights.sel(time=slice=("2006-01-01", None))
+in_sample_slice = weights.sel(time=slice("2006-01-01", None))
 statistics = qnstats.calc_stat(data, in_sample_slice)
 ```
 
