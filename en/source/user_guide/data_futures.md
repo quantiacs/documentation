@@ -155,3 +155,13 @@ fig.show()
 ```
 
 ![GBP_USD](./pictures/GBP_USD.PNG)
+
+##  Using the BTC Futures
+
+The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spot price) can be loaded using:
+
+```python
+import qnt.data as qndata
+
+btc_data = qndata.cryptofutures.load_data(tail = 8*365, dims = ("time", "field", "asset"))
+```
