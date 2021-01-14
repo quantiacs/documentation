@@ -1,7 +1,7 @@
 # Futures
 Quantiacs provides data for 75 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
-##  List of futures
+##  List of Futures
 The information about available futures contracts can be obtained using:
 
 ```python
@@ -90,7 +90,7 @@ The command returns a list with all available futures contracts, with their iden
  {'id': 'F_ZQ', 'name': '30-Day Fed Funds'}]
 ```
 
-##  Using the data
+##  Using the Data
 
 Suppose that we want to use in a strategy the data for the last 15 years. We can use:
 
