@@ -28,9 +28,8 @@ You can follow these easy steps and create an isolated environment on your machi
    Each time you want to use the QNT library, reactivate the environment.
 
 
-5. Develop your strategy using the IDE you like. A good starting point is represented by:
+5. Develop your strategy using the IDE you like. A good starting point is represented by the following **strategy.py** file:
 
-   *strategy.py:*
    ```python
    import qnt.ta as qnta
    import qnt.data as qndata
