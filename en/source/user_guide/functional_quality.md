@@ -41,72 +41,26 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)")
 
 ![plot](./pictures/newplot.png)
 
+Key statistical indicators can be obtained by calling the **calc_stat** function. It can be called in 3 different ways:
 
-
-## Sharpe ratio
->The key performance indicator is the Sharpe ratio.
-
-The value of the Sharpe ratio can be read with the following function:
-
+* default arguments: 
 ```python
-import qnt.stats as qnstats
+statistics = qnstats.calc_stat(data, weights)
+```
+The results will be displayed on a cumulative basis, i.e. they will include all data since the beginning of the time series **data**.
 
-def estimate_sharpe(data, weights_final):
-    stat = qnstats.calc_stat(data, weights_final, slippage_factor=0.05)
-    days = len(stat.coords["time"])
-    returns = stat.loc[:, "relative_return"]
-    
-    sharpe_ratio = qnstats.calc_sharpe_ratio_annualized(
-        returns,
-        max_periods=days,
-        min_periods=days).to_pandas().values[-1]
-    
-    print(f'Sharpe ratio = {sharpe_ratio}')
+* specifying a pre-defined window (for example, the last year):
+```python
+statistics = qnstats.calc_stat(data, weights, max_period=252)
+```
+The results will be displayed on a rolling basis, i.e. they will include all last 252 points in **data**.
+
+* specifying the beginning of the in-sample period:
+```python
+in_sample_slice = weights.sel(time=slice=("2006-01-01", None))
+statistics = qnstats.calc_stat(data, in_sample_slice)
 ```
 
-## Statistics
 
-Other statistical figures can be obtained with the following function:
 
-```python
-def print_stat(stat):
-    """Prints selected statistical key indicators:
-       - the global Sharpe ratio of the strategy;
-       - the global mean profit;
-       - the global volatility;
-       - the maximum drawdown.
 
-       Note that Sharpe ratio, mean profit and volatility
-       apply to  max simulation period, and not to the
-       rolling basis of 3 years.
-    """
-
-    days = len(stat.coords["time"])
-
-    returns = stat.loc[:, "relative_return"]
-
-    equity = stat.loc[:, "equity"]
-
-    sharpe_ratio = qnstats.calc_sharpe_ratio_annualized(
-        returns,
-        max_periods=days,
-        min_periods=days).to_pandas().values[-1]
-
-    profit = (qnstats.calc_mean_return_annualized(
-        returns,
-        max_periods=days,
-        min_periods=days).to_pandas().values[-1])*100.0
-
-    volatility = (qnstats.calc_volatility_annualized(
-        returns,
-        max_periods=days,
-        min_periods=days).to_pandas().values[-1])*100.0
-
-    max_ddown = (qnstats.calc_max_drawdown(
-        qnstats.calc_underwater(equity)).to_pandas().values[-1])*100.0
-
-    print("Sharpe Ratio         : ", "{0:.3f}".format(sharpe_ratio))
-    print("Mean Return [%]      : ", "{0:.3f}".format(profit))
-    print("Volatility [%]       : ", "{0:.3f}".format(volatility))
-    print("Maximum Drawdown [%] : ", "{0:.3f}".format(-max_ddown))
-```
