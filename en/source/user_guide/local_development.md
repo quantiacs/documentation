@@ -79,6 +79,9 @@ your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2
 
 8. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to run the file **precheck.ipynb**. 
 
-9. Send your strategy to the Contest from the **Development** area on your home page by clicking on the **Submit** button.
+9. Send your strategy to the Contest from the **Development** area on your home page by clicking on the **Submit** button:
+
+   ![submit](./pictures/submit.png)
+
 
 10. Wait for your strategy to pass contest filters and take part to the Contest.
