@@ -67,7 +67,9 @@ You can follow these easy steps and create an isolated environment on your machi
 7. When you finish with developing your strategy, you need to upload 
 your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2 options:
 
-    a) Copy and paste your code inside the cell of a Jupyter Notebook;
+    a) Copy and paste your code inside the cell of a Jupyter Notebook:
+    
+    ![nb](./pictures/notebook.png)
 
     b) Upload your python file (for example, **strategy.py**) in your Jupyter environment root directory and type in **strategy.ipynb**:
 
