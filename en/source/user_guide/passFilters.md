@@ -6,8 +6,10 @@ For submitting a strategy to a contest you have to click on the **Submit** butto
    
 After submission your code will be checked on our servers and its status will appear in the **Competition** section of your account under the tab **Checking**:
 
+![test](./pictures/test.png)
 
-Your algorithm has several checks (filters) in order to be admitted to a competition.
+
+Your algorithm will be admitted to the Contest if it passes checks (filters). In case of success you will find your code under the **Running** tab. Otherwise it will be listed under the **Filtered** tab where you will be able to inspect the logs and determine the reason for the error.
 
 ## Technical filters
 
