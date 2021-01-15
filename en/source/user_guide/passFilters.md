@@ -17,7 +17,7 @@ Your algorithm will be admitted to the Contest if it passes checks (filters). In
 An error message stating that the **strategy.ipynb** file was not found is connected to a non-standard name for the file containing your strategy. This file must be named **strategy.ipynb**.
 
 ### Source file must be compiled
-An error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
+If you see an error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
 ### Weights must be written
 An error message stating the calling to the **write_output** function is skipped, then your strategy does not save the final weight. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)** assuming that you used **weights** for the final allocation weights.
