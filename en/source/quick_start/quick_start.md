@@ -133,7 +133,7 @@ A detailed explanation can be found inspecting th source code for the library in
 
 ![Statistical indicators](table.png)
 
-and produce a chart which shows the cumulative profits and losses:
+Moreover we can produce a chart which shows the cumulative profits and losses:
 
 ```python
 import qnt.graph as qngraph
