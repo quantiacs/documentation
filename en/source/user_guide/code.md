@@ -1,4 +1,4 @@
-# Your Environment
+# Your environment
 
 When you work inside the Quantiacs Jupyter environment you will have access to a root directory with several sub-directories and files.
 
