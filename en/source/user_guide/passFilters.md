@@ -13,32 +13,28 @@ Your algorithm will be admitted to the Contest if it passes checks (filters). In
 
 ## Technical filters
 
-### strategy.ipynb
-If you see the message "strategy.ipynb was not found", then please check the name of the main strategy file, it should be named **strategy.ipynb**.
+### Source file must exist
+An error message stating that the **strategy.ipynb** file was not found is connected to a non-standard name for the file containing your strategy. This file must be named **strategy.ipynb**.
 
-### Timeout
-The strategy calculation should not exceed a given time. If you see the message "Calculation time exceeded", then you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes, bitcoin futures systems in 5 minutes and equity systems in 30 minutes.
+### Source file must be compiled
+An error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
-### strategy.ipynb compilation
-If you see the message "strategy.ipynb does not compile", then most likely an error occurred while calculating the strategy.
+### Weights must be written
+An error message stating the calling to the **write_output** function is skipped, then your strategy does not save the final weight. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)** assuming that you used **weights** for the final allocation weights.
 
-- Be sure to check the logs, normally they will provide the necessary information.
+### All data must be loaded
+An error message stating that data are loaded only until a certain day is due to the fact that you are loading data setting a max parameter for the days. Remove this parameter when you submit, as your system needs to run on a daily basis on new positions.
 
-- Pay also attention to the reference date in the logs. You can use it to reproduce the bug in **precheck.ipynb**. (Substitute this date in the **dates** array when calling **evaluate_passes**.)
+### Weights must be generated for all trading days
+An error message stating that the strategy does not display weights for all trading days means that weights for some days are not generated, for example because of a **drop** operation. This problem can be avoided using the function **qnt.output.check(weights, data, "futures")**, assuming that you are working with futures and you are generating **weights** on **data**.
 
-### Write_output
-If you see the message "The call to the write_output function is skipped", then your strategy does not save the result of calculations.
-I.е. the call of **write_output** is skipped. Add this call to the end of the **strategy.ipynb** file.
 
-### last data
-If you see the message "Data is loaded only until a certain day", then in your template the data is loaded with the specified **max_date** parameter. Remove it.
+## Timeout
+An error message stating that the strategy calculation exceed a given time, then you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes and Bitcoin futures systems in 5 minutes of time.
 
-### Number of strategies
-If you see the message "Strategy limit exceeded", it means that you have submitted too many strategies. You can have at most 50 strategies in your area.
 
-### output dates
-If you see the message "The strategy does not display weights for all trading days", it means that some days are missing in the output of your strategy.
-Check if you are using a drop operation on the time axis.
+## Number of strategies
+An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 5 for the contest.
 
 ## Sharpe ratio
-If you see a message informaing you that the Sharpe ratio is smaller than 1, it means that the performance of your strategy in the in-sample period is too small and the Sharpe ratio should be improved.
+An error message stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved.
