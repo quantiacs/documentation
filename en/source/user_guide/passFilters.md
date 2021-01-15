@@ -30,7 +30,7 @@ An error message stating that the strategy does not display weights for all trad
 
 
 ## Timeout
-An error message stating that the strategy calculation exceed a given time, then you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes and Bitcoin futures systems in 5 minutes of time.
+An error message stating that the strategy calculation exceeds a given time implies that you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes and Bitcoin futures systems in 5 minutes of time.
 
 
 ## Number of strategies
