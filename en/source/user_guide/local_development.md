@@ -28,7 +28,7 @@ You can follow these easy steps and create an isolated environment on your machi
    Each time you want to use the QNT library, reactivate the environment.
 
 
-5. Develop your strategy using the IDE you like. A good starting point is represented by the following **strategy.py** file:
+5. Develop your strategy using the IDE you like. A good starting point is represented by the following **strategy.py** file, where a simple long-short trading strategy based on the crossing of two simple moving averages with lookback periods of 20 and 200 trading days is implemented:
 
    ```python
    import qnt.ta as qnta
@@ -59,6 +59,8 @@ You can follow these easy steps and create an isolated environment on your machi
    )
    ```
 
+This strategy uses a lookback period of 365 calendar days for computing indicators and, after a warmup of 365 calendar days, performs a simulation for 2 years.
+
 6. Use this command to run your strategy (replace **python** with **python3** if your default python version is 2):
    ```bash
     python strategy.py
@@ -75,7 +77,7 @@ your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2
 
        ```python
        import strategy
-       ```
+        ```
 
 8. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to run the file **precheck.ipynb**. 
 
