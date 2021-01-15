@@ -139,7 +139,7 @@ Values for specific contracts can be obtained selecting the asset. Let us say th
 GBP_USD = futures_data.sel(asset = 'F_BP').sel(field = 'close')
 ```
 
-For visualizing the data we can use for example the plotly library (https://plotly.com/):
+For visualizing the data we can use for example the plotly library [https://plotly.com/](https://plotly.com/):
 
 ```python
 import plotly.graph_objs as go
