@@ -75,7 +75,7 @@ your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2
 
     b) Upload your python file (for example, **strategy.py**) in your Jupyter environment root directory and type in **strategy.ipynb**:
 
-       ```python
+       ```bash
        import strategy
         ```
 
@@ -86,4 +86,4 @@ your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2
    ![submit](./pictures/submit.png)
 
 
-10. Wait for your strategy to pass contest filters and take part to the Contest.
+10. Wait for your strategy to pass contest filters and take part in the Contest.
