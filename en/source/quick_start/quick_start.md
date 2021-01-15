@@ -67,7 +67,7 @@ import qnt.ta as qnta
 futures = qndata.futures.load_data(min_date="2006-01-01")
 ```
 
-**futures** is an xarray.DataArray structure which contains **futures historical data** since January 1, 2006. More details on xarray can be found at [https://xarray.pydata.org/en/stable/!](https://xarray.pydata.org/en/stable/)
+**futures** is an xarray.DataArray structure which contains **futures historical data** since January 1, 2006. More details on xarray can be found at [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/)
 
 As the strategy uses price shifts to define weights, we define two auxiliary variables: the open prices of the assets at two consecutive sessions:
 
