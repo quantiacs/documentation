@@ -1,5 +1,12 @@
 # Competition filters
 
+For submitting a strategy to a contest you have to click on the **Submit** button:
+
+![submit](./pictures/submit.png)
+   
+After submission your code will be checked on our servers and its status will appear in the **Competition** section of your account under the tab **Checking**:
+
+
 Your algorithm has several checks (filters) in order to be admitted to a competition.
 
 ## Technical filters
