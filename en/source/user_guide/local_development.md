@@ -75,9 +75,7 @@ your code the Jupyter Notebook environment on the Quantiacs webpage. There are 2
 
     b) Upload your python file (for example, **strategy.py**) in your Jupyter environment root directory and type in **strategy.ipynb**:
 
-       ```python
         import strategy
-       ```
 
 8. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to run the file **precheck.ipynb**. 
 
