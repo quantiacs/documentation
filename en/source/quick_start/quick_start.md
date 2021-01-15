@@ -152,7 +152,7 @@ The **check** function will **show possible problems** that your strategy has:
 output.check(weights, data, "futures")
 ```
 
-The first check is connected to the possible presence of missing values in your algorithm. With the previous call the the **clean** function, this problem is automatically solved.
+The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the **clean** function, this problem is automatically solved.
 
 The second check computes the In-Sample Sharpe ratio of your system. In this case, as the performance is negative, your submission would not be eligible for taking part to a contest. The In-Sample Sharpe ratio must be larger than 1.
 
