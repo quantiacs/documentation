@@ -2,7 +2,7 @@
 
 Once we have developed an algorithm we can have an idea of its performance by a visual inspection of the equity chart.
 
-Let us consider a simple long-only strategy on the S&P500 Index Futures: we go long once the Simple Moving Average of the close price over the last 20 days is larger than the Simple Moving Average of the close price over the last 150 days.
+Let us consider a simple long-only strategy on the S&P500 Index Futures: we go long once the Simple Moving Average of the close price over the last 20 trading days is larger than the Simple Moving Average of the close price over the last 150 trading days.
 
 ```python
 import xarray as xr
