@@ -20,10 +20,10 @@ An error message stating that the **strategy.ipynb** file was not found is conne
 If you see an error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
 ### Weights must be written
-An error message stating that the calling to the **write_output** function is skipped, then your strategy does not save the final weights. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)** assuming that you used **weights** for the final allocation weights.
+If you see an error message stating that the calling to the **write_output** function is skipped, then your strategy does not save the final weights. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)**, assuming that you used **weights** for the final allocation weights.
 
 ### All data must be loaded
-An error message stating that data are loaded only until a certain day is due to the fact that you are loading data setting a max parameter for the days. Remove this parameter when you submit, as your system needs to run on a daily basis on new positions.
+An error message stating that data are loaded only until a certain day is due to the fact that you are loading the data cropping the number of days. Do not crop data when you submit, as your system needs to run on a daily basis on new data.
 
 ### Weights must be generated for all trading days
 An error message stating that the strategy does not display weights for all trading days means that weights for some days are not generated, for example because of a **drop** operation. This problem can be avoided using the function **qnt.output.check(weights, data, "futures")**, assuming that you are working with futures and you are generating **weights** on **data**.
