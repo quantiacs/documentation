@@ -174,4 +174,4 @@ output.write(weights)
 
 ### Ready for More?
 
-Here we have briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features in more detail , so make sure to read through it all!
+Here we have briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features in more detail, so make sure to read through it all!
