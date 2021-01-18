@@ -11,6 +11,7 @@ Contents
    :caption: Quick Start
 
    quick_start/quick_start.md
+   user_guide/new_and_legacy_platform
 
 
 .. toctree::

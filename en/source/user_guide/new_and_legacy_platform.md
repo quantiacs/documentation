@@ -1,0 +1,119 @@
+# The difference between the new and legacy version
+
+## Technical changes
+
+* Created a space to develop code and test ideas for forecasting global financial markets based on Jupyter Notebook and
+  JupyterLab;
+
+* Support for Python and Scala;
+
+* You can install any python libraries and use them in your strategies;
+
+* Access to historical data for stocks, futures, and cryptocurrencies;
+
+* Updated open-source library for algorithm development. It has become more convenient and productive.
+
+## Example
+
+A distinctive feature of the new version of Quantiacs is the simplification of the strategy code, which became much
+easier to read and use. Let us consider a simple strategy based on a crossing of moving averages.
+
+In **Quantiacs Legacy** you would write:
+
+```python
+def myTradingSystem(DATE, OPEN, HIGH, LOW, CLOSE, VOL, exposure, equity, settings):
+    nMarkets = CLOSE.shape[1]
+
+    perL = 200
+    perS = 40
+
+    smaLong = numpy.nansum(CLOSE[-perL:, :], axis=0) / perL
+    smaRecent = numpy.nansum(CLOSE[-perS:, :], axis=0) / perS
+
+    longEquity = smaRecent > smaLong
+    shortEquity = ~longEquity
+
+    pos = numpy.zeros(nMarkets)
+    pos[longEquity] = 1
+    pos[shortEquity] = -1
+
+    weights = pos / numpy.nansum(abs(pos))
+
+    return weights, settings
+
+
+def mySettings():
+    settings = {}
+
+    # selected Futures contracts
+    settings['markets'] = ['CASH', 'F_AD', 'F_BO', 'F_BP', 'F_C']
+    settings['beginInSample'] = '20120506'
+    settings['endInSample'] = '20150506'
+    settings['lookback'] = 504
+    settings['budget'] = 10 ** 6
+    settings['slippage'] = 0.05
+
+    return settings
+
+
+if __name__ == "__main__":
+    import quantiacsToolbox
+
+    results = quantiacsToolbox.runts(__file__)
+```
+
+The same logic can be implemented using the following compact **single-pass implementation**:
+
+```python
+import xarray as xr
+import qnt.ta as qnta
+import qnt.data as qndata
+import qnt.output as qnout
+
+data = qndata.futures_load_data(
+    assets=['F_AD', 'F_BO', 'F_BP', 'F_C'],
+    tail=15 * 365)
+
+close = data.sel(field='close')
+sma_long = qnta.sma(close, 200)
+sma_short = qnta.sma(close, 20)
+weights = xr.where(sma_short > sma_long, 1, -1)
+
+weights = qnout.clean(weights, data)
+qnout.check(weights, data)
+qnout.write(weights)
+```
+
+In addition, we can explicitly forbid looking-forward issues with a **multi-pass implementation**:
+
+```python
+import xarray as xr
+import qnt.ta as qnta
+import qnt.backtester as qnbt
+import qnt.data as qndata
+import qnt.output as qnout
+
+
+def load_data(period):
+    return qndata.futures_load_data(
+        assets=['F_AD', 'F_BO', 'F_BP', 'F_C'],
+        tail=period)
+
+
+def strategy(data):
+    close = data.sel(field='close')
+    sma_long = qnta.sma(close, 200).isel(time=-1)
+    sma_short = qnta.sma(close, 10).isel(time=-1)
+    return xr.where(sma_short > sma_long, 1, -1)
+
+
+weights = qnbt.backtest(
+    competition_type="futures",
+    load_data=load_data,
+    lookback_period=365,
+    test_period=15 * 365,
+    strategy=strategy)
+qnout.check(weights, data)
+qnout.write(weights)
+
+```
