@@ -76,7 +76,7 @@ data = qndata.futures_load_data(
 
 close = data.sel(field='close')
 sma_long = qnta.sma(close, 200)
-sma_short = qnta.sma(close, 20)
+sma_short = qnta.sma(close, 40)
 weights = xr.where(sma_short > sma_long, 1, -1)
 
 weights = qnout.clean(weights, data)
@@ -103,7 +103,7 @@ def load_data(period):
 def strategy(data):
     close = data.sel(field='close')
     sma_long = qnta.sma(close, 200).isel(time=-1)
-    sma_short = qnta.sma(close, 10).isel(time=-1)
+    sma_short = qnta.sma(close, 40).isel(time=-1)
     return xr.where(sma_short > sma_long, 1, -1)
 
 
