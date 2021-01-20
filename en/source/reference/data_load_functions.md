@@ -118,7 +118,7 @@ qnt.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("
 |min_date|first date in data, example "2006-01-01". Default None value uses max_date-tail.|
 |max_date|last date of data. Default None value is current day.|
 |dims|tuple with "field", "time", "asset" attributes in the specified order.|
-|forward_order|boolean, default True value orders date in ascending order|
+|forward_order|boolean, default True value orders date in ascending order.|
 |tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
 
 **Output**
