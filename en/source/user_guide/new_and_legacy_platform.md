@@ -20,23 +20,24 @@ The new version of Quantiacs addresses several issues:
 A distinctive feature of the new version of Quantiacs is the simplification of the strategy code, which became much
 easier to read and use. Let us consider a simple strategy based on a crossing of moving averages.
 
-In **Quantiacs Legacy** you would write:
+In **Quantiacs Legacy** you would write a function defining weights and a settings function on the following lines:
 
 ```python
 def myTradingSystem(DATE, OPEN, HIGH, LOW, CLOSE, VOL, exposure, equity, settings):
+
     nMarkets = CLOSE.shape[1]
 
     perL = 200
     perS = 40
 
-    smaLong = numpy.nansum(CLOSE[-perL:, :], axis=0) / perL
+    smaLong   = numpy.nansum(CLOSE[-perL:, :], axis=0) / perL
     smaRecent = numpy.nansum(CLOSE[-perS:, :], axis=0) / perS
 
-    longEquity = smaRecent > smaLong
+    longEquity  = smaRecent > smaLong
     shortEquity = ~longEquity
 
     pos = numpy.zeros(nMarkets)
-    pos[longEquity] = 1
+    pos[longEquity]  =  1
     pos[shortEquity] = -1
 
     weights = pos / numpy.nansum(abs(pos))
@@ -45,26 +46,26 @@ def myTradingSystem(DATE, OPEN, HIGH, LOW, CLOSE, VOL, exposure, equity, setting
 
 
 def mySettings():
+
     settings = {}
 
-    # selected Futures contracts
-    settings['markets'] = ['CASH', 'F_AD', 'F_BO', 'F_BP', 'F_C']
+    settings['markets']       = ['CASH', 'F_AD', 'F_BO', 'F_BP', 'F_C']
     settings['beginInSample'] = '20120506'
-    settings['endInSample'] = '20150506'
-    settings['lookback'] = 504
-    settings['budget'] = 10 ** 6
-    settings['slippage'] = 0.05
+    settings['endInSample']   = '20150506'
+    settings['lookback']      = 504
+    settings['budget']        = 10 ** 6
+    settings['slippage']      = 0.05
 
     return settings
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import quantiacsToolbox
 
     results = quantiacsToolbox.runts(__file__)
 ```
 
-The same logic can be implemented using the following compact **single-pass implementation**:
+A similar logic can be implemented using the following compact **single-pass implementation**. By **single-pass implementation** we mean an implementation where the **complete** time series of data is constantly accessible at any step of the evaluation:
 
 ```python
 import xarray as xr
@@ -73,16 +74,20 @@ import qnt.data as qndata
 import qnt.output as qnout
 
 data = qndata.futures_load_data(
-    assets=['F_AD', 'F_BO', 'F_BP', 'F_C'],
-    tail=15 * 365)
+    assets=["F_AD", "F_BO", "F_BP", "F_C"],
+    min_date="2006-01-01")
 
-close = data.sel(field='close')
-sma_long = qnta.sma(close, 200)
+close = data.sel(field="close")
+
+sma_long  = qnta.sma(close, 200)
 sma_short = qnta.sma(close, 40)
+
 weights = xr.where(sma_short > sma_long, 1, -1)
 
-weights = qnout.clean(weights, data)
-qnout.check(weights, data)
+weights = strategy / abs(strategy).sum("asset")
+
+weights = qnout.clean(weights, data, "futures")
+qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
 
