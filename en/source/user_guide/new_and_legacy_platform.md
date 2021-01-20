@@ -4,14 +4,14 @@
 
 The new version of Quantiacs addresses several issues:
 
-* it includes a private user space for develop code online and test ideas for forecasting global financial markets based on Jupyter Notebook and
+* it includes a private user space for developing code online and test ideas for forecasting global financial markets based on Jupyter Notebook and
   JupyterLab;
 
 * it supports Python and Scala;
 
 * you can install in your private area any python library you need for developing and submitting strategies;
 
-* you have access to historical data for futures, Bitcoinf futures and cryptocurrencies;
+* you have access to historical data for futures, Bitcoin futures and cryptocurrencies;
 
 * we updated open-source libraries for algorithm development, which has become more efficient.
 
