@@ -148,7 +148,7 @@ volume_day    = data.sel(field="vol")
 open_interest = data.sel(field="oi")
 
 contracts_roll_over = data.sel(field="roll")
-```
+```open.to_pandas().head()
 
 where:
 
@@ -247,7 +247,7 @@ open.to_pandas().head()
 ```
 
 |asset<br/>time|BTC<br/> |
-|---|---|---|
+|---|---|
 |2014-01-23|850.0|
 |2014-01-24|847.0|
 |2014-01-27|852.0|
@@ -255,4 +255,4 @@ open.to_pandas().head()
 |2014-01-29|826.0|
 
 
-
+Because of the short history of the Bitcoin Futures, we have patched its history with the spot Bitcoin one to go back in history.
