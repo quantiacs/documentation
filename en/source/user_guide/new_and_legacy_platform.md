@@ -1,17 +1,19 @@
-# The difference between the new and legacy version
+# Translating code from Quantiacs Legacy
 
 ## Technical changes
 
-* Created a space to develop code and test ideas for forecasting global financial markets based on Jupyter Notebook and
+The new version of Quantiacs addresses several issues:
+
+* it includes a private user space for develop code online and test ideas for forecasting global financial markets based on Jupyter Notebook and
   JupyterLab;
 
-* Support for Python and Scala;
+* it supports Python and Scala;
 
-* You can install any python libraries and use them in your strategies;
+* you can install in your private area any python library you need for developing and submitting strategies;
 
-* Access to historical data for stocks, futures, and cryptocurrencies;
+* you have access to historical data for futures, Bitcoinf futures and cryptocurrencies;
 
-* Updated open-source library for algorithm development. It has become more convenient and productive.
+* we updated open-source libraries for algorithm development, which has become more efficient.
 
 ## Example
 
