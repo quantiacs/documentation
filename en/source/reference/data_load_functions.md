@@ -125,7 +125,7 @@ qnt.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("
 
 The output is an xarray.DataArray with historical data for the selected assets. Coordinates are:
 
-![Coords](coords.png)
+![Coords](Pictures/coords.png)
 
 
 **Example**
