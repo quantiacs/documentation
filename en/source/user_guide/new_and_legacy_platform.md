@@ -65,7 +65,7 @@ if __name__ == '__main__':
     results = quantiacsToolbox.runts(__file__)
 ```
 
-A similar logic can be implemented using the following compact **single-pass implementation**. By **single-pass implementation** we mean an implementation where the **complete** time series of data is constantly accessible at any step of the evaluation:
+A similar logic in the new **Quantiacs** can be implemented using the following compact **single-pass implementation**. By **single-pass implementation** we mean an implementation where the **complete** time series of data is constantly accessible at any step of the evaluation:
 
 ```python
 import xarray as xr
