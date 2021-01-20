@@ -106,37 +106,26 @@ Futures data can be loaded using:
 
 ```python
 import qnt
-qnt.data.load_data(
-        assets: tp.List[tp.Union[dict,str]] = None,
-        min_date: tp.Union[str, datetime.date] = '2007-01-01',
-        max_date: tp.Union[str, datetime.date, None] = None,
-        dims: tp.Tuple[str, str, str] = (ds.FIELD, ds.TIME, ds.ASSET),
-        forward_order: bool = False,
-        tail: tp.Union[datetime.timedelta, None] = None)
+qnt.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+    forward_order = True, tail = 365 * 6)
 ```
 
 **Parameters**
 
 |Parameter|Explanation|
 |---|---|
-|assets|list of ticker names to load|
-|min_date|first date in data|
-|max_date|last date of data|
-|dims|tuple with ds.FIELD, ds.TIME, ds.ASSET in the specified order|
-|forward_order|boolean, set true if you need the forward order of dates, otherwise the order is backward|
-|tail|datetime.timedelta, tail size of data. min_date = max_date - tail|
+|assets|list of ticker names to load, example: ["F_AD", "F_BO"]. Default None value loads all assets.|
+|min_date|first date in data, example "2006-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
 
 **Output**
 
-The output is an xarray DataArray with historical data for the selected assets:
+The output is an xarray.DataArray with historical data for the selected assets. Coordinates are:
 
-|asset<br/>time|NASDAQ:AAPL<br/> |NASDAQ:GOOGL<br/> |
-|---|---|---|
-|2016-09-09|2929.92|798.77|
-|2016-09-12|2874.20|784.52|
-|2016-09-13|3010.28|794.01|
-|2016-09-14|3044.44|787.53|
-|2016-09-15|3188.08|790.01|
+
 
 **Example**
 
