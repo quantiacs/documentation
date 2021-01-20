@@ -59,6 +59,16 @@ You can follow these easy steps and create an isolated environment on your machi
    )
    ```
 
+Here we have used the function qnt.backtester.backtest whose details can be found in your private area in the /qnt/backtester.py file.
+
+The function requires the following input:
+
+    competition type: "futures" for the futures contest or "cryptofutures" for the Bitcoin futures contest;
+    load data: the pre-defined load_data function. The period passed to load_data is given by test_period + lookback_period;
+    lookback_period: the maximal lookback period in calendar days used for building indicators. In this case, as we use 200 trading days for defining the largets simple moving average, 1 year is fine;
+    test_period, in calendar days, is the In-Sample period used for the simulation. Here we use 2 years of data;
+    strategy: the pre-defined strategy function which should return allocation weights for all assets at a fixed point in time (note that in strategy we select the last index, isel(time=-1)).
+
 This strategy uses a lookback period of 365 calendar days for computing indicators and, after a warmup of 365 calendar days, performs a simulation for 2 years.
 
 6. Use this command to run your strategy (replace **python** with **python3** if your default python version is 2):
