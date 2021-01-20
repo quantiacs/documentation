@@ -129,6 +129,13 @@ The function requires the following input:
 * **competition type**: "futures" for the futures contest or "cryptofutures" for the Bitcoin futures contest;
 * **load data**: the pre-defined **load_data** function. The **period** passed to **load_data** is given by **test_period + lookback_period**;
 * **lookback_period**: the maximal lookback period in calendar days used for building indicators. In this case, as we use 200 trading days for defining the largets simple moving average, 1 year is fine; 
-* **test_period**, in calendar days, is the In-Sample period used for the simulation. **lookback_period** is the maximal lookback period in calendar days used for building indicators; here we use 15 years of data;
+* **test_period**, in calendar days, is the In-Sample period used for the simulation. Here we use 15 years of data;
 * **strategy**: the pre-defined **strategy** function which should return allocation weights for all assets at a fixed point in time (note that in **strategy** we select the last index, isel(time=-1).
 
+The function returns the time series **weights** for all assets. It performs automatically the last 3 operations of the **single-pass** evaluation:
+
+```python
+weights = qnout.clean(weights, data, "futures")
+qnout.check(weights, data, "futures")
+qnout.write(weights)
+```
