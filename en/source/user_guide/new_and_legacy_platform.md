@@ -91,7 +91,7 @@ qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
 
-In addition, we can explicitly forbid looking-forward issues with a **multi-pass implementation**:
+The **single-pass** implementation is fast but it allows for implicit looking-forward, as the **complete** time series of data is constantly accessible at any step of the evaluation. We can explicitly forbid looking-forward issues with a **multi-pass implementation** where at timestamp "t" only data until timestamp "t" are available by construction:
 
 ```python
 import xarray as xr
@@ -103,24 +103,25 @@ import qnt.output as qnout
 
 def load_data(period):
     return qndata.futures_load_data(
-        assets=['F_AD', 'F_BO', 'F_BP', 'F_C'],
+        assets=["F_AD", "F_BO", "F_BP", "F_C"],
         tail=period)
 
 
 def strategy(data):
-    close = data.sel(field='close')
+    close = data.sel(field="close")
     sma_long = qnta.sma(close, 200).isel(time=-1)
     sma_short = qnta.sma(close, 40).isel(time=-1)
-    return xr.where(sma_short > sma_long, 1, -1)
+    
+    pos = xr.where(sma_short > sma_long, 1, -1)
+    return pos / abs(pos).sum("asset")
 
 
 weights = qnbt.backtest(
     competition_type="futures",
     load_data=load_data,
     lookback_period=365,
-    test_period=15 * 365,
+    test_period=365 * 15,
     strategy=strategy)
-qnout.check(weights, data)
-qnout.write(weights)
+    
 
 ```
