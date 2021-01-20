@@ -84,7 +84,7 @@ sma_short = qnta.sma(close, 40)
 
 weights = xr.where(sma_short > sma_long, 1, -1)
 
-weights = strategy / abs(strategy).sum("asset")
+weights = weights / abs(weights).sum("asset")
 
 weights = qnout.clean(weights, data, "futures")
 qnout.check(weights, data, "futures")
