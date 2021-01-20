@@ -256,3 +256,89 @@ open.to_pandas().head()
 
 
 Because of the short history of the Bitcoin Futures, we have patched its history with the spot Bitcoin one to go back in history.
+
+## Loading Cryptocurrency Data
+
+Cryptocurrency data for:
+* Bitcoin (BTC);
+* Bitcoin Cash (BCH);
+* EOS;
+* Ethereum (ETH);
+* Litecoin (LTC);
+* Ripple (XRP);
+* Tether (USDT);
+
+can be loaded using:
+
+**Function**
+
+```python
+import qnt
+qnt.data.crypto.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets| list of assets, example ["ETH"]. Default None value loads all assets.|
+|min_date|first date in data, example "2016-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with hourly historical data for the selected assets. Coordinates are:
+
+![cryptoCoords](./pictures/cryptocoords.png)
+
+
+**Example**
+
+One can load market data for Ethereum for the past 5 years as follows:
+
+```python
+import qnt
+data = qnt.data.crypto.load_data(assets= ["ETH"], tail=365*5)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field="open")
+close = data.sel(field="close")
+high  = data.sel(field="high")
+low   = data.sel(field="low")
+
+volume    = data.sel(field="vol")
+```
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | First price in a given hour.|
+| close              | Last price in a given hour. |
+| high               | Highest price in a given hour.|
+| low                | Lowest price in a given hour. |
+| vol                | Hourly trading volume.|
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+|asset<br/>time|ETH<br/> |
+|---|---|
+|2014-01-23|850.0|
+|2014-01-24|847.0|
+|2014-01-27|852.0|
+|2014-01-28|800.0|
+|2014-01-29|826.0|
+
+
+Because of the short history of the Bitcoin Futures, we have patched its history with the spot Bitcoin one to go back in history.
+
