@@ -333,12 +333,8 @@ open.to_pandas().head()
 
 |asset<br/>time|ETH<br/> |
 |---|---|
-|2014-01-23|850.0|
-|2014-01-24|847.0|
-|2014-01-27|852.0|
-|2014-01-28|800.0|
-|2014-01-29|826.0|
-
-
-Because of the short history of the Bitcoin Futures, we have patched its history with the spot Bitcoin one to go back in history.
-
+|2016-03-09 16:00:00|10.297|
+|2016-03-09 17:00:00|11.197|
+|2016-03-09 18:00:00|11.097|
+|2016-03-09 20:00:00|11.195|
+|2016-03-09 21:00:00|10.870|
