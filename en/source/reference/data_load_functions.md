@@ -130,22 +130,31 @@ The output is an xarray.DataArray with historical data for the selected assets. 
 
 **Example**
 
-One can load market data for Apple Inc and Google Inc for the past 4 years:
+One can load market data for the Australian Dollar/US Dollar rate and Soybean Oil for the past 15 years as follows:
 
 ```python
-import qnt.data as qndata          # data loading and manipulation
-data = qnt.data.load_data(tail = dt.timedelta(days=365*4),
-                        dims=("time", "field", "asset"),
-                        assets=['NASDAQ:AAPL', 'NASDAQ:GOOGL'],
-                        forward_order=True)
+import qnt
+data = qnt.data.futures.load_data(assets= ["F_AD", "F_BO"], tail=365*15)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field="open")
+close = data.sel(field="close")
+high  = data.sel(field="high")
+low   = data.sel(field="low")
+
+volume_day    = data.sel(field="vol")
+open_interest = data.sel(field="oi")
+
+contracts_roll_over = data.sel(field="roll")
 ```
 
-```python
-open_price = data.sel(field = 'open')
-close_price = data.sel(field = 'close')
-low_price = data.sel(field = 'low')
-high_price = data.sel(field = 'high')
+where:
 
+
+
+```python
 open_price.to_pandas().head()
 ```
 
