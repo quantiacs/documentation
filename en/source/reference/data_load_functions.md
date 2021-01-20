@@ -4,70 +4,108 @@
 This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
-## Assets
+## Inspecting the list of Futures
 
-The available financial instruments with a brief information can be downloaded using the following function:
+The available futures financial instruments can be inspected using the following function:
 
 **Function**
 
 ```python
-qnt.data.load_assets(
-        min_date: tp.Union[str, datetime.date] = '2007-01-01',
-        max_date: tp.Union[str, datetime.date, None] = None,
-        tail: tp.Union[datetime.timedelta, None] = None)
+import qnt
+qnt.data.futures.load_list()
 ```
-
-**Parameters**
-
-|Parameter|Explanation|
-|---|---|
-|min_date|first date in data|
-|max_date|last date of data|
-|tail|datetime.timedelta, tail size of data. min_date = max_date - tail|
 
 **Output**
 
-The output is the list of dicts with info for all tickers. For instance, the dict for 'IBIO INC' looks as follows:
+The output is a list of dictionaries with info on ticker symbols and assets:
 
 ```python
-{'name': 'IBIO INC',
- 'sector': 'Health Technology',
- 'symbol': 'IBIO',
- 'exchange': 'AMEX',
- 'industry': 'Biotechnology',
- 'id': 'AMEX:IBIO',
- 'cik': '1420720',
- 'FIGI': 'BBG000D5F2L9'}
+[{'id': 'F_AD', 'name': 'Australian Dollar'},
+ {'id': 'F_AE', 'name': 'Aex Index'},
+ {'id': 'F_AH', 'name': 'Bberg Commodity Index'},
+ {'id': 'F_AX', 'name': 'DAX Index'},
+ {'id': 'F_BC', 'name': 'Crude Oil Brent'},
+ {'id': 'F_BG', 'name': 'ICE Gas Oil LS'},
+ {'id': 'F_BO', 'name': 'Soybean Oil'},
+ {'id': 'F_BP', 'name': 'British Pound'},
+ {'id': 'F_C', 'name': 'Corn'},
+ {'id': 'F_CA', 'name': 'CAC 40'},
+ {'id': 'F_CC', 'name': 'Cocoa'},
+ {'id': 'F_CD', 'name': 'Canadian Dollar'},
+ {'id': 'F_CF', 'name': 'Eurex Conf Long-Term'},
+ {'id': 'F_CL', 'name': 'Crude Oil WTI'},
+ {'id': 'F_CT', 'name': 'Cotton #2'},
+ {'id': 'F_DM', 'name': 'Mdax Index'},
+ {'id': 'F_DT', 'name': 'Euro Bund'},
+ {'id': 'F_DX', 'name': 'U.S. Dollar Index'},
+ {'id': 'F_EB', 'name': 'Eurex 3Month EuriBor'},
+ {'id': 'F_EC', 'name': 'Euro FX'},
+ {'id': 'F_ED', 'name': 'Eurodollar'},
+ {'id': 'F_ES', 'name': 'S&P 500 E-Mini'},
+ {'id': 'F_F', 'name': '3-Month Euroswiss'},
+ {'id': 'F_FB', 'name': 'Stoxx Banks 600'},
+ {'id': 'F_FC', 'name': 'Feeder Cattle'},
+ {'id': 'F_FP', 'name': 'OMX Helsinki 25'},
+ {'id': 'F_FV', 'name': '5-Year T-Note'},
+ {'id': 'F_FY', 'name': 'Stoxx Europe 600'},
+ {'id': 'F_GC', 'name': 'Gold'},
+ {'id': 'F_GS', 'name': '10-Year Long Gilt'},
+ {'id': 'F_GX', 'name': 'Euro Buxl'},
+ {'id': 'F_HG', 'name': 'High Grade Copper'},
+ {'id': 'F_HO', 'name': 'ICE Heating Oil'},
+ {'id': 'F_JY', 'name': 'Japanese Yen'},
+ {'id': 'F_KC', 'name': 'Coffee'},
+ {'id': 'F_LB', 'name': 'Lumber'},
+ {'id': 'F_LC', 'name': 'Live Cattle'},
+ {'id': 'F_LN', 'name': 'Lean Hogs'},
+ {'id': 'F_LR', 'name': 'Brazilian Real'},
+ {'id': 'F_LX', 'name': 'FTSE 100'},
+ {'id': 'F_MD', 'name': 'S&P Midcap E-Mini'},
+ {'id': 'F_MP', 'name': 'Mexican Peso'},
+ {'id': 'F_ND', 'name': 'New Zealand Dollar'},
+ {'id': 'F_NG', 'name': 'Natural Gas'},
+ {'id': 'F_NQ', 'name': 'Nasdaq 100 E-Mini'},
+ {'id': 'F_NR', 'name': 'Rough Rice'},
+ {'id': 'F_NY', 'name': 'Nikkei 225'},
+ {'id': 'F_O', 'name': 'Oats'},
+ {'id': 'F_OJ', 'name': 'Orange Juice'},
+ {'id': 'F_PA', 'name': 'Palladium'},
+ {'id': 'F_PL', 'name': 'Platinum'},
+ {'id': 'F_RB', 'name': 'Gasoline RBOB'},
+ {'id': 'F_RF', 'name': 'Euro/Swiss'},
+ {'id': 'F_RP', 'name': 'Euro/Pound'},
+ {'id': 'F_RR', 'name': 'Russian Ruble'},
+ {'id': 'F_RU', 'name': 'Russell 2000 E-Mini'},
+ {'id': 'F_RY', 'name': 'Euro/Yen'},
+ {'id': 'F_S', 'name': 'Soybean'},
+ {'id': 'F_SB', 'name': 'Sugar #11'},
+ {'id': 'F_SF', 'name': 'Swiss Franc'},
+ {'id': 'F_SI', 'name': 'Silver'},
+ {'id': 'F_SM', 'name': 'Soybean Meal'},
+ {'id': 'F_SS', 'name': '3-Month Sterling'},
+ {'id': 'F_SX', 'name': 'Swiss Market Index'},
+ {'id': 'F_TR', 'name': 'South African Rand'},
+ {'id': 'F_TU', 'name': '2-Year T-Note'},
+ {'id': 'F_TY', 'name': '10-Year T-Note'},
+ {'id': 'F_UB', 'name': 'Euro Bobl'},
+ {'id': 'F_US', 'name': 'T-Bond'},
+ {'id': 'F_UZ', 'name': 'Euro Schatz'},
+ {'id': 'F_VX', 'name': 'S&P 500 VIX'},
+ {'id': 'F_W', 'name': 'Wheat'},
+ {'id': 'F_XX', 'name': 'Stoxx 50'},
+ {'id': 'F_YM', 'name': 'Dow Futures Mini'},
+ {'id': 'F_ZQ', 'name': '30-Day Fed Funds'}]
 ```
 
-**Example**
 
-One can use it by setting the time interval:
+## Loading Futures Data
 
-```python
-import qnt.data as qndata          # data loading and manipulation
-assets = qndata.load_assets(min_date = '2015-01-01', max_date = '2018-01-01') # two boundaries
-
-# one boundary
-# assets = qndata.load_assets(min_date = '2018-01-01')
-# assets = qndata.load_assets(max_date = '2020-01-01')
-```
-
-or load a fixed number of years:
-
-```python
-import qnt.data as qndata          # data loading and manipulation
-assets = qndata.load_assets(tail = dt.timedelta(days=365*4))
-```
-
-
-## Market data
-
-Market data can be loaded using:
+Futures data can be loaded using:
 
 **Function**
 
 ```python
+import qnt
 qnt.data.load_data(
         assets: tp.List[tp.Union[dict,str]] = None,
         min_date: tp.Union[str, datetime.date] = '2007-01-01',
