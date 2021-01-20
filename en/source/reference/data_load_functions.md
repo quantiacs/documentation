@@ -152,75 +152,28 @@ contracts_roll_over = data.sel(field="roll")
 
 where:
 
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| vol                | Daily trading volume (number of contracts).|
+| oi                 | Total number of outstanding contracts.|
+| roll              | Futures contract rollover information.|
 
+Data can be nicely displayed using:
 
 ```python
 open_price.to_pandas().head()
 ```
 
-|asset<br/>time|NASDAQ:AAPL<br/> |NASDAQ:GOOGL<br/> |
+|asset<br/>time|F_AD<br/> |F_BO<br/> |
 |---|---|---|
-|2016-09-09|2929.92|798.77|
-|2016-09-12|2874.20|784.52|
-|2016-09-13|3010.28|794.01|
-|2016-09-14|3044.44|787.53|
-|2016-09-15|3188.08|790.01|
+|2016-01-24|0.7527|21.55|
+|2016-01-25|0.7501|21.50|
+|2016-01-26|0.7523|21.52|
+|2016-01-27|0.7502|21.57|
+|2016-01-30|0.7485|22.11|
 
-
-## Fundamental data
-
-**Function**
-
-```python
-qnt.data.secgov_load_indicators(assets, time_coord, standard_indicators=None, builders = None,
-                           start_date_offset = datetime.timedelta(days=365*2),
-                           fill_strategy=lambda xarr: xarr.ffill('time'))
-```
-
-**Parameters**
-
-|Parameter|Explanation|
-|---|---|
-|assets|the list of dicts with info for the desired tickers|
-|time_coord|xarray DataArray with the time interval|
-|standard_indicators|the list of standard fundamental indicators|
-|builders|list of IndicatorBuilder or PeriodIndicatorBuilder classes. This parameter is designed for the custom uploading of the sec.gov facts|
-|start_date_offset|datetime.timedelta, tail size of data. min_date = max_date - tail|
-|fill_strategy|function, filling strategy|
-
-**Output**
-
-The output is an xarray DataArray with historical fundamental data.
-
-**Example**
-
-Data can be loaded in two ways.
-
-The first way is just to list the desired data labels.
-
-```python
-data_lbls = ['assets', 'liabilities']
-# One can load corresponding data
-fun_data1 = qnt.data.secgov_load_indicators(assets, time_coord = data.time, standard_indicators = data_lbls)
-```
-
-The second way to load the fundamental data is more complicated but it gives to the user more options. Each report for the [Securities and Exchange Commission](https://www.sec.gov/) contains facts that are listed [here](http://xbrlview.fasb.org/yeti/). There are instant indicators which are updated regularly within each report:
-
-```python
-instant_data_list = [InstantIndicatorBuilder('assets' , ['us-gaap:Assets'], True),
-                     InstantIndicatorBuilder('liabilities', ['us-gaap:Liabilities'], True),
-                    InstantIndicatorBuilder('shares', ['us-gaap:CommonStockSharesOutstanding',
-                                                       'us-gaap:CommonStockSharesIssued'], True)]
-```
-
-Other indicators are periodic, like operating expenses and sales. For periodic indicators, you can receive information with the quarter, annual frequency, or 'last twelve month' value. For these purposes use 'qf','af' or 'ltm':
-
-```python
-period_data_list = [PeriodIndicatorBuilder('operating_expense', ['us-gaap:OperatingExpenses'], True, 'qf'),
-                   PeriodIndicatorBuilder('sales_revenue', ['us-gaap:SalesRevenueGoodsNet',
-                                                            'us-gaap:SalesRevenueNet',
-                                                            'us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax'
-                                                           ], True, 'af'),
-                    PeriodIndicatorBuilder('sga_expense', ['us-gaap:SellingGeneralAndAdministrativeExpense'], True, 'ltm')]
-```
 
