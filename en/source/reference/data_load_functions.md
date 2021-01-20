@@ -106,7 +106,7 @@ Futures data can be loaded using:
 
 ```python
 import qnt
-qnt.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+qnt.data.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
     forward_order = True, tail = 365 * 6)
 ```
 
@@ -165,7 +165,7 @@ where:
 Data can be nicely displayed using:
 
 ```python
-open_price.to_pandas().head()
+open.to_pandas().head()
 ```
 
 |asset<br/>time|F_AD<br/> |F_BO<br/> |
@@ -175,5 +175,84 @@ open_price.to_pandas().head()
 |2016-01-26|0.7523|21.52|
 |2016-01-27|0.7502|21.57|
 |2016-01-30|0.7485|22.11|
+
+## Loading Bitcoin Futures Data
+
+Bitcoin Futures data can be loaded using:
+
+**Function**
+
+```python
+import qnt
+qnt.data.cryptofutures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets| Default None value loads the Bitcoin Futures.|
+|min_date|first date in data, example "2016-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with historical data for the selected assets. Coordinates are:
+
+![BTCCoords](./pictures/BTC_coords.png)
+
+
+**Example**
+
+One can load market data for the BTC Futures for the past 7 years as follows:
+
+```python
+import qnt
+data = qnt.data.cryptofutures.load_data(tail=365*7)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field="open")
+close = data.sel(field="close")
+high  = data.sel(field="high")
+low   = data.sel(field="low")
+
+volume_day    = data.sel(field="vol")
+open_interest = data.sel(field="oi")
+
+contracts_roll_over = data.sel(field="roll")
+```
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| vol                | Daily trading volume (number of contracts).|
+| oi                 | Total number of outstanding contracts.|
+| roll              | Futures contract rollover information.|
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+|asset<br/>time|BTC<br/> |
+|---|---|---|
+|2014-01-23|850.0|
+|2014-01-24|847.0|
+|2014-01-27|852.0|
+|2014-01-28|800.0|
+|2014-01-29|826.0|
+
 
 
