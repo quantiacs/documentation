@@ -121,3 +121,11 @@ weights = qnbt.backtest(
     test_period      = 365 * 15,
     strategy         = strategy)
 ```
+
+Here we have used the function **qnt.backtester.backtest** whose details can be found in your private area in the **/qnt/backtester.py** file.
+
+The function requires the following input:
+
+* competition type: "futures" for the futures contest or "cryptofutures" for the Bitcoin futures contest;
+* load data: a call to the pre-defined **load_data** function. The **period** passed to **load_data** is given by **test_period + lookback_period**. **test_period**, in calendar days, is the In-Sample period used for the simulation. **lookback_period** is the maximal lookback period in calendar days used for building indicators.
+
