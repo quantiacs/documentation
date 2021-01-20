@@ -9,7 +9,7 @@ The new version of Quantiacs addresses several issues:
 
 * it supports Python and Scala;
 
-* you can install in your private area any python library you need for developing and submitting strategies;
+* you can install in your private area any Python library you need for developing and submitting strategies;
 
 * you have access to historical data for futures, Bitcoin futures and cryptocurrencies;
 
