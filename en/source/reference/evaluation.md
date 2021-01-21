@@ -114,6 +114,57 @@ If kind="crypto", the code will check in addition if other futures in addition t
 
 None, only warning messages will be displayed.
 
+### Multi-Pass Backtesting
+
+We provide you with a function for performing an optional backtesting which explicitely forbids looking-forward issues with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It can be used with:
+
+```python
+import xarray as xr
+import qnt.ta as qnta
+import qnt.backtester as qnbt
+import qnt.data as qndata
+
+
+def load_data(period):
+    return qndata.futures_load_data(
+        assets=["F_AD", "F_BO", "F_BP", "F_C"],
+        tail=period)
+
+
+def strategy(data):
+    close = data.sel(field="close")
+    sma_long  = qnta.sma(close, 200).isel(time=-1)
+    sma_short = qnta.sma(close,  40).isel(time=-1)
+    pos = xr.where(sma_short > sma_long, 1, -1)
+    return pos / abs(pos).sum("asset")
+
+
+weights = qnbt.backtest(
+    competition_type = "futures",
+    load_data        = load_data,
+    lookback_period  = 365,
+    test_period      = 365 * 15,
+    strategy         = strategy)
+```
+
+**Function**
+```python
+qnt.backtester.backtest(competition_type, load_data, lookback_period, test_period, strategy)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|competition_type|"futures" or "crypto".|
+|load_data|data load function which returns data time series, accepts tail argument.|
+|lookback_period|calendar days, max. lookback period for building indicators.|
+|test_period|calendar days, period used for the simulation.|
+|strategy|strategy function, accepts data and returns weights for all assets for the last day.|
+
+**Output**
+
+It returns the xarray.DataArray of **weights** and performs automatically calls to **clean**, **check** and **write**.
 
 
 ## Statistics
