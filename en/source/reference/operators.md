@@ -4,7 +4,7 @@
 
 We have based our library on xarray, an open source project and Python package that makes working with labelled multi-dimensional arrays simple and efficient. The full documentation can be found at [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/).
 
-The basic data structure we use is an xarray.DataArray, a labeled multi-dimensional array whose key properties are:
+The basic data structure we use is an xarray.DataArray, a labelled multi-dimensional array whose key properties are:
 
 * **values**: a numpy.ndarray holding the array’s values;
 * **dims**: dimension names for each axis;
