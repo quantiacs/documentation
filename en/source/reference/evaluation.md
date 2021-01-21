@@ -212,7 +212,7 @@ The output is an xarray.DataArray with statistical indicators computed on a cumu
 |sharpe_ratio|Annualized Sharpe ratio: ratio of mean return / volatility.|
 |mean_return|Annualized mean return.|
 |bias|Daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one.|
-|instruments|Number of traded assets on a given day.|
+|instruments|Number of assets which get allocations on a given day.|
 |avg_turnover|Average turnover.|
 |avg_holding_time|Average holding time.|
 
