@@ -175,10 +175,10 @@ correlation(x, y, window)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def correlation(x, y, window=10):
     """
-    Wrapper function to estimate rolling corelations.
-    :param df: a pandas DataFrame.
+    Wrapper function to estimate rolling correlation.
+    :params x,y: pandas DataFrames.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series min over the past 'window' days.
+    :return: a pandas DataFrame with the time-series of the column-wise correlation between x and y over the past 'window' days.
     """
     return x.rolling(window).corr(y)
 </pre>
@@ -197,9 +197,9 @@ covariance(x, y, window)<br/><br/><br/><br/><br/><br/>
 def covariance(x, y, window=10):
     """
     Wrapper function to estimate rolling covariance.
-    :param df: a pandas DataFrame.
+    :params x,y: pandas DataFrames.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series min over the past 'window' days.
+    :return: a pandas DataFrame with the time-series  of the column-wise correlation between x and y over the past 'window' days.
     """
     return x.rolling(window).cov(y)
 </pre>
