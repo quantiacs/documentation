@@ -295,9 +295,10 @@ display(stat.to_pandas().tail())
 |2021-01-19|  0.687289| -0.003021 | 0.100993 | -0.642002	  | 	-0.704302 | -0.174101	 | -0.017583  |   1.0|    4.0|0.018620  |  111.681818 |
 |2021-01-20|   0.690715	| 0.004985 | 0.100989	 |  -0.640217	 | -0.704302 |  -0.171786| -0.017349  |   1.0|    4.0| 0.018618 | 111.588235  |
 
+We can also display plots as follows:
 
 ```python
-# show plot with profit and losses:
+import qnt.graph as qngraph
 performance = stat.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
 ```
@@ -305,7 +306,6 @@ qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", ty
 ![](./pictures/pnl.PNG)
 
 ```python
-# show underwater chart:
 UWchart = stat.to_pandas()["underwater"]
 qngraph.make_plot_filled(UWchart.index, UWchart, color="darkred", name="Underwater Chart", range_max=0)
 ```
@@ -313,9 +313,8 @@ qngraph.make_plot_filled(UWchart.index, UWchart, color="darkred", name="Underwat
 ![](./pictures/underwater.PNG)
 
 ```python
-# show rolling Sharpe ratio on a 3-year basis:
-SRchart = stat.to_pandas()["sharpe_ratio"].iloc[(252*3):]
-qngraph.make_plot_filled(SRchart.index, SRchart, color="#F442C5", name="Rolling SR")
+SRchart = stat.to_pandas()["sharpe_ratio"]
+qngraph.make_plot_filled(SRchart.index, SRchart, color="#F442C5", name="SR")
 ```
 
 ![](./pictures/rollingsharpe.PNG)
