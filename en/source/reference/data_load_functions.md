@@ -148,8 +148,6 @@ volume_day    = data.sel(field="vol")
 open_interest = data.sel(field="oi")
 
 contracts_roll_over = data.sel(field="roll")
-
-open.to_pandas().head()
 ```
 
 
