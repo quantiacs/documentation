@@ -221,7 +221,8 @@ def rolling_rank(na):
     :param na: numpy array.
     :return: The rank of the last value in the array.
     """
-    return rankdata(na)[-1]
+    import scipy.stats
+    return scipy.stats.rankdata(na)[-1]
 </pre>
 </td>
 
