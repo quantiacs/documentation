@@ -72,14 +72,49 @@ qnt.output.clean(weights, data, kind)
 |Parameter|Explanation|
 |---|---|
 |weights|xarray.DataArray with allocation weights for all assets in the backtesting period.|
-|data|xarray.DataArray with input data|
-|kind|"futures" or "crypto"|
+|data|xarray.DataArray with input data.|
+|kind|"futures" or "crypto".|
 
 If kind="crypto", the code will check in addition if other futures in addition to Bitcoin are defined. In positive case, it will remove them and leave Bitcoin futures only.
 
 **Output**
 
 An xarray.DataArray with the cleaned weights ready for submission.
+
+### Check Weights
+
+In addition to the clean function we provide a **check** function which will return you warnings if issues with weights are present. The function can be called before writing:
+
+```python
+output.clean(weights, futures, "futures")
+```
+
+The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the clean function, this problem is automatically solved.
+
+The second check computes the In-Sample Sharpe ratio of your system. The In-Sample Sharpe ratio must be larger than 1 for a successful submission.
+
+The third check controls correlation with existing templates and with all systems submitted to previous contests.
+
+**Function**
+```python
+qnt.output.check(weights, data, kind)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|weights|xarray.DataArray with allocation weights for all assets in the backtesting period.|
+|data|xarray.DataArray with input data.|
+|kind|"futures" or "crypto".|
+
+If kind="crypto", the code will check in addition if other futures in addition to Bitcoin are defined.
+
+**Output**
+
+None, only warning messages will be displayed.
+
+
 
 ## Statistics
 First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. The annualized SR must be at least greater than 1 for the In-Sample test. The "calc_stat" function allows to calculate the complete statistics of an algorithm.
