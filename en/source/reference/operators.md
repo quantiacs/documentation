@@ -139,14 +139,7 @@ def ts_sum(df, window=20):
 <tr>
 <td>
 <pre>
-sma(df, window)<br/><br/><br/><br/>def scale(df, k=1):
-    """
-    Scaling time serie.
-    :param df: a pandas DataFrame.
-    :param k: scaling factor.
-    :return: a pandas DataFrame rescaled df such that sum(abs(df)) = k
-    """
-    return df.mul(k).div(np.abs(df).sum())<br/><br/>
+sma(df, window)<br/><br/><br/><br/>
 </pre>
 </td>
 
