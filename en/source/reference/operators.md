@@ -133,10 +133,10 @@ sma(df, window)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def sma(df, window=10):
     """
-    Wrapper function to estimate SMA.
+    Wrapper function to estimate simple moving average.
     :param df: a pandas DataFrame.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series min over the past 'window' days.
+    :return: a pandas DataFrame with the time-series sma over the past 'window' days.
     """
     return df.rolling(window).mean()
 
