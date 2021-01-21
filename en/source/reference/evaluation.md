@@ -240,7 +240,7 @@ qnt.stats.calc_stat(data, portfolio_history)
 ```
 all indicators will be displayed since inception (cumulative basis).
 
-To get results on a rolling basis, one has to specify max_time, for example 252 trading days:
+To get results on a rolling basis, one has to specify max_periods, for example 252 trading days:
 ```python
 qnt.stats.calc_stat(data, portfolio_history, max_periods=252)
 ```
