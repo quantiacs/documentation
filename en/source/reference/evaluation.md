@@ -247,51 +247,53 @@ qnt.stats.calc_stat(data, portfolio_history, max_periods=252)
 
 To get In-Sample results one can use slicing, for example:
 ```python
-qnt.stats.calc_stat(data, portfolio_history.sel(time=slice("2006-01-01", None)), max_periods=252)
+qnt.stats.calc_stat(data, portfolio_history.sel(time=slice("2006-01-01", None)))
 ```
 
 
 **Example**
 
-Let us assume that you are writing a **buy and hold** strategy:
+Let us assume that you are writing a simple strategy:
 
 ```python
+import xarray as xr
+import qnt.ta as qnta
 import qnt.data as qndata
-import datetime as dt
-import qnt.stats as qnstats        # key statistics
-import qnt.graph as qngraph        # graphical tools
-from IPython.display import display
+import qnt.output as qnout
+import qnt.stats as qnstats
 
-# load historical data
-data = qndata.load_data(
-                       tail = dt.timedelta(days=4*365),
-                       dims = ("time", "field", "asset"),
-                       forward_order=True)
-                       
-is_liquid = data.loc[:,"is_liquid",:].to_pandas()
+data = qndata.futures_load_data(
+    assets=["F_AD", "F_BO", "F_BP", "F_C"],
+    min_date="2000-01-01")
 
-# set and normalize weights:
-weights = is_liquid.div(is_liquid.abs().sum(axis=1, skipna=True), axis=0)
-weights = weights.fillna(0.0)
+close = data.sel(field="close")
 
-#convert to xarray before statistics calculation
-output = weights.unstack().to_xarray()
+sma_long  = qnta.sma(close, 200)
+sma_short = qnta.sma(close, 40)
+
+weights = xr.where(sma_short > sma_long, 1, -1)
+
+weights = weights / abs(weights).sum("asset")
+
+weights = qnout.clean(weights, data, "futures")
+qnout.check(weights, data, "futures")
+qnout.write(weights)
 ```
 
-After the weights have been computed, one can calculate the statistics in order to evaluate the algorithm on historical data:
+After the weights have been computed, you can calculate the statistics in order to evaluate the algorithm in the In-Sample perios using:
 
 ```python
-stat = qnstats.calc_stat(data, output, slippage_factor=0.05)
+stat = qnstats.calc_stat(data, weights.sel(time=slice("2006-01-01", None)))
 display(stat.to_pandas().tail())
 ```
 
 |field <br/> time|  equity| relative_return|    volatility| underwater| max_drawdown|   sharpe_ratio|   mean_return|    bias|   instruments|    avg_turnover|   avg_holding_time|
 |---|---|---|---|---|---|---|---|---|---|---|---|
-|2020-09-01 |1.547375   |0.007302|  0.213420|   0.000000|   -0.382386|  0.549581|   0.117291|   1.0|    967.0|  0.026296|   83.810199|
-|2020-09-02 |1.565288   |0.011577   |0.213385   |0.000000   |-0.382386  |0.564401   |0.120434   |1.0    |967.0  |0.026506   |85.397114|
-|2020-09-03|    1.514099|   -0.032703|  0.213932|   -0.032703|  -0.382386|  0.518395|   0.110901|   1.0|    967.0|  0.026526|   85.397114|
-|2020-09-04|    1.501310|   -0.008446|  0.213872|   -0.040873|  -0.382386|  0.506844|   0.108400|   1.0|    967.0|  0.026522|   85.397114|
-|2020-09-08|    1.472630|   -0.019104|  0.213991|   -0.059196|  -0.382386|  0.480810|   0.102889|   1.0|    967.0|  0.026517|   165.190915|
+|2021-01-13 | 0.689775  |-0.000568|  0.100944|  -0.640707 |  -0.704302	 | -0.172620	 |   	-0.017425	|   1.0|    4.0| 0.018621 | 111.681818  |
+|2021-01-14 | 0.698379	 | 0.012474  | 0.100971  | -0.636225	 | 	-0.704302 |  -0.166830	 | -0.016845  |1.0    |4.0  | 0.018621 |111.681818|
+|2021-01-15|  0.689371|  -0.012898	 | 0.101000 |  -0.640917	 | -0.704302	 | -0.172728	 | -0.017446	  |   1.0|    4.0| 0.018622 | 111.681818  |
+|2021-01-19|  0.687289| -0.003021 | 0.100993 | -0.642002	  | 	-0.704302 | -0.174101	 | -0.017583  |   1.0|    4.0|0.018620  |  111.681818 |
+|2021-01-20|   0.690715	| 0.004985 | 0.100989	 |  -0.640217	 | -0.704302 |  -0.171786| -0.017349  |   1.0|    4.0| 0.018618 | 111.588235  |
 
 
 ```python
