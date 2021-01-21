@@ -90,8 +90,9 @@ weights = qnout.clean(weights, data, "futures")
 qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
+The single-pass implementation is very fast because it uses fast bulk operations on the full time series. On the other hand, it is possible that implicit looking-forward is taking place. To verify the results of your single-pass strategy you can use  the file **precheck.ipynb** (in the root directory of your strategy) and read the warnings. As an alternative, you can use the function **qnt.backtester.backtest** and perform a slower multi-pass simulation which is looking-forward free. Note that we will check your In-Sample Sharpe ratio at submission time using a multi-pass implementation which will reveal looking-forward issues.
 
-The single-pass implementation is fast but it allows for implicit looking-forward, as the complete time series of data is constantly accessible at any step of the evaluation. We can explicitly forbid looking-forward issues with a **multi-pass implementation** where at timestamp "t" only data until timestamp "t" are available by construction:
+This is an example of **multi-pass implementation** where at timestamp "t" only data until timestamp "t" are available by construction:
 
 ```python
 import xarray as xr
