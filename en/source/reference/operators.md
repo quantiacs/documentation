@@ -158,7 +158,7 @@ def stddev(df, window=10):
     Wrapper function to estimate rolling standard deviation.
     :param df: a pandas DataFrame.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series min over the past 'window' days.
+    :return: a pandas DataFrame with the time-series stddev over the past 'window' days.
     """
     return df.rolling(window).std()
 </pre>
