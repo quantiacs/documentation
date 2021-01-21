@@ -61,6 +61,36 @@ import qnt.ta as qnta
 close_price_sma= qnta.sma(close_price, 2)
 ```
 
+## pandas
+
+Here we describe how to work with [pandas](https://pandas.pydata.org/) data structures.
+
+The first step consists in converting the sliced xarray.DataArray into a pandas.DataFrame:
+
+```python
+import qnt.data as qntdata
+data = qntdata.futures.load_data(tail=365*15)
+close_pd= data.sel(field="close").to_pandas()
+```
+
+We can then compute an indicator using standard pandas methods:
+
+```python
+close_sma = ((close-close.shift(10))/close.shift(10)).rolling(30).mean()
+```
+and define our normalized weights to be:
+
+```python
+norm = abs(close_sma).sum(axis=1)
+weights= close_sma.div(norm, axis=0)
+```
+The final conversion to an xarray.DataArray can be performed simply with:
+
+```python
+final_weights = weights.unstack().to_xarray()
+```
+
+In the following table we show some useful wrapper functions for working with pandas structures:
 
 <table>
 <tr>
