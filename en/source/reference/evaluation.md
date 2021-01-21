@@ -171,45 +171,85 @@ It returns the xarray.DataArray of **weights** and performs automatically calls 
 
 
 ## Statistics
-First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. The annualized SR must be at least greater than 1 for the In-Sample test. The "calc_stat" function allows to calculate the complete statistics of an algorithm.
+
+### Calculating Statistics
+
+For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe ratio must be larger than 1 at submission time for the In-Sample test. The In-Sample period depends on the competition kind:
+
+* Futures: since January 1, 2006 to submission time;
+* Bitcoin Futures: since January 1, 2014 to submission time.
+
+The **calc_stat** function allows to calculate the complete statistics of an algorithm including the Sharpe ratio.
 
 **Function**
 ```python
-qnt.stats.calc_stat(data, portfolio_history, slippage_factor=0.05, roll_slippage_factor=0.02,
-              min_periods=1, max_periods=None,
-              per_asset=False, points_per_year=None)
+qnt.stats.calc_stat(data, portfolio_history, slippage_factor=None, roll_slippage_factor=None,
+        min_periods=1, max_periods=None)
 ```
 
 **Parameters**
 
 |Parameter|Explanation|
 |---|---|
-|data|xarray DataArray with market data of the companies your algorithm invests in |
-|portfolio_history|xarray DataArray filled with portfolio weights, corresponding to the investing algorithm |
-|slippage_factor|transactions are punished with slippage equal to a given fraction of ATR14|
-|roll_slippage_factor| slippage for rolls of futures contracts|
-|min_periods|minimal number of days|
-|max_periods|max number of days|
-|per_asset|calculate stats per asset|
-|points_per_year|how many points per year to take as the basis for calculating mean the return
+|data|xarray.DataArray with historical asset data.|
+|portfolio_history|xarray.DataArray filled with allocation weights.|
+|slippage_factor|fraction of ATR14 used for punishing trades. Default for futures/BTC futures is 0.04.|
+|roll_slippage_factor| fraction of ATR14 used for futures rollovers. Default for futures/BTC futures is 0.02.|
+|min_periods|minimal number of days used for statistics.|
+|max_periods|maximal number of days used for statistics. Defualt None: complete time series.|
 
 **Output**
 
-The output is xarray with all statistics.
+The output is an xarray.DataArray with statistical indicators computed on a cumulative (max_periods=None) or rolling (for example, max_periods=252) basis.
 
-|Output columns|Explanation|
+|Output Field|Explanation|
 |---|---|
-|equity|Profit strategy|
-|relative_return| Relative equity change|
-|volatility|Annualized Standard deviation of relative return|
-|underwater|The decrease in profit from the highest peak|
-|max_drawdown|Minimum of underwater|
-|mean_return|Annualized mean return|
-|sharpe_ratio|Annualized mean return / Annualized volatility|
-|bias|sum(position) / sum( abs(position) ) per day|
-|instruments|Number of traded financial instruments|
-|avg_turnover|Average monthly turnover of positions in the portfolio (one year)|
-|avg_holding_time|Average position holding time for one year|
+|equity| Cumulative profit and losses. We start with 1 M USD.|
+|relative_return| Relative daily variation of equity.|
+|volatility| Annualized standard deviation of relative returns.|
+|underwater|Time evolution of drawdowns.|
+|max_drawdown|Absolute minimum of underwater.|
+|sharpe_ratio|Annualized Sharpe ratio: ratio of mean return / volatility.|
+|mean_return|Annualized mean return.|
+|bias|Daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one.|
+|instruments|Number of traded assets on a given day.|
+|avg_turnover|Average turnover.|
+|avg_holding_time|Average holding time.|
+
+Note that some indicators are defined on a daily basis:
+
+* equity;
+* relative_return;
+* underwater;
+* max_drawdown;
+* bias;
+* instruments.
+
+Other indicators imply an average over time:
+
+* volatility;
+* sharpe_ratio;
+* mean_return;
+* avg_turnover; 
+* avg_holding_time.
+
+With default arguments:
+
+```python
+qnt.stats.calc_stat(data, portfolio_history)
+```
+all indicators will be displayed since inception (cumulative basis).
+
+To get results on a rolling basis, one has to specify max_time, for example 252 trading days:
+```python
+qnt.stats.calc_stat(data, portfolio_history, max_periods=252)
+```
+
+To get In-Sample results one can use slicing, for example:
+```python
+qnt.stats.calc_stat(data, portfolio_history.sel(time=slice("2006-01-01", None)), max_periods=252)
+```
+
 
 **Example**
 
