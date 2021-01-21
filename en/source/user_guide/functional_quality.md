@@ -70,7 +70,7 @@ The results will be displayed on a cumulative basis, i.e. they will include all 
 
 * specifying a pre-defined window (for example, the last year):
 ```python
-statistics = qnstats.calc_stat(data, weights, max_period=252)
+statistics = qnstats.calc_stat(data, weights, max_periods=252)
 ```
 The results will be displayed on a rolling basis, i.e. they will include all last 252 points in **data**.
 
