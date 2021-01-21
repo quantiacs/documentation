@@ -304,19 +304,19 @@ performance = stat.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
 ```
 
-![](./pictures/pnl.PNG)
+![](./pictures/pnl1.PNG)
 
 ```python
 UWchart = stat.to_pandas()["underwater"]
 qngraph.make_plot_filled(UWchart.index, UWchart, color="darkred", name="Underwater Chart", range_max=0)
 ```
 
-![](./pictures/underwater.PNG)
+![](./pictures/underwater1.PNG)
 
 ```python
 SRchart = stat.to_pandas()["sharpe_ratio"]
 qngraph.make_plot_filled(SRchart.index, SRchart, color="#F442C5", name="SR")
 ```
 
-![](./pictures/rollingsharpe.PNG)
+![](./pictures/rollingsharpe1.PNG)
 
