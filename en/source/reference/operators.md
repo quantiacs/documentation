@@ -199,7 +199,7 @@ def covariance(x, y, window=10):
     Wrapper function to estimate rolling covariance.
     :params x,y: pandas DataFrames.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series  of the column-wise correlation between x and y over the past 'window' days.
+    :return: a pandas DataFrame with the time-series  of the column-wise covariance between x and y over the past 'window' days.
     """
     return x.rolling(window).cov(y)
 </pre>
