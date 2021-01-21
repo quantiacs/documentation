@@ -125,12 +125,12 @@ ts_sum(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_sum(df, window=10):
+def ts_sum(df, window=20):
     """
-    Wrapper function to estimate rolling sum.
-    :param df: a pandas DataFrame.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series sum over the past 'window' days.
+    Computes the sum of the values on a rolling basis.
+    :param df: pandas.DataFrame.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the sum of the values over the past 'window' days.
     """
     return df.rolling(window).sum()
 </pre>
