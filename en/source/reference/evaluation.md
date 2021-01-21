@@ -1,6 +1,50 @@
 # Evaluation
 
-Once we have constructed an algorithm and plotted equity on historical data, we need to use a set of criteria to evaluate the performance. All current competition rules are available [here](https://quantiacs.io/contest).
+## Backtesting
+
+The necessary input for backtesting is a set of allocation **weights** (fractions of capital to be invested) for all assets over the backtesting period. Let us suppose that we wrote the code:
+
+```python
+import qnt.data as qndata
+import qnt.ta as qnta
+
+futures = qndata.futures.load_data(min_date="2006-01-01")
+
+price_open = futures.sel(field="open")
+price_open_one_day_ago = qnta.shift(price_open, periods=1)
+
+strategy = price_open - price_open_one_day_ago
+
+weights = strategy / abs(strategy).sum("asset")
+```
+
+Then we can submit code by importing in addition the **qnt.output** library:
+
+```python
+import qnt.output as output
+```
+
+and a call to the **write** function:
+
+```python
+output.write(weights)
+```
+
+**Function**
+```python
+qnt.output.write(weights)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|weights|xarray.DataArray with allocation weights for all assets in the backtesting period.|
+
+
+**Output**
+
+None, the call is mandatory as it will write weights to file used for evaluating performance.
 
 ## Statistics
 First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. The annualized SR must be at least greater than 1 for the In-Sample test. The "calc_stat" function allows to calculate the complete statistics of an algorithm.
@@ -109,43 +153,4 @@ qngraph.make_plot_filled(SRchart.index, SRchart, color="#F442C5", name="Rolling 
 ```
 
 ![](./pictures/rollingsharpe.PNG)
-
-## Exposure filter
-
-A stock algorithm can be submitted <ins>only when</ins> it meets the following criterion: the maximum allocation to each instrument does not exceed 5 % of the invested capital.
-
-Quantiacs implements this criterion within some tolerance limit.
-
-Let us introduce MP, the maximum percentage of the invested capital to an asset. The exposure filter is passed if one of the following conditions is met:
-- the MP can be from 5% to 10%  no more than 5 days per year;
-- the cumulative excess of the MP for all assets is calculated. The average daily value should not exceed 2 %.
-
-The hard limit is 10%. It means that if MP exceeds 10% your algorithm does not pass the filter.
-
-One can use the "check_exposure" function in order to check this requirement.
-
-**Function**
-```python
-check_exposure(portfolio_history,
-                   soft_limit=0.05, hard_limit=0.1,
-                   days_tolerance=0.02, excess_tolerance=0.02,
-                   avg_period=252, check_period=252 * 3)
-```
-
-**Parameters**
-
-|Parameter|Explanation|
-|---|---|
-|portfolio_history|output xarray DataArray|
-|soft_limit|soft limit for exposure|
-|hard_limit|hard limit for exposure|
-|days_tolerance|the number of days when exposure may be in range from 0.05 to 0.1|
-|excess_tolerance|max allowed average excess|
-|avg_period|period for the ratio calculation|
-|check_period|period for checking|
-
-
-**Output**
-
-The output is bool. True indicates successful passing the filter.
 
