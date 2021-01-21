@@ -147,6 +147,9 @@ weights = qnbt.backtest(
     strategy         = strategy)
 ```
 
+<p class="tip">Note that multi-pass backtesting is considerably slower than single-pass one. We suggest you to start with a simple single-pass implementation and to cross-check your results with the multi-pass implementation before submission, to get a realistic estimate of the performance of your algorithm.</p>
+
+
 **Function**
 ```python
 qnt.backtester.backtest(competition_type, load_data, lookback_period, test_period, strategy)
