@@ -199,26 +199,6 @@ def rolling_rank(na):
 <tr>
 <td>
 <pre>
-rolling_rank(na)<br/><br/><br/><br/><br/><br/>
-</pre>
-</td>
-
-<td>
-<pre lang="python">
-def rolling_rank(na):
-    """
-    Auxiliary function to be used in pd.rolling_apply
-    :param na: numpy array.
-    :return: The rank of the last value in the array.
-    """
-    return rankdata(na)[-1]
-</pre>
-</td>
-
-
-<tr>
-<td>
-<pre>
 ts_rank(df, window)<br/><br/><br/><br/><br/><br/>
 </pre>
 </td>
