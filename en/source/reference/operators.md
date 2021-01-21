@@ -70,7 +70,7 @@ The first step consists in converting the sliced xarray.DataArray into a pandas.
 ```python
 import qnt.data as qntdata
 data = qntdata.futures.load_data(tail=365*15)
-close_pd= data.sel(field="close").to_pandas()
+close= data.sel(field="close").to_pandas()
 ```
 
 We can then compute an indicator using standard pandas methods:
