@@ -196,7 +196,7 @@ qnt.stats.calc_stat(data, portfolio_history, slippage_factor=None, roll_slippage
 |slippage_factor|fraction of ATR14 used for punishing trades. Default for futures/BTC futures is 0.04.|
 |roll_slippage_factor| fraction of ATR14 used for futures rollovers. Default for futures/BTC futures is 0.02.|
 |min_periods|minimal number of days used for statistics.|
-|max_periods|maximal number of days used for statistics. Defualt None: complete time series.|
+|max_periods|maximal number of days used for statistics. Default None: complete time series.|
 
 **Output**
 
