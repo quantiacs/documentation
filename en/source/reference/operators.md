@@ -1,5 +1,48 @@
 # Operators
 
+## xarray
+
+We have based our library on xarray, an open source project and Python package that makes working with labelled multi-dimensional arrays simple and efficient. The full documentation can be found at [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/).
+
+The basic data structure we use is an xarray.DataArray, a labeled multi-dimensional array whose key properties are:
+
+* **values**: a numpy.ndarray holding the array’s values;
+* **dims**: dimension names for each axis;
+* **coords**: a dict-like container of arrays (coordinates) that label each point (e.g., 1-dimensional arrays of numbers, datetime objects or strings);
+* **attrs**: a dict to hold arbitrary metadata (attributes).
+
+Let us consider a specific example:
+
+```python
+import qnt.data as qndata
+futures = qndata.futures.load_data(min_date="2006-01-01")
+futures.dims
+```
+
+The output is a tuple:
+
+```python
+('field', 'time', 'asset')
+```
+
+The most common operation is to select a specific **field** as follows:
+
+```python
+close_price = futures.sel(field='close')
+```
+which will return a structure similar to a pandas DataFrame: a two-by-two matrix with the time coordinate on the y-axis, in ascending order, and the values of the close for all assets on the x-axis.
+
+These data structures can be used for building indicators. 
+
+Arithmetic operations with a single xarray.DataArray automatically vectorize (like numpy) over all array values:
+
+```python
+close_price_100 = close_price/100.0
+```
+
+You can also use any of numpy’s or scipy’s many [ufunc](https://numpy.org/doc/stable/reference/ufuncs.html) functions directly on a DataArray:
+
+
 <table>
 <tr>
 <th>
