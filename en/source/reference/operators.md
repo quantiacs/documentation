@@ -263,7 +263,8 @@ def rolling_prod(na):
     :param na: numpy array.
     :return: The product of the values in the array.
     """
-    return np.prod(na)
+    import numpy
+    return numpy.prod(na)
 </pre>
 </td>
 
