@@ -42,6 +42,25 @@ close_price_100 = close_price/100.0
 
 You can also use any of numpy’s or scipy’s many [ufunc](https://numpy.org/doc/stable/reference/ufuncs.html) functions directly on a DataArray:
 
+```python
+import numpy
+numpy.log(close_price)
+```
+
+The file **qnt/xr_talib.py** contains many technical indicators, for example:
+
+```python
+import qnt.xr_talib as talib
+close_price_sma= talib.SMA(close_price, 2)
+```
+
+Optimized version of the indicators based on [numba](https://numba.pydata.org/) can be found in the **qnt/ta** folder, for example:
+
+```python
+import qnt.ta as qnta
+close_price_sma= qnta.sma(close_price, 2)
+```
+
 
 <table>
 <tr>
