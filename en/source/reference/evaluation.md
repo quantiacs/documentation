@@ -2,6 +2,8 @@
 
 ## Backtesting
 
+### Write Weights
+
 The necessary input for backtesting is a set of allocation **weights** (fractions of capital to be invested) for all assets over the backtesting period. Let us suppose that we wrote the code:
 
 ```python
