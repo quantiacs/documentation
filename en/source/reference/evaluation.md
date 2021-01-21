@@ -48,6 +48,39 @@ qnt.output.write(weights)
 
 None, the call is mandatory as it will write weights to file used for evaluating performance.
 
+### Clean Weights
+
+We provide you with a **clean** function which can be used for performing sanity checks on the defined weights. The function can be called before writing:
+
+```python
+weights = output.clean(weights, futures, "futures")
+```
+
+It will perform 2 operations:
+
+1. if there are trading days where the user did not specify any exposure, an exposure of “0” (no allocation) will be used;
+
+2. if the total sum of the absolute exposure is larger than 1, normalization to 1 will be applied (i.e. max. allowed leverage is 1).
+
+**Function**
+```python
+qnt.output.clean(weights, data, kind)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|weights|xarray.DataArray with allocation weights for all assets in the backtesting period.|
+|data|xarray.DataArray with input data|
+|kind|"futures" or "crypto"|
+
+If kind="crypto", the code will check in addition if other futures in addition to Bitcoin are defined. In positive case, it will remove them and leave Bitcoin futures only.
+
+**Output**
+
+An xarray.DataArray with the cleaned weights ready for submission.
+
 ## Statistics
 First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there are ≈252 trading days on average per year. The annualized SR must be at least greater than 1 for the In-Sample test. The "calc_stat" function allows to calculate the complete statistics of an algorithm.
 
