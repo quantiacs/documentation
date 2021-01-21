@@ -32,14 +32,7 @@ close_price = futures.sel(field='close')
 ```
 which will return a structure similar to a pandas DataFrame: a two-by-two matrix with the time coordinate on the y-axis, in ascending order, and the values of the close for all assets on the x-axis.
 
-These data structures can be used fodef scale(df, k=1):
-    """
-    Scaling time serie.
-    :param df: a pandas DataFrame.
-    :param k: scaling factor.
-    :return: a pandas DataFrame rescaled df such that sum(abs(df)) = k
-    """
-    return df.mul(k).div(np.abs(df).sum())r building indicators. 
+These data structures can be used for building indicators. 
 
 Arithmetic operations with a single xarray.DataArray automatically vectorize (like numpy) over all array values:
 
