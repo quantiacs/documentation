@@ -59,14 +59,7 @@ Optimized version of the indicators based on [numba](https://numba.pydata.org/) 
 ```python
 import qnt.ta as qnta
 close_price_sma= qnta.sma(close_price, 2)
-```def scale(df, k=1):
-    """
-    Scaling time serie.
-    :param df: a pandas DataFrame.
-    :param k: scaling factor.
-    :return: a pandas DataFrame rescaled df such that sum(abs(df)) = k
-    """
-    return df.mul(k).div(np.abs(df).sum())
+```
 
 ## pandas
 
