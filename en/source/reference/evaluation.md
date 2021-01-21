@@ -32,6 +32,7 @@ and a call to the **write** function:
 output.write(weights)
 ```
 
+
 **Function**
 ```python
 qnt.output.write(weights)
