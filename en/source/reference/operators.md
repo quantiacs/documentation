@@ -145,12 +145,12 @@ sma(df, window)<br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def sma(df, window=10):
+def sma(df, window=20):
     """
-    Wrapper function to estimate simple moving average.
-    :param df: a pandas DataFrame.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series sma over the past 'window' days.
+    Computes the simple moving average.
+    :param df: pandas.DataFrame.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the sma over the past 'window' days.
     """
     return df.rolling(window).mean()
 
@@ -167,12 +167,12 @@ stddev(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def stddev(df, window=10):
+def stddev(df, window=20):
     """
-    Wrapper function to estimate rolling standard deviation.
-    :param df: a pandas DataFrame.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series stddev over the past 'window' days.
+    Computes the standard deviation on a rolling basis.
+    :param df: pandas.DataFrame.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the stddev over the past 'window' days.
     """
     return df.rolling(window).std()
 </pre>
@@ -187,12 +187,12 @@ correlation(x, y, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def correlation(x, y, window=10):
+def correlation(x, y, window=20):
     """
-    Wrapper function to estimate rolling correlation.
-    :params x,y: pandas DataFrames.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series of the column-wise correlation between x and y over the past 'window' days.
+    Computes correlation on a rolling basis.
+    :params x,y: pandas.DataFrames.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the time-series of the column-wise correlation between x and y over the past 'window' days.
     """
     return x.rolling(window).corr(y)
 </pre>
@@ -208,12 +208,12 @@ covariance(x, y, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def covariance(x, y, window=10):
+def covariance(x, y, window=20):
     """
-    Wrapper function to estimate rolling covariance.
-    :params x,y: pandas DataFrames.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series  of the column-wise covariance between x and y over the past 'window' days.
+    Computes covariance on a rolling basis.
+    :params x,y: pandas.DataFrames.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the time-series of the column-wise covariance between x and y over the past 'window' days.
     """
     return x.rolling(window).cov(y)
 </pre>
@@ -231,7 +231,7 @@ rolling_rank(na)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def rolling_rank(na):
     """
-    Auxiliary function to be used in pd.rolling_apply
+    Auxiliary function for ts_rank.
     :param na: numpy array.
     :return: The rank of the last value in the array.
     """
@@ -250,12 +250,12 @@ ts_rank(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_rank(df, window=10):
+def ts_rank(df, window=20):
     """
-    Wrapper function to estimate rolling rank.
-    :param df: a pandas DataFrame.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series rank over the past window days.
+    Computes the rank on a rolling basis.
+    :param df: a pandas.DataFrame.
+    :param window: the rolling window used for the computation.
+    :return: a pandas.DataFrame with the rank over the past window days.
     """
     return df.rolling(window).apply(rolling_rank)
 </pre>
@@ -273,7 +273,7 @@ rolling_prod(na)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def rolling_prod(na):
     """
-    Auxiliary function to be used in pd.rolling_apply
+    Auxiliary function for ts_prod.
     :param na: numpy array.
     :return: The product of the values in the array.
     """
@@ -292,12 +292,12 @@ product(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def product(df, window=10):
+def product(df, window=20):
     """
-    Wrapper function to estimate rolling product.
-    :param df: a pandas DataFrame.
-    :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series product over the past 'window' days.
+    Computes the product on a rolling basis.
+    :param df: a pandas.DataFrame.
+    :param window: the rolling window used for the computation.
+    :return: a pandas DataFrame with the product over the past 'window' days.
     """
     return df.rolling(window).apply(rolling_prod)
 </pre>
@@ -313,12 +313,12 @@ ts_min(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_min(df, window=10):
+def ts_min(df, window=20):
     """
-    Wrapper function to estimate rolling min.
-    :param df: a pandas DataFrame.
+    Computes the minimum on a rolling basis.
+    :param df: a pandas.DataFrame.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series min over the past 'window' days.
+    :return: a pandas DataFrame with the minimum over the past 'window' days.
     """
     return df.rolling(window).min()
 </pre>
@@ -334,12 +334,12 @@ ts_max(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_max(df, window=10):
+def ts_max(df, window=20):
     """
-    Wrapper function to estimate rolling min.
-    :param df: a pandas DataFrame.
+    Computes the maximum on a rolling basis.
+    :param df: a pandas.DataFrame.
     :param window: the rolling window.
-    :return: a pandas DataFrame with the time-series max over the past 'window' days.
+    :return: a pandas DataFrame with the maximum over the past 'window' days.
     """
     return df.rolling(window).max()
 </pre>
@@ -357,9 +357,9 @@ delta(df, period)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def delta(df, period=1):
     """
-    Wrapper function to estimate difference.
-    :param df: a pandas DataFrame.
-    :param period: the difference grade.
+    Computes the difference.
+    :param df: a pandas.DataFrame.
+    :param period: the difference.
     :return: a pandas DataFrame with today’s value minus the value 'period' days ago.
     """
     return df.diff(period)
@@ -378,10 +378,10 @@ delay(df, period)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def delay(df, period=1):
     """
-    Wrapper function to estimate lag.
-    :param df: a pandas DataFrame.
+    Computes lagged value.
+    :param df: a pandas.DataFrame.
     :param period: the lag grade.
-    :return: a pandas DataFrame with lagged time series
+    :return: a pandas DataFrame with the lagged values of the time series.
     """
     return df.shift(period)
 </pre>
@@ -399,9 +399,9 @@ rank(df)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def rank(df):
     """
-    Cross sectional rank
-    :param df: a pandas DataFrame.
-    :return: a pandas DataFrame with rank along columns.
+    Cross sectional rank.
+    :param df: a pandas.DataFrame.
+    :return: a pandas DataFrame with rank along columns (percentiles).
     """
     return df.rank(axis=1, pct=True)
 </pre>
@@ -419,10 +419,10 @@ scale(df, k)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def scale(df, k=1):
     """
-    Scaling time serie.
-    :param df: a pandas DataFrame.
+    Scaled time serie.
+    :param df: a pandas.DataFrame.
     :param k: scaling factor.
-    :return: a pandas DataFrame rescaled df such that sum(abs(df)) = k
+    :return: a pandas.DataFrame rescaled such that sum(abs(df)) = k
     """
     import numpy
     return df.mul(k).div(numpy.abs(df).sum())
@@ -439,12 +439,12 @@ ts_argmax(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_argmax(df, window=10):
+def ts_argmax(df, window=20):
     """
-    Wrapper function to estimate which day ts_max(df, window) occurred on
-    :param df: a pandas DataFrame.
+    Computes on which day ts_max(df, window) occurred on.
+    :param df: a pandas.DataFrame.
     :param window: the rolling window.
-    :return: well.. that :)
+    :return: number of days ago condition occurred.
     """
     return df.rolling(window).apply(np.argmax) + 1
 </pre>
@@ -460,54 +460,17 @@ ts_argmin(df, window)<br/><br/><br/><br/><br/><br/>
 
 <td>
 <pre lang="python">
-def ts_argmin(df, window=10):
+def ts_argmin(df, window=20):
     """
-    Wrapper function to estimate which day ts_min(df, window) occurred on
-    :param df: a pandas DataFrame.
+    Computes on which day ts_min(df, window) occurred on.
+    :param df: a pandas.DataFrame.
     :param window: the rolling window.
-    :return: well.. that :)
+    :return: number of days ago condition occurred.
     """
     return df.rolling(window).apply(np.argmin) + 1
 </pre>
 </td>
 
-
-<tr>
-<td>
-<pre>
-decay_linear(df, period)<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-</pre>
-</td>
-
-<td>
-<pre lang="python">
-def decay_linear(df, period=10):
-    """
-    Linear weighted moving average implementation.
-    :param df: a pandas DataFrame.
-    :param period: the LWMA period
-    :return: a pandas DataFrame with the LWMA.
-    """
-    # Clean data
-    if df.isnull().values.any():
-        df.fillna(method='ffill', inplace=True)
-        df.fillna(method='bfill', inplace=True)
-        df.fillna(value=0, inplace=True)
-
-    na_lwma = np.zeros_like(df)
-    na_lwma[:period, :] = df.ix[:period, :]
-    na_series = df.as_matrix()
-
-    divisor = period * (period + 1) / 2
-    y = (np.arange(period) + 1) * 1.0 / divisor
-    # Estimate the actual lwma with the actual close.
-    # The backtest engine should assure to be snooping bias free.
-    for row in range(period - 1, df.shape[0]):
-        x = na_series[row - period + 1: row + 1, :]
-        na_lwma[row, :] = (np.dot(x.T, y))
-    return pd.DataFrame(na_lwma, index=df.index, columns=df.columns)
-</pre>
-</td>
 
 
 
