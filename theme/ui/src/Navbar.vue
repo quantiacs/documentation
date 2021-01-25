@@ -9,7 +9,7 @@
           <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
-          <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Legacy Version</a></li>
+          <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
         </ul>
       </nav>
       <div class="headerWrapper">
@@ -24,13 +24,13 @@
               <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
-              <li><a class="nav-link" href="https://www.quantiacs.com/" target="_blank">Legacy Version</a></li>
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
             </ul>
           </nav>
         </div>
       </div>
       <div class="langWrapper" style="display: flex; justify-content: space-between; align-items: center;"><a
-          class="myAccountLink" rel="noopener noreferrer" href="https://quantiacs.io/personalpage/login" target="_self"
+          class="myAccountLink" rel="noopener noreferrer" href="/personalpage/login" target="_self"
           style="display: block;">Sign In</a>
         <div class="usernameLinkWrapper" style="display: none;"><span class="usernameLink"></span><span
             class="usernameIcon"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user"
@@ -40,7 +40,7 @@
             class="chevron"></span>
           <ul>
             <li class="usernameHeader"><span style="color: rgb(214, 109, 54);"></span></li>
-            <li><a rel="noopener noreferrer" href="https://quantiacs.io/personalpage/homepage" target="_self">My
+            <li><a rel="noopener noreferrer" href="/personalpage/homepage" target="_self">My
               account</a></li>
             <li><span>Log out</span></li>
           </ul>
