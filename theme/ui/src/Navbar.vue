@@ -9,7 +9,15 @@
           <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
-          <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
+          <div class="quantiacs_legacy_link_container"><a class="nav-link"
+                                                          href="https://legacy.quantiacs.com/Systems.aspx"
+                                                          target="_blank">Q1-Q14 Contests</a>
+            <ul class="ul_container">
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/Competitions/Q14.aspx" target="_blank">Q14 Live
+                Evaluation</a></li>
+            </ul>
+          </div>
         </ul>
       </nav>
       <div class="headerWrapper">
@@ -24,6 +32,8 @@
               <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14 Contests</a></li>
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/Competitions/Q14.aspx" target="_blank">Q14 Live Evaluation</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
             </ul>
           </nav>
@@ -751,7 +761,41 @@ header {
 }
 
 
+
+
 /* menu */
+
+.quantiacs_legacy_link_container {
+  background: #020202;
+  align-items: center;
+  position: relative;
+  transition: all .3s ease-in;
+
+  .ul_container {
+    display: none !important;
+    flex-direction: column;
+    position: absolute;
+    background-color: #020202;
+    color: #fff;
+    width: 150px !important;
+    top: 30px;
+    right: -20px;
+
+    li {
+      list-style-type: none;
+      margin: 5px;
+      cursor: pointer;
+      font-family: "Gotham Pro Medium";
+      text-align: center;
+    }
+  }
+}
+
+.quantiacs_legacy_link_container:hover {
+  .ul_container {
+    display: flex !important;
+  }
+}
 
 .menu {
   clear: both;

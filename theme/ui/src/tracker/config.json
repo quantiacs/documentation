@@ -1,11 +1,12 @@
 {
   "accounts": {
-    "staging.quantnet-ai.ru": {
+    "staging-2.quantnet-ai.ru": {
       "ym": 63267115,
       "gtag": ["G-W041K5EBR9"],
       "fbp": "1918063771668498",
       "li": "2892457",
-      "vk": "VK-RTRG-539149-eKFK"
+      "vk": "VK-RTRG-539149-eKFK",
+      "quora": "efe3f577a2e14171a5125be3fadd8088"
     },
     "quantnet.ai": {
       "ym": 51571100,
@@ -24,7 +25,16 @@
     "quantiacs.io": {
       "gtag": ["G-G8C48NT95H", "UA-181906687-1"],
       "fbp": "485819815712458",
-      "li": "2892457"
+      "li": "2892457",
+      "quora": "b69c1e0c65884a6e908fa2f241aa31ce",
+      "twitter": "o5dlo"
+    },
+    "quantiacs.com": {
+      "gtag": ["G-NNGVNXC4LL", "UA-181906687-1"],
+      "fbp": "485819815712458",
+      "li": "2892457",
+      "quora": "b69c1e0c65884a6e908fa2f241aa31ce",
+      "twitter": "o5dlo"
     }
   }
 }
