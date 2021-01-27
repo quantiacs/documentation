@@ -42,6 +42,7 @@ Contents
 
    examples/blank_template_for_developing.ipynb
    examples/quick_start.ipynb
+   examples/2_ma_crypto_futures.ipynb
    examples/trend_based_strategy.ipynb
    examples/futures_trend_following_with_custom_args.ipynb
 
