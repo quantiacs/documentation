@@ -41,7 +41,7 @@
       </div>
       <div class="langWrapper" style="display: flex; justify-content: space-between; align-items: center;"><a
           class="myAccountLink" rel="noopener noreferrer" href="/personalpage/login" target="_self"
-          style="display: block;">Sign In</a>
+          style="display: block;">Sign up / Log in</a>
         <div class="usernameLinkWrapper" style="display: none;"><span class="usernameLink"></span><span
             class="usernameIcon"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user"
                                       class="svg-inline--fa fa-user fa-w-14 fa-fw fa-sm " role="img"
