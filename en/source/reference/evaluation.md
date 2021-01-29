@@ -87,7 +87,7 @@ An xarray.DataArray with the cleaned weights ready for submission.
 In addition to the clean function we provide a **check** function which will return you warnings if issues with weights are present. The function can be called before writing:
 
 ```python
-output.clean(weights, futures, "futures")
+output.check(weights, futures, "futures")
 ```
 
 The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the clean function, this problem is automatically solved.
