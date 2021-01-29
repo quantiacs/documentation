@@ -11,7 +11,7 @@ The available futures financial instruments can be inspected using the following
 **Function**
 
 ```python
-import qnt
+import qnt.data
 qnt.data.futures.load_list()
 ```
 
@@ -105,7 +105,7 @@ Futures data can be loaded using:
 **Function**
 
 ```python
-import qnt
+import qnt.data
 qnt.data.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
     forward_order = True, tail = 365 * 6)
 ```
@@ -133,7 +133,7 @@ The output is an xarray.DataArray with historical data for the selected assets. 
 One can load market data for the Australian Dollar/US Dollar rate and Soybean Oil for the past 15 years as follows:
 
 ```python
-import qnt
+import qnt.data
 data = qnt.data.futures.load_data(assets= ["F_AD", "F_BO"], tail=365*15)
 ```
 Specific fields can be extracted using:
@@ -184,7 +184,7 @@ Bitcoin Futures data can be loaded using:
 **Function**
 
 ```python
-import qnt
+import qnt.data
 qnt.data.cryptofutures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
     forward_order = True, tail = 365 * 6)
 ```
@@ -212,7 +212,7 @@ The output is an xarray.DataArray with historical data for the selected assets. 
 One can load market data for the BTC Futures for the past 7 years as follows:
 
 ```python
-import qnt
+import qnt.data
 data = qnt.data.cryptofutures.load_data(tail=365*7)
 ```
 Specific fields can be extracted using:
@@ -274,7 +274,7 @@ can be loaded using:
 **Function**
 
 ```python
-import qnt
+import qnt.data
 qnt.data.crypto.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
     forward_order = True, tail = 365 * 6)
 ```
@@ -302,7 +302,7 @@ The output is an xarray.DataArray with hourly historical data for the selected a
 One can load market data for Ethereum for the past 5 years as follows:
 
 ```python
-import qnt
+import qnt.data
 data = qnt.data.crypto.load_data(assets= ["ETH"], tail=365*5)
 ```
 Specific fields can be extracted using:
