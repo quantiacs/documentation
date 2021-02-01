@@ -15,7 +15,7 @@
             <nav class="footerMenu">
               <ul>
                 <li><a class="nav-link" href="/career">Career</a></li>
-                <li><a class="nav-link" rel="noopener noreferrer" href="https://quantiacs.io/personalpage/login"
+                <li><a class="nav-link" rel="noopener noreferrer" href="/personalpage/login"
                        target="_self">My account</a></li>
               </ul>
             </nav>
