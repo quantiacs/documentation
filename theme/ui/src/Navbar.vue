@@ -9,6 +9,7 @@
           <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
+          <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
           <div class="quantiacs_legacy_link_container"><a class="nav-link"
                                                           href="https://legacy.quantiacs.com/Systems.aspx"
                                                           target="_blank">Q1-Q14 Contests</a>
@@ -32,6 +33,7 @@
               <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
+              <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14 Contests</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/Competitions/Q14.aspx" target="_blank">Q14 Live Evaluation</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
@@ -152,7 +154,7 @@ header {
       color: $light_main_color;
       display: block;
       font-family: $header_font;
-      padding: 0;
+      padding: 0 2.5px;
       text-align: center;
       text-decoration: none;
       font-size: 14px;
@@ -162,6 +164,10 @@ header {
       -o-transition: all 0.25s ease;
       transition: all 0.25s ease;
       white-space: nowrap;
+    }
+
+    .quantiacs_community_link {
+      color: #1bbafb;
     }
 
     li:hover {
@@ -286,6 +292,10 @@ header {
         &:hover {
           color: $light_font_color;
         }
+      }
+
+      .quantiacs_community_link {
+        color: #1bbafb;
       }
 
       .submenu {
@@ -835,7 +845,7 @@ header {
 @media (max-width: 1200px) {
   .top_header {
     padding: 10px 0px;
-    width: 80%;
+    width: 90%;
   }
 
   .usernameLink {
