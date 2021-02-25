@@ -6,9 +6,9 @@ with open("README.md", "r") as fh:
 setup(
     name="sphinx_press_theme",
     version="0.5.1",
-    url="https://github.com/quantiacs-io/documentation",
+    url="https://github.com/quantiacs/documentation",
     license="MIT",
-    author="Eduardo Naufel Schettino <schetino72> qntnet quantiacs-io",
+    author="Eduardo Naufel Schettino <schetino72> qntnet quantiacs",
     description="A Sphinx-doc theme based on Vuepress",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -42,8 +42,8 @@ setup(
     ],
     keywords="sphinx doc theme vue.js",
     project_urls={
-        "Documentation": "https://github.com/quantiacs-io/documentation",
-        "Source": "https://github.com/quantiacs-io/documentation",
-        "Tracker": "https://github.com/quantiacs-io/documentation/issues",
+        "Documentation": "https://github.com/quantiacs/documentation",
+        "Source": "https://github.com/quantiacs/documentation",
+        "Tracker": "https://github.com/quantiacs/documentation/issues",
     },
 )
