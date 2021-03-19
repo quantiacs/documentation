@@ -19,6 +19,12 @@ dependencies and avoiding conflicts:
     ```bash
     conda env config vars set -n qntdev API_KEY={your_api_key_here}
     ```
+    *The command above saves the variable in the conda environment. When you activate it, conda will set up this environment variable. If you have any problem with conda environment variables (known issue with PyCharm), you can set this environment variable in the run settings or write the key directly to the source code. Just add these lines to the head of your strategy before other imports.*
+   ```python
+    import os
+    os.environ['API_KEY'] = "{your_api_key_here}"
+    ...
+    ```
 
 4. Activate your environment if not yet activated:
    ```bash
