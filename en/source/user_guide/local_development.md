@@ -106,8 +106,8 @@ days, performs a simulation for 2 years.
 
    ![nb](./pictures/notebook.png)
 
-   b) Upload your python file (for example, **strategy.py**) in your Jupyter environment root directory and type in **
-   strategy.ipynb**:
+   b) Upload your python file (for example, **strategy.py**) in your Jupyter environment root directory and type in 
+   **strategy.ipynb**:
 
         import strategy
 
