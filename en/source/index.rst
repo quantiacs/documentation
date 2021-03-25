@@ -40,12 +40,13 @@ Contents
    :maxdepth: 2
    :caption: Examples
 
-   examples/blank_template_for_developing.ipynb
-   examples/quick_start.ipynb
-   examples/2_ma_crypto_futures.ipynb
-   examples/trend_based_strategy.ipynb
-   examples/futures_trend_following_with_custom_args.ipynb
-
+   examples/quick_start.rst
+   examples/btc_futures_trend_following.rst
+   examples/trend_following.rst
+   examples/machine_learning_ridgeclassifier.rst
+   examples/trend_following_with_custom_arguments.rst
+   examples/futures_trend_following.rst
+   examples/trading_system_optimization.rst
 
 .. toctree::
    :maxdepth: 2
