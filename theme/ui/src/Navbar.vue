@@ -10,15 +10,9 @@
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
           <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
-          <div class="quantiacs_legacy_link_container"><a class="nav-link"
-                                                          href="https://legacy.quantiacs.com/Systems.aspx"
-                                                          target="_blank">Q1-Q14 Contests</a>
-            <ul class="ul_container">
-              <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
-              <li><a class="nav-link" href="https://legacy.quantiacs.com/Competitions/Q14.aspx" target="_blank">Q14 Live
-                Evaluation</a></li>
-            </ul>
-          </div>
+          <li><a class="nav-link"
+                 href="https://legacy.quantiacs.com/Systems.aspx"
+                 target="_blank">Q1-Q14 Contests</a></li>
         </ul>
       </nav>
       <div class="headerWrapper">
@@ -35,8 +29,6 @@
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
               <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14 Contests</a></li>
-              <li><a class="nav-link" href="https://legacy.quantiacs.com/Competitions/Q14.aspx" target="_blank">Q14 Live Evaluation</a></li>
-              <li><a class="nav-link" href="https://legacy.quantiacs.com/" target="_blank">Legacy Version</a></li>
             </ul>
           </nav>
         </div>
