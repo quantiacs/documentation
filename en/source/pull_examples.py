@@ -8,7 +8,8 @@ BASE_URL='https://quantiacs.com'
 #BASE_URL='https://staging-2.quantnet-ai.ru'
 TOC_SECTION = 'Examples'
 
-curdir = os.path.dirname(__file__)
+curdir = os.path.abspath(os.path.dirname(__file__))
+#print(curdir)
 os.makedirs(curdir + '/examples', exist_ok=True)
 
 for f in os.listdir(curdir + '/examples'):

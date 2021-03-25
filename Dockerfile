@@ -41,7 +41,8 @@ RUN cd /opt/theme/ui   \
 RUN pip install sphinx_press_theme
 
 COPY en /opt/en
-RUN cd /opt/en && cd source && python pull_examples.py && cd - && make clean && make html
+RUN cd /opt/en/source && python pull_examples.py
+RUN cd /opt/en && make clean && make html
 
 
 FROM nginx:1.19 as production
