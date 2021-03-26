@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     isAuthorizedUser() {
-      return this.accessToken && this.refreshToken && this.username;
+      return this.accessToken && this.username;
     },
   },
   async created() {
@@ -1008,10 +1008,6 @@ header {
   .top_header {
     .headerWrapper {
       display: none;
-    }
-
-    .langWrapper {
-      width: 20%;
     }
 
     .dropdownmenu,
