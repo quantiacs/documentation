@@ -28,38 +28,174 @@
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
               <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
-              <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14 Contests</a></li>
+              <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14
+                Contests</a></li>
             </ul>
           </nav>
         </div>
       </div>
-      <div class="langWrapper" style="display: flex; justify-content: space-between; align-items: center;"><a
-          class="myAccountLink" rel="noopener noreferrer" href="/personalpage/login" target="_self"
-          style="display: block;">Sign up / Log in</a>
-        <div class="usernameLinkWrapper" style="display: none;"><span class="usernameLink"></span><span
-            class="usernameIcon"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user"
-                                      class="svg-inline--fa fa-user fa-w-14 fa-fw fa-sm " role="img"
-                                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor"
-                                                                                                     d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"></path></svg></span><span
-            class="chevron"></span>
+
+      <div class="langWrapper">
+
+        <div v-if="isAuthorizedUser"
+             class="usernameLinkWrapper">
+          <a rel="noopener noreferrer"
+             href="/personalpage/homepage"
+             target="_self"
+             class="usernameLink">{{ username }}</a>
+          <span class="usernameIcon">
+            <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user"
+                 class="svg-inline--fa fa-user fa-w-14 fa-fw fa-sm " role="img"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path fill="currentColor"
+                  d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"></path></svg>
+          </span>
+          <span class="chevron"></span>
+
           <ul>
-            <li class="usernameHeader"><span style="color: rgb(214, 109, 54);"></span></li>
-            <li><a rel="noopener noreferrer" href="/personalpage/homepage" target="_self">My
-              account</a></li>
-            <li><span>Log out</span></li>
+            <li class="usernameHeader">
+              <a rel="noopener noreferrer"
+                 href="/personalpage/homepage"
+                 target="_self">{{ username }}</a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer"
+                 href="/personalpage/homepage"
+                 target="_self">
+                My account</a>
+            </li>
+            <li><span v-on:click="logOut">Log out</span></li>
           </ul>
+        </div>
+
+        <div v-else>
+          <a class="myAccountLink"
+             rel="noopener noreferrer"
+             href="/personalpage/login"
+             target="_self">Sign up / Log in</a>
         </div>
       </div>
     </div>
+
   </header>
 </template>
 
 <script>
 import SidebarButton from './vuepress/SidebarButton.vue'
 
+function getCookie(cname) {
+  const name = cname + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function setCookie(cname, cvalue, exseconds) {
+  const value = encodeURIComponent(cvalue);
+  const d = new Date();
+  d.setTime(d.getTime() + exseconds * 1000);
+  const expires = `expires=${d.toUTCString()}`;
+  document.cookie = `${cname}=${value};${expires};path=/`;
+}
+
 
 export default {
   components: {SidebarButton},
+  data() {
+    return {
+      accessToken: getCookie('access_token'),
+      refreshToken: getCookie('refresh_token'),
+      username: getCookie('username'),
+    };
+  },
+  computed: {
+    isAuthorizedUser() {
+      return this.accessToken && this.refreshToken && this.username;
+    },
+  },
+  async created() {
+    if (this.isAuthorizedUser) {
+      this.checkAccess();
+    } else if (this.refreshToken) {
+      await this.refreshAccessToken();
+      this.checkAccess();
+    }
+  },
+  methods: {
+    checkAccess() {
+      const that = this;
+      fetch('/auth/account/me', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+      })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('error');
+          })
+          .then((data) => {
+            setCookie('username', data.username);
+            that.username = data.username;
+          })
+          .catch((error) => {
+            console.log(error);
+            that.cleanTokens();
+          });
+    },
+    async refreshAccessToken() {
+      const that = this;
+      await fetch('/oauth/token', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Basic Y2xpZW50OnNlY3JldA==',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+
+        body: `grant_type=refresh_token&refresh_token=${that.refreshToken}&scope=read,write,trust`,
+      })
+          .then((response) => {
+            switch (response.status) {
+              case 200:
+                return response.json();
+              default:
+                that.cleanTokens();
+                return false;
+            }
+          })
+          .then((response) => {
+            const {access_token, token_expires} = response;
+            that.accessToken = access_token;
+            setCookie('access_token', access_token, token_expires);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    cleanTokens() {
+      setCookie('access_token', '', 0);
+      setCookie('refresh_token', '', 0);
+      setCookie('username', '', 0);
+      this.accessToken = '';
+      this.refreshToken = '';
+      this.username = '';
+    },
+    logOut() {
+      this.cleanTokens();
+    },
+  },
 }
 </script>
 <style lang="stylus">
@@ -441,6 +577,9 @@ header {
   }
 
   .langWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     min-width: 80px;
     max-width: 150px;
 
@@ -453,6 +592,7 @@ header {
       transition: all 300ms ease-in;
       margin-left: 20px;
       white-space: nowrap;
+      display: block;
 
       &:hover {
         color: $light_font_color;
@@ -577,6 +717,7 @@ header {
       align-items: center;
       position: relative;
       transition: all ease-in 300ms;
+      display flex;
 
       .usernameHeader {
         display: none;
@@ -614,7 +755,7 @@ header {
           color: $light_main_color;
           padding: 10px 5px;
           width: 150px;
-          top: 30px;
+          top: 5px;
           right: -20px;
           padding-left: 10px;
 
@@ -761,8 +902,6 @@ header {
     position: relative;
   }
 }
-
-
 
 
 /* menu */

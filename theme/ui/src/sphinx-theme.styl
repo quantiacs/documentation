@@ -1,5 +1,17 @@
 @require './vuepress/styles/config'
 
+#notebook-container, #notebook:focus {
+  outline: none;
+}
+
+.cell:focus {
+  outline: none;
+}
+
+.content:focus {
+  outline: none;
+}
+
 /* fix anchor link positioning  for fixed navbar */
 // FIXME this is not enough as it works only for section headers
 $anchorHeight = ($navbarHeight + 0.5rem)
@@ -7,22 +19,26 @@ $anchorHeight = ($navbarHeight + 0.5rem)
   margin-top -($anchorHeight)
   padding-top $anchorHeight
   margin-bottom 0
+
   &:hover
     .headerlink
-        opacity: 1
+      opacity: 1
 
   .toctree-l1
     padding-top 5px
     padding-bottom 5px
+
   .toctree-l2
     padding-top 5px
     padding-bottom 5px
 
 .content
-   // FIXME: sphinx should provide a citation-reference?
+  // FIXME: sphinx should provide a citation-reference?
+
   .footnote-reference, .label, dt, p
     margin-top -($navbarHeight)
     padding-top $navbarHeight
+
   & a:focus
     // remove outline because padding mess it up
     outline none
@@ -38,31 +54,35 @@ h1, h2, h3, h4, h5, h6
 a.headerlink
   font-size 0.85em
   visibility hidden
+
   &:hover
     text-decoration none
 
 ul.page-nav
   list-style none
+
   & li
     display inline-block
 
 .body-header
   display flex
+
   & ul.page-nav
     flex-grow 1
     list-style none
     list-style-position inside
     text-align right
     margin-right 30px
+
     & li + li:before
       content "|"
       padding 0 1em
 
 ul.breadcrumbs
   list-style none
+
   & li
     display inline-block
-
 
 
 /** index page **/
@@ -73,7 +93,6 @@ ul.breadcrumbs
   font-size 1.65rem
   padding-bottom .3rem
   border-bottom 1px solid $borderColor
-
 
 
 /** footer **/
@@ -113,26 +132,34 @@ ul.breadcrumbs
   .admonition-title
     font-weight 600
     margin-bottom -0.4rem
+
   &.tip, &.hint
     background-color #f3f5f7
     border-color #42b983
+
   &.important, &.note
     background-color #e5f1fb
     border-color #5faaea
+
   &.warning, &.caution
-    background-color rgba(255,229,100,.3)
+    background-color rgba(255, 229, 100, .3)
     border-color darken(#ffe564, 35%)
     color darken(#ffe564, 70%)
+
     .custom-block-title
       color darken(#ffe564, 50%)
+
     a
       color $textColor
+
   &.danger, &.error
     background-color #ffe6e6
     border-color darken(red, 20%)
     color darken(red, 70%)
+
     .custom-block-title
       color darken(red, 40%)
+
     a
       color $textColor
 
