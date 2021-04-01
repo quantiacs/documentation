@@ -19,14 +19,75 @@ An error message stating that the **strategy.ipynb** file was not found is conne
 ### Source file must be compiled
 If you see an error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
+### Execution failed
+That the execution of **strategy.ipynb** failed.
+
+> You should check the logs (`server logs` and `html` columns) as they will contain the necessary information. 
+
+Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
+
 ### Weights must be written
 If you see an error message stating that the calling to the **write_output** function is skipped, then your strategy does not save the final weights. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)**, assuming that you used **weights** for the final allocation weights.
+```python
+qnt.output.write(weights)
+```
 
 ### All data must be loaded
 An error message stating that data are loaded only until a certain day is due to the fact that you are loading the data cropping the number of days. Do not crop data when you submit, as your system needs to run on a daily basis on new data.
 
+Error:
+```python
+qndata.futures.load_data(min_date="2006-01-01", max_date="2008-01-01")
+```
+
+Solution
+
+```python
+qndata.futures.load_data(min_date="2006-01-01")
+```
+
 ### Weights must be generated for all trading days
 An error message stating that the strategy does not display weights for all trading days means that weights for some days are not generated, for example because of a **drop** operation. This problem can be avoided using the function **qnt.output.check(weights, data, "futures")**, assuming that you are working with futures and you are generating **weights** on **data**.
+
+### Not enough bid information.
+An error means that the resulting set of weights does not contain data on trading days starting from a certain date.
+
+Check in your strategy code
+
+* What range of data you are loading. Specify the required period
+```python
+futures = qndata.futures.load_data(min_date="2006-01-01")
+```
+* What range of data you are saving.
+```python
+display(weights)
+qnt.output.write(weights)
+```
+* The calculation period starts from the date when the first non-zero weights are encountered. 
+This error often occurs when using technical analysis indicators. They need a period to set up.
+Check the date:
+```python
+weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
+```
+She must be less or less than the interval specified in the rules for a particular type of competition.
+We recommend increasing the input dataset
+```python
+futures = qndata.futures.load_data(min_date="2005-01-01")
+```
+More details about the calculation mechanism can be found in the source code of the library, method `qnt.output.calc_sharpe_ratio_for_check`
+
+Futures Contest - The strategy must trade from January 1, 2006
+
+Bitcoin Futures - The strategy must trade from January 1, 2014
+
+## Sharpe ratio
+An error message stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved.
+
+> We recommend that you familiarize yourself with how to [find the optimal parameters for strategies](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
+
+Very often **the reason for filtering** the strategy is looking into the future (**forward-looking**).
+When inside your strategy you see a sharp greater than 1, but the Backster shows a smaller Sharp.
+> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
 
 
 ## Timeout
@@ -35,6 +96,3 @@ An error message stating that the strategy calculation exceeds a given time impl
 
 ## Number of strategies
 An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 5 for the contest.
-
-## Sharpe ratio
-An error message stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved.
