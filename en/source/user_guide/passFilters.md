@@ -87,7 +87,7 @@ An error message stating that the Sharpe ratio is smaller than 1 means that the 
 
 Very often **the reason for filtering** the strategy is looking into the future (**forward-looking**).
 When inside your strategy you see a sharp greater than 1, but the Backster shows a smaller Sharp.
-> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
+> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
 
 
 ## Timeout
