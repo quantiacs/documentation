@@ -52,17 +52,23 @@ for t in template_list:
             if len(s) > 1:
                 if first:
                     first = False
-                    f.write(t['name'] + "\n")
-                    f.write('='*len(t['name']) + "\n\n")
+                    title = t['name']
+                    if 'first' in t['tags']:
+                        title += " Strategy"
+                    f.write(title + "\n")
+                    f.write('='*len(title) + "\n\n")
                     f.write(t['comment'] + "\n\n")
                     f.write("You can clone and edit this example " +
                             "`there <" + BASE_URL + "/personalpage/strategies>`_ " +
                             "(tab Examples).\n\n")
                     f.write("-----\n\n")
                 else:
-                    title = s[0].split('<a')[0]
-                    f.write(title + "\n")
-                    f.write('-'*len(title) + "\n\n")
+                    title = s[0].split('<a')[0].strip()
+                    if 'first' in t['tags']:
+                        f.write(title + "\n")
+                        f.write('-'*len(title) + "\n\n")
+                    else:
+                        f.write('**' + title + "**\n\n")
             f.write(".. raw:: html\n")
             f.write("   :file: " + fn + "\n\n")
 
