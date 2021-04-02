@@ -19,6 +19,18 @@
 * Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
 
 
+<iframe
+src="//www.slideshare.net/slideshow/embed_code/key/8IiiHz2Cwl6ald"
+width="100%" height="485" frameborder="0" marginwidth="0"
+marginheight="0" scrolling="no" style="border:1px solid #CCC;
+border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
+</iframe> <div style="margin-bottom:5px"> <strong> <a
+href="//www.slideshare.net/secret/8IiiHz2Cwl6ald" title="Get Started
+with Quantiacs" target="_blank">Get Started with Quantiacs</a> </strong>
+from <strong><a href="https://www.slideshare.net/Quantiacs"
+target="_blank">Quantiacs</a></strong> </div>
+
+
 ## Building strategies
 
 Our platform allows you to code trading strategies in a simple and compact way. The trading algorithm should distribute fractions of the available capital (in other words, allocation weights) to the available assets. Our backtester will take care of simulating the performance of the system.
