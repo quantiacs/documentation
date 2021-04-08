@@ -1,6 +1,14 @@
 # Evaluation
 
-## Backtesting
+## Single-Pass Backtesting
+
+This approach allows to evaluate your strategy very fast.
+It is very useful when you use any kind of optimization.
+
+Often, single-pass strategies are looking forward.
+So it necessary to test your strategy using multi-pass approach to avoid looking forward.
+It is possible to adapt multi-pass strategy for multi-pass backtester.
+See the files in the folder `examples` in the jupyter on the platform (or in the package `qnt.examples`). 
 
 ### Write Weights
 
@@ -115,7 +123,7 @@ If kind="crypto", the code will check in addition if other futures in addition t
 
 None, only warning messages will be displayed.
 
-### Multi-Pass Backtesting
+## Multi-Pass Backtesting
 
 We provide you with a function for performing an optional backtesting which explicitely forbids looking-forward issues with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It can be used with:
 
@@ -170,6 +178,72 @@ qnt.backtester.backtest(competition_type, load_data, lookback_period, test_perio
 
 It returns the xarray.DataArray of **weights** and performs automatically calls to **clean**, **check** and **write**.
 
+## Stateful Multi-pass Backtesting
+
+If you want pass the state between iterations using the multi-pass backtesting, 
+you can do it this way:
+
+```python
+import xarray as xr
+import numpy as np
+
+import qnt.backtester as qnbt
+
+
+def strategy(data, state):
+    close = data.sel(field="close")
+    last_close = close.ffill('time').isel(time=-1)
+
+    # state may be null, so define a default value
+    if state is None:
+        state = {
+            "ma": last_close,
+            "ma_prev": last_close,
+            "output": xr.zeros_like(last_close)
+        }
+
+    ma_prev = state['ma']
+    ma_prev_prev = state['ma_prev']
+    output_prev = state['output']
+
+    ma = ma_prev.where(np.isfinite(ma_prev), last_close) * 0.97 + last_close * 0.03
+
+    buy_signal = np.logical_and(ma > ma_prev, ma_prev > ma_prev_prev)
+    stop_signal = ma < ma_prev_prev
+
+    output = xr.where(buy_signal, 1, output_prev)
+    output = xr.where(stop_signal, 0, output)
+
+    next_state = {
+        "ma": ma,
+        "ma_prev": ma_prev,
+        "output": output
+    }
+    return output, next_state
+
+
+weights, state = qnbt.backtest(
+    competition_type="futures",  # Futures contest
+    lookback_period=365,  # lookback in calendar days
+    start_date="2006-01-01",
+    strategy=strategy,
+    analyze=True,
+    build_plots=True,
+    collect_all_states=False # if it is False, then the function returns the last state, otherwise - all states
+)
+```
+
+As you see, the strategy function accepts 2 arguments and return 2 values.
+The backtester takes the 2nd return value and pass it to the next iteration as 2nd argument.
+
+For first iteration, the `state` will be None, so you have to define a default value.
+
+The evaluator will persist the state between iterations on our server.
+You can observe this state in the **log table**.
+
+The evaluation of a stateful strategy may be slower 
+than evaluation of a stateless strategy(which does not use states), 
+because the evaluator can't parallelize the running of iterations.
 
 ## Statistics
 
