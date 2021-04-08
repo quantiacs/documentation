@@ -3,6 +3,8 @@
 ## Conda environment
 You can use the Quantiacs library (QNT) for developing locally trading strategies on your computer.
 
+The preferred option is to use **conda** because it is the most convenient, stable, and tested solution.
+
 You can follow these easy steps and create an isolated environment on your machine using **conda** for managing
 dependencies and avoiding conflicts:
 
@@ -111,6 +113,8 @@ days, performs a simulation for 2 years.
    **strategy.ipynb**:
 
         import strategy
+        
+   > place the installation commands for external dependencies to `init.ipynb`. 
 
 8. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to
    run the file **precheck.ipynb**.
@@ -126,26 +130,20 @@ days, performs a simulation for 2 years.
 ## Pip environment
 
 **We don't recommend this option
-because using pip is more problematic than using conda. 
+because pip is more problematic than using conda. 
 Use conda if it is possible.**
 
-If you can't use conda (for example, when you use Google Colab), it is possible to use pip for your environment.
+If you can't use conda, it is possible to use pip for your environment.
 
 Read [this](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 and use the virtual environment to avoid breaking your default environment.
-It is not necessary if you use Google Colab hosted in cloud. 
 
 This command installs our library:
 ```
 pip install git+git://github.com/quantiacs/toolbox.git
 ```
 
-Probably, you will need to install TA-Lib library (technical indicators).
-```
-pip install TA-Lib
-```
-If this command fails, you have to rebuild the package from source code.
-[The solution for Google Colab.](https://stackoverflow.com/a/49660479)
+Probably, you will need to install [TA-Lib library](https://mrjbq7.github.io/ta-lib/install.html)  (technical indicators).
 
 If you work without jupyter, you will need dash:
 ```
@@ -163,3 +161,14 @@ os.environ['API_KEY'] = "{your_api_key_here}"
 You can find this api key in your profile on your personal Quantiacs area.
 
 ![key](./pictures/key.png)
+
+Then follow the instruction for conda from the point. 7.
+
+## Google Colab support
+
+If you want to use Google Colab with a hosted runtime, start with this [notebook](../_static/colab.ipynb).
+
+This notebook contains necessary commands to configure a hosted runtime.
+
+If you use colab with a local runtime, then you can use regular conda environment.
+Go to the head of this page and follow the instruction for conda.
