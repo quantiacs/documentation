@@ -126,7 +126,8 @@ days, performs a simulation for 2 years.
 ## Pip environment
 
 **We don't recommend this option
-because using pip is more problematic than using conda.**
+because using pip is more problematic than using conda. 
+Use conda if it is possible.**
 
 If you can't use conda (for example, when you use Google Colab), it is possible to use pip for your environment.
 
