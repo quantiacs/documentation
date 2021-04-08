@@ -1,5 +1,6 @@
 # Local development of trading strategies
 
+## Conda environment
 You can use the Quantiacs library (QNT) for developing locally trading strategies on your computer.
 
 You can follow these easy steps and create an isolated environment on your machine using **conda** for managing
@@ -10,7 +11,7 @@ dependencies and avoiding conflicts:
 2. Create an isolated environment for developing strategies and install the QNT library together with needed
    dependencies:
     ```bash
-    conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::dash=1.18 python=3.7
+    conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::dash==1.18 python==3.7
     ```
 3. Set your API key. You can find it in your profile on your personal Quantiacs area.
 
@@ -121,3 +122,31 @@ days, performs a simulation for 2 years.
 
 
 10. Wait for your strategy to pass contest filters and take part in the Contest.
+
+## Pip environment
+
+We can't recommend this option
+because using pip is more problematic than using conda.
+
+If you can't use conda (for example, when you use Google Colab), it is possible to use pip for your environment.
+
+Read [this](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+and use the virtual environment to avoid breaking your default environment.
+It is not necessary if you use Google Colab hosted in cloud. 
+
+This command installs our library:
+```
+pip install git+git://github.com/quantiacs/toolbox.git
+```
+
+Probably, you will need to install TA-Lib library (technical indicators).
+```
+pip install TA-Lib
+```
+If this command fails, you have to rebuild the package from source code.
+[The solution for Google Colab.](https://stackoverflow.com/a/49660479)
+
+If you work without jupyter, you will need dash:
+```
+pip install dash==1.18
+```
