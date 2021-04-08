@@ -125,8 +125,8 @@ days, performs a simulation for 2 years.
 
 ## Pip environment
 
-We can't recommend this option
-because using pip is more problematic than using conda.
+**We don't recommend this option
+because using pip is more problematic than using conda.**
 
 If you can't use conda (for example, when you use Google Colab), it is possible to use pip for your environment.
 
@@ -150,3 +150,15 @@ If you work without jupyter, you will need dash:
 ```
 pip install dash==1.18
 ```
+
+When you run your strategies, specify the api key in the head of your source file(or notebook)
+before other imports:
+```
+import os
+os.environ['API_KEY'] = "{your_api_key_here}"
+...
+```
+
+You can find this api key in your profile on your personal Quantiacs area.
+
+![key](./pictures/key.png)
