@@ -6,7 +6,7 @@ This approach allows to evaluate your strategy very fast.
 It is very useful when you use any kind of optimization.
 
 Often, single-pass strategies are looking forward.
-So it necessary to test your strategy using multi-pass approach to avoid looking forward.
+So it is necessary to test your strategy using multi-pass approach to avoid looking forward.
 It is possible to adapt multi-pass strategy for multi-pass backtester.
 See the files in the folder `examples` in the jupyter environment on the platform (or in the package `qnt.examples`). 
 
