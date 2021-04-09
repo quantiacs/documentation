@@ -130,7 +130,7 @@ days, performs a simulation for 2 years.
 
 **We do not recommend this option as for developing Quantiacs we are using conda.**
 
-If you cannott use conda, it is possible to use pip for your environment.
+If you cannot use conda, it is possible to use pip for your environment.
 
 Read [this guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 and use a virtual environment to avoid breaking your default environment.
