@@ -3,7 +3,7 @@
 ## Conda environment
 You can use the Quantiacs library (QNT) for developing locally trading strategies on your computer.
 
-The preferred option is to use **conda** because it is the most convenient, stable, and tested solution.
+The preferred option is to use **conda** because it is the most convenient, stable and tested solution.
 
 You can follow these easy steps and create an isolated environment on your machine using **conda** for managing
 dependencies and avoiding conflicts:
@@ -22,7 +22,7 @@ dependencies and avoiding conflicts:
     ```bash
     conda env config vars set -n qntdev API_KEY={your_api_key_here}
     ```
-    *The command above saves the variable in the conda environment. When you activate it, conda will set up this environment variable. If you have any problem with conda environment variables (known issue with PyCharm), you can set this environment variable in the run settings or write the key directly to the source code. Just add these lines to the head of your strategy before other imports.*
+    *The command above saves the variable in the conda environment. When you activate it, conda will set up this environment variable. If you have any problem with conda environment variables (known issue with PyCharm), you can set this environment variable in the run settings or write the key directly to the source code. Just add these lines to the head of your strategy before other imports:*
    ```python
     import os
     os.environ['API_KEY'] = "{your_api_key_here}"
@@ -129,29 +129,26 @@ days, performs a simulation for 2 years.
 
 ## Pip environment
 
-**We don't recommend this option
-because pip is more problematic than using conda. 
-Use conda if it is possible.**
+**We do not recommend this option as for developing Quantiacs we are using conda.**
 
-If you can't use conda, it is possible to use pip for your environment.
+If you cannott use conda, it is possible to use pip for your environment.
 
-Read [this](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
-and use the virtual environment to avoid breaking your default environment.
+Read [this guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+and use a virtual environment to avoid breaking your default environment.
 
-This command installs our library:
+This command installs the Quantiacs library:
 ```
 pip install git+git://github.com/quantiacs/toolbox.git
 ```
 
-Probably, you will need to install [TA-Lib library](https://mrjbq7.github.io/ta-lib/install.html)  (technical indicators).
+Probably, you will need to install also [TA-Lib library](https://mrjbq7.github.io/ta-lib/install.html) if you need technical indicators.
 
 If you work without jupyter, you will need dash:
 ```
 pip install dash==1.18
 ```
 
-When you run your strategies, specify the api key in the head of your source file(or notebook)
-before other imports:
+When you run your strategies, specify the api key in the head of your source file(or notebook) before other imports:
 ```
 import os
 os.environ['API_KEY'] = "{your_api_key_here}"
@@ -162,7 +159,7 @@ You can find this api key in your profile on your personal Quantiacs area.
 
 ![key](./pictures/key.png)
 
-Then follow the instruction for conda from the point. 7.
+Then follow the instruction for conda from point 6.
 
 ## Google Colab support
 
@@ -170,5 +167,4 @@ If you want to use Google Colab with a hosted runtime, start with this [notebook
 
 This notebook contains necessary commands to configure a hosted runtime.
 
-If you use colab with a local runtime, then you can use regular conda environment.
-Go to the head of this page and follow the instruction for conda.
+If you use colab with a local runtime, then you can use regular conda environment. Go to the head of this page and follow the instructions for conda.
