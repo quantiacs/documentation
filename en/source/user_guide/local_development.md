@@ -163,6 +163,6 @@ Then follow the instruction for conda from point 6.
 
 If you want to use Google Colab with a hosted runtime, start with this [notebook](../_static/colab.ipynb).
 
-This notebook contains necessary commands to configure a hosted runtime.
+This notebook contains the necessary commands to configure a hosted runtime.
 
 If you use colab with a local runtime, then you can use regular conda environment. Go to the head of this page and follow the instructions for conda.
