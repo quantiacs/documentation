@@ -151,7 +151,6 @@ When you run your strategies, specify the api key in the head of your source fil
 ```
 import os
 os.environ['API_KEY'] = "{your_api_key_here}"
-...
 ```
 
 You can find this api key in your profile on your personal Quantiacs area.
