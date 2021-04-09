@@ -87,10 +87,13 @@ An error message stating that the strategy calculation exceeds a given time impl
 An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 5 for the contest.
 
 ## Sharpe ratio
-A warning stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved. Your system will be evaluated on a daily basis, but **it will be eligile for a prize**.
+A warning stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved. Your system will be evaluated on a daily basis, but **it will NOT be eligile for a prize**.
 
 > We recommend that you familiarize yourself with [how to find the optimal parameters for strategies](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
 
 You should be careful with **forward-looking**. If you see that the notebook delivers a Sharpe ratio larger than 1, but the backtester not, then most likely you are looking into the future, for example by taking a global mean.
 
 > We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
+
+## Templates
+A copy of a template **will NOT be eligible for a prize**.
