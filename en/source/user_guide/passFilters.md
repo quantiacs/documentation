@@ -16,11 +16,8 @@ Your algorithm will be admitted to the Contest if it passes checks (filters). In
 ### Source file must exist
 An error message stating that the **strategy.ipynb** file was not found is connected to a non-standard name for the file containing your strategy. This file must be named **strategy.ipynb**.
 
-### Source file must be compiled
-If you see an error message stating that the **strategy.ipynb** file does not compile, then you should check the logs as they will contain the necessary information. Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
-
 ### Execution failed
-That the execution of **strategy.ipynb** failed.
+If you see an error message stating that the execution of **strategy.ipynb** failed, then you should check the logs as they will contain the necessary information. 
 
 > You should check the logs (`server logs` and `html` columns) as they will contain the necessary information. 
 
@@ -49,50 +46,51 @@ qndata.futures.load_data(min_date="2006-01-01")
 ### Weights must be generated for all trading days
 An error message stating that the strategy does not display weights for all trading days means that weights for some days are not generated, for example because of a **drop** operation. This problem can be avoided using the function **qnt.output.check(weights, data, "futures")**, assuming that you are working with futures and you are generating **weights** on **data**.
 
-### Not enough bid information.
-An error means that the resulting set of weights does not contain data on trading days starting from a certain date.
+### Weights are not generated at the beginning of the time series 
+Your strategy should generate non-vanishing weights at least since the start date of the corresponding contest:
 
-Check in your strategy code
+* Futures Contest - The strategy must trade from January 1, 2006.
 
-* What range of data you are loading. Specify the required period
+* Bitcoin Futures - The strategy must trade from January 1, 2014.
+
+Check in your strategy code the following:
+
+* The range of data you are loading. Specify the required period as:
 ```python
 futures = qndata.futures.load_data(min_date="2006-01-01")
 ```
-* What range of data you are saving.
+* The range of data you are saving:
 ```python
 display(weights)
 qnt.output.write(weights)
 ```
-* The calculation period starts from the date when the first non-zero weights are encountered. 
-This error often occurs when using technical analysis indicators. They need a period to set up.
-Check the date:
+
+The calculation period for the Sharpe ratio starts from the date when the first non-zero weights are encountered. If your algorithm generates weights on the Bitcoin Futures only since January 1, 2017, then your algorithm will not be accepted as the In-Sample period will be effectively too short.
+
+This error often occurs when using technical analysis indicators which need a warm-up period.
+Check the date using:
 ```python
 weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
 ```
-She must be less or less than the interval specified in the rules for a particular type of competition.
-We recommend increasing the input dataset
+This value should be larger than the interval specified in the rules for a particular type of competition.
+We recommend increasing the input dataset, for example using:
 ```python
 futures = qndata.futures.load_data(min_date="2005-01-01")
 ```
-More details about the calculation mechanism can be found in the source code of the library, method `qnt.output.calc_sharpe_ratio_for_check`
+More details about the calculation mechanism can be found in the source code of the library, method `qnt.output.calc_sharpe_ratio_for_check`.
 
-Futures Contest - The strategy must trade from January 1, 2006
-
-Bitcoin Futures - The strategy must trade from January 1, 2014
-
-## Sharpe ratio
-An error message stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved.
-
-> We recommend that you familiarize yourself with how to [find the optimal parameters for strategies](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
-
-Very often **the reason for filtering** the strategy is looking into the future (**forward-looking**).
-When inside your strategy you see a sharp greater than 1, but the Backster shows a smaller Sharp.
-> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
-
-
-## Timeout
+### Timeout
 An error message stating that the strategy calculation exceeds a given time implies that you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes and Bitcoin futures systems in 5 minutes of time.
 
 
-## Number of strategies
+### Number of strategies
 An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 5 for the contest.
+
+## Sharpe ratio
+A warning stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved. Your system will be evaluated on a daily basis, but **it will be eligile for a prize**.
+
+> We recommend that you familiarize yourself with [how to find the optimal parameters for strategies](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
+
+You should be careful with **forward-looking**. If you see that the notebook delivers a Sharpe ratio larger than 1, but the backtester not, then most likely you are looking into the future, for example by taking a global mean.
+
+> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
