@@ -101,7 +101,7 @@ days, performs a simulation for 2 years.
     python strategy.py
    ```
 
-7. When you finish with developing your strategy, you need to upload your code the Jupyter Notebook environment on the
+7. When you finish with developing your strategy, you need to upload your code in the Jupyter Notebook environment on the
    Quantiacs webpage. There are 2 options:
 
    a) Copy and paste your code inside the cell of a Jupyter Notebook:
