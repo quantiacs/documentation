@@ -180,7 +180,7 @@ It returns the xarray.DataArray of **weights** and performs automatically calls 
 
 ## Stateful Multi-pass Backtesting
 
-If you want pass the state between iterations using the multi-pass backtesting, 
+If you want to pass the state between iterations using the multi-pass backtesting, 
 you can do it this way:
 
 ```python
@@ -236,14 +236,14 @@ weights, state = qnbt.backtest(
 As you see, the strategy function accepts 2 arguments and return 2 values.
 The backtester takes the 2nd return value and pass it to the next iteration as 2nd argument.
 
-For first iteration, the `state` will be None, so you have to define a default value.
+For the first iteration, the `state` will be None, so you have to define a default value.
 
-The evaluator will persist the state between iterations on our server.
+The evaluator will treat the state as persistent between iterations on our server.
 You can observe this state in the **log table**.
 
 The evaluation of a stateful strategy may be slower 
-than evaluation of a stateless strategy(which does not use states), 
-because the evaluator can't parallelize the running of iterations.
+than the evaluation of a stateless strategy (which does not use states), 
+because the evaluator cannot parallelize the running of iterations.
 
 ## Statistics
 
