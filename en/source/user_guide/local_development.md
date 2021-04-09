@@ -113,7 +113,7 @@ days, performs a simulation for 2 years.
 
         import strategy
         
-   > place the installation commands for external dependencies to `init.ipynb`. 
+   > Place the installation commands for external dependencies to `init.ipynb`. 
 
 8. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to
    run the file **precheck.ipynb**.
