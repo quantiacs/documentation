@@ -7,8 +7,6 @@ The new version of Quantiacs addresses several issues:
 * it includes a private user space for developing code online and test ideas for forecasting global financial markets based on Jupyter Notebook and
   JupyterLab;
 
-* it supports Python and Scala;
-
 * you can install in your private area any Python library you need for developing and submitting strategies;
 
 * you have access to historical data for futures, Bitcoin futures and cryptocurrencies;
@@ -19,6 +17,8 @@ The new version of Quantiacs addresses several issues:
 
 A distinctive feature of the new version of Quantiacs is the simplification of the strategy code, which became much
 easier to read and use. Let us consider a simple strategy based on a crossing of moving averages.
+
+### Quantiacs Legacy
 
 In **Quantiacs Legacy** you would write a function defining weights and a settings function on the following lines:
 
@@ -65,6 +65,8 @@ if __name__ == '__main__':
     results = quantiacsToolbox.runts(__file__)
 ```
 
+### Quantiacs: Single-Pass Mode
+
 A similar logic in the new **Quantiacs** can be implemented using the following compact **single-pass implementation**. By **single-pass implementation** we mean an implementation where the **complete** time series of data is constantly accessible at any step of the evaluation:
 
 ```python
@@ -90,7 +92,11 @@ weights = qnout.clean(weights, data, "futures")
 qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
-The single-pass implementation is very fast because it uses fast bulk operations on the full time series. On the other hand, it is possible that implicit looking-forward is taking place. To verify the results of your single-pass strategy you can use  the file **precheck.ipynb** (in the root directory of your strategy) and read the warnings. As an alternative, you can use the function **qnt.backtester.backtest** and perform a slower multi-pass simulation which is looking-forward free. Note that we will check your In-Sample Sharpe ratio at submission time using a multi-pass implementation which will reveal looking-forward issues.
+The single-pass implementation is very fast because it uses fast bulk operations on the full time series. On the other hand, it is possible that implicit looking-forward is taking place. To verify the results of your single-pass strategy you can use  the file **precheck.ipynb** (in the root directory of your strategy) and read the warnings. 
+
+### Quantiacs: Multi-Pass Mode
+
+As an alternative, you can use the function **qnt.backtester.backtest** and perform a slower multi-pass simulation which is looking-forward free. Note that we will check your In-Sample Sharpe ratio at submission time using a multi-pass implementation which will reveal looking-forward issues.
 
 This is an example of **multi-pass implementation** where at timestamp "t" only data until timestamp "t" are available by construction:
 
@@ -129,7 +135,7 @@ The function requires the following input:
 
 * **competition type**: "futures" for the futures contest or "cryptofutures" for the Bitcoin futures contest;
 * **load data**: the pre-defined **load_data** function. The **period** passed to **load_data** is given by **test_period + lookback_period**;
-* **lookback_period**: the maximal lookback period in calendar days used for building indicators. In this case, as we use 200 trading days for defining the largets simple moving average, 1 year is fine; 
+* **lookback_period**: the maximal lookback period in calendar days used for building indicators. In this case, as we use 200 trading days for defining the largest simple moving average, 1 year is fine; 
 * **test_period**, in calendar days, is the In-Sample period used for the simulation. Here we use 15 years of data;
 * **strategy**: the pre-defined **strategy** function which should return allocation weights for all assets at a fixed point in time (note that in **strategy** we select the last index, isel(time=-1)).
 
