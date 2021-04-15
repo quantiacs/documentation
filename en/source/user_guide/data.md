@@ -181,7 +181,7 @@ btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ("time", "field",
 
 ### Front Contracts and Different Maturity Contracts
 
-As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts:
+As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts (next-to-next-to-closest expiration date):
 
 ```python
 front_data                 = qndata.futures.load_data(min_date="1900-01-01", offset=0)
