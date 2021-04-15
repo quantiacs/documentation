@@ -94,7 +94,10 @@ The output is a list of dictionaries with info on ticker symbols and assets:
  {'id': 'F_W', 'name': 'Wheat'},
  {'id': 'F_XX', 'name': 'Stoxx 50'},
  {'id': 'F_YM', 'name': 'Dow Futures Mini'},
- {'id': 'F_ZQ', 'name': '30-Day Fed Funds'}]
+ {'id': 'F_ZQ', 'name': '30-Day Fed Funds'},
+ {'id': 'F_DE', 'name': 'MSCI EMI Index'},
+ {'id': 'F_NH', 'name': 'SGX CNX Nifty Index'},
+ {'id': 'F_QT', 'name': 'Chinese Renminbi'}]
 ```
 
 
@@ -107,7 +110,7 @@ Futures data can be loaded using:
 ```python
 import qnt.data
 qnt.data.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
-    forward_order = True, tail = 365 * 6)
+    forward_order = True, tail = 365 * 6, offset = 0)
 ```
 
 **Parameters**
@@ -120,6 +123,7 @@ qnt.data.futures.load_data(assets = None, min_date = None, max_date = None, dims
 |dims|tuple with "field", "time", "asset" attributes in the specified order.|
 |forward_order|boolean, default True value orders date in ascending order.|
 |tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+|offset| switch for selecting maturity: 0/1/2, front/next-to-front/next-to-next-to-front.|
 
 **Output**
 
