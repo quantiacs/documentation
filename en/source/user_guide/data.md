@@ -7,7 +7,7 @@ Quantiacs provides historical data for the world's major financial markets. Curr
 ----
 
 ## Futures
-Quantiacs provides data for 75 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
+Quantiacs provides data for 78 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
 ###  List of Futures
 The information about available futures contracts can be obtained using:
@@ -21,6 +21,7 @@ future_list
 The command returns a list with all available futures contracts, with their identifying symbols and full names:
 
 ```python
+futures = 
 [{'id': 'F_AD', 'name': 'Australian Dollar'},
  {'id': 'F_AE', 'name': 'Aex Index'},
  {'id': 'F_AH', 'name': 'Bberg Commodity Index'},
@@ -95,7 +96,11 @@ The command returns a list with all available futures contracts, with their iden
  {'id': 'F_W', 'name': 'Wheat'},
  {'id': 'F_XX', 'name': 'Stoxx 50'},
  {'id': 'F_YM', 'name': 'Dow Futures Mini'},
- {'id': 'F_ZQ', 'name': '30-Day Fed Funds'}]
+ {'id': 'F_ZQ', 'name': '30-Day Fed Funds'},
+ {'id': 'F_DE', 'name': 'MSCI EMI Index'},
+ {'id': 'F_NH', 'name': 'SGX CNX Nifty Index'},
+ {'id': 'F_QT', 'name': 'Chinese Renminbi'}
+ ]
 ```
 
 ###  Using the Data
@@ -173,6 +178,19 @@ import qnt.data as qndata
 
 btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ("time", "field", "asset"))
 ```
+
+### Front Contracts and Different Maturity Contracts
+
+As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts:
+
+```python
+front_data                 = qndata.futures.load_data(min_date="1900-01-01", offset=0)
+next_to_front_data         = qndata.futures.load_data(min_date="1900-01-01", offset=1)
+next_to_next_to_front_data = qndata.futures.load_data(min_date="1900-01-01", offset=2)
+```
+Note that the default choice (no offset specified) selects front contracts. All three options are continuous contracts, obtained by patching together the single Futures contracts.
+
+All three continuos contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
 
 ----
 
