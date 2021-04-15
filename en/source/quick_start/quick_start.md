@@ -4,7 +4,7 @@
 
 > We **offer** to users:
 * a space to develop code and test ideas for forecasting global financial markets based on **Jupyter Notebook** and **JupyterLab**;
-* support for **Python** and **Scala**;
+* support for **Python**;
 * the power of the full **Anaconda** data science ecosystem;
 * up to free **8 GB of RAM** for each trading strategy;
 * access to historical **data** for futures, the Bitcoin future and cryptocurrencies;
@@ -17,6 +17,9 @@
 * Open the <a class="tip" href='/personalpage/strategies' target='_blank'> strategy development tab</a>;
 * Create a strategy from scratch or clone one of the provided templates; after cloning you will be able to edit your **strategy.ipynb** file in **Jupyter Notebook** or **JupyterLab**;
 * Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
+
+
+Take a look at the following slides for learning quickly the main steps for taking part to contests (note that, as we are improving the platform constantly and adding new features, the screenshots can be a little bit different from current status):
 
 
 <iframe
@@ -141,7 +144,7 @@ The call will produce:
 * **avg_turnover**: the average turnover;
 * **avg_holding_time**: the average holding time in days.
 
-A detailed explanation can be found inspecting th source code for the library in your directory at **/qnt/stats.py**
+A detailed explanation can be found inspecting the source code for the library in your directory at **/qnt/stats.py**
 
 ![Statistical indicators](table.png)
 
