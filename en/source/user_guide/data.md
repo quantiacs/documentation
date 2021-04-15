@@ -99,8 +99,7 @@ futures =
  {'id': 'F_ZQ', 'name': '30-Day Fed Funds'},
  {'id': 'F_DE', 'name': 'MSCI EMI Index'},
  {'id': 'F_NH', 'name': 'SGX CNX Nifty Index'},
- {'id': 'F_QT', 'name': 'Chinese Renminbi'}
- ]
+ {'id': 'F_QT', 'name': 'Chinese Renminbi'}]
 ```
 
 ###  Using the Data
