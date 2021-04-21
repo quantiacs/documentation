@@ -22,8 +22,16 @@ display(pd.DataFrame(dbs))
 
 which returns the list of datasets:
 
-![datasets](./pictures/datasets.PNG)
+![datasets](./pictures/datasets.png)
 
+For each dataset an identifier, the name and the date of the last available update are displayed. Each dataset contains several time series which can be used as indicators. For example let us consider AP, Average consumer Prices (AP). They are calculated for household fuel, motor fuel, and food items from prices collected for the Consumer Price Index (CPI).
+
+The time series contained in the AP dataset can be displayed using:
+
+```python
+series_list = list(qndata.blsgov.load_series_list('AP'))
+display(pd.DataFrame(series_list).set_index('id'))
+```
 
 ###  Using the Data
 
