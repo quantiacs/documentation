@@ -19,6 +19,7 @@ Contents
    :caption: User Guide
 
    user_guide/data.md
+   user_guide/macro.md
    user_guide/functional_quality.md
    user_guide/code.md
    user_guide/local_development.md
