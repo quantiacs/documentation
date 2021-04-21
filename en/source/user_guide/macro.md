@@ -2,7 +2,7 @@
 
 Quantiacs provides historical macroeconomic datasets. Currently the datasets from the [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) are included. Statistics published by the Bureau of Labor Statistics include data about consumer prices, employment and unemployment, compensation and working conditions and productivity.
 
-- [Bureau of Labor Statistics](#bureau of labor statistics)
+- [Bureau of Labor Statistics data](#bureau-of-labor-statistics)
 - [Cryptocurrencies](#cryptocurrencies)
 
 ----
