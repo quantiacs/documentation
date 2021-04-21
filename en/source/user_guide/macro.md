@@ -33,6 +33,8 @@ series_list = list(qndata.blsgov.load_series_list('AP'))
 display(pd.DataFrame(series_list).set_index('id'))
 ```
 
+![AP](./pictures/AP.png)
+
 ###  Using the Data
 
 Suppose that we want to use in a strategy the data for the last 15 years. We can use:
