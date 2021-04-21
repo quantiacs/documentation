@@ -1,12 +1,13 @@
-# Financial data
-Quantiacs provides historical data for the world's major financial markets. Currently the dataset includes **futures** (including the Bitcoin futures) and **cryptocurrencies**. This section provides an overview of the data and a documentation for each set:
+# Macroeconomic data
 
-- [Futures](#futures)
+Quantiacs provides historical macroeconomic datasets. Currently the datasets from the [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) are included. Statistics published by the Bureau of Labor Statistics include data about consumer prices, employment and unemployment, compensation and working conditions and productivity.
+
+- [Bureau of Labor Statistics Datasets](#bureau of labor statistics)
 - [Cryptocurrencies](#cryptocurrencies)
 
 ----
 
-## Futures
+## Bureau of Labor Statistics
 Quantiacs provides data for 78 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
 ###  List of Futures
