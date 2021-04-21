@@ -1,15 +1,17 @@
 # Competition filters
 
-For submitting a strategy to a contest you have to click on the **Submit** button:
+For submitting a strategy to a contest you have to click on the **Submit** button in your **Development** area:
 
 ![submit](./pictures/submit.png)
+   
+You can also submit code directly from your developing environment in Jupyter Notebook or JupyterLab.   
    
 After submission your code will be checked on our servers and its status will appear in the **Competition** section of your account under the tab **Checking**:
 
 ![test](./pictures/test.png)
 
 
-Your algorithm will be admitted to the Contest if it passes checks (filters). In case of success you will find your code under the **Running** tab. Otherwise it will be listed under the **Filtered** tab where you will be able to inspect the logs and determine the reason for the error.
+Your algorithm will be admitted to the Contest if it passes checks (filters). In case of success you will find your code under the **Candidates** tab. Otherwise it will be listed under the **Filtered** tab where you will be able to inspect the logs and determine the reason for the error.
 
 ## Technical filters
 
@@ -73,10 +75,9 @@ Check the date using:
 weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
 ```
 This value should be larger than the interval specified in the rules for a particular type of competition.
-We recommend increasing the input dataset, for example using:
-```python
-futures = qndata.futures.load_data(min_date="2005-01-01")
-```
+
+We recommend to fill the starting values of the time series with non-vanishing values, for example a simple buy-and-hold strategy.
+
 More details about the calculation mechanism can be found in the source code of the library, method `qnt.output.calc_sharpe_ratio_for_check`.
 
 ### Timeout
