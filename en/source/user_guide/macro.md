@@ -33,9 +33,30 @@ series_list = list(qndata.blsgov.load_series_list('AP'))
 display(pd.DataFrame(series_list).set_index('id'))
 ```
 
+which returns:
+
 ![AP](./pictures/AP.png)
 
-###  Using the Data
+For inspecting the metadata we refer to the template we made available at our GitHub page [here](https://github.com/quantiacs/strategy-futures-bls/blob/master/strategy.ipynb) and in your user space in the Examples section.
+
+###  Preprocessing the data
+
+Macroeconomic data should be preprocessed. Let us continue with the previous example. We can select global data for the U.S. selecting the associated area code as follows:
+
+```python
+us_series_list = [s for s in series_list if s['area_code'] == '0000']
+display(pd.DataFrame(us_series_list).set_index('id'))
+```
+
+and later selecting global U.S. time series which are more relevant for forecasting global financial markets. Let us select time series which are currently being updated and have at least 20 years of history:
+
+```python
+actual_us_series_list = [s for s in us_series_list if s['begin_year'] <= '2000' and s['end_year'] == '2021' ]
+display(pd.DataFrame(actual_us_series_list).set_index('id'))
+```
+The preprocessing leads to a subset of interesting time series:
+
+
 
 Suppose that we want to use in a strategy the data for the last 15 years. We can use:
 
