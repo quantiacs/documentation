@@ -24,7 +24,7 @@ which returns the list of datasets:
 
 ![datasets](./pictures/datasets.png)
 
-For each dataset an identifier, the name and the date of the last available update are displayed. Each dataset contains several time series which can be used as indicators. For example let us consider AP, Average consumer Prices (AP). They are calculated for household fuel, motor fuel, and food items from prices collected for the Consumer Price Index (CPI).
+For each dataset an identifier, the name and the date of the last available update are displayed. Each dataset contains several time series which can be used as indicators. For example let us consider AP, Average consumer Prices. They are calculated for household fuel, motor fuel and food items from prices collected for defining the Consumer Price Index.
 
 The time series contained in the AP dataset can be displayed using:
 
