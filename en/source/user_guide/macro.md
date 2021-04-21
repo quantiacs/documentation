@@ -56,91 +56,19 @@ display(pd.DataFrame(actual_us_series_list).set_index('id'))
 ```
 The preprocessing leads to a subset of interesting time series:
 
+![refined](./pictures/refined.png)
 
-
-Suppose that we want to use in a strategy the data for the last 15 years. We can use:
-
-```python
-import qnt.data as qndata
-
-futures_data = qndata.futures.load_data(tail = 365*15, dims = ("time", "field", "asset"))
-```
-
-The variable **futures_data** is an xarray.DataArray structure whose coordinates are: 
-
-* **time**: a date in format yyyy-mm-dd;
-* **field**: an attribute, for example the opening daily price;
-* **asset**: the identifying symbol for the asset, for example **F_BP** for the British Pound/US Dollar ratio.
-
-![coords](./pictures/coords.png)
-
-
-Specific fields can be extracted using:
+Finally, single time series can be loaded using for example (we consider fuel oil):
 
 ```python
-futures_open  = futures_data.sel(field="open")
-futures_close = futures_data.sel(field="close")
-futures_high  = futures_data.sel(field="high")
-futures_low   = futures_data.sel(field="low")
+series_data = qndata.blsgov.load_series_data('APU000072511', tail = 30*365)
 
-volume_day    = futures_data.sel(field="vol")
-open_interest = futures_data.sel(field="oi")
+# convert to pandas.DataFrame
+series_data = pd.DataFrame(series_data)
+series_data = series_data.set_index('pub_date')
 
-contracts_roll_over = futures_data.sel(field="roll")
+# remove yearly average data
+series_data = series_data[series_data['period'] != 'M13']
+
+series_data
 ```
-
-| Data field | Description |
-| ------------------ | -------- |
-| open               | Opening daily price.|
-| close              | Closing daily price. |
-| high               | Highest daily price.|
-| low                | Lowest daily price. |
-| vol                | Daily trading volume (number of contracts).|
-| oi                 | Total number of outstanding contracts.|
-| roll              | Futures contract rollover information.|
-
-Values for specific contracts can be obtained selecting the asset. Let us say that we are interested in British pound futures. We can get the close price as follows:
-
-```python
-GBP_USD = futures_data.sel(asset = 'F_BP').sel(field = 'close')
-```
-
-For visualizing the data we can use for example the plotly library [https://plotly.com/](https://plotly.com/):
-
-```python
-import plotly.graph_objs as go
-
-trend_fig = [go.Scatter(
-    x = GBP_USD.to_pandas().index,
-    y = GBP_USD,
-    line = dict(width=1, color='black'))]
-
-fig = go.Figure(data = trend_fig)
-fig.update_yaxes(fixedrange=False)
-fig.show()
-```
-
-![GBP_USD](./pictures/GBP_USD.PNG)
-
-###  Using the BTC Futures
-
-The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spot price) can be loaded using:
-
-```python
-import qnt.data as qndata
-
-btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ("time", "field", "asset"))
-```
-
-### Front Contracts and Different Maturity Contracts
-
-As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts (next-to-next-to-closest expiration date):
-
-```python
-front_data                 = qndata.futures.load_data(min_date="1900-01-01", offset=0)
-next_to_front_data         = qndata.futures.load_data(min_date="1900-01-01", offset=1)
-next_to_next_to_front_data = qndata.futures.load_data(min_date="1900-01-01", offset=2)
-```
-Note that the default choice (no offset specified) selects front contracts. All three options are continuous contracts, obtained by patching together the single Futures contracts.
-
-All three continuos contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
