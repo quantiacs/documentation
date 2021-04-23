@@ -77,6 +77,11 @@ weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
 This value should be larger than the interval specified in the rules for a particular type of competition.
 
 We recommend to fill the starting values of the time series with non-vanishing values, for example a simple buy-and-hold strategy.
+```python
+import xarray.ufuncs as xruf
+min_time = weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
+weights_new = xr.where(weights.time < min_time, 1, weights)
+```
 
 More details about the calculation mechanism can be found in the source code of the library, method `qnt.output.calc_sharpe_ratio_for_check`.
 
