@@ -191,6 +191,25 @@ Note that the default choice (no offset specified) selects front contracts. All 
 
 All three continuos contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
 
+### Spot Currency Data
+
+Currency rates taken from the [International Monetary Fund](https://www.imf.org/en/Home) page can be inspected using:
+
+```python
+import pandas as pd
+import qnt.data as qndata
+currency_list = qndata.imf_load_currency_list()
+pd.DataFrame(currency_list)
+```
+
+which returns the list for 39 time series:
+
+Data for each time series can be loaded using:
+```python
+euro_currency = qndata.imf_load_currency_data(assets=['EUR'], tail=365 * 5)
+```
+
+
 ----
 
 ## Cryptocurrencies
