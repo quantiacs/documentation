@@ -204,12 +204,32 @@ pd.DataFrame(currency_list)
 
 which returns the list for 39 time series:
 
+![fx](./pictures/fx.png)
+
 Data for each time series can be loaded using:
 ```python
 euro_currency = qndata.imf_load_currency_data(assets=['EUR'], tail=365 * 5)
 ```
 
+### Spot Commodity Data
 
+Commodity data taken from the [International Monetary Fund](https://www.imf.org/en/Home) page can be inspected using:
+
+```python
+import pandas as pd
+import qnt.data as qndata
+commodity_list = qndata.imf_load_commodity_list()
+pd.DataFrame(commodity_list)
+```
+
+which returns the list for 76 time series:
+
+![fx](./pictures/commos.png)
+
+Data for each time series can be loaded using:
+```python
+gold = qndata.imf_load_commodity_data(assets=['PGOLD'], tail=365)
+```
 ----
 
 ## Cryptocurrencies
