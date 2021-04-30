@@ -28,7 +28,7 @@ width="100%" height="485" frameborder="0" marginwidth="0"
 marginheight="0" scrolling="no" style="border:1px solid #CCC;
 border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen>
 </iframe> <div style="margin-bottom:5px"> <strong> <a
-href="//www.slideshare.net/secret/8IiiHz2Cwl6ald" title="Get Started
+href="https://www.slideshare.net/Quantiacs/get-started-with-quantiacs-247228537" title="Get Started
 with Quantiacs" target="_blank">Get Started with Quantiacs</a> </strong>
 from <strong><a href="https://www.slideshare.net/Quantiacs"
 target="_blank">Quantiacs</a></strong> </div>
