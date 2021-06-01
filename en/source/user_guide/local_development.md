@@ -126,6 +126,20 @@ days, performs a simulation for 2 years.
 
 10. Wait for your strategy to pass contest filters and take part in the Contest.
 
+### Updating the conda environment
+
+Periodically we update our library. 
+It makes sense to update your environment periodically.
+Use this command:
+```bash
+    ## you can remove the old one before that
+    # conda remove -n qntdev quantiacs-source::qnt
+
+    conda install -n qntdev quantiacs-source::qnt
+```
+
+You can see the library updates [here](https://anaconda.org/quantiacs-source/qnt/files). 
+
 ## Pip environment
 
 **We do not recommend this option as for developing Quantiacs we are using conda.**
@@ -158,6 +172,14 @@ You can find this api key in your profile on your personal Quantiacs area.
 ![key](./pictures/key.png)
 
 Then follow the instruction for conda from point 6.
+
+### Updating the pip environment
+
+Use this command to install the latest version from the git repositiory:
+
+```bash
+    pip install --upgrade git+git://github.com/quantiacs/toolbox.git
+```
 
 ## Google Colab support
 
