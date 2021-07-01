@@ -4,6 +4,86 @@
 This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
+## Loading cryptocurrency daily data
+
+This data can be loaded using:
+
+**Function**
+
+```python
+import qnt.data
+qnt.data.cryptodaily.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets|list of ticker names to load, example: ["BTC", "ETH"]. Default None value loads all currencies.|
+|min_date|first date in data, example "2014-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with historical data for the selected currencies. Coordinates are:
+
+![Coords](./pictures/cryptodailycoords.png)
+
+
+**Example**
+
+One can load market data for BTC and ETH for the past 5 years as follows:
+
+```python
+import qnt.data
+data = qnt.data.cryptodaily.load_data(assets= ["BTC", "ETH"], tail=365*5)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field="open")
+close = data.sel(field="close")
+high  = data.sel(field="high")
+low   = data.sel(field="low")
+
+is_liquid = data.sel(field="is_liquid")
+```
+
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| is_liquid          | Is this cryptocurrency liquid? |
+
+The system allows trading only liquid currencies, so you need to multiply the weights by `is_liquid` in your code.
+
+```python
+weights = weights * is_liquid
+```
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+| time                |    BTC |   ETH |
+|:--------------------|-------:|------:|
+| 2016-07-03 00:00:00 | 702.48 | 12.04 |
+| 2016-07-04 00:00:00 | 659.77 | 11.67 |
+| 2016-07-05 00:00:00 | 678.74 | 11.39 |
+| 2016-07-06 00:00:00 | 669.09 | 10.5  |
+| 2016-07-07 00:00:00 | 674.7  | 10.61 |
+
 ## Inspecting the list of Futures
 
 The available futures financial instruments can be inspected using the following function:
