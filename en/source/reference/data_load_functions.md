@@ -4,6 +4,86 @@
 This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
+## Loading cryptocurrency daily data
+
+This data can be loaded using:
+
+**Function**
+
+```python
+import qnt.data
+qnt.data.cryptodaily.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets|list of ticker names to load, example: ["BTC", "ETH"]. Default None value loads all currencies.|
+|min_date|first date in data, example "2014-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with historical data for the selected currencies. Coordinates are:
+
+![Coords](./pictures/cryptodailycoords.png)
+
+
+**Example**
+
+One can load market data for BTC and ETH for the past 5 years as follows:
+
+```python
+import qnt.data
+data = qnt.data.cryptodaily.load_data(assets= ["BTC", "ETH"], tail=365*5)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field="open")
+close = data.sel(field="close")
+high  = data.sel(field="high")
+low   = data.sel(field="low")
+
+is_liquid = data.sel(field="is_liquid")
+```
+
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| is_liquid          | Is this cryptocurrency liquid? |
+
+The system allows trading only liquid currencies, so you need to multiply the weights by `is_liquid` in your code.
+
+```python
+weights = weights * is_liquid
+```
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+| time                |    BTC |   ETH |
+|:--------------------|-------:|------:|
+| 2016-07-03 00:00:00 | 702.48 | 12.04 |
+| 2016-07-04 00:00:00 | 659.77 | 11.67 |
+| 2016-07-05 00:00:00 | 678.74 | 11.39 |
+| 2016-07-06 00:00:00 | 669.09 | 10.5  |
+| 2016-07-07 00:00:00 | 674.7  | 10.61 |
+
 ## Inspecting the list of Futures
 
 The available futures financial instruments can be inspected using the following function:
@@ -20,84 +100,284 @@ qnt.data.futures.load_list()
 The output is a list of dictionaries with info on ticker symbols and assets:
 
 ```python
-[{'id': 'F_AD', 'name': 'Australian Dollar'},
- {'id': 'F_AE', 'name': 'Aex Index'},
- {'id': 'F_AH', 'name': 'Bberg Commodity Index'},
- {'id': 'F_AX', 'name': 'DAX Index'},
- {'id': 'F_BC', 'name': 'Crude Oil Brent'},
- {'id': 'F_BG', 'name': 'ICE Gas Oil LS'},
- {'id': 'F_BO', 'name': 'Soybean Oil'},
- {'id': 'F_BP', 'name': 'British Pound'},
- {'id': 'F_C', 'name': 'Corn'},
- {'id': 'F_CA', 'name': 'CAC 40'},
- {'id': 'F_CC', 'name': 'Cocoa'},
- {'id': 'F_CD', 'name': 'Canadian Dollar'},
- {'id': 'F_CF', 'name': 'Eurex Conf Long-Term'},
- {'id': 'F_CL', 'name': 'Crude Oil WTI'},
- {'id': 'F_CT', 'name': 'Cotton #2'},
- {'id': 'F_DM', 'name': 'Mdax Index'},
- {'id': 'F_DT', 'name': 'Euro Bund'},
- {'id': 'F_DX', 'name': 'U.S. Dollar Index'},
- {'id': 'F_EB', 'name': 'Eurex 3Month EuriBor'},
- {'id': 'F_EC', 'name': 'Euro FX'},
- {'id': 'F_ED', 'name': 'Eurodollar'},
- {'id': 'F_ES', 'name': 'S&P 500 E-Mini'},
- {'id': 'F_F', 'name': '3-Month Euroswiss'},
- {'id': 'F_FB', 'name': 'Stoxx Banks 600'},
- {'id': 'F_FC', 'name': 'Feeder Cattle'},
- {'id': 'F_FP', 'name': 'OMX Helsinki 25'},
- {'id': 'F_FV', 'name': '5-Year T-Note'},
- {'id': 'F_FY', 'name': 'Stoxx Europe 600'},
- {'id': 'F_GC', 'name': 'Gold'},
- {'id': 'F_GS', 'name': '10-Year Long Gilt'},
- {'id': 'F_GX', 'name': 'Euro Buxl'},
- {'id': 'F_HG', 'name': 'High Grade Copper'},
- {'id': 'F_HO', 'name': 'ICE Heating Oil'},
- {'id': 'F_JY', 'name': 'Japanese Yen'},
- {'id': 'F_KC', 'name': 'Coffee'},
- {'id': 'F_LB', 'name': 'Lumber'},
- {'id': 'F_LC', 'name': 'Live Cattle'},
- {'id': 'F_LN', 'name': 'Lean Hogs'},
- {'id': 'F_LR', 'name': 'Brazilian Real'},
- {'id': 'F_LX', 'name': 'FTSE 100'},
- {'id': 'F_MD', 'name': 'S&P Midcap E-Mini'},
- {'id': 'F_MP', 'name': 'Mexican Peso'},
- {'id': 'F_ND', 'name': 'New Zealand Dollar'},
- {'id': 'F_NG', 'name': 'Natural Gas'},
- {'id': 'F_NQ', 'name': 'Nasdaq 100 E-Mini'},
- {'id': 'F_NR', 'name': 'Rough Rice'},
- {'id': 'F_NY', 'name': 'Nikkei 225'},
- {'id': 'F_O', 'name': 'Oats'},
- {'id': 'F_OJ', 'name': 'Orange Juice'},
- {'id': 'F_PA', 'name': 'Palladium'},
- {'id': 'F_PL', 'name': 'Platinum'},
- {'id': 'F_RB', 'name': 'Gasoline RBOB'},
- {'id': 'F_RF', 'name': 'Euro/Swiss'},
- {'id': 'F_RP', 'name': 'Euro/Pound'},
- {'id': 'F_RR', 'name': 'Russian Ruble'},
- {'id': 'F_RU', 'name': 'Russell 2000 E-Mini'},
- {'id': 'F_RY', 'name': 'Euro/Yen'},
- {'id': 'F_S', 'name': 'Soybean'},
- {'id': 'F_SB', 'name': 'Sugar #11'},
- {'id': 'F_SF', 'name': 'Swiss Franc'},
- {'id': 'F_SI', 'name': 'Silver'},
- {'id': 'F_SM', 'name': 'Soybean Meal'},
- {'id': 'F_SS', 'name': '3-Month Sterling'},
- {'id': 'F_SX', 'name': 'Swiss Market Index'},
- {'id': 'F_TR', 'name': 'South African Rand'},
- {'id': 'F_TU', 'name': '2-Year T-Note'},
- {'id': 'F_TY', 'name': '10-Year T-Note'},
- {'id': 'F_UB', 'name': 'Euro Bobl'},
- {'id': 'F_US', 'name': 'T-Bond'},
- {'id': 'F_UZ', 'name': 'Euro Schatz'},
- {'id': 'F_VX', 'name': 'S&P 500 VIX'},
- {'id': 'F_W', 'name': 'Wheat'},
- {'id': 'F_XX', 'name': 'Stoxx 50'},
- {'id': 'F_YM', 'name': 'Dow Futures Mini'},
- {'id': 'F_ZQ', 'name': '30-Day Fed Funds'},
- {'id': 'F_DE', 'name': 'MSCI EMI Index'},
- {'id': 'F_NH', 'name': 'SGX CNX Nifty Index'},
- {'id': 'F_QT', 'name': 'Chinese Renminbi'}]
+[{'id': 'F_AE',
+  'name': 'AEX Index',
+  'sector': 'Index',
+  'point_value': 'EUR 200'},
+ {'id': 'F_AH',
+  'name': 'Bloomberg Commodity',
+  'sector': 'Index',
+  'point_value': '$250'},
+ {'id': 'F_AX',
+  'name': 'DAX Index',
+  'sector': 'Index',
+  'point_value': 'EUR 25'},
+ {'id': 'F_BC',
+  'name': 'Crude Oil Brent',
+  'sector': 'Energy',
+  'point_value': '$1,000'},
+ {'id': 'F_BG',
+  'name': 'ICE Gas Oil LS',
+  'sector': 'Energy',
+  'point_value': '$100'},
+ {'id': 'F_C',
+  'name': 'Corn',
+  'sector': 'Agriculture',
+  'point_value': 'EUR 50'},
+ {'id': 'F_CA', 'name': 'CAC 40', 'sector': 'Index', 'point_value': 'EUR 10'},
+ {'id': 'F_CC',
+  'name': 'Cocoa',
+  'sector': 'Agriculture',
+  'point_value': '$10'},
+ {'id': 'F_CF',
+  'name': 'Eurex Conf Long-Term',
+  'sector': 'Bond',
+  'point_value': 'CHF 1,000'},
+ {'id': 'F_CT',
+  'name': 'Cotton #2',
+  'sector': 'Agriculture',
+  'point_value': '$500'},
+ {'id': 'F_DE',
+  'name': 'MSCI EMI Index',
+  'sector': 'Index',
+  'point_value': '$50'},
+ {'id': 'F_DM',
+  'name': 'MDAX Index',
+  'sector': 'Index',
+  'point_value': 'EUR 5'},
+ {'id': 'F_DT',
+  'name': 'Euro Bund',
+  'sector': 'Bond',
+  'point_value': 'EUR 1,000'},
+ {'id': 'F_DX',
+  'name': 'U.S. Dollar Index',
+  'sector': 'Currency',
+  'point_value': '$1,000'},
+ {'id': 'F_EB',
+  'name': 'Eurex 3Month EuriBor',
+  'sector': 'InterestRate',
+  'point_value': 'EUR 2,500'},
+ {'id': 'F_ED',
+  'name': 'LIFFE EuroDollar',
+  'sector': 'InterestRate',
+  'point_value': '$2,500'},
+ {'id': 'F_F',
+  'name': '3-Month Euroswiss',
+  'sector': 'InterestRate',
+  'point_value': 'CHF 2,500'},
+ {'id': 'F_FB',
+  'name': 'Stoxx Banks 600',
+  'sector': 'Index',
+  'point_value': 'EUR 50'},
+ {'id': 'F_FP',
+  'name': 'OMX Helsinki 25',
+  'sector': 'Index',
+  'point_value': 'EUR 10'},
+ {'id': 'F_FY',
+  'name': 'Stoxx Europe 600',
+  'sector': 'Index',
+  'point_value': 'EUR 50'},
+ {'id': 'F_GC',
+  'name': 'ICE Gold 100-oz',
+  'sector': 'Metal',
+  'point_value': '$100'},
+ {'id': 'F_GS',
+  'name': '10-Year Long Gilt',
+  'sector': 'Bond',
+  'point_value': 'GBP 1,000'},
+ {'id': 'F_GX',
+  'name': 'Euro Buxl',
+  'sector': 'Bond',
+  'point_value': 'EUR 1,000'},
+ {'id': 'F_HG',
+  'name': 'HKFE Copper CNH',
+  'sector': 'Metal',
+  'point_value': 'RMB 5'},
+ {'id': 'F_HO',
+  'name': 'ICE Heating Oil',
+  'sector': 'Energy',
+  'point_value': '$42,000'},
+ {'id': 'F_KC',
+  'name': 'Coffee',
+  'sector': 'Agriculture',
+  'point_value': '$375'},
+ {'id': 'F_LX',
+  'name': 'FTSE 100',
+  'sector': 'Index',
+  'point_value': 'GBP 10'},
+ {'id': 'F_NG',
+  'name': 'ICE UK Natural Gas',
+  'sector': 'Energy',
+  'point_value': 'GBP 1,000'},
+ {'id': 'F_NH',
+  'name': 'SGX CNX Nifty Index',
+  'sector': 'Index',
+  'point_value': '$20'},
+ {'id': 'F_OJ',
+  'name': 'Orange Juice',
+  'sector': 'Agriculture',
+  'point_value': '$150'},
+ {'id': 'F_RB',
+  'name': 'Tocom Gasoline',
+  'sector': 'Energy',
+  'point_value': 'JPY 50'},
+ {'id': 'F_RU',
+  'name': 'Russell 2000 E-Mini',
+  'sector': 'Index',
+  'point_value': '$50'},
+ {'id': 'F_SB',
+  'name': 'Sugar #11',
+  'sector': 'Agriculture',
+  'point_value': '$1,120'},
+ {'id': 'F_SI',
+  'name': 'ICE Silver 5000-oz',
+  'sector': 'Metal',
+  'point_value': '$5,000'},
+ {'id': 'F_SS',
+  'name': '3-Month Sterling',
+  'sector': 'InterestRate',
+  'point_value': 'GBP 1,250'},
+ {'id': 'F_SX',
+  'name': 'Swiss Market Index',
+  'sector': 'Index',
+  'point_value': 'CHF 10'},
+ {'id': 'F_UB',
+  'name': 'Euro Bobl',
+  'sector': 'Bond',
+  'point_value': 'EUR 1,000'},
+ {'id': 'F_UZ',
+  'name': 'Euro Schatz',
+  'sector': 'Bond',
+  'point_value': 'EUR 1,000'},
+ {'id': 'F_VX',
+  'name': 'S&P 500 VIX',
+  'sector': 'Index',
+  'point_value': '$1,000'},
+ {'id': 'F_W',
+  'name': 'Milling Wheat',
+  'sector': 'Agriculture',
+  'point_value': 'EUR 50'},
+ {'id': 'F_XX',
+  'name': 'Stoxx 50',
+  'sector': 'Index',
+  'point_value': 'EUR 10'},
+ {'id': 'F_AD',
+  'name': 'Australian Dollar',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_BP',
+  'name': 'British Pound',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_CD',
+  'name': 'Canadian Dollar',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_EC', 'name': 'Euro', 'sector': 'Currency', 'point_value': '1'},
+ {'id': 'F_JY',
+  'name': 'Japanese Yen',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_MP',
+  'name': 'Mexican Peso',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_SF',
+  'name': 'Swiss Frank',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_LR',
+  'name': 'Brazilian Real',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_ND',
+  'name': 'New Zealand Dollar',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_QT',
+  'name': 'Chinese Yuan',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_RF',
+  'name': 'Euro / Swiss Franc',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_RP',
+  'name': 'Euro / British Pound',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_RR',
+  'name': 'Russian Ruble',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_RY',
+  'name': 'Euro / Japanese Yen',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_TR',
+  'name': 'South African Rand',
+  'sector': 'Currency',
+  'point_value': '1'},
+ {'id': 'F_BO',
+  'name': 'WisdomTree Soybean Oil',
+  'sector': 'Agriculture',
+  'point_value': '1'},
+ {'id': 'F_CL',
+  'name': 'United States Oil Fund',
+  'sector': 'Energy',
+  'point_value': '1'},
+ {'id': 'F_FV',
+  'name': 'BTC iShares 3-7 Year Treasury Bond ETF',
+  'sector': 'Bond',
+  'point_value': '1'},
+ {'id': 'F_MD',
+  'name': 'iShares Core S&P Mid-Cap ETF',
+  'sector': 'Index',
+  'point_value': '1'},
+ {'id': 'F_NQ',
+  'name': 'Invesco QQQ Trust Series 1',
+  'sector': 'Index',
+  'point_value': '1'},
+ {'id': 'F_PA',
+  'name': 'Aberdeen Standard Physical Palladium Shares ETF',
+  'sector': 'Metal',
+  'point_value': '1'},
+ {'id': 'F_PL',
+  'name': 'Aberdeen Standard Physical Platinum Shares ETF',
+  'sector': 'Metal',
+  'point_value': '1'},
+ {'id': 'F_TU',
+  'name': 'BTC iShares 1-3 Year Treasury Bond ETF',
+  'sector': 'Bond',
+  'point_value': '1'},
+ {'id': 'F_TY',
+  'name': 'BTC iShares 7-10 Year Treasury Bond ETF',
+  'sector': 'Bond',
+  'point_value': '1'},
+ {'id': 'F_US',
+  'name': 'BTC iShares U.S. Treasury Bond ETF',
+  'sector': 'Bond',
+  'point_value': '1'},
+ {'id': 'F_YM',
+  'name': 'SPDR Dow Jones Industrial Average ETF',
+  'sector': 'Index',
+  'point_value': '1'},
+ {'id': 'F_S',
+  'name': 'WisdomTree Soybeans',
+  'sector': 'Agriculture',
+  'point_value': '1'},
+ {'id': 'F_NY',
+  'name': 'iShares MSCI Japan ETF',
+  'sector': 'Index',
+  'point_value': '1'},
+ {'id': 'F_AG',
+  'name': 'Invesco DB Agriculture Fund',
+  'sector': 'Agriculture',
+  'point_value': '1'},
+ {'id': 'F_ES',
+  'name': 'S&P 500 ETF TRUST ETF',
+  'sector': 'Index',
+  'point_value': '1'}]
 ```
 
 

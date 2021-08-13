@@ -171,6 +171,8 @@ qnt.backtester.backtest(competition_type, load_data, lookback_period, test_perio
 |competition_type|"futures" or "crypto".|
 |load_data|data load function which returns data time series, accepts tail argument.|
 |lookback_period|calendar days, max. lookback period for building indicators.|
+|start_date|start date for backtesting, overrides test period|
+|end_date|end date for backtesting, by default - now|
 |test_period|calendar days, period used for the simulation.|
 |strategy|strategy function, accepts data and returns weights for all assets for the last day.|
 
