@@ -53,7 +53,7 @@ array([[[         nan, 2.061610e-01,          nan, ..., 5.890100e-02,
 
 
 
-## Indexing:
+## Indexing
 
 * via integer:
 

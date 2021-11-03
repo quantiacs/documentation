@@ -5,7 +5,7 @@ Once we have developed an algorithm we can have an idea of its performance by an
 Basically there are two main ways to evaluate the performance of your algorithm:
 - [Single-pass Backtesting](#single-pass-backtesting)
 - [Multi-pass Backtesting](#multi-pass-backtesting)
----
+----
 
 ## Single-Pass Backtesting
 
@@ -80,7 +80,7 @@ Please note that a **submission** needs to have an In-Sample Sharpe ratio **larg
 
 For a more detailed description on evaluating your algorithm with single-pass backtesting consult our API-Reference: [Single-Pass Backtesting](https://quantiacs.com/documentation/en/reference/evaluation.html#single-pass-backtesting) and [Statistics](https://quantiacs.com/documentation/en/reference/evaluation.html#statistics)
 
----
+----
 
 ## Multi-Pass Backtesting
 For multi-pass backtesting on the other hand, you define a function that provides a set of allocation weights for the next trading day based on the entire data up to that day.

@@ -10,6 +10,7 @@ Quantiacs provides historical macroeconomic datasets. Currently the datasets fro
 
 The [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) is the principal agency for the U.S. government in the field of labor economics and statistics. It provides macroeconomic data in several interesting categories: prices, employment and unemployment, compensation and working conditions and productivity. Quantiacs has implemented these datasets on its cloud and makes them also available for local use on your machine. For more informations on using the Quantiacs toolbox and datasets offline, please read our [installation instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html).
 
+----
 ###  Loading the data
 The information about available data can be obtained using:
 
@@ -38,6 +39,8 @@ which returns:
 ![AP](./pictures/AP.png)
 
 For inspecting the metadata we refer to the template we made available at our GitHub page [here](https://github.com/quantiacs/strategy-futures-bls/blob/master/strategy.ipynb) and in your user space in the Examples section.
+
+----
 
 ###  Preprocessing the data
 

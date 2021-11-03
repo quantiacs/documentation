@@ -91,6 +91,8 @@ price_open = futures.sel(field='open')
 price_open_one_day_ago = qnta.shift(price_open, periods=1)
 ```
 
+----
+
 #### 2. Weight allocation
 
 Quantiacs uses an exposure-based backtester. The trading algorithm should define the fractions of capital which will be distributed to the assets (allocation weights). A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
@@ -120,13 +122,16 @@ weights = output.clean(weights, futures, 'futures')
 Here is how the weights xarray would look like. Note that for each day we have a weight for each asset, corresponding to how much capital will be distributed to that asset in a long (**positive** weight) or short (**negative** weight) position.
 
 ![Weights xarray](weights_xarray.png)
+
 *In this example we allocated 2.13e-06 to F_AD on 2021-10-26.*
 
 We have two coordinates:
 * **time**: the weights are defined for every trading day
 * **asset**: each weight corresponds to a position we would like to make on one particular asset
 
-For an overview of the xarray.DataArray datastructure please consult [User Guide for XArray](https://quantiacs.com/documentation/en/user_guide/xarray.html)
+For an overview of the xarray.DataArray datastructure please consult [User Guide xarray](https://quantiacs.com/documentation/en/user_guide/xarray.html)
+
+----
 
 #### 3. Performance estimation
 
@@ -171,6 +176,8 @@ qngraph.make_plot_filled(performance.index, performance, name='PnL (Equity)')
 ![Equity](newplot.png)
 
 For an overview of performance evaluation please consult our [User Guide for Algorithm quality](https://quantiacs.com/documentation/en/user_guide/functional_quality.html)
+
+----
 
 #### 4. Submit
 
