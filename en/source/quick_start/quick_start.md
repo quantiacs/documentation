@@ -69,7 +69,7 @@ output.write(weights)
 
 ### The detailed steps
 
-#### 1. Preparation
+ **1. Preparation**
 
 We prepare our workspace by importing the needed libraries and loading the data:
 
@@ -91,9 +91,8 @@ price_open = futures.sel(field='open')
 price_open_one_day_ago = qnta.shift(price_open, periods=1)
 ```
 
-----
 
-#### 2. Weight allocation
+**2. Weight allocation**
 
 Quantiacs uses an exposure-based backtester. The trading algorithm should define the fractions of capital which will be distributed to the assets (allocation weights). A **positive** weight means a long position (**buy**), a **negative** value means a short position (**sell**).
 
@@ -125,15 +124,15 @@ Here is how the weights xarray would look like. Note that for each day we have a
 
 *In this example we allocated 2.13e-06 to F_AD on 2021-10-26.*
 
+
 We have two coordinates:
 * **time**: the weights are defined for every trading day
 * **asset**: each weight corresponds to a position we would like to make on one particular asset
 
 For an overview of the xarray.DataArray datastructure please consult [User Guide xarray](https://quantiacs.com/documentation/en/user_guide/xarray.html)
 
-----
 
-#### 3. Performance estimation
+**3. Performance estimation**
 
 After we have built the algorithm, we can evaluate its performance **calculating statistics**:
 
@@ -177,9 +176,8 @@ qngraph.make_plot_filled(performance.index, performance, name='PnL (Equity)')
 
 For an overview of performance evaluation please consult our [User Guide for Algorithm quality](https://quantiacs.com/documentation/en/user_guide/functional_quality.html)
 
-----
 
-#### 4. Submit
+**4. Submit**
 
 Once you are satisfied with the quality of your algorithm you can submit it. The algorithm will be processed daily on our servers and it will accumulate a track record on live data. Each contest has a submission phase, during which you can submit code and replace it with new algos (you can have at most 50 running algorithms in your area), and a live phase, where submissions cannot be replaced and develop a track record.
 

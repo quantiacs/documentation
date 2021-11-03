@@ -80,6 +80,9 @@ Values for **specific contracts** can be obtained selecting the asset. Let us sa
 GBP_USD = futures_data.sel(asset = 'F_BP').sel(field = 'close')
 ```
 
+For a more detailed description on loading and accessing Futures data consult our API-Reference: [Loading Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-futures-data)
+
+
 For visualizing the data we can use for example the plotly library [https://plotly.com/](https://plotly.com/):
 
 ```python
@@ -97,11 +100,10 @@ fig.show()
 
 ![GBP_USD](./pictures/GBP_USD.PNG)
 
-For a more detailed description on loading and accessing Futures data consult our API-Reference: [Loading Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-futures-data)
-
-----
 
 ###  Using the BTC Futures
+
+For a more detailed description on loading and accessing BTC Futures consult our API-Reference: [Loading BTC Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-bitcoin-futures-data)
 
 The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spot price) can be loaded using:
 
@@ -110,9 +112,8 @@ import qnt.data as qndata
 
 btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ('time', 'field', 'asset'))
 ```
-For a more detailed description on loading and accessing BTC Futures consult our API-Reference: [Loading BTC Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-bitcoin-futures-data)
 
-----
+
 
 ### Front Contracts and Different Maturity Contracts
 
@@ -149,7 +150,6 @@ Data for each time series can be loaded using (for example last 5 years):
 euro_currency = qndata.imf_load_currency_data(assets=['EUR'], tail=365 * 5)
 ```
 
-----
 
 ### Spot Commodity Data
 
@@ -212,6 +212,10 @@ Specific fields are given by:
 | low                | Lowest daily price. |
 | is_liquid          | Is this cryptocurrency liquid? |
 
+
+For a more detailed description on loading and accessing Crypto Daily data consult our API-Reference: [Loading Crypto Daily Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-cryptocurrency-daily-data)
+
+
 Let us say we are interested in the lowest daily price for BTC. We can extract it using:
 ```Python
 crypto_data.sel(field = 'low').sel(asset = 'BTC')
@@ -219,9 +223,6 @@ crypto_data.sel(field = 'low').sel(asset = 'BTC')
 ![BTC low](./pictures/BTC_low_daily.png)
 
 
-For a more detailed description on loading and accessing Crypto Daily data consult our API-Reference: [Loading Crypto Daily Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-cryptocurrency-daily-data)
-
-----
 
 ### Cryptocurrency Hourly Data
 Quantiacs provides up-to-date hourly data - price and volume - for the following cryptocurrencies:
