@@ -19,6 +19,21 @@ future_list
 ```
 
 The command returns a list with all available futures contracts, with their identifying symbols and full names:
+```python
+[{'id': 'F_AE',
+  'name': 'AEX Index',
+  'sector': 'Index',
+  'point_value': 'EUR 200'},
+  ...,
+  {'id': 'F_ES',
+   'name': 'S&P 500 ETF TRUST ETF',
+   'sector': 'Index',
+   'point_value': '1'}]
+```
+
+
+<details>
+  <summary>Expand for full list</summary>
 
 ```python
 [{'id': 'F_AE',
@@ -300,39 +315,28 @@ The command returns a list with all available futures contracts, with their iden
   'sector': 'Index',
   'point_value': '1'}]
 ```
+</details>
 
 ###  Using the Data
 
-Suppose that we want to use in a strategy the data for the last 15 years. We can use:
+Suppose that we want to use the data for the last 15 years. We can use:
 
 ```python
 import qnt.data as qndata
 
-futures_data = qndata.futures.load_data(tail = 365*15, dims = ("time", "field", "asset"))
+futures_data = qndata.futures.load_data(tail = 365*15, dims = ('time', 'field', 'asset'))
+futures_data
 ```
 
-The variable **futures_data** is an xarray.DataArray structure whose coordinates are: 
+The variable **futures_data** is an xarray.DataArray structure whose coordinates are:
 
 * **time**: a date in format yyyy-mm-dd;
-* **field**: an attribute, for example the opening daily price;
 * **asset**: the identifying symbol for the asset, for example **F_BP** for the British Pound/US Dollar ratio.
+* **field**: an attribute, for example the opening daily price;
 
 ![coords](./pictures/coords.png)
 
-
-Specific fields can be extracted using:
-
-```python
-futures_open  = futures_data.sel(field="open")
-futures_close = futures_data.sel(field="close")
-futures_high  = futures_data.sel(field="high")
-futures_low   = futures_data.sel(field="low")
-
-volume_day    = futures_data.sel(field="vol")
-open_interest = futures_data.sel(field="oi")
-
-contracts_roll_over = futures_data.sel(field="roll")
-```
+Specific fields are given by:
 
 | Data field | Description |
 | ------------------ | -------- |
@@ -344,7 +348,18 @@ contracts_roll_over = futures_data.sel(field="roll")
 | oi                 | Total number of outstanding contracts.|
 | roll              | Futures contract rollover information.|
 
-Values for specific contracts can be obtained selecting the asset. Let us say that we are interested in British pound futures. We can get the close price as follows:
+More details on xarray can be found at [User Guide xarray](https://quantiacs.com/documentation/en/user_guide/xarray.html)
+
+An example of accessing the daily open prices for each asset:
+```Python
+futures_data.sel(field='open')
+```
+![open](./pictures/open.png)
+
+All specific fields can be accessed this way.
+
+
+Values for **specific contracts** can be obtained selecting the asset. Let us say we are interested in British pound futures. We can get the close price as follows:
 
 ```python
 GBP_USD = futures_data.sel(asset = 'F_BP').sel(field = 'close')
@@ -367,6 +382,9 @@ fig.show()
 
 ![GBP_USD](./pictures/GBP_USD.PNG)
 
+For a more detailed description on loading and accessing Futures data consult our API-Reference: [Loading Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-futures-data)
+
+
 ###  Using the BTC Futures
 
 The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spot price) can be loaded using:
@@ -374,21 +392,21 @@ The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spo
 ```python
 import qnt.data as qndata
 
-btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ("time", "field", "asset"))
+btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ('time', 'field', 'asset'))
 ```
-
+For a more detailed description on loading and accessing BTC Futures consult our API-Reference: [Loading BTC Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-bitcoin-futures-data)
 ### Front Contracts and Different Maturity Contracts
 
 As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts (next-to-next-to-closest expiration date):
 
 ```python
-front_data                 = qndata.futures.load_data(min_date="1900-01-01", offset=0)
-next_to_front_data         = qndata.futures.load_data(min_date="1900-01-01", offset=1)
-next_to_next_to_front_data = qndata.futures.load_data(min_date="1900-01-01", offset=2)
+front_data                 = qndata.futures.load_data(min_date='1900-01-01', offset=0)
+next_to_front_data         = qndata.futures.load_data(min_date='1900-01-01', offset=1)
+next_to_next_to_front_data = qndata.futures.load_data(min_date='1900-01-01', offset=2)
 ```
 Note that the default choice (no offset specified) selects front contracts. All three options are continuous contracts, obtained by patching together the single Futures contracts.
 
-All three continuos contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
+All three continuous contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
 
 ### Spot Currency Data
 
@@ -405,7 +423,7 @@ which returns the list for 39 time series:
 
 ![fx](./pictures/fx.png)
 
-Data for each time series can be loaded using:
+Data for each time series can be loaded using (for example last 5 years):
 ```python
 euro_currency = qndata.imf_load_currency_data(assets=['EUR'], tail=365 * 5)
 ```
@@ -425,7 +443,7 @@ which returns the list for 76 time series:
 
 ![fx](./pictures/commos.png)
 
-Data for each time series can be loaded using:
+Data for each time series can be loaded using (for example last year):
 ```python
 gold = qndata.imf_load_commodity_data(assets=['PGOLD'], tail=365)
 ```
@@ -433,15 +451,68 @@ gold = qndata.imf_load_commodity_data(assets=['PGOLD'], tail=365)
 
 ## Cryptocurrencies
 
-Quantiacs provides up-to-date hourly data - price and volume - for the following cryptocurrencies: 
+### Cryptocurrency Daily Data
+Quantiacs provides up-to-date daily data for 54 cryptocurrencies.
+<details>
+  <summary>Expand for a full list of all available cryptocurrencies</summary>
 
-* Bitcoin (BTC); 
+  ```python
+  ['ADA', 'AUR', 'AVAX', 'BCH', 'BCN', 'BLK', 'BNB', 'BSV', 'BTC', 'BTG',
+       'BTS', 'DASH', 'DGC', 'DGD', 'DOGE', 'DOT', 'EOS', 'ETC', 'ETH', 'FCT',
+       'FRC', 'FTC', 'GNT', 'ICP', 'IFC', 'IXC', 'LINK', 'LSK', 'LTC', 'MAID',
+       'MNC', 'NEO', 'NMC', 'NXT', 'OMNI', 'PPC', 'QRK', 'REP', 'SOL', 'STEEM',
+       'STRAX', 'THETA', 'TRC', 'TRX', 'UNI', 'WAVES', 'WDC', 'XCP', 'XEM',
+       'XLM', 'XMR', 'XPM', 'XPY', 'XRP']
+  ```
+</details>
+
+The available cryptocurrency data for the last 5 years can be loaded using:
+
+```python
+import qnt.data as qndata
+
+crypto_data = qndata.cryptodaily.load_data(tail = 365 * 5)
+```
+For each cryptocurrency data is available on an daily resolution. **crypto_data** is an xarray.DataArray structure whose coordinates are:
+
+* **time**: a date-time in format yyyy-mm-dd;
+* **asset**: the identifying symbol for the asset, for example ETH for Ethereum.
+* **field**: an attribute, for example the opening hourly price;
+
+
+![crypto coords](./pictures/crypto_coord_daily.png)
+
+Specific fields are given by:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| is_liquid          | Is this cryptocurrency liquid? |
+
+Let us say we are interested in the lowest daily price for BTC. We can extract it using:
+```Python
+crypto_data.sel(field = 'low').sel(asset = 'BTC')
+```
+![BTC low](./pictures/BTC_low_daily.png)
+
+
+For a more detailed description on loading and accessing Crypto Daily data consult our API-Reference: [Loading Crypto Daily Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-cryptocurrency-daily-data)
+
+
+
+### Cryptocurrency Hourly Data
+Quantiacs provides up-to-date hourly data - price and volume - for the following cryptocurrencies:
+
+* Bitcoin (BTC);
 * Bitcoin Cash (BCH);
 * EOS;
 * Ethereum (ETH);
 * Litecoin (LTC);
 * Ripple (XRP);
-* Tether (USDT). 
+* Tether (USDT).
 
 The available cryptocurrency data for the last 5 years can be loaded using:
 ```python
@@ -450,17 +521,12 @@ import qnt.data as qndata
 crypto_data = qndata.crypto.load_data(tail = 365 * 5)
 ```
 
-The list of available cryptocurrencies can be obtained writing:
-```python
-crypto_data.asset
-```
-![crypto_asset](./pictures/crypto_asset.PNG)
-
 For each cryptocurrency data are available on an hourly resolution. **crypto_data** is an xarray.DataArray structure whose coordinates are:
 
 * **time**: a date-time in format yyyy-mm-ddTHH-MM-SS;
+* **asset**: the identifying symbol for the asset, for example ETH for Ethereum;
 * **field**: an attribute, for example the opening hourly price;
-* **asset**: the identifying symbol for the asset, for example ETH for Ethereum.
+
 
 ![crypto_coords](./pictures/coords_cry.png)
 
@@ -474,13 +540,16 @@ Specific fields are given by:
 | low                | Lowest price in a given hour. |
 | vol                | Hourly trading volume.|
 
-Let us say that we are interested in the highest hourly price for BTC. We can extract it using:
+Let us say we are interested in the highest hourly price for BTC. We can extract it using:
 
 ```python
 BTC_high = crypto_data.sel(field = 'high').sel(asset = 'BTC')
+BTC_high
 ```
+![BTC high hourly](./pictures/BTC_high_hourly.png)
 
-The data can be visualized using:
+
+The BTC_high data can then be visualized using:
 
 ```python
 import plotly.graph_objs as go
@@ -497,4 +566,4 @@ fig.show()
 
 ![crypto_high](./pictures/crypto_high.PNG)
 
-
+For a more detailed description on loading and accessing Crypto Hourly data consult our API-Reference: [Loading Crypto Hourly Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-cryptocurrency-hourly-data)

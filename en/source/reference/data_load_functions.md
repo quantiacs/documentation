@@ -1,88 +1,9 @@
 # Data loading
 
 <p class="tip">
-This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. Fisrt-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
+This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. First-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
-## Loading cryptocurrency daily data
-
-This data can be loaded using:
-
-**Function**
-
-```python
-import qnt.data
-qnt.data.cryptodaily.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
-    forward_order = True, tail = 365 * 6)
-```
-
-**Parameters**
-
-|Parameter|Explanation|
-|---|---|
-|assets|list of ticker names to load, example: ["BTC", "ETH"]. Default None value loads all currencies.|
-|min_date|first date in data, example "2014-01-01". Default None value uses max_date-tail.|
-|max_date|last date of data. Default None value is current day.|
-|dims|tuple with "field", "time", "asset" attributes in the specified order.|
-|forward_order|boolean, default True value orders date in ascending order.|
-|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
-
-**Output**
-
-The output is an xarray.DataArray with historical data for the selected currencies. Coordinates are:
-
-![Coords](./pictures/cryptodailycoords.png)
-
-
-**Example**
-
-One can load market data for BTC and ETH for the past 5 years as follows:
-
-```python
-import qnt.data
-data = qnt.data.cryptodaily.load_data(assets= ["BTC", "ETH"], tail=365*5)
-```
-Specific fields can be extracted using:
-
-```python
-open  = data.sel(field="open")
-close = data.sel(field="close")
-high  = data.sel(field="high")
-low   = data.sel(field="low")
-
-is_liquid = data.sel(field="is_liquid")
-```
-
-
-where:
-
-| Data field | Description |
-| ------------------ | -------- |
-| open               | Opening daily price.|
-| close              | Closing daily price. |
-| high               | Highest daily price.|
-| low                | Lowest daily price. |
-| is_liquid          | Is this cryptocurrency liquid? |
-
-The system allows trading only liquid currencies, so you need to multiply the weights by `is_liquid` in your code.
-
-```python
-weights = weights * is_liquid
-```
-
-Data can be nicely displayed using:
-
-```python
-open.to_pandas().head()
-```
-
-| time                |    BTC |   ETH |
-|:--------------------|-------:|------:|
-| 2016-07-03 00:00:00 | 702.48 | 12.04 |
-| 2016-07-04 00:00:00 | 659.77 | 11.67 |
-| 2016-07-05 00:00:00 | 678.74 | 11.39 |
-| 2016-07-06 00:00:00 | 669.09 | 10.5  |
-| 2016-07-07 00:00:00 | 674.7  | 10.61 |
 
 ## Inspecting the list of Futures
 
@@ -91,8 +12,8 @@ The available futures financial instruments can be inspected using the following
 **Function**
 
 ```python
-import qnt.data
-qnt.data.futures.load_list()
+import qnt.data as qndata
+qndata.futures.load_list()
 ```
 
 **Output**
@@ -388,8 +309,8 @@ Futures data can be loaded using:
 **Function**
 
 ```python
-import qnt.data
-qnt.data.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+import qnt.data as qndata
+qndata.futures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
     forward_order = True, tail = 365 * 6, offset = 0)
 ```
 
@@ -417,21 +338,21 @@ The output is an xarray.DataArray with historical data for the selected assets. 
 One can load market data for the Australian Dollar/US Dollar rate and Soybean Oil for the past 15 years as follows:
 
 ```python
-import qnt.data
-data = qnt.data.futures.load_data(assets= ["F_AD", "F_BO"], tail=365*15)
+import qnt.data as qndata
+data = qndata.futures.load_data(assets= ['F_AD', 'F_BO'], tail=365*15)
 ```
 Specific fields can be extracted using:
 
 ```python
-open  = data.sel(field="open")
-close = data.sel(field="close")
-high  = data.sel(field="high")
-low   = data.sel(field="low")
+open  = data.sel(field='open')
+close = data.sel(field='close')
+high  = data.sel(field='high')
+low   = data.sel(field='low')
 
-volume_day    = data.sel(field="vol")
-open_interest = data.sel(field="oi")
+volume_day    = data.sel(field='vol')
+open_interest = data.sel(field='oi')
 
-contracts_roll_over = data.sel(field="roll")
+contracts_roll_over = data.sel(field='roll')
 ```
 
 
@@ -468,8 +389,8 @@ Bitcoin Futures data can be loaded using:
 **Function**
 
 ```python
-import qnt.data
-qnt.data.cryptofutures.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+import qnt.data as qndata
+qndata.cryptofutures.load_data(assets = None, min_date = None, max_date = None, dims = ('field', 'time', 'asset'),
     forward_order = True, tail = 365 * 6)
 ```
 
@@ -496,21 +417,21 @@ The output is an xarray.DataArray with historical data for the selected assets. 
 One can load market data for the BTC Futures for the past 7 years as follows:
 
 ```python
-import qnt.data
-data = qnt.data.cryptofutures.load_data(tail=365*7)
+import qnt.data as qndata
+data = qndata.cryptofutures.load_data(tail=365*7)
 ```
 Specific fields can be extracted using:
 
 ```python
-open  = data.sel(field="open")
-close = data.sel(field="close")
-high  = data.sel(field="high")
-low   = data.sel(field="low")
+open  = data.sel(field='open')
+close = data.sel(field='close')
+high  = data.sel(field='high')
+low   = data.sel(field='low')
 
-volume_day    = data.sel(field="vol")
-open_interest = data.sel(field="oi")
+volume_day    = data.sel(field='vol')
+open_interest = data.sel(field='oi')
 
-contracts_roll_over = data.sel(field="roll")
+contracts_roll_over = data.sel(field='roll')
 ```
 
 where:
@@ -542,7 +463,90 @@ open.to_pandas().head()
 
 Because of the short history of the Bitcoin Futures, we have patched its history with the spot Bitcoin one to go back in history.
 
-## Loading Cryptocurrency Data
+## Loading cryptocurrency daily data
+
+This data can be loaded using:
+
+**Function**
+
+```python
+import qnt.data as qndata
+qndata.cryptodaily.load_data(assets = None, min_date = None, max_date = None, dims = ('field', 'time', 'asset'),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets|list of ticker names to load, example: ["BTC", "ETH"]. Default None value loads all currencies.|
+|min_date|first date in data, example "2014-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "field", "time", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with historical data for the selected currencies. Coordinates are:
+
+![Coords](./pictures/cryptodailycoords.png)
+
+
+**Example**
+
+One can load market data for BTC and ETH for the past 5 years as follows:
+
+```python
+import qnt.data as qndata
+data = qndata.cryptodaily.load_data(assets= ['BTC', 'ETH'], tail=365*5)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field='open')
+close = data.sel(field='close')
+high  = data.sel(field='high')
+low   = data.sel(field='low')
+
+is_liquid = data.sel(field='is_liquid')
+```
+
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| is_liquid          | Is this cryptocurrency liquid? |
+
+The system allows trading only liquid currencies, so you need to multiply the weights by `is_liquid` in your code.
+
+```python
+weights = weights * is_liquid
+```
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+| time                |    BTC |   ETH |
+|:--------------------|-------:|------:|
+| 2016-07-03 00:00:00 | 702.48 | 12.04 |
+| 2016-07-04 00:00:00 | 659.77 | 11.67 |
+| 2016-07-05 00:00:00 | 678.74 | 11.39 |
+| 2016-07-06 00:00:00 | 669.09 | 10.5  |
+| 2016-07-07 00:00:00 | 674.7  | 10.61 |
+
+
+## Loading cryptocurrency hourly data
+
+
 
 Cryptocurrency data for:
 * Bitcoin (BTC);
@@ -558,8 +562,8 @@ can be loaded using:
 **Function**
 
 ```python
-import qnt.data
-qnt.data.crypto.load_data(assets = None, min_date = None, max_date = None, dims = ("field", "time", "asset"),
+import qnt.data as qndata
+qndata.crypto.load_data(assets = None, min_date = None, max_date = None, dims = ('field', 'time', 'asset'),
     forward_order = True, tail = 365 * 6)
 ```
 
@@ -586,18 +590,18 @@ The output is an xarray.DataArray with hourly historical data for the selected a
 One can load market data for Ethereum for the past 5 years as follows:
 
 ```python
-import qnt.data
-data = qnt.data.crypto.load_data(assets= ["ETH"], tail=365*5)
+import qnt.data as qndata
+data = qndata.crypto.load_data(assets= ['ETH'], tail=365*5)
 ```
 Specific fields can be extracted using:
 
 ```python
-open  = data.sel(field="open")
-close = data.sel(field="close")
-high  = data.sel(field="high")
-low   = data.sel(field="low")
+open  = data.sel(field='open')
+close = data.sel(field='close')
+high  = data.sel(field='high')
+low   = data.sel(field='low')
 
-volume    = data.sel(field="vol")
+volume    = data.sel(field='vol')
 ```
 
 where:
