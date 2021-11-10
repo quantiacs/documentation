@@ -15,6 +15,12 @@ dependencies and avoiding conflicts:
     ```bash
     conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::pandas==1.2.5 conda-forge::dash==1.18 python==3.7
     ```
+
+    *Tipp: if you do not want your conda enviroment activated by default when you open a new terminal window:*
+    ```bash
+    conda config --set auto_activate_base false
+    ```
+
 3. Set your API key. You can find it in your profile on your personal Quantiacs area.
 
    ![key](./pictures/key.png)
