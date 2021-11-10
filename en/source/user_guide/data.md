@@ -128,7 +128,6 @@ Note that the default choice (no offset specified) selects front contracts. All 
 
 All three continuous contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
 
-----
 
 ### Spot Currency Data
 
