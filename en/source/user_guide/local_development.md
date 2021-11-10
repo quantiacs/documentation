@@ -123,7 +123,7 @@ days, performs a simulation for 2 years.
 
         import strategy
 
-   > Place the installation commands for external dependencies to `init.ipynb`.
+   > Place the installation commands for external dependencies to init.ipynb.
 
 3. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to
    run the file **precheck.ipynb**.
@@ -173,8 +173,8 @@ In your desired working directory you can now activate your environment:
 pyenv local name_of_environment
 ```
 
-*If everything is set up properly, the virtual environment will automatically activate/deactivate on entering/leaving the directory.
-If not, alternatively use: pyenv activate/deactivate name_of_enviroment*
+*If everything is set up properly, the virtual environment will automatically activate/deactivate on entering/leaving the directory.*
+*Alternatively use: pyenv activate/deactivate name_of_enviroment*
 
 
 This command installs the Quantiacs library:
@@ -199,12 +199,15 @@ You can find this api key in your profile on your personal Quantiacs area.
 
 ![key](./pictures/key.png)
 
-Then use this command to run your strategy:
+
+**Executing and submitting your strategy:**
+
+1. Use this command to run your strategy (replace **python** with **python3** if your default python version is 2):
    ```bash
     python strategy.py
    ```
 
-When you finish with developing your strategy, you need to upload your code in the **Jupyter Notebook environment on the Quantiacs webpage.** There are 2 options:
+2. When you finish with developing your strategy, you need to upload your code in the **Jupyter Notebook environment on the Quantiacs webpage.** There are 2 options:
 
    a) Copy and paste your code inside the cell of a Jupyter Notebook:
 
@@ -215,23 +218,23 @@ When you finish with developing your strategy, you need to upload your code in t
 
         import strategy
 
-   > Place the installation commands for external dependencies to `init.ipynb`.
+   > Place the installation commands for external dependencies to init.ipynb.
 
-Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to
+3. Run all cells to test your strategy in the Jupyter Notebook. Fix the errors if it is necessary. It is a good idea to
    run the file **precheck.ipynb**.
 
-Send your strategy to the Contest from the **Development** area on your home page by clicking on the **Submit**
+4. Send your strategy to the Contest from the **Development** area on your home page by clicking on the **Submit**
    button:
 
    ![submit](./pictures/submit.png)
 
 
-Wait for your strategy to pass contest filters and take part in the Contest.
+5. Wait for your strategy to pass contest filters and take part in the Contest.
 
 
 ### Updating the pip environment
 
-Use this command to install the latest version from the git repositiory:
+Use this command in your enviroment to install the latest version from the git repositiory:
 
 ```
 python -m pip install --upgrade git+git://github.com/quantiacs/toolbox.git

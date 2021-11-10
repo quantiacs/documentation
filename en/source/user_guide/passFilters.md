@@ -21,7 +21,7 @@ An error message stating that the **strategy.ipynb** file was not found is conne
 ### Execution failed
 If you see an error message stating that the execution of **strategy.ipynb** failed, then you should check the logs as they will contain the necessary information.
 
-> You should check the logs (**server logs** and **html** columns) as they will contain the necessary information.
+> You should check the logs (server logs and html columns) as they will contain the necessary information.
 
 Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
