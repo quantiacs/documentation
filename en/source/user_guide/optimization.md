@@ -139,12 +139,12 @@ qnop.optimize_strategy(
 |---|---|
 |data|xarray.DataArray with input data.|
 |strategy|strategy function, accepts data and other parameters and returns weights for all assets for the last day.|
-|argument_generator| [argument generator](###argument-genertors) for additional arguments for strategy function|
-|stats_function| calculate statistics for one pass (defaults to calculate all statistics seen below) (see [Stats Function](###stats-function))|
+|argument_generator| [argument generator](#argument-genertors) for additional arguments for strategy function|
+|stats_function| calculate statistics for one pass (defaults to calculate all statistics seen below) (see [Stats Function](#stats-function))|
 |stats_to_weight| converts statistics to weight in order to select the best iteration (defaults to weight is sharpe ratio)|
 |workers|amount of processes to spawn for parallelization (try: workers=os.cpu_count() )|
 
-If you want to optimize over something different than Sharpe Ratio, you would need to pass a stats_to_weight function as a parameter to **optimize_strategy**. See [Stats to Weight](###stats-to-weight) to see how such a function can be implemented.
+If you want to optimize over something different than Sharpe Ratio, you would need to pass a stats_to_weight function as a parameter to **optimize_strategy**. See [Stats to Weight](#stats-to-weight) to see how such a function can be implemented.
 
 **Output**
 
