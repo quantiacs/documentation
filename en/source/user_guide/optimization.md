@@ -139,7 +139,7 @@ qnop.optimize_strategy(
 |---|---|
 |data|xarray.DataArray with input data.|
 |strategy|strategy function, accepts data and other parameters and returns weights for all assets for the last day.|
-|argument_generator| [argument generator](#argument-genertors) for additional arguments for strategy function|
+|argument_generator| [argument generator](#argument-generators) for additional arguments for strategy function|
 |stats_function| calculate statistics for one pass (defaults to calculate all statistics seen below) (see [Stats Function](#stats-function))|
 |stats_to_weight| converts statistics to weight in order to select the best iteration (defaults to weight is sharpe ratio)|
 |workers|amount of processes to spawn for parallelization (try: workers=os.cpu_count() )|
