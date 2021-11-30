@@ -3,13 +3,12 @@ import json
 import re
 import os
 
-
-BASE_URL='https://quantiacs.com'
-#BASE_URL='https://staging-2.quantnet-ai.ru'
+BASE_URL = 'https://quantiacs.com'
+# BASE_URL='https://staging-2.quantnet-ai.ru'
 TOC_SECTION = 'Examples'
 
 curdir = os.path.abspath(os.path.dirname(__file__))
-#print(curdir)
+# print(curdir)
 os.makedirs(curdir + '/examples', exist_ok=True)
 
 for f in os.listdir(curdir + '/examples'):
@@ -36,7 +35,11 @@ for t in template_list:
         txt = response.read()
     txt = txt.decode()
 
-    sections = re.split(r'<h[1-2][^>]*>', txt)
+    txt_use_global_requirejs = txt.replace(
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>',
+        "")
+
+    sections = re.split(r'<h[1-2][^>]*>', txt_use_global_requirejs)
     sections = [re.split(r'</h[1-2]>', s) for s in sections]
 
     with open(curdir + '/examples/' + slug + '.rst', 'w') as f:
@@ -56,7 +59,7 @@ for t in template_list:
                     if 'first' in t['tags']:
                         title += " Strategy"
                     f.write(title + "\n")
-                    f.write('='*len(title) + "\n\n")
+                    f.write('=' * len(title) + "\n\n")
                     f.write(t['comment'] + "\n\n")
                     f.write("You can clone and edit this example " +
                             "`there <" + BASE_URL + "/personalpage/strategies>`_ " +
@@ -66,7 +69,7 @@ for t in template_list:
                     title = s[0].split('<a')[0].strip()
                     if 'first' in t['tags']:
                         f.write(title + "\n")
-                        f.write('-'*len(title) + "\n\n")
+                        f.write('-' * len(title) + "\n\n")
                     else:
                         f.write('**' + title + "**\n\n")
             f.write(".. raw:: html\n")
