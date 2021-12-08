@@ -26,6 +26,7 @@ Contents
    user_guide/local_development.md
    user_guide/passFilters.md
    user_guide/optimization.md
+   user_guide/technical_indicators.md
 
 .. toctree::
    :maxdepth: 2
