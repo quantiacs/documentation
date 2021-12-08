@@ -111,7 +111,7 @@ trix = qnta.trix(close, 18) #  triple exponential average indicator
 ```
 
 ## Directional Indicators
-For more infos about directional indicators visit [Average Directional Index](https://en.wikipedia.org/wiki/Average_directional_movement_index), [Average True Range](https://en.wikipedia.org/wiki/Average_true_range) and [Advance/Decline](https://en.wikipedia.org/wiki/Average_true_range).
+For more infos about directional indicators visit [Average Directional Index](https://en.wikipedia.org/wiki/Average_directional_movement_index), [Average True Range](https://en.wikipedia.org/wiki/Average_true_range) and [Advance/Decline](https://en.wikipedia.org/wiki/Advance%E2%80%93decline_line).
 ```Python
 atr = qnta.atr(high, low, close, 14) #Average True Range
 plus_di, minus_di, adx, adxr = qnta.dms(high, low, close, 14, 20, 7) #Average Directional Index
