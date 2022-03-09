@@ -200,6 +200,8 @@ If everything is ok, **save** the portfolio **weights** that the algorithm gener
 output.write(weights)
 ```
 
+![Submit](submit_strategy.gif)
+
 <p class="tip">To participate in the competition:</p>
 
 * <a class="tip" href='/personalpage/strategies' target='_blank'>open</a> your personal account;
