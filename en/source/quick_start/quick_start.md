@@ -38,6 +38,8 @@ target="_blank">Quantiacs</a></strong> </div>
 
 Our platform allows you to develop trading strategies in a simple and compact way. The trading algorithm should distribute fractions of the available capital (in other words, allocation weights) to the available assets. Our backtester will take care of simulating the performance of the system.
 
+<iframe width="100%" height="515" src="https://www.youtube.com/embed/PeFhv7LFHZw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### A basic example for futures
 
 **The idea is very simple**: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
