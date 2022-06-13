@@ -9,7 +9,7 @@ RUN apt update && apt -y install curl bzip2 openssh-client \
     && apt -y autoremove \
     && apt autoclean \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log \
-    && conda clean -afy && conda clean --all --yes
+    && conda clean -afy
 
 RUN  apt update && apt install make \
     && apt autoclean \
@@ -22,7 +22,7 @@ RUN conda install -y \
     'conda-forge::sphinx-markdown-tables' \
     'nbsphinx' \
     'IPython' \
-     && conda clean -tipsy && conda clean --all --yes
+     && conda clean -afy
 
 RUN apt update && apt -y install curl \
     && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
