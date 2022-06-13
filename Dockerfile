@@ -9,7 +9,7 @@ RUN apt update && apt -y install curl bzip2 openssh-client \
     && apt -y autoremove \
     && apt autoclean \
     && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log \
-    && conda clean -tipsy && conda clean --all --yes
+    && conda clean -afy && conda clean --all --yes
 
 RUN  apt update && apt install make \
     && apt autoclean \
