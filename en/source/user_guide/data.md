@@ -1,11 +1,167 @@
 # Financial data
-Quantiacs provides historical data for the world's major financial markets. Currently the dataset includes **futures** (including the Bitcoin futures) and **cryptocurrencies**. This section provides an overview of the data and a documentation for each set:
+Quantiacs provides historical data for the world's major financial markets. Currently the dataset includes **stocks**, **futures** (including the Bitcoin futures) and **cryptocurrencies**. This section provides an overview of the data and a documentation for each set:
 
+- [Stocks](#stocks)
 - [Futures](#futures)
 - [Cryptocurrencies](#cryptocurrencies)
 
 ----
+## Stocks
+Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beggining of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurence.
 
+### Stocks list
+For getting the list of available stocks, load_ndx_list() method is used. By default, without passing any argument, the method returns only the list of stock objects (dictionaries), which have been index members in last 4 years from now (default, tail=4*365). For filtering the list to some specific period, pass appropriate values to arguments:
+- min_date - filters the list from specific date (string, 'yyyy-mm-dd' format)
+- max_date - end date of a period, last date 
+- tail - number of days to lookback in history from now (int) 
+
+
+So, call for stocks list of NASDAQ100 index members from 2006. will look:
+```python
+import qnt.data as qndata
+stocks_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')
+len(stocks_list)
+
+231
+```
+
+```python
+stocks_list[:3]
+
+[{'name': 'American Airlines Group',
+  'sector': 'Consumer Goods',
+  'symbol': 'AAL',
+  'exchange': 'NAS',
+  'id': 'NAS:AAL',
+  'FIGI': 'tts-67645939'},
+ {'name': 'Apple',
+  'sector': 'IT/Telecommunications',
+  'symbol': 'AAPL',
+  'exchange': 'NAS',
+  'id': 'NAS:AAPL',
+  'FIGI': 'tts-831814'},
+ {'name': 'Airbnb Inc',
+  'sector': None,
+  'symbol': 'ABNB',
+  'exchange': 'NAS',
+  'id': 'NAS:ABNB',
+  'FIGI': 'tts-207966789'}]
+```
+
+Additional information from the list can be used for further filtering, such as information of sector that certain stock belongs to. We can play around and create simple functions related to sectors, primarily to get the list of sectors:
+```python
+def get_sectors():
+    return {x['sector'] for x in stocks_list}
+```
+
+```python
+get_sectors()
+
+{'Commodities',
+ 'Consumer Goods',
+ 'Energy',
+ 'Finance',
+ 'Healthcare',
+ 'IT/Telecommunication',
+ 'Industry',
+ None,
+ 'Utilities'}
+```
+
+or simply, to check stocks distribution between sectors:
+
+```python
+def sector_distribution():
+    dist = dict()
+    for stock in stocks_list:
+        sector = stock["sector"]
+        if sector not in dist:
+            dist[sector] = 0
+        dist[sector] += 1
+    return dist
+```
+
+or just to get the list of symbols from specific sector:
+
+```python
+def get_sector_stocks(sector):
+    return [x['id'] for x in stocks_list if x['sector'] == sector]
+```
+like "Energy" sector:
+```python
+get_sector_stocks("Energy")
+
+['NAS:AEP', 'NAS:EXC', 'NAS:FSLR', 'NAS:PTEN', 'NAS:XEL']
+```
+finally, output is passed further to specify the set of assets for which we want to obtain data, described in next section.
+
+
+### Load stocks dataset
+For each stock got from stocks list, historical data can be obtained. We use load_ndx_data() method for loading the data, and the data could be time sliced by passing the same params as for load_ndx_list method (min_date, tail, max_date), but also can be reduced to return only data for particular assets (e.g. from certain sector).
+
+```python
+import qnt.data as qndata
+stocks_data = qndata.stocks.load_ndx_data(min_date='2006-01-01', dims=('time', 'field', 'asset'))
+```
+**stocks_data** is  3-dimenional xarray structure with coordinates:
+
+- **time**: series of dates in string format 'yyyy-mm-dd'
+- **asset**: list of instruments in string format, combination of first 3 characters of stock exchange and ticker symbol
+- **field**: atribute in End of Day quality
+
+
+
+
+
+| Data field | Description                                       |
+|------------|---------------------------------------------------|
+| OHLC       | open, high, low, close daily price                |
+| vol        | Daily trading volume (number of shares).          |
+| divs       | Dividend payment                                  |
+| is_liquid  | The asset is NASDAQ100 constituent at that moment |
+
+
+![ndxData](./pictures/load_ndx_data.PNG)
+
+Accessing specific field, timestamp or asset from **stocks_data** DataArray is possible with **.sel** method. Let's say we want to use only Apple data from dataset:
+
+```python
+aapl = stocks_data.sel(asset="NAS:AAPL")
+### we can convert xarray.DataArray to pandas Dataframe
+aapl.to_pandas()
+```
+![AAPL](./pictures/aapl.PNG)
+
+
+For more about xarray please check [User Guide xarray](https://quantiacs.com/documentation/en/user_guide/xarray.html).
+
+
+
+### Data visualization
+We can use Apple data already defined as **aapl** variable above,  and create a plot for period 2015 - 2020, using plotly library:
+
+```python
+aapl = aapl.sel(time=slice("2015-01-01", "2020-12-31")).to_pandas()
+```
+
+```python
+import plotly.graph_objs as go
+from plotly.subplots import make_subplots
+
+
+aapl_bars = make_subplots(specs=[[{"secondary_y": True}]])
+aapl_bars.add_trace(go.Candlestick(x=aapl.index,
+                              open=aapl['open'],
+                              high=aapl['high'],
+                              low=aapl['low'],
+                              close=aapl['close'],
+                              name='Price'))
+aapl_bars.update_layout(xaxis_rangeslider_visible=False)
+aapl_bars.show()
+```
+
+
+----
 ## Futures
 Quantiacs provides data for 78 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
