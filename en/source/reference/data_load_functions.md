@@ -4,6 +4,140 @@
 This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. First-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
+## Inspecting the list of Stocks
+
+The available stocks in the NASDAQ100 index can be inspected using the following function:
+
+**Function**
+
+```python
+import qnt.data as qndata
+qndata.stocks.load_ndx_list(min_date = None, max_date = None, tail = 365 * 4)
+```
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|min_date|filters the list from specific date (string, ‘yyyy-mm-dd’ format). Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 4.|
+
+
+**Output**
+
+The output is a list of dictionaries with info on name, sector, symbol, sector and more of all available stocks in the specified time frame:
+
+```python
+[{'name': 'American Airlines Group',
+  'sector': 'Consumer Goods',
+  'symbol': 'AAL',
+  'exchange': 'NAS',
+  'id': 'NAS:AAL',
+  'FIGI': 'tts-67645939'},
+ {'name': 'Apple',
+  'sector': 'IT/Telecommunications',
+  'symbol': 'AAPL',
+  'exchange': 'NAS',
+  'id': 'NAS:AAPL',
+  'FIGI': 'tts-831814'},
+ {'name': 'Airbnb Inc',
+  'sector': None,
+  'symbol': 'ABNB',
+  'exchange': 'NAS',
+  'id': 'NAS:ABNB',
+  'FIGI': 'tts-207966789'},
+  ...
+  {'name': 'Zoom Video Communications',
+  'sector': None,
+  'symbol': 'ZM',
+  'exchange': 'NAS',
+  'id': 'NAS:ZM',
+  'FIGI': 'tts-163839424'},
+ {'name': 'Zscaler',
+  'sector': None,
+  'symbol': 'ZS',
+  'exchange': 'NAS',
+  'id': 'NAS:ZS',
+  'FIGI': 'tts-137190768'}]
+```
+
+
+## Loading Stocks Data
+
+Stocks data can be loaded using:
+
+**Function**
+
+```python
+import qnt.data as qndata
+qndata.stocks.load_ndx_data(assets = None, min_date = None, max_date = None, dims = ('time', 'field', 'asset')),
+    forward_order = True, tail = 365 * 6)
+```
+
+**Parameters**
+
+|Parameter|Explanation|
+|---|---|
+|assets|list of ticker names to load, example: ["NAS:AAPL", "NAS:ABNB"]. Default None value loads all assets.|
+|min_date|first date in data, example "2006-01-01". Default None value uses max_date-tail.|
+|max_date|last date of data. Default None value is current day.|
+|dims|tuple with "time","field", "asset" attributes in the specified order.|
+|forward_order|boolean, default True value orders date in ascending order.|
+|tail| calendar days, min_date = max_date - tail. Default value is 6 years, 365 * 6.|
+
+**Output**
+
+The output is an xarray.DataArray with historical data for the selected assets. Coordinates are:
+
+![Coords](./pictures/load_ndx_data.PNG)
+
+
+**Example**
+
+One can load market data for Apple and Amazon stock for the past 10 years as follows:
+
+```python
+import qnt.data as qndata
+data = qndata.stocks.load_ndx_data(assets= ['NAS:AAPL', 'NAS:AMZN'], tail=365*10)
+```
+Specific fields can be extracted using:
+
+```python
+open  = data.sel(field='open')
+close = data.sel(field='close')
+high  = data.sel(field='high')
+low   = data.sel(field='low')
+
+volume_day = data.sel(field='vol')
+dividends = data.sel(field='divs')
+```
+
+
+where:
+
+| Data field | Description |
+| ------------------ | -------- |
+| open               | Opening daily price.|
+| close              | Closing daily price. |
+| high               | Highest daily price.|
+| low                | Lowest daily price. |
+| vol                | Daily trading volume(number of shares).|
+| divs                 | Dividend payment.|
+
+Data can be nicely displayed using:
+
+```python
+open.to_pandas().head()
+```
+
+|asset<br/>time|NAS:AAPL<br/> |NAS:AMZN<br/> |
+|---|---|---|
+2012-06-25| 	20.6179 |	11.0150
+2012-06-26| 	20.4046 |	11.0725
+2012-06-27| 	20.5357 |	11.2505
+2012-06-28 |	20.4168 |	11.1960
+2012-06-29 |	20.6429 |	11.2350
+
 
 ## Inspecting the list of Futures
 
