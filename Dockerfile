@@ -25,7 +25,7 @@ RUN conda install -y \
      && conda clean -afy
 
 RUN apt update && apt -y install curl \
-    && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && apt -y remove curl \
     && apt -y autoremove \
