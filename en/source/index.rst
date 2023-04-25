@@ -6,27 +6,33 @@ Contents
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+
 .. toctree::
    :maxdepth: 2
    :caption: Quick Start
 
    quick_start/quick_start.md
-   user_guide/new_and_legacy_platform
+   user_guide/local_development.md
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Working with Data
+
+   data/intro.md
+   data/stocks.md
+   data/indexes.md
+   data/crypto.md
+   data/futures.md
+   data/bls.md
 
 .. toctree::
    :maxdepth: 2
    :caption: User Guide
 
-   user_guide/data.md
-   user_guide/macro.md
-   user_guide/functional_quality.md
-   user_guide/xarray.md
-   user_guide/code.md
-   user_guide/local_development.md
-   user_guide/passFilters.md
-   user_guide/optimization.md
    user_guide/technical_indicators.md
+   user_guide/functional_quality.md
+   user_guide/optimization.md
+   user_guide/passFilters.md
 
 .. toctree::
    :maxdepth: 2
@@ -37,6 +43,11 @@ Contents
    reference/exposure.md
    reference/neutralization.md
    reference/operators.md
+
+   user_guide/xarray.md
+   user_guide/code.md
+
+   user_guide/new_and_legacy_platform
 
 
 
