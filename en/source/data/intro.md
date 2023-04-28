@@ -16,7 +16,7 @@ Additional Datasets:
   macroeconomic data on prices, employment, unemployment, compensation, and working conditions.
 - [International Monetary Fund (IMF Data)](#imf_data): Publishes time series data on IMF lending, exchange rates,
   economic and financial indicators, and commodity data.
-- [Fundamental Data](#fundamental_data): An experimental API for additional financial data.
+- [Fundamental Data](https://quantiacs.com/documentation/en/data/fundamental.html): An experimental API for additional financial data.
 
 ## Working with Data
 
