@@ -24,6 +24,7 @@ Contents
    data/crypto.md
    data/futures.md
    data/bls.md
+   data/imf.md
    data/fundamental.md
 
 .. toctree::
