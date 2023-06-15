@@ -12,9 +12,10 @@ and **cryptocurrencies**. This section provides an overview of the data:
 
 Additional Datasets:
 
+- [Indexes](https://quantiacs.com/documentation/en/data/indexes.html): Daily data for various stock market indices.
 - [U.S. Bureau of Labor Statistics (BLS Data)](https://quantiacs.com/documentation/en/data/bls.html): Offers
   macroeconomic data on prices, employment, unemployment, compensation, and working conditions.
-- [International Monetary Fund (IMF Data)](#imf_data): Publishes time series data on IMF lending, exchange rates,
+- [International Monetary Fund (IMF Data)](https://quantiacs.com/documentation/en/data/imf.html): Publishes time series data on IMF lending, exchange rates,
   economic and financial indicators, and commodity data.
 - [Fundamental Data](https://quantiacs.com/documentation/en/data/fundamental.html): An experimental API for additional financial data.
 
