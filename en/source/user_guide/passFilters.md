@@ -25,7 +25,7 @@ You should aim to improve your algorithm. For instance, you can refer to these e
 * [Trading System Optimization](https://github.com/quantiacs/strategy-futures-ta-global-optimizer/blob/master/strategy.ipynb)
 * [Trading System Optimization by Asset](https://github.com/quantiacs/strategy-futures-optimization-each-asset/blob/master/strategy.ipynb)
 * [A Strategy Using Technical Analysis Indicators](https://github.com/quantiacs/strategy-predict-NASDAQ100-use-atr-lwma/blob/master/strategy.ipynb)
-* [Getting a List of the Top 3 Assets Ranked by Sharpe Ratio in Q20 Quick Start](https://github.com/quantiacs/strategy-predict-NASDAQ)
+* [Getting a List of the Top 3 Assets Ranked by Sharpe Ratio in Q20 Quick Start](https://github.com/quantiacs/strategy-q20-nasdaq100-quick-start/blob/master/strategy.ipynb)
 
 **2) Difference in In-Sample Sharpe Ratio in Jupyter or JupyterLab Compared to the Contest Page**
 
@@ -44,7 +44,7 @@ Here are some common mistakes to look out for:
 More information:
 * [Different Sharpe Ratios for Multipass-Backtest and Quantiacs Mulipass Backtest](https://quantiacs.com/community/topic/374/different-sharpe-ratios-for-multipass-backtest-and-quantiacs-mulipass-backtest?_=1687248669560)
 
-> We **recommend** testing your strategy in **multi-pass** mode. [Here is an example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
+We **recommend** testing your strategy in **multi-pass** mode. [Here is an example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
 
 ### Source file must exist
 An error message stating that the **strategy.ipynb** file was not found is connected to a non-standard name for the file containing your strategy. This file must be named **strategy.ipynb**.
