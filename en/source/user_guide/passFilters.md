@@ -16,7 +16,7 @@ If your algorithm passes these checks (filters), it will be admitted to the Cont
 
 ### Sharpe ratio
 
-1. Not Eligible for Contest: In-Sample Sharpe Must be Larger Than 1
+**1) Not Eligible for Contest: In-Sample Sharpe Must be Larger Than 1**
 
 The Sharpe Ratio is a measure of risk-adjusted performance. A warning stating that the Sharpe ratio is less than 1 indicates that the performance of your strategy during the In-Sample period, when considering risk, is insufficient.
 
@@ -27,7 +27,7 @@ You should aim to improve your algorithm. For instance, you can refer to these e
 * [A Strategy Using Technical Analysis Indicators](https://github.com/quantiacs/strategy-predict-NASDAQ100-use-atr-lwma/blob/master/strategy.ipynb)
 * [Getting a List of the Top 3 Assets Ranked by Sharpe Ratio in Q20 Quick Start](https://github.com/quantiacs/strategy-predict-NASDAQ)
 
-2. Difference in In-Sample Sharpe Ratio in Jupyter or JupyterLab Compared to the Contest Page
+**2) Difference in In-Sample Sharpe Ratio in Jupyter or JupyterLab Compared to the Contest Page**
 
 Be mindful of **forward-looking bias**. If you notice that the notebook delivers a Sharpe ratio larger than 1, but the backtester doesn't, then you are most likely incorporating future data, for instance, by calculating a global mean.
 
