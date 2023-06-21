@@ -1,19 +1,50 @@
 # Competition filters
 
-For submitting a strategy to a contest you have to click on the **Submit** button in your **Development** area:
+To submit a strategy for the contest, click on the **Submit** button in your **Development** area:
 
-![submit](./pictures/submit.png)
+![Submit](./pictures/submit.png)
 
-You can also submit code directly from your developing environment in Jupyter Notebook or JupyterLab.   
+You also have the option to directly submit code from your development environment in Jupyter Notebook or JupyterLab.  
 
-After submission your code will be checked on our servers and its status will appear in the **Competition** section of your account under the tab **Checking**:
+Upon submission, our servers will check your code. The status of this check will be displayed in the **Competition** section of your account, under the **Checking** tab:
 
-![test](./pictures/test.png)
+![Checking](./pictures/test.png)
 
-
-Your algorithm will be admitted to the Contest if it passes checks (filters). In case of success you will find your code under the **Candidates** tab. Otherwise it will be listed under the **Filtered** tab where you will be able to inspect the logs and determine the reason for the error.
+If your algorithm passes these checks (filters), it will be admitted to the Contest and you can find it under the **Candidates** tab. If it fails these checks, it will be listed under the **Filtered** tab, where you can inspect the logs and understand the reason for the error.
 
 ## Technical filters
+
+### Sharpe ratio
+
+1. Not Eligible for Contest: In-Sample Sharpe Must be Larger Than 1
+
+The Sharpe Ratio is a measure of risk-adjusted performance. A warning stating that the Sharpe ratio is less than 1 indicates that the performance of your strategy during the In-Sample period, when considering risk, is insufficient.
+
+You should aim to improve your algorithm. For instance, you can refer to these examples:
+
+* [Trading System Optimization](https://github.com/quantiacs/strategy-futures-ta-global-optimizer/blob/master/strategy.ipynb)
+* [Trading System Optimization by Asset](https://github.com/quantiacs/strategy-futures-optimization-each-asset/blob/master/strategy.ipynb)
+* [A Strategy Using Technical Analysis Indicators](https://github.com/quantiacs/strategy-predict-NASDAQ100-use-atr-lwma/blob/master/strategy.ipynb)
+* [Getting a List of the Top 3 Assets Ranked by Sharpe Ratio in Q20 Quick Start](https://github.com/quantiacs/strategy-predict-NASDAQ)
+
+2. Difference in In-Sample Sharpe Ratio in Jupyter or JupyterLab Compared to the Contest Page
+
+Be mindful of **forward-looking bias**. If you notice that the notebook delivers a Sharpe ratio larger than 1, but the backtester doesn't, then you are most likely incorporating future data, for instance, by calculating a global mean.
+
+> You can run the following notebook to check for this common mistake:
+[Quantiacs Toolbox Precheck](https://github.com/quantiacs/toolbox/blob/main/qnt/precheck.ipynb)
+
+Here are some common mistakes to look out for:
+
+* Using future knowledge in the past
+* Understanding the Advance/Decline Line and the Advance/Decline Ratio
+* Ensuring that standardization in price processing does not incorporate knowledge from the future to the past
+* Understanding Quantiles
+
+More information:
+* [Different Sharpe Ratios for Multipass-Backtest and Quantiacs Mulipass Backtest](https://quantiacs.com/community/topic/374/different-sharpe-ratios-for-multipass-backtest-and-quantiacs-mulipass-backtest?_=1687248669560)
+
+> We **recommend** testing your strategy in **multi-pass** mode. [Here is an example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
 
 ### Source file must exist
 An error message stating that the **strategy.ipynb** file was not found is connected to a non-standard name for the file containing your strategy. This file must be named **strategy.ipynb**.
@@ -26,7 +57,7 @@ If you see an error message stating that the execution of **strategy.ipynb** fai
 Pay special attention to the dates in the logs: you can use this information to reproduce the problem in the **precheck.ipynb** file you find in your root directory. Substitute these **dates** when calling **evaluate_passes**.
 
 ### Weights must be written
-If you see an error message stating that the calling to the **write_output** function is skipped (example **Missed call to write_output**), then your strategy does not save the final weights. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)** (or **qnt.backtest(...)** if you use Multi-Pass Backtesting), assuming that you used **weights** for the final allocation weights.
+If you see an error message stating that the call to the **write_output** function was skipped (example: **Missed call to write_output**), then your strategy does not save the final weights. Your last call in the **strategy.ipynb** file should be **qnt.output.write(weights)** (or **qnt.backtest(...)** if you use Multi-Pass Backtesting), assuming that you used **weights** for the final allocation weights.
 ```python
 qnt.output.write(weights)
 ```
@@ -49,59 +80,59 @@ qndata.futures.load_data(min_date="2006-01-01")
 An error message stating that the strategy does not display weights for all trading days means that weights for some days are not generated, for example because of a **drop** operation. This problem can be avoided using the function **qnt.output.check(weights, data, "futures")**, assuming that you are working with futures and you are generating **weights** on **data**.
 
 ### Weights are not generated at the beginning of the time series
-Your strategy should generate non-vanishing weights at least since the start date of the corresponding contest:
+Your strategy must produce non-zero weights starting from the date defined for each corresponding contest:
 
-* Futures Contest - The strategy must trade from January 1, 2006.
+* NASDAQ-100 Contest - Trading should begin from January 1, 2006.
+* Futures Contest - Trading should begin from January 1, 2006.
+* Bitcoin Futures - Trading should start from January 1, 2014.
+* Crypto Top-10 Long - Trading should commence from January 1, 2014.
 
-* Bitcoin Futures - The strategy must trade from January 1, 2014.
+To ensure compliance, review your strategy code:
 
-* Crypto Top-10 Long - The strategy must trade from January 1, 2014.
+1. Verify the data range being loaded. Define the appropriate time frame as follows:
+   ```python
+   futures = qndata.futures.load_data(min_date="2006-01-01")
+   ```
+2. Ensure the data range being saved:
+    ```python
+    display(weights)
+    qnt.output.write(weights)
+    ```
 
-Check in your strategy code the following:
+The Sharpe ratio's computation period commences from the date when the first non-zero weights are identified. If, for instance, your algorithm begins generating weights on Bitcoin Futures from January 1, 2017, it will **not** be accepted because the In-Sample period is effectively too brief.
 
-* The range of data you are loading. Specify the required period as:
-```python
-futures = qndata.futures.load_data(min_date="2006-01-01")
-```
-* The range of data you are saving:
-```python
-display(weights)
-qnt.output.write(weights)
-```
+This issue often arises when utilizing technical analysis indicators which necessitate a warm-up period. You can check the date using:
 
-The calculation period for the Sharpe ratio starts from the date when the first non-zero weights are encountered. If, for example, your algorithm only generates weights on the Bitcoin Futures since January 1, 2017, then it will **not** be accepted as the In-Sample period will be effectively too short.
-
-This error often occurs when using technical analysis indicators which need a warm-up period.
-Check the date using:
 ```python
 min_time = weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
 min_time
 ```
-The return value should be the same or larger than the starting date specified in the rules for a particular type of competition.
 
-If **min_time** is larger than the starting date, we recommend to fill the starting values of the time series with non-vanishing values, for example a simple buy-and-hold strategy.
+> The value of min_time should be equal to or later than the starting date specified in the rules for the respective competition.
+
+If min_time is later than the starting date, it's recommended to fill the starting values of the time series with non-zero values. For instance, you could use a simple buy-and-hold strategy.
+
 ```python
-min_time = weights.time[abs(weights).fillna(0).sum('asset')> 0].min()
-weights_new = xr.where(weights.time < min_time, 1, weights)
+def get_enough_bid_for(data_, weights_):
+    time_traded = weights_.time[abs(weights_).fillna(0).sum('asset') > 0]
+    is_strategy_traded = len(time_traded)
+    if is_strategy_traded:
+        return xr.where(weights_.time < time_traded.min(), data_.sel(field="is_liquid"), weights_)
+    return weights_
+
+
+weights_new = get_enough_bid_for(data, weights)
+weights_new = weights_new.sel(time=slice("2006-01-01",None))
 ```
 
-More details about the calculation mechanism can be found in the source code of the library, method ***qnt.output.calc_sharpe_ratio_for_check***.
+For additional information regarding the calculation method, please refer to the source code of the library, specifically the qnt.output.calc_sharpe_ratio_for_check method.
 
 ### Timeout
 An error message stating that the strategy calculation exceeds a given time implies that you need to optimize the code and reduce the execution time. Futures systems should be evaluated in 10 minutes and Bitcoin futures/Crypto long systems in 5 minutes of time.
 
 
 ### Number of strategies
-An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 5 for the contest.
+An error message stating that the limit for strategies has been exceeded is connected to the number of running strategies in your area. You can have at most 50 of them and you should select 15 for the contest.
 
-### Sharpe ratio
-A warning stating that the Sharpe ratio is smaller than 1 means that the risk-adjusted performance of your system in the In-Sample period is too low and it should be improved. Your system will be evaluated on a daily basis, but **it will NOT be eligile for a prize**.
-
-> We recommend that you familiarize yourself with [how to find the optimal parameters for strategies](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html).
-
-You should be careful with **forward-looking**. If you see that the notebook delivers a Sharpe ratio larger than 1, but the backtester not, then most likely you are looking into the future, for example by taking a global mean.
-
-> We **recommend** testing the strategy in **multi-pass** mode. [Example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
-
-## Templates
+### Templates
 A copy of a template **will NOT be eligible for a prize**.
