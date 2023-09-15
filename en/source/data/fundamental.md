@@ -2,112 +2,171 @@
 
 > An experimental API for additional financial data.
 
+**Quantiacs** offers tools for the analysis of **fundamental data** of companies based on publications from the **sec.gov** website.
+
+To construct **fundamental indicators** (equity, EV, EBITDA, etc.) **fundamental facts** are used (e.g., 'us-gaap:Revenues', 'us-gaap:StockholdersEquity', etc.).
+
 ```python
 import qnt.data as qndata
-import qnt.data.secgov_indicators
+import qnt.data.secgov_fundamental as fundamental
 
-stock_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')
-stock_data = qndata.stocks.load_ndx_data(min_date='2006-01-01', assets=stock_list)
+market_data = qndata.stocks.load_ndx_data(min_date="2005-01-01")
 
-indicators = ['assets', 'liabilities', 'operating_expense', 'ivestment_short_term']
+indicators_data = fundamental.load_indicators_for(market_data, indicator_names=['roe'])
 
-fundamental_data = qnt.data.secgov_load_indicators(stock_list, time_coord=stock_data.time,
-                                                   standard_indicators=indicators)
+display(indicators_data.sel(field="roe").to_pandas().tail(2))
+display(indicators_data.sel(asset='NAS:AAPL').to_pandas().tail(2))
+display(indicators_data.sel(asset=['NAS:AAPL']).sel(field="roe").to_pandas().tail(2))
 
-display(fundamental_data.sel(field="liabilities").to_pandas().tail(2))
-display(fundamental_data.sel(asset='NAS:AAPL').to_pandas().tail(2))
-display(fundamental_data.sel(asset=['NAS:AAPL']).sel(field="liabilities").to_pandas().tail(2))
+
+# indicators_data = fundamental.load_indicators_for(market_data)
+# indicators_data = fundamental.load_indicators_for(market_data, fundamental.get_standard_indicator_names())
+# indicators_data = fundamental.load_indicators_for(market_data, fundamental.get_complex_indicator_names())
+# indicators_data = fundamental.load_indicators_for(market_data, fundamental.get_annual_indicator_names())
+
 
 ```
 
-| Indicator            | US-GAAP Codes                                                                                                                                                                 | Description                                       |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
-| assets               | us-gaap:Assets                                                                                                                                                                | Total Assets                                      |
-| assets_curr          | us-gaap:AssetsCurrent                                                                                                                                                         | Current Assets                                    |
-| equity               | us-gaap:StockholdersEquity                                                                                                                                                    | Stockholders' Equity                              |
-| liabilities          | us-gaap:Liabilities                                                                                                                                                           | Total Liabilities                                 |
-| liabilities_curr     | us-gaap:LiabilitiesCurrent                                                                                                                                                    | Current Liabilities                               |
-| market_cap           | us-gaap:CapitalizationLongtermDebtAndEquity                                                                                                                                   | Market Capitalization (Long-term Debt and Equity) |
-| debt_lt              | us-gaap:LongTermDebt                                                                                                                                                          | Long-term Debt                                    |
-| debt_st              | us-gaap:ShortTermBorrowings                                                                                                                                                   | Short-term Borrowings                             |
-| goodwill             | us-gaap:Goodwill                                                                                                                                                              | Goodwill                                          |
-| inventory            | us-gaap:InventoryNet                                                                                                                                                          | Net Inventory                                     |
-| ivestment_short_term | us-gaap:AvailableForSaleSecuritiesCurrent, us-gaap:MarketableSecuritiesCurrent                                                                                                | Short-term Investments                            |
-| invested_capital     | us-gaap:MarketableSecurities                                                                                                                                                  | Invested Capital (Marketable Securities)          |
-| shares               | us-gaap:CommonStockSharesOutstanding, us-gaap:CommonStockSharesIssued                                                                                                         | Outstanding & Issued Common Stock Shares          |
-| ppent                | us-gaap:PropertyPlantAndEquipmentNet                                                                                                                                          | Property, Plant, and Equipment (Net)              |
-| cash_equivalent      | us-gaap:CashAndCashEquivalentsAtCarryingValue                                                                                                                                 | Cash and Cash Equivalents at Carrying Value       |
-| sales_revenue        | us-gaap:SalesRevenueGoodsNet, us-gaap:SalesRevenueNet, us-gaap:RevenueFromContractWithCustomerIncludingAssessedTax                                                            | Sales Revenue                                     |
-| total_revenue        | us-gaap:Revenues                                                                                                                                                              | Total Revenues                                    |
-| capex                | us-gaap:CapitalExpenditureDiscontinuedOperations                                                                                                                              | Capital Expenditure (Discontinued Operations)     |
-| cashflow_op          | us-gaap:OtherOperatingActivitiesCashFlowStatement, us-gaap:NetCashProvidedByUsedInOperatingActivities, us-gaap:NetCashProvidedByUsedInOperatingActivitiesContinuingOperations | Cash Flow from Operating Activities               |
-| cogs                 | us-gaap:CostOfGoodsAndServicesSold, us-gaap:CostOfGoodsSold, us-gaap:CostOfRevenue                                                                                            | Cost of Goods and Services Sold                   |
-| divs                 | us-gaap:Dividends                                                                                                                                                             | Dividends                                         |
-| eps                  | us-gaap:EarningsPerShareDiluted, us-gaap:EarningsPerShare                                                                                                                     | Earnings Per Share (Diluted & Basic)              |
-| income               | us-gaap:NetIncomeLoss                                                                                                                                                         | Net Income Loss                                   |
-| interest_expense     | us-gaap:InterestExpense                                                                                                                                                       | Interest Expense                                  |
-| operating_expense    | us-gaap:OperatingExpenses                                                                                                                                                     | Operating Expenses                                |
-| operating_income     | us-gaap:OperatingIncomeLoss                                                                                                                                                   | Operating Income Loss                             |
-| rd_expense           | us-gaap:ResearchAndDevelopmentExpense                                                                                                                                         | Research and Development Expense                  |
-| retained_earnings    | us-gaap:PostconfirmationRetainedEarningsDeficit                                                                                                                               | Postconfirmation Retained Earnings Deficit        |
-| sales_ps             | us-gaap:EarningsPerShareBasic                                                                                                                                                 | Sales Per Share (Earnings Per Share Basic)        |
-| sga_expense          | us-gaap:SellingGeneralAndAdministrativeExpense                                                                                                                                | Selling, General, and Administrative Expense      |
+| Indicator                           | US-GAAP Facts                                                                                                                                                                                                                                   | Description                                                                                            |
+|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `total_revenue`                     | `['us-gaap:Revenues']`                                                                                                                                                                                                                          | Total revenue generated from business activities.                                                      |
+| `liabilities`                       | `FACT_GROUPS['equity'] + ['us-gaap:Liabilities', 'us-gaap:LiabilitiesAndStockholdersEquity']`                                                                                                                                                   | Total obligations and debts owed by the business.                                                      |
+| `assets`                            | `['us-gaap:Assets']`                                                                                                                                                                                                                            | Total assets owned by the business.                                                                    |
+| `equity`                            | `FACT_GROUPS['equity']`                                                                                                                                                                                                                         | Total stockholder's equity, including non-controlling interest.                                        |
+| `net_income`                        | `['us-gaap:NetIncomeLoss']`                                                                                                                                                                                                                     | Net profit or loss generated by the business.                                                          |
+| `short_term_investments`            | `['us-gaap:ShortTermInvestments']`                                                                                                                                                                                                              | Investments that are expected to be converted into cash within a year.                                 |
+| `cash_and_cash_equivalents`         | `['us-gaap:CashAndCashEquivalentsAtCarryingValue']`                                                                                                                                                                                             | Cash on hand and assets that can be quickly converted to cash.                                         |
+| `cash_and_cash_equivalents_full`    | `FACT_GROUPS['cash_equivalents']`                                                                                                                                                                                                               | Extended list of cash and equivalents, including marketable securities.                                |
+| `operating_income`                  | `['us-gaap:OperatingIncomeLoss']`                                                                                                                                                                                                               | Income generated from core business operations.                                                        |
+| `income_before_taxes`               | `FACT_GROUPS['income']`                                                                                                                                                                                                                         | Pre-tax income from all operations and sources.                                                        |
+| `income_before_income_taxes`        | `['us-gaap:IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest']`                                                                                                                                       | Similar to income_before_taxes, but more specific.                                                     |
+| `depreciation_and_amortization`     | `FACT_GROUPS['depreciation_and_amortization']`                                                                                                                                                                                                  | Total depreciation and amortization expenses.                                                          |
+| `interest_net`                      | `FACT_GROUPS['income'] + ['us-gaap:OperatingIncomeLoss']`                                                                                                                                                                                       | Net interest, calculated as interest income minus interest expense.                                    |
+| `income_interest`                   | `['us-gaap:InvestmentIncomeInterest']`                                                                                                                                                                                                          | Interest income from investments.                                                                      |
+| `interest_expense`                  | `['us-gaap:InterestExpense']`                                                                                                                                                                                                                   | Expense incurred from interest payments.                                                               |
+| `interest_expense_debt`             | `['us-gaap:InterestExpenseDebt']`                                                                                                                                                                                                               | Interest expense specifically related to debt.                                                         |
+| `interest_expense_capital_lease`    | `['us-gaap:InterestExpenseLesseeAssetsUnderCapitalLease']`                                                                                                                                                                                      | Interest expense specifically related to capital leases.                                               |
+| `interest_income_expense_net`       | `['us-gaap:InterestIncomeExpenseNet']`                                                                                                                                                                                                          | Net amount of interest income and expense.                                                             |
+| `losses_on_extinguishment_of_debt`  | `['us-gaap:GainsLossesOnExtinguishmentOfDebt']`                                                                                                                                                                                                 | Losses incurred from the extinguishment of debt.                                                       |
+| `nonoperating_income_expense`       | `['us-gaap:NonoperatingIncomeExpense']`                                                                                                                                                                                                         | Income or expenses not related to core business operations.                                            |
+| `other_nonoperating_income_expense` | `['us-gaap:OtherNonoperatingIncomeExpense']`                                                                                                                                                                                                    | Other income or expenses that are non-operational.                                                     |
+| `debt`                              | `FACT_GROUPS['debt']`                                                                                                                                                                                                                           | All forms of long-term and short-term debt.                                                            |
+| `net_debt`                          | `FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                                         | Net debt calculated by subtracting cash equivalents from total debt.                                   |
+| `eps`                               | `['us-gaap:EarningsPerShareDiluted', 'us-gaap:EarningsPerShare']`                                                                                                                                                                               | Earnings per share, both diluted and basic.                                                            |
+| `shares`                            | `FACT_GROUPS['shares']`                                                                                                                                                                                                                         | Total number of outstanding common stock shares.                                                       |
+| `market_capitalization`             | `FACT_GROUPS['shares']`                                                                                                                                                                                                                         | Market value of all outstanding shares.                                                                |
+| `ebitda_use_income_before_taxes`    | `FACT_GROUPS['income'] + FACT_GROUPS['interest'] + FACT_GROUPS['ebitda']`                                                                                                                                                                       | Earnings before interest, taxes, depreciation, and amortization, calculated using income before taxes. |
+| `ebitda_use_operating_income`       | `FACT_GROUPS['ebitda'] + ['us-gaap:NonoperatingIncomeExpense', 'us-gaap:GainsLossesOnExtinguishmentOfDebt', 'us-gaap:InvestmentIncomeInterest'] + FACT_GROUPS['interest']`                                                                      | Earnings before interest, taxes, depreciation, and amortization, calculated using operating income.    |
+| `ebitda_simple`                     | `FACT_GROUPS['depreciation_and_amortization'] + ['us-gaap:OperatingIncomeLoss']`                                                                                                                                                                | Simplified EBITDA calculation.                                                                         |
+| `ev`                                | `FACT_GROUPS['shares'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                 | Enterprise value, calculated as market capitalization plus net debt.                                   |
+| `ev_divide_by_ebitda`               | `FACT_GROUPS['ebitda'] + FACT_GROUPS['shares'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                         | Enterprise value divided by EBITDA.                                                                    |
+| `liabilities_divide_by_ebitda`      | `FACT_GROUPS['ebitda'] + ['us-gaap:Liabilities', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity', 'us-gaap:LiabilitiesAndStockholdersEquity'] + FACT_GROUPS['cash_equivalents']` | Total liabilities divided by EBITDA.                                                                   |
+| `net_debt_divide_by_ebitda`         | `FACT_GROUPS['ebitda'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                 | Net debt divided by EBITDA.                                                                            |
+| `p_divide_by_e`                     | `['us-gaap:NetIncomeLoss', 'dei:EntityCommonStockSharesOutstanding']`                                                                                                                                                                           | Price-to-earnings ratio, calculated as market price per share divided by earnings per share.           |
+| `p_divide_by_bv`                    | `['dei:EntityCommonStockSharesOutstanding', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity']`                                                                                    | Price-to-book value ratio, calculated as market price per share divided by book value per share.       |
+| `p_divide_by_s`                     | `['dei:EntityCommonStockSharesOutstanding', 'us-gaap:Revenues']`                                                                                                                                                                                | Price-to-sales ratio, calculated as market price per share divided by revenue per share.               |
+| `ev_divide_by_s`                    | `FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents'] + ['dei:EntityCommonStockSharesOutstanding', 'us-gaap:Revenues']`                                                                                                                        | Enterprise value to sales ratio, calculated as enterprise value divided by total revenue.              |
+| `roe`                               | `['us-gaap:NetIncomeLoss', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity']`                                                                                                     | Return on equity, calculated as net income divided by total equity.                                    |
 
+## Example use Return on Equity (ROE)
 
-
-
-> Example
-
-This Python script demonstrates how to build a stock trading strategy by leveraging financial data from SEC filings and the QNT library. The script fetches specific financial indicators for NASDAQ 100 companies and calculates portfolio weights using the retrieved data. The strategy is evaluated by calculating its statistics and visualizing its performance using a log-scaled graph. The resulting portfolio weights can be used for participation in a competition.
+The strategy trades liquid stocks from the Nasdaq 100 index that have a positive return on equity (ROE > 0.15)
 
 ```python
 
 import xarray as xr
-import numpy as np
-import pandas as pd
-import datetime as dt
-
-import qnt.ta as qnta
 import qnt.data as qndata
 import qnt.output as qnout
-import qnt.stats as qns
-import qnt.graph as qngraph
-import qnt.data.secgov_indicators
+import qnt.stats as qnstats
+import qnt.data.secgov_fundamental as fundamental
 
 
-def calculate_weights(stock_data, fundamental_data):
-    is_liquid = stock_data.sel(field="is_liquid")
-    liabilities = fundamental_data.sel(field="liabilities")
+def load_data(min_date="2005-01-01"):
+    """Load market and fundamental data."""
+    market_data = qndata.stocks.load_ndx_data(min_date=min_date)
+    indicators_data = fundamental.load_indicators_for(market_data, indicator_names=['roe'])
+    return market_data, indicators_data
 
-    weights = liabilities * is_liquid
-    return weights
+
+def calculate_weights(data, fundamental_data):
+    """Calculate weights for the strategy based on fundamental data."""
+    roe = fundamental_data.sel(field="roe")
+    liquidity = data.sel(field='is_liquid')
+    buy = 1
+    return xr.where(roe > 0.15, buy, 0) * liquidity
 
 
-stock_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')
-stock_data = qndata.stocks.load_ndx_data(min_date='2006-01-01', assets=stock_list)
+def add_buy_and_hold_enough_bid_for(data, weights_):
+    """Add buy and hold condition based on the liquidity of the assets."""
+    time_traded = weights_.time[abs(weights_).fillna(0).sum('asset') > 0]
+    is_strategy_traded = len(time_traded)
+    if is_strategy_traded:
+        return xr.where(weights_.time < time_traded.min(), data.sel(field="is_liquid"), weights_)
+    return weights_
 
-data_labels = ['assets', 'liabilities', 'operating_expense', 'ivestment_short_term']
 
-fundamental_data = qnt.data.secgov_load_indicators(stock_list, time_coord=stock_data.time,
-                                                   standard_indicators=data_labels)
+def plot_performance(stats):
+    """Plot the performance of the strategy."""
+    performance = stats.to_pandas()["equity"]
+    import qnt.graph as qngraph
+    qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
 
-portfolio_weights = calculate_weights(stock_data, fundamental_data)
-portfolio_weights = qnout.clean(portfolio_weights, stock_data, "stocks_nasdaq100")
 
-statistics = qns.calc_stat(stock_data, portfolio_weights.sel(time=slice("2006-01-01", None)))
-display(statistics.to_pandas().tail())
+market_data, indicators_data = load_data()
 
-performance = statistics.to_pandas()["equity"]
-qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
+weights = calculate_weights(market_data, indicators_data)
+weights = add_buy_and_hold_enough_bid_for(market_data, weights)
+weights = qnout.clean(weights, market_data, "stocks_nasdaq100")
 
-portfolio_weights = portfolio_weights.sel(time=slice("2006-01-01", None))
+stats = qnstats.calc_stat(market_data, weights.sel(time=slice("2006-01-01", None)))
+display(stats.to_pandas().tail())
+plot_performance(stats)
 
-qnout.check(portfolio_weights, stock_data, "stocks_nasdaq100")
-qnout.write(portfolio_weights)
+weights = weights.sel(time=slice("2006-01-01", None))
+qnout.check(weights, market_data, "stocks_nasdaq100")
+qnout.write(weights)  # to participate in the competition
+
+
 
 ```
 
-> Example use specific us-gaap
+## Potential Issues in Working with Fundamental Data:
+
+- **Inconsistency in fact publication among companies:**
+  - One company might not publish a specific fact but might provide other data from which this fact can be derived. 
+  - Another company, on the contrary, might directly provide the fact, omitting intermediary data.
+
+- **Lack of standardized formulas for indicators:**
+  - Not all indicators have standard calculation formulas. 
+  - For some of them, each company decides on its own which fundamental facts should be used to form the indicator. 
+  - This can lead to the same company using different data at different times for one indicator. 
+  - It's not accurate to compare companies based on such indicators.
+
+- **Changing the strategy of indicator construction:**
+  - When updating financial statements, a company may change the methodology or calculation formulas for indicators, introducing an element of uncertainty.
+
+- **Errors and corrections in reports:**
+  - Reports can contain errors, which are corrected later, but the initial data can distort the analysis.
+
+- **Data omissions:**
+  - Some facts might be missing in the reports.
+  - Companies might release their reports on different dates.
+
+- **Issues with indicators based on stock prices:**
+  - If a company conducts a stock split before publishing a report, indicators can show unexpected changes, distorting the analysis.
+
+> The current implementation of Quantiacs partially resolve these issues:
+
+- When constructing an indicator, one formula is used for all companies, allowing them to be compared under "similar" conditions.
+- If key data for calculation is missing, the algorithm tries to restore it using other facts or indicators.
+- If data from the SEC gov report is missing, the algorithm tries to restore the missing information based on annual and quarterly reports, or if absent, uses average values.
+- By default, the strategy for constructing indicators is over 12 months (LTM). Users can build indicators for the quarter (QF) or use annual values (AF).
+
+Discover available attributes  (us-gaap taxonomy) [here](http://xbrlview.fasb.org/yeti/resources/yeti-gwt/Yeti.jsp).
+Introduction to Financial Statements [here](https://www.sec.gov/oiea/reportspubs/investor-publications/beginners-guide-to-financial-statements.html)
+
+
+## Example use specific us-gaap
 
 This example provides a code for creating a stock trading strategy by downloading and utilizing fundamental data from SEC filings. Users can customize the script to fetch any specific financial fact for companies listed in the NASDAQ 100 index. 
 
