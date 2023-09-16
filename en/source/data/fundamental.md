@@ -54,19 +54,12 @@ display(indicators_data.sel(asset=['NAS:AAPL']).sel(field="roe").to_pandas().tai
 | `net_debt`                          | `FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                                         | Net debt calculated by subtracting cash equivalents from total debt.                                   |
 | `eps`                               | `['us-gaap:EarningsPerShareDiluted', 'us-gaap:EarningsPerShare']`                                                                                                                                                                               | Earnings per share, both diluted and basic.                                                            |
 | `shares`                            | `FACT_GROUPS['shares']`                                                                                                                                                                                                                         | Total number of outstanding common stock shares.                                                       |
-| `market_capitalization`             | `FACT_GROUPS['shares']`                                                                                                                                                                                                                         | Market value of all outstanding shares.                                                                |
 | `ebitda_use_income_before_taxes`    | `FACT_GROUPS['income'] + FACT_GROUPS['interest'] + FACT_GROUPS['ebitda']`                                                                                                                                                                       | Earnings before interest, taxes, depreciation, and amortization, calculated using income before taxes. |
 | `ebitda_use_operating_income`       | `FACT_GROUPS['ebitda'] + ['us-gaap:NonoperatingIncomeExpense', 'us-gaap:GainsLossesOnExtinguishmentOfDebt', 'us-gaap:InvestmentIncomeInterest'] + FACT_GROUPS['interest']`                                                                      | Earnings before interest, taxes, depreciation, and amortization, calculated using operating income.    |
 | `ebitda_simple`                     | `FACT_GROUPS['depreciation_and_amortization'] + ['us-gaap:OperatingIncomeLoss']`                                                                                                                                                                | Simplified EBITDA calculation.                                                                         |
-| `ev`                                | `FACT_GROUPS['shares'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                 | Enterprise value, calculated as market capitalization plus net debt.                                   |
-| `ev_divide_by_ebitda`               | `FACT_GROUPS['ebitda'] + FACT_GROUPS['shares'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                         | Enterprise value divided by EBITDA.                                                                    |
+| `roe`                               | `['us-gaap:NetIncomeLoss', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity']`                                                                                                     | Return on equity, calculated as net income divided by total equity.                                    |
 | `liabilities_divide_by_ebitda`      | `FACT_GROUPS['ebitda'] + ['us-gaap:Liabilities', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity', 'us-gaap:LiabilitiesAndStockholdersEquity'] + FACT_GROUPS['cash_equivalents']` | Total liabilities divided by EBITDA.                                                                   |
 | `net_debt_divide_by_ebitda`         | `FACT_GROUPS['ebitda'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                 | Net debt divided by EBITDA.                                                                            |
-| `p_divide_by_e`                     | `['us-gaap:NetIncomeLoss', 'dei:EntityCommonStockSharesOutstanding']`                                                                                                                                                                           | Price-to-earnings ratio, calculated as market price per share divided by earnings per share.           |
-| `p_divide_by_bv`                    | `['dei:EntityCommonStockSharesOutstanding', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity']`                                                                                    | Price-to-book value ratio, calculated as market price per share divided by book value per share.       |
-| `p_divide_by_s`                     | `['dei:EntityCommonStockSharesOutstanding', 'us-gaap:Revenues']`                                                                                                                                                                                | Price-to-sales ratio, calculated as market price per share divided by revenue per share.               |
-| `ev_divide_by_s`                    | `FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents'] + ['dei:EntityCommonStockSharesOutstanding', 'us-gaap:Revenues']`                                                                                                                        | Enterprise value to sales ratio, calculated as enterprise value divided by total revenue.              |
-| `roe`                               | `['us-gaap:NetIncomeLoss', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity']`                                                                                                     | Return on equity, calculated as net income divided by total equity.                                    |
 
 ## Example use Return on Equity (ROE)
 
@@ -164,6 +157,52 @@ qnout.write(weights)  # to participate in the competition
 
 Discover available attributes  (us-gaap taxonomy) [here](http://xbrlview.fasb.org/yeti/resources/yeti-gwt/Yeti.jsp).
 Introduction to Financial Statements [here](https://www.sec.gov/oiea/reportspubs/investor-publications/beginners-guide-to-financial-statements.html)
+
+## Example create specific financial indicator
+
+The example demonstrates how to create your own financial indicator.
+You need to specify:
+- what facts are required for its creation;
+- the algorithm for its construction.
+
+
+```python
+
+import numpy as np
+import qnt.data as qndata
+import qnt.data.secgov_fundamental as fundamental
+
+
+
+def custom_build_equity(fundamental_facts):
+    equity_full = fundamental_facts.sel(
+        field='us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest')
+    equity_simple = fundamental_facts.sel(field='us-gaap:StockholdersEquity')
+
+    equity = equity_full.where(~np.isnan(equity_full), equity_simple)
+
+    return equity
+
+
+custom_builder = {
+    'equity': {'facts': [
+        'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest',
+        'us-gaap:StockholdersEquity'
+    ],
+        'build': custom_build_equity},
+}
+
+market_data = qndata.stocks.load_ndx_data(min_date="2005-01-01")
+
+indicators_data = fundamental.load_indicators_for(market_data,
+                                                  indicator_names=['equity'],
+                                                  indicators_builders=custom_builder)
+
+display(indicators_data.sel(field="equity").to_pandas().tail(2))
+display(indicators_data.sel(asset='NAS:AAPL').to_pandas().tail(2))
+display(indicators_data.sel(asset=['NAS:AAPL']).sel(field="equity").to_pandas().tail(2))
+
+```
 
 
 ## Example use specific us-gaap
