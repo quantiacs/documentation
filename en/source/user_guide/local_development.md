@@ -18,7 +18,7 @@ dependencies and avoiding conflicts:
     pip install 'ipywidgets==7.5' 'plotly==4.14' 'matplotlib==3.8.1' 'pandas==1.2.5' 'dash==1.21.0'
     ```
 
-    *Tipp: if you do not want your conda enviroment activated by default when you open a new terminal window:*
+    *Tip: if you do not want your conda enviroment activated by default when you open a new terminal window:*
     ```bash
     conda config --set auto_activate_base false
     ```
