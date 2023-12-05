@@ -13,7 +13,9 @@ dependencies and avoiding conflicts:
 2. Create an isolated environment for developing strategies and install the QNT library together with needed
    dependencies (restart your terminal first):
     ```bash
-    conda create -n qntdev quantiacs-source::qnt conda-forge::ta-lib conda-forge::pandas==1.2.5 conda-forge::dash==1.18 python==3.7
+    conda create -n qntdev quantiacs-source::qnt 'python>=3.10,<3.11' conda-forge::ta-lib
+    conda activate qntdev1
+    pip install 'ipywidgets==7.5' 'plotly==4.14' 'matplotlib==3.8.1' 'pandas==1.2.5' 'dash==1.21.0'
     ```
 
     *Tipp: if you do not want your conda enviroment activated by default when you open a new terminal window:*
