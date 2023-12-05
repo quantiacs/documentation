@@ -14,7 +14,7 @@ dependencies and avoiding conflicts:
    dependencies (restart your terminal first):
     ```bash
     conda create -n qntdev quantiacs-source::qnt 'python>=3.10,<3.11' conda-forge::ta-lib
-    conda activate qntdev1
+    conda activate qntdev
     pip install 'ipywidgets==7.5' 'plotly==4.14' 'matplotlib==3.8.1' 'pandas==1.2.5' 'dash==1.21.0'
     ```
 
