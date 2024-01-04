@@ -299,3 +299,17 @@ enough to apply the following equation for each day:
 
 Now the mean of weights for each day is zero. It means that we neither
 invest money nor withdraw it from the market.
+
+### Rank
+
+Using rank operator (Example: weight.rank(dim='asset', pct=True)) is an effective method to eliminate outliers in the strategy, because rank will rank stocks on a scale from 0 to 1, avoiding putting too much money into a certain stock, thereby reducing risk for strategy
+For instance:
+We have a strategy as follows [3 54 12 54  43 879]
+After using the rank function [0 0.2 0.4 0.6 0.8 1]
+We have avoided the strategy being too dependent on the last stock (879). Instead, we will long stocks with higher ranks and short stocks with lower ranks, thereby creating a long-short balance, limiting risks.
+Simply put, ranking is like normalizing data in data science to remove outliers
+
+### Avoid overfitting
+
+Remember, the most important thing about algorothm trading is that strategies must have high os - achieve high profits, stability and low fluctuations.
+It is recommended that you avoid overfitting the sample such as adding linearity (Example: a + b + c + ...) or adding noise for no apparent reason, just to pass the backtest criteria (sharpe > 1 or pass correlation). This will lead to your strategies being very good in the in sample but not working effectively in the out sample. Optimize strategies by redefining ideas, thereby providing clear and effective optimal solutions.
