@@ -35,6 +35,7 @@ Contents
    user_guide/functional_quality.md
    user_guide/optimization.md
    user_guide/passFilters.md
+   user_guide/dynamic_assets_selection.md
 
 .. toctree::
    :maxdepth: 2
