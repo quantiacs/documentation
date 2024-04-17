@@ -31,8 +31,8 @@ weights = strategy(data)
 
 ## Applying to Liquid Assets
 
-Ensure the stocks selected are highly liquid to facilitate easier transactions. This liquidity filter, focusing
-specifically on Nasdaq 100 assets, is **the main filter you are highly recommended to use**, especially if you plan to
+This liquidity filter, focusing specifically on Nasdaq 100 assets, is **the main filter you are highly recommended to
+use**, especially if you plan to
 participate in competitions. It multiplies the strategy weights by a liquidity indicator, effectively filtering out
 non-liquid stocks:
 
