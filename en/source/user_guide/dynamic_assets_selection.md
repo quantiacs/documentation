@@ -208,6 +208,36 @@ maintains a balanced risk profile in accordance with predefined risk parameters.
 Adjusting weights based on exposure checks is crucial for maintaining the desired risk profile. Here are functions that
 help manage exposure by modifying the investment weights:
 
+### normalize_by_max_exposure
+
+Helper function which normalizes weights based on the highest daily exposure, ensuring that the exposure of each asset
+does not exceed a specified maximum exposure limit, while keeping daily weights allocation ratio among assets.
+
+
+```python
+def normalize_by_max_exposure(weights, max_exposure=0.1):
+    dt = abs(weights).max("asset")
+    div = xr.where(dt > max_exposure, dt / max_exposure, 1)
+    return weights / div
+
+weights.to_pandas().tail(2)
+```
+```jupyterpython
+    asset 	NAS:AAPL 	NAS:GOOG 	NAS:AMGN
+time 			
+2024-04-23 	0.319466 	0.095525 	0.022927
+2024-04-24 	0.317989 	0.095365 	0.022855
+```
+```python
+normalize_by_max_exposure(weights).to_pandas().tail(2)
+```
+```python
+asset 	NAS:AAPL 	NAS:GOOG 	NAS:AMGN
+time 			
+2024-04-23 	0.1 	0.029902 	0.007177
+2024-04-24 	0.1 	0.029990 	0.007187
+```
+
 ### drop_bad_days
 
 Removes positions exceeding the maximum weight for any asset, thus reducing exposure.
