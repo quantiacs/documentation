@@ -216,9 +216,9 @@ does not exceed a specified maximum exposure limit, while keeping daily weights 
 
 ```python
 def normalize_by_max_exposure(weights, max_exposure=0.1):
-    dt = abs(weights).max("asset")
-    div = xr.where(dt > max_exposure, dt / max_exposure, 1)
-    return weights / div
+    daily_max = abs(weights).max("asset")
+    normalizer = xr.where(daily_max > max_exposure, daily_max / max_exposure, 1)
+    return weights / normalizer
 
 weights.to_pandas().tail(2)
 ```
@@ -231,8 +231,8 @@ time
 ```python
 normalize_by_max_exposure(weights).to_pandas().tail(2)
 ```
-```python
-asset 	NAS:AAPL 	NAS:GOOG 	NAS:AMGN
+```jupyterpython
+    asset 	NAS:AAPL 	NAS:GOOG 	NAS:AMGN
 time 			
 2024-04-23 	0.1 	0.029902 	0.007177
 2024-04-24 	0.1 	0.029990 	0.007187
