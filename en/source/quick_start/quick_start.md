@@ -155,7 +155,7 @@ The call will produce:
 * **volatility**: the volatility of the investment since inception (i.e. the annualized standard deviation of the daily returns);
 * **underwater**: the time evolution of drawdowns;
 * **max_drawdown**: the absolute minimum of the underwater chart;
-* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 1 for taking part to contests;
+* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 0.7 for taking part to contests;
 * **mean_return**: the annualized mean return of the investment since inception;
 * **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one;
 * **instruments**: the number of instruments which get allocations on a given day;
@@ -190,7 +190,7 @@ output.check(weights, data, 'futures')
 
 The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the **clean** function, this problem is automatically solved.
 
-The second check computes the In-Sample Sharpe ratio of your system. In this case, as the performance is negative, your submission would not be eligible for taking part to a contest. The In-Sample Sharpe ratio must be larger than 1.
+The second check computes the In-Sample Sharpe ratio of your system. In this case, as the performance is negative, your submission would not be eligible for taking part to a contest. The In-Sample Sharpe ratio must be larger than 0.7.
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 

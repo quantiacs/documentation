@@ -19,7 +19,7 @@ When you work inside the Quantiacs Jupyter environment you will have access to a
 **conda** is our preferred package manager but you can use also **pip** in the **init** file.
 
 - **precheck.ipynb**: This file allows you to pre-check your strategy.
-Strategies need to pass filters for being accepted to our contests: for example, the In-Sample Sharpe ratio should be larger than 1 at submission time.
+Strategies need to pass filters for being accepted to our contests: for example, the In-Sample Sharpe ratio should be larger than 0.7 at submission time.
 We advise you to run this notebook before submitting your **strategy** and fix all ERROR and WARNING messages.
 Use this notebook if you want to submit single-pass implementation.
 If you use multi-pass(qnt.backtest), you this check is not necessary.

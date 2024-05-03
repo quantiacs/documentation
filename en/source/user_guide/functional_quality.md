@@ -61,7 +61,7 @@ Other key statistical indicators can also be obtained by calling the **calc_stat
 * **volatility**: the volatility of the investment since inception (i.e. the annualized standard deviation of the daily returns);
 * **underwater**: the time evolution of drawdowns;
 * **max_drawdown**: the absolute minimum of the underwater chart;
-* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 1 for taking part to contests;
+* **sharpe_ratio**: the annualized Sharpe ratio since inception; the value must be larger than 0.7 for taking part to contests;
 * **mean_return**: the annualized mean return of the investment since inception;
 * **bias**: the daily asymmetry between long and short exposure: 1 for a long-only system, -1 for a short-only one;
 * **instruments**: the number of instruments which get allocations on a given day;
@@ -76,7 +76,7 @@ display(statistics.to_pandas().tail())
 ```
 ![long](./pictures/long.png)
 
-Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 1!**
+Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 0.7!**
 
 For a more detailed description on evaluating your algorithm with single-pass backtesting consult our API-Reference: [Single-Pass Backtesting](https://quantiacs.com/documentation/en/reference/evaluation.html#single-pass-backtesting) and [Statistics](https://quantiacs.com/documentation/en/reference/evaluation.html#statistics)
 
@@ -134,7 +134,7 @@ The backtesting happens when we call **qnbt.backtest()**. After completion it gi
 
 ![sharpe crypto](./pictures/crypto_sharpe.png)
 
-Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 1!**
+Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 0.7!**
 
 * it provides an overview over key statistic each day with an slidable interface:
 

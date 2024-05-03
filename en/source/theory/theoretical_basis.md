@@ -193,7 +193,7 @@ The numerator is an average daily return. The book size changes with the size of
 
 The denominator is a standard deviation of the portfolio’s excess return. Another way to think about the denominator is that it means volatility.
 
-Thus, the Sharpe ratio is the return per unit of risk (volatility). The greater the Sharpe ratio, the better (second figure). To submit a strategy successfully, the SR should be higher than 1 in the in-sample period.
+Thus, the Sharpe ratio is the return per unit of risk (volatility). The greater the Sharpe ratio, the better (second figure). To submit a strategy successfully, the SR should be higher than 0.7 in the in-sample period.
 
 ![Sharpe low](./pictures/low_sharpe_1.28.PNG)
 ![Sharpe high](./pictures/high_sharpe_7.62.PNG)

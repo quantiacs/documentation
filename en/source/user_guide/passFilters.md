@@ -16,9 +16,9 @@ If your algorithm passes these checks (filters), it will be admitted to the Cont
 
 ### Sharpe ratio
 
-**1) Not Eligible for Contest: In-Sample Sharpe Must be Larger Than 1**
+**1) Not Eligible for Contest: In-Sample Sharpe Must be Larger Than 0.7**
 
-The Sharpe Ratio is a measure of risk-adjusted performance. A warning stating that the Sharpe ratio is less than 1 indicates that the performance of your strategy during the In-Sample period, when considering risk, is insufficient.
+The Sharpe Ratio is a measure of risk-adjusted performance. A warning stating that the Sharpe ratio is less than 0.7 indicates that the performance of your strategy during the In-Sample period, when considering risk, is insufficient.
 
 You should aim to improve your algorithm. For instance, you can refer to these examples:
 
@@ -29,7 +29,7 @@ You should aim to improve your algorithm. For instance, you can refer to these e
 
 **2) Difference in In-Sample Sharpe Ratio in Jupyter or JupyterLab Compared to the Contest Page**
 
-Be mindful of **forward-looking bias**. If you notice that the notebook delivers a Sharpe ratio larger than 1, but the backtester doesn't, then you are most likely incorporating future data, for instance, by calculating a global mean.
+Be mindful of **forward-looking bias**. If you notice that the notebook delivers a Sharpe ratio larger than 0.7, but the backtester doesn't, then you are most likely incorporating future data, for instance, by calculating a global mean.
 
 > You can run the following notebook to check for this common mistake:
 [Quantiacs Toolbox Precheck](https://github.com/quantiacs/toolbox/blob/main/qnt/precheck.ipynb)

@@ -100,7 +100,7 @@ output.check(weights, futures, "futures")
 
 The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the clean function, this problem is automatically solved.
 
-The second check computes the In-Sample Sharpe ratio of your system. The In-Sample Sharpe ratio must be larger than 1 for a successful submission.
+The second check computes the In-Sample Sharpe ratio of your system. The In-Sample Sharpe ratio must be larger than 0.7 for a successful submission.
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 
@@ -254,7 +254,7 @@ because the evaluator cannot parallelize the running of iterations.
 
 ### Calculating Statistics
 
-For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe ratio must be larger than 1 at submission time for the In-Sample test. The In-Sample period depends on the competition kind:
+For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe ratio must be larger than 0.7 at submission time for the In-Sample test. The In-Sample period depends on the competition kind:
 
 * Futures: since January 1, 2006 to submission time;
 * Bitcoin Futures: since January 1, 2014 to submission time.
