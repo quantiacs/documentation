@@ -8,11 +8,12 @@ It is very useful when you use any kind of optimization.
 Often, single-pass strategies are looking forward.
 So it is necessary to test your strategy using multi-pass approach to avoid looking forward.
 It is possible to adapt multi-pass strategy for multi-pass backtester.
-See the files in the folder `examples` in the jupyter environment on the platform (or in the package `qnt.examples`). 
+See the files in the folder `examples` in the jupyter environment on the platform (or in the package `qnt.examples`).
 
 ### Write Weights
 
-The necessary input for backtesting is a set of allocation **weights** (fractions of capital to be invested) for all assets over the backtesting period. Let us suppose that we wrote the code:
+The necessary input for backtesting is a set of allocation **weights** (fractions of capital to be invested) for all
+assets over the backtesting period. Let us suppose that we wrote the code:
 
 ```python
 import qnt.data as qndata
@@ -40,8 +41,8 @@ and a call to the **write** function:
 output.write(weights)
 ```
 
-
 **Function**
+
 ```python
 qnt.output.write(weights)
 ```
@@ -52,14 +53,14 @@ qnt.output.write(weights)
 |---|---|
 |weights|xarray.DataArray with allocation weights for all assets in the backtesting period.|
 
-
 **Output**
 
 None, the call is mandatory as it will write weights to file used for evaluating performance.
 
 ### Clean Weights
 
-We provide you with a **clean** function which can be used for performing sanity checks on the defined weights. The function can be called before writing:
+We provide you with a **clean** function which can be used for performing sanity checks on the defined weights. The
+function can be called before writing:
 
 ```python
 weights = output.clean(weights, futures, "futures")
@@ -67,11 +68,14 @@ weights = output.clean(weights, futures, "futures")
 
 It will perform 2 operations:
 
-1. if there are trading days where the user did not specify any exposure, an exposure of “0” (no allocation) will be used;
+1. if there are trading days where the user did not specify any exposure, an exposure of “0” (no allocation) will be
+   used;
 
-2. if the total sum of the absolute exposure is larger than 1, normalization to 1 will be applied (i.e. max. allowed leverage is 1).
+2. if the total sum of the absolute exposure is larger than 1, normalization to 1 will be applied (i.e. max. allowed
+   leverage is 1).
 
 **Function**
+
 ```python
 qnt.output.clean(weights, data, kind)
 ```
@@ -84,7 +88,8 @@ qnt.output.clean(weights, data, kind)
 |data|xarray.DataArray with input data.|
 |kind|"futures" or "crypto".|
 
-If kind="crypto", the code will check in addition if other futures in addition to Bitcoin are defined. In positive case, it will remove them and leave Bitcoin futures only.
+If kind="crypto", the code will check in addition if other futures in addition to Bitcoin are defined. In positive case,
+it will remove them and leave Bitcoin futures only.
 
 **Output**
 
@@ -92,19 +97,23 @@ An xarray.DataArray with the cleaned weights ready for submission.
 
 ### Check Weights
 
-In addition to the clean function we provide a **check** function which will return you warnings if issues with weights are present. The function can be called before writing:
+In addition to the clean function we provide a **check** function which will return you warnings if issues with weights
+are present. The function can be called before writing:
 
 ```python
 output.check(weights, futures, "futures")
 ```
 
-The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the clean function, this problem is automatically solved.
+The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the
+clean function, this problem is automatically solved.
 
-The second check computes the In-Sample Sharpe ratio of your system. The In-Sample Sharpe ratio must be larger than 0.7 for a successful submission.
+The second check computes the In-Sample Sharpe ratio of your system. The In-Sample Sharpe ratio must be larger than 0.7
+for a successful submission.
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 
 **Function**
+
 ```python
 qnt.output.check(weights, data, kind)
 ```
@@ -125,7 +134,9 @@ None, only warning messages will be displayed.
 
 ## Multi-Pass Backtesting
 
-We provide you with a function for performing an optional backtesting which explicitely forbids looking-forward issues with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It can be used with:
+We provide you with a function for performing an optional backtesting which explicitely forbids looking-forward issues
+with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It
+can be used with:
 
 ```python
 import xarray as xr
@@ -142,24 +153,25 @@ def load_data(period):
 
 def strategy(data):
     close = data.sel(field="close")
-    sma_long  = qnta.sma(close, 200).isel(time=-1)
-    sma_short = qnta.sma(close,  40).isel(time=-1)
+    sma_long = qnta.sma(close, 200).isel(time=-1)
+    sma_short = qnta.sma(close, 40).isel(time=-1)
     pos = xr.where(sma_short > sma_long, 1, -1)
     return pos / abs(pos).sum("asset")
 
 
 weights = qnbt.backtest(
-    competition_type = "futures",
-    load_data        = load_data,
-    lookback_period  = 365,
-    test_period      = 365 * 15,
-    strategy         = strategy)
+    competition_type="futures",
+    load_data=load_data,
+    lookback_period=365,
+    test_period=365 * 15,
+    strategy=strategy)
 ```
 
 <p class="tip">Note that multi-pass backtesting is considerably slower than single-pass one. We suggest you to start with a simple single-pass implementation and to cross-check your results with the multi-pass implementation before submission, to get a realistic estimate of the performance of your algorithm.</p>
 
 
 **Function**
+
 ```python
 qnt.backtester.backtest(competition_type, load_data, lookback_period, test_period, strategy)
 ```
@@ -182,7 +194,7 @@ It returns the xarray.DataArray of **weights** and performs automatically calls 
 
 ## Stateful Multi-pass Backtesting
 
-If you want to pass the state between iterations using the multi-pass backtesting, 
+If you want to pass the state between iterations using the multi-pass backtesting,
 you can do it this way:
 
 ```python
@@ -209,7 +221,7 @@ def strategy(data, state):
     output_prev = state['output']
 
     # align the arrays to prevent problems in case the asset list changes
-    ma_prev, ma_prev_prev, last_close = xr.align(ma_prev, ma_prev_prev, last_close, join='right') 
+    ma_prev, ma_prev_prev, last_close = xr.align(ma_prev, ma_prev_prev, last_close, join='right')
 
     ma = ma_prev.where(np.isfinite(ma_prev), last_close) * 0.97 + last_close * 0.03
 
@@ -234,7 +246,7 @@ weights, state = qnbt.backtest(
     strategy=strategy,
     analyze=True,
     build_plots=True,
-    collect_all_states=False # if it is False, then the function returns the last state, otherwise - all states
+    collect_all_states=False  # if it is False, then the function returns the last state, otherwise - all states
 )
 ```
 
@@ -246,15 +258,27 @@ For the first iteration, the `state` will be None, so you have to define a defau
 The evaluator will treat the state as persistent between iterations on our server.
 You can observe this state in the **log table**.
 
-The evaluation of a stateful strategy may be slower 
-than the evaluation of a stateless strategy (which does not use states), 
+The evaluation of a stateful strategy may be slower
+than the evaluation of a stateless strategy (which does not use states),
 because the evaluator cannot parallelize the running of iterations.
+
+### Stateful Multi-pass Backtest ML
+
+[LSTM Neural Network for Predicting Stock Price Movements using
+State](https://github.com/quantiacs/strategy-ml_lstm_state/blob/master/strategy.ipynb)
+
+This repository provides an example of using the **backtest_ml** function with **state**, calculating complex indicators, dynamically selecting stocks for
+trading, and implementing basic risk management measures, such as normalizing and reducing large positions. It also
+includes recommendations for submitting strategies to the competition.
 
 ## Statistics
 
 ### Calculating Statistics
 
-For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe ratio must be larger than 0.7 at submission time for the In-Sample test. The In-Sample period depends on the competition kind:
+For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We
+use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe
+ratio must be larger than 0.7 at submission time for the In-Sample test. The In-Sample period depends on the competition
+kind:
 
 * Futures: since January 1, 2006 to submission time;
 * Bitcoin Futures: since January 1, 2014 to submission time.
@@ -262,9 +286,10 @@ For estimating the profitability of our algorithm we measure the Sharpe ratio, t
 The **calc_stat** function allows to calculate the complete statistics of an algorithm including the Sharpe ratio.
 
 **Function**
+
 ```python
 qnt.stats.calc_stat(data, portfolio_history, slippage_factor=None, roll_slippage_factor=None,
-        min_periods=1, max_periods=None)
+                    min_periods=1, max_periods=None)
 ```
 
 **Parameters**
@@ -280,7 +305,8 @@ qnt.stats.calc_stat(data, portfolio_history, slippage_factor=None, roll_slippage
 
 **Output**
 
-The output is an xarray.DataArray with statistical indicators computed on a cumulative (max_periods=None) or rolling (for example, max_periods=252) basis.
+The output is an xarray.DataArray with statistical indicators computed on a cumulative (max_periods=None) or rolling (
+for example, max_periods=252) basis.
 
 |Output Field|Explanation|
 |---|---|
@@ -310,7 +336,7 @@ Other indicators imply an average over time:
 * volatility;
 * sharpe_ratio;
 * mean_return;
-* avg_turnover; 
+* avg_turnover;
 * avg_holding_time.
 
 With default arguments:
@@ -318,18 +344,20 @@ With default arguments:
 ```python
 qnt.stats.calc_stat(data, portfolio_history)
 ```
+
 all indicators will be displayed since inception (cumulative basis).
 
 To get results on a rolling basis, one has to specify max_periods, for example 252 trading days:
+
 ```python
 qnt.stats.calc_stat(data, portfolio_history, max_periods=252)
 ```
 
 To get In-Sample results one can use slicing, for example:
+
 ```python
 qnt.stats.calc_stat(data, portfolio_history.sel(time=slice("2006-01-01", None)))
 ```
-
 
 **Example**
 
@@ -348,7 +376,7 @@ data = qndata.futures_load_data(
 
 close = data.sel(field="close")
 
-sma_long  = qnta.sma(close, 200)
+sma_long = qnta.sma(close, 200)
 sma_short = qnta.sma(close, 40)
 
 weights = xr.where(sma_short > sma_long, 1, -1)
@@ -360,7 +388,8 @@ qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
 
-After the weights have been computed, you can calculate the statistics in order to evaluate the algorithm in the In-Sample perios using:
+After the weights have been computed, you can calculate the statistics in order to evaluate the algorithm in the
+In-Sample perios using:
 
 ```python
 stat = qnstats.calc_stat(data, weights.sel(time=slice("2006-01-01", None)))
@@ -379,6 +408,7 @@ We can also display plots as follows:
 
 ```python
 import qnt.graph as qngraph
+
 performance = stat.to_pandas()["equity"]
 qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
 ```
