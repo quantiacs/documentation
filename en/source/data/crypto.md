@@ -76,9 +76,10 @@ btc_data = qndata.cryptodaily.load_data(tail=365 * 8, dims=('time', 'field', 'as
 | 54     | XPY    | Paycoin                            |
 | 55     | XRP    | XRP                                |
 
-### Example
+### Examples
 
-> This trading strategy uses a moving average crossover system for Crypto Daily Long contest, taking long positions when the 10-day LWMA is above the 50-day LWMA, considering the asset's liquidity.
+> This trading strategy uses a moving average crossover system for Crypto Daily Long contest, taking long positions when
+> the 10-day LWMA is above the 50-day LWMA, considering the asset's liquidity.
 
 ```python
 # import os
@@ -91,6 +92,7 @@ import qnt.data as qndata
 import qnt.output as qnout
 import qnt.ta as qnta
 
+
 def calculate_weights(data):
     close = data.sel(field="close")
     liquidity = data.sel(field='is_liquid')
@@ -98,6 +100,7 @@ def calculate_weights(data):
     short_lwma = qnta.lwma(close, 10)
     buy = 1
     return xr.where(short_lwma > long_lwma, buy, 0) * liquidity
+
 
 # SINGLE-PASS
 data = qndata.cryptodaily.load_data(min_date="2013-04-01")  # load data
@@ -126,6 +129,87 @@ print(statistics.to_pandas().tail())
 #     analyze=True,
 #     build_plots=True
 # )
+```
+
+> This example demonstrates how to use various data sources to predict the stock market. It leverages futures, stocks,
+> and cryptocurrency data to build a strategy.
+
+```python
+# import os
+# os.environ['API_KEY'] = "{your_api_key_here}"  # you may need it for local development
+
+# Import basic libraries.
+import xarray as xr
+import pandas as pd
+import numpy as np
+# Import Quantiacs libraries.
+import qnt.data as qndata  # load and manipulate data
+import qnt.output as qnout  # manage output
+import qnt.backtester as qnbt  # backtester
+import qnt.stats as qnstats  # statistical functions for analysis
+import qnt.graph as qngraph  # graphical tools
+import qnt.ta as qnta  # indicators library
+import qnt.xr_talib as xr_talib  # indicators library
+import qnt.exposure as qnexp  # exposure calculation
+
+
+def load_data(period):
+    stocks = qndata.stocks.load_ndx_data(tail=period)
+    futures = qndata.futures.load_data(tail=period, assets=["F_DX"]).isel(asset=0)
+    futures = xr.align(futures, stocks.isel(field=0), join='right')[0]
+
+    try:
+        crypto = qndata.cryptodaily.load_data(tail=period, assets=["BTC"]).isel(asset=0)
+        crypto = xr.align(crypto, stocks.isel(field=0), join='right')[0]
+    except Exception as e:
+        # Cryptocurrency data is not available in 2006.
+        print(f"Failed to load crypto data: {e}")
+        crypto = futures  # Fallback to futures data if crypto data loading fails
+
+    return {"futures": futures, "stocks": stocks, "crypto": crypto}, stocks.time.values
+
+
+def window(data, max_date: np.datetime64, lookback_period: int):
+    min_date = max_date - np.timedelta64(lookback_period, "D")
+    return {
+        "futures": data["futures"].sel(time=slice(min_date, max_date)),
+        "stocks": data["stocks"].sel(time=slice(min_date, max_date)),
+        "crypto": data["crypto"].sel(time=slice(min_date, max_date)),
+    }
+
+
+def strategy(data):
+    # close_futures = data["futures"].sel(field="close")
+    close_crypto = data["crypto"].sel(field="close")
+    close_stocks = data["stocks"].sel(field="close")
+
+    # Generate buy signal if 20-day SMA < 50-day SMA, otherwise hold (0) or sell (-1)
+    accuracy = 0.00001  # to avoid floating point errors
+    weights_stocks = xr.where(qnta.sma(close_stocks, 20) < qnta.sma(close_stocks, 50) + accuracy, 1, 0)
+    weights_crypto = xr.where(qnta.sma(close_crypto, 20) < qnta.sma(close_crypto, 60) + accuracy, 1, 0)
+    weights = (weights_stocks + weights_crypto) / 2
+
+    # Apply liquidity filter
+    is_liquid = data["stocks"].sel(field="is_liquid")
+    weights = weights * is_liquid
+
+    # Normalize positions and cut big positions
+    weights_sum = abs(weights).sum('asset')
+    weights = xr.where(weights_sum > 1, weights / weights_sum, weights)
+    weights = qnexp.cut_big_positions(weights=weights, max_weight=0.049)
+
+    return weights
+
+
+weights = qnbt.backtest(
+    competition_type="stocks_nasdaq100",
+    load_data=load_data,
+    lookback_period=90,
+    start_date="2005-12-30",
+    strategy=strategy,
+    window=window,
+    check_correlation=False
+)
 ```
 
 ## Cryptocurrency Hourly Data
