@@ -3,7 +3,7 @@
 Quantiacs offers historical data for major financial markets, including **stocks**, **futures** (like Bitcoin futures),
 and **cryptocurrencies**. This section provides an overview of the data:
 
-- [Stocks](https://quantiacs.com/documentation/en/data/stocks.html): Market data for NASDAQ-listed companies, past and
+- [Stocks](https://quantiacs.com/documentation/en/data/stocks.html): Market data for NASDAQ-listed, S&P500-listed companies, past and
   present.
 - [Futures](https://quantiacs.com/documentation/en/data/futures.html): Market data for liquid global futures contracts
   with various underlying assets.
@@ -27,19 +27,22 @@ data. You can load various types of data using the following functions:
 ```python
 import qnt.data as qndata
 
-# Load daily stock data for the Q18 Nasdaq-100 contest
-stocks = qndata.stocks.load_ndx_data(min_date="2005-06-01")
+# Load daily stock data for the Q22 S&P500 contest
+stocks = qndata.stocks.load_spx_data(min_date="2005-06-01")
+
+# Load daily stock data for the Q20 Nasdaq-100 contest
+stocks_nasdaq = qndata.stocks.load_ndx_data(min_date="2005-06-01")
 
 # Load cryptocurrency daily data for the Q16/Q17 contests
 cryptodaily = qndata.cryptodaily.load_data(min_date="2005-06-01")
 
 # Load futures data for the Q15 contest
-futures = qndata.futures.load_data.load_data(min_date="2005-06-01")
+futures = qndata.futures.load_data(min_date="2005-06-01")
 
 # Load BTC futures data for the Q15 contest
 crypto_futures = qndata.cryptofutures.load_data(min_date="2005-06-01")
 
-print(stocks, cryptodaily, futures, crypto_futures)
+print(stocks, stocks_nasdaq, cryptodaily, futures, crypto_futures)
 
 ```
 
@@ -49,7 +52,7 @@ prices, trading volumes, and other relevant data fields.
 ```python
 import qnt.data as qndata
 
-data = qndata.stocks.load_ndx_data(min_date="2005-06-01")
+data = qndata.stocks.load_spx_data(min_date="2005-06-01")
 
 price_open = data.sel(field="open")
 price_close = data.sel(field="close")
@@ -78,13 +81,13 @@ is_liquid = data.sel(field="is_liquid")
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | View a list of all tickers                         | `data.asset.to_pandas().to_list()`                                                                                                                               |
 | See which fields are available                     | `data.field.to_pandas().to_list()`                                                                                                                               |
-| Load specific tickers                              | `data = qndata.stocks.load_ndx_data(min_date="2005-06-01", assets=["NAS:AAPL", "NAS:AMZN"])`                                                                     |
+| Load specific tickers                              | `data = qndata.stocks.load_spx_data(min_date="2005-06-01", assets=["NAS:AAPL", "NAS:AMZN"])`                                                                     |
 | Select specific tickers after loading all data     | `def get_data_filter(data, assets):`<br>&emsp;`filler= data.sel(asset=assets)`<br>&emsp;`return filler`<br><br>`get_data_filter(data, ["NAS:AAPL", "NAS:AMZN"])` |
 | Loads a list of NASDAQ-listed stocks               | `stocks_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')`                                                                                               |
 | Loads a list of available futures contracts.       | `future_list = qndata.futures.load_list()`                                                                                                                       |
 | List of sectors.                                   | `sectors = [x['sector'] for x in stocks_list]`                                                                                                                   |
 | Filter list of asset IDs for the specified sector. | `assets_for_sector = [x['id'] for x in stocks_list if x['sector'] == "Energy"]`                                                                                  |
-| Load specific tickers for sector                   | `data = qndata.stocks.load_ndx_data(min_date="2005-06-01", assets=assets_for_sector)`                                                                            |
+| Load specific tickers for sector                   | `data = qndata.stocks.load_spx_data(min_date="2005-06-01", assets=assets_for_sector)`                                                                            |
 
 ## Xarray
 
@@ -97,7 +100,7 @@ on DataArray objects.
 import qnt.data as qndata
 
 # Load data
-stocks = qndata.stocks.load_ndx_data(min_date="2005-06-01")
+stocks = qndata.stocks.load_spx_data(min_date="2005-06-01")
 print(stocks.dims)
 
 # Example output: ('field', 'time', 'asset')
@@ -117,7 +120,7 @@ import qnt.ta as qnta
 import qnt.xr_talib as talib
 
 # Load data
-data = qndata.stocks.load_ndx_data(min_date="2005-06-01")
+data = qndata.stocks.load_spx_data(min_date="2005-06-01")
 
 # Select close prices
 price_close = data.sel(field="close")
@@ -150,7 +153,7 @@ DataArray.
 import qnt.data as qntdata
 
 # Load data
-data = qntdata.stocks.load_ndx_data(min_date="2005-06-01")
+data = qntdata.stocks.load_spx_data(min_date="2005-06-01")
 
 # Calculate percentage change of close prices
 def get_price_pct_change(prices):
@@ -170,7 +173,7 @@ prices_pct_change = get_price_pct_change(prices).unstack().to_xarray()
 import qnt.data as qntdata
 
 # Load data
-data = qntdata.stocks.load_ndx_data(min_date="2005-06-01")
+data = qntdata.stocks.load_spx_data(min_date="2005-06-01")
 
 # Convert close prices to pandas DataFrame
 close = data.sel(field="close").to_pandas()

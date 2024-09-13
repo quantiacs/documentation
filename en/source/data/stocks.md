@@ -1,5 +1,133 @@
 # Stocks
 
+## Stocks S&P500
+
+Quantiacs provides historic, split adjusted, data for more than 750 stocks, all have been **S&P500** index constituents at some point from 2006.
+
+```python
+import qnt.data as qndata
+
+stocks_list = qndata.stocks.load_spx_list(min_date='2006-01-01')
+data = qndata.stocks.load_spx_data(min_date="2006-01-01", assets=stocks_list)
+print([x['id'] for x in stocks_list])
+
+['NAS:AAL', 'NAS:AAPL', 'NAS:ABKFQ', 'NAS:ABNB', 'NAS:ACAS', 'NAS:ACGL', 'NAS:ADBE', 'NAS:ADCT', 'NAS:ADI', 'NAS:ADP',
+ 'NAS:ADSK', 'NAS:AEP', 'NAS:AKAM', 'NAS:ALGN', 'NAS:ALTR', 'NAS:ALTR~1', 'NAS:ALXN', 'NAS:AMAT', 'NAS:AMCC', 'NAS:AMD',
+ 'NAS:AMGN', 'NAS:AMZN', 'NAS:ANSS', 'NAS:APA', 'NAS:APOL', 'NAS:ATVI', 'NAS:AVGO', 'NAS:AXON', 'NAS:BBBY', 'NAS:BHF',
+ 'NAS:BIIB', 'NAS:BKNG', 'NAS:BKR', 'NAS:BMC', 'NAS:BRCM', 'NAS:CA', 'NAS:CAR', 'NAS:CA~1', 'NAS:CCEP', 'NAS:CDNS',
+ 'NAS:CDW', 'NAS:CEG', 'NAS:CELG', 'NAS:CEPH', 'NAS:CERN', 'NAS:CHRW', 'NAS:CHTR', 'NAS:CINF', 'NAS:CMCSA', 'NAS:CMCSK',
+ 'NAS:CME', 'NAS:CMVT', 'NAS:COO', 'NAS:COST', 'NAS:CPB', 'NAS:CPRT', 'NAS:CPWR', 'NAS:CRWD', 'NAS:CSCO', 'NAS:CSGP',
+ 'NAS:CSX', 'NAS:CTAS', 'NAS:CTSH', 'NAS:CTXS', 'NAS:CZR', 'NAS:DELL', 'NAS:DISCA', 'NAS:DISCK', 'NAS:DISH', 'NAS:DLTR',
+ 'NAS:DTV', 'NAS:DXCM', 'NAS:DYNIQ', 'NAS:EA', 'NAS:EBAY', 'NAS:EMBC', 'NAS:ENDP', 'NAS:ENPH', 'NAS:EQIX', 'NAS:ESRX',
+ 'NAS:ETSY', 'NAS:EVRG', 'NAS:EXC', 'NAS:EXPE', 'NAS:FANG', 'NAS:FAST', 'NAS:FFIV', 'NAS:FITB', 'NAS:FLIR', 'NAS:FOSL',
+ 'NAS:FOX', 'NAS:FOXA', 'NAS:FSLR', 'NAS:FTNT', 'NAS:GEHC', 'NAS:GEN', 'NAS:GENZ', 'NAS:GILD', 'NAS:GMCR', 'NAS:GOOG',
+ 'NAS:GOOGL', 'NAS:GT', 'NAS:HAS', 'NAS:HBAN', 'NAS:HOLX', 'NAS:HON', 'NAS:HSIC', 'NAS:HST', 'NAS:IACI', 'NAS:IDXX',
+ 'NAS:ILMN', 'NAS:INCY', 'NAS:INTC', 'NAS:INTU', 'NAS:IPGP', 'NAS:ISRG', 'NAS:JAVA', 'NAS:JBHT', 'NAS:JKHY', 'NAS:KDP',
+ 'NAS:KHC', 'NAS:KLAC', 'NAS:KRFT', 'NAS:LEHMQ', 'NAS:LIFE', 'NAS:LIN', 'NAS:LKQ', 'NAS:LLTC', 'NAS:LNT', 'NAS:LRCX',
+ 'NAS:LULU', 'NAS:MAR', 'NAS:MAT', 'NAS:MCHP', 'NAS:MDLZ', 'NAS:META', 'NAS:MKTX', 'NAS:MNST', 'NAS:MOLX', 'NAS:MPWR',
+ 'NAS:MRNA', 'NAS:MSFT', 'NAS:MTCH', 'NAS:MU', 'NAS:MXIM', 'NAS:MYL', 'NAS:NAVI', 'NAS:NDAQ', 'NAS:NDSN', 'NAS:NFLX',
+ 'NAS:NKTR', 'NAS:NOVL', 'NAS:NTAP', 'NAS:NTRS', 'NAS:NVDA', 'NAS:NWL', 'NAS:NWS', 'NAS:NWSA', 'NAS:NXPI', 'NAS:ODFL',
+ 'NAS:ON', 'NAS:ORLY', 'NAS:PANW', 'NAS:PARA', 'NAS:PAYX', 'NAS:PCAR', 'NAS:PDCO', 'NAS:PENN', 'NAS:PEP', 'NAS:PETM',
+ 'NAS:PFG', 'NAS:PMCS', 'NAS:PODD', 'NAS:POOL', 'NAS:PTC', 'NAS:PYPL', 'NAS:QCOM', 'NAS:QLGC', 'NAS:QRVO', 'NAS:REG',
+ 'NAS:REGN', 'NAS:ROP', 'NAS:ROST', 'NAS:SANM', 'NAS:SBAC', 'NAS:SBUX', 'NAS:SEDG', 'NAS:SIAL', 'NAS:SLM', 'NAS:SMCI',
+ 'NAS:SNDK', 'NAS:SNI', 'NAS:SNPS', 'NAS:SPLS', 'NAS:SRCL', 'NAS:SSP', 'NAS:STI', 'NAS:STLD', 'NAS:STX', 'NAS:SWKS',
+ 'NAS:TECH', 'NAS:TER', 'NAS:TFCF', 'NAS:TFCFA', 'NAS:TLAB', 'NAS:TMUS', 'NAS:TRIP', 'NAS:TRMB', 'NAS:TROW', 'NAS:TSCO',
+ 'NAS:TSLA', 'NAS:TTWO', 'NAS:TXN', 'NAS:UAL', 'NAS:ULTA', 'NAS:URBN', 'NAS:VIAB', 'NAS:VIAV', 'NAS:VRSK', 'NAS:VRSN',
+ 'NAS:VRTX', 'NAS:VTRS', 'NAS:WAMUQ', 'NAS:WBA', 'NAS:WBD', 'NAS:WDC', 'NAS:WFM', 'NAS:WTW', 'NAS:WYNN', 'NAS:XEL',
+ 'NAS:XLNX', 'NAS:XRAY', 'NAS:XRX', 'NAS:ZBRA', 'NAS:ZIMV', 'NAS:ZION', 'NYS:A', 'NYS:AA', 'NYS:AAP', 'NYS:ABBV',
+ 'NYS:ABT', 'NYS:ACN', 'NYS:ADCT', 'NYS:ADM', 'NYS:ADNT', 'NYS:AEE', 'NYS:AES', 'NYS:AET', 'NYS:AFL', 'NYS:AGN',
+ 'NYS:AIG', 'NYS:AIV', 'NYS:AIZ', 'NYS:AJG', 'NYS:AKS', 'NYS:ALB', 'NYS:ALK', 'NYS:ALL', 'NYS:ALLE', 'NYS:AMCR',
+ 'NYS:AME', 'NYS:AMG', 'NYS:AMP', 'NYS:AMT', 'NYS:AN', 'NYS:ANDV', 'NYS:ANET', 'NYS:ANF', 'NYS:AON', 'NYS:AOS',
+ 'NYS:APA', 'NYS:APC', 'NYS:APD', 'NYS:APH', 'NYS:APTV', 'NYS:ARE', 'NYS:ARG', 'NYS:ASH', 'NYS:ATGE', 'NYS:ATI',
+ 'NYS:ATO', 'NYS:AVB', 'NYS:AVP', 'NYS:AVY', 'NYS:AWK', 'NYS:AXP', 'NYS:AYI', 'NYS:AZO', 'NYS:BA', 'NYS:BAC',
+ 'NYS:BALL', 'NYS:BAX', 'NYS:BBWI', 'NYS:BBY', 'NYS:BC', 'NYS:BCR', 'NYS:BDX', 'NYS:BEN', 'NYS:BF.B', 'NYS:BFH',
+ 'NYS:BG', 'NYS:BHI', 'NYS:BIG', 'NYS:BIO', 'NYS:BK', 'NYS:BLDR', 'NYS:BLK', 'NYS:BMS', 'NYS:BMY', 'NYS:BR',
+ 'NYS:BRK.B', 'NYS:BRO', 'NYS:BSX', 'NYS:BWA', 'NYS:BX', 'NYS:BXLT', 'NYS:BXP', 'NYS:C', 'NYS:CAG', 'NYS:CAH',
+ 'NYS:CAM', 'NYS:CARR', 'NYS:CAT', 'NYS:CB', 'NYS:CBE', 'NYS:CBOE', 'NYS:CBRE', 'NYS:CCI', 'NYS:CCL', 'NYS:CE',
+ 'NYS:CEG', 'NYS:CF', 'NYS:CFG', 'NYS:CFN', 'NYS:CHD', 'NYS:CI', 'NYS:CIEN', 'NYS:CL', 'NYS:CLF', 'NYS:CLX', 'NYS:CMA',
+ 'NYS:CMG', 'NYS:CMI', 'NYS:CMS', 'NYS:CNC', 'NYS:CNP', 'NYS:CNX', 'NYS:COF', 'NYS:COL', 'NYS:COP', 'NYS:COR',
+ 'NYS:COTY', 'NYS:COV', 'NYS:CPAY', 'NYS:CPGX', 'NYS:CPRI', 'NYS:CPT', 'NYS:CRL', 'NYS:CRM', 'NYS:CSC', 'NYS:CSRA',
+ 'NYS:CTLT', 'NYS:CTRA', 'NYS:CTVA', 'NYS:CVC', 'NYS:CVG', 'NYS:CVH', 'NYS:CVS', 'NYS:CVX', 'NYS:CXO', 'NYS:D',
+ 'NYS:DAL', 'NYS:DAY', 'NYS:DD', 'NYS:DDS', 'NYS:DD~1', 'NYS:DE', 'NYS:DECK', 'NYS:DELL', 'NYS:DFS', 'NYS:DG',
+ 'NYS:DGX', 'NYS:DHI', 'NYS:DHR', 'NYS:DIS', 'NYS:DLR', 'NYS:DLX', 'NYS:DOC', 'NYS:DOV', 'NYS:DOW', 'NYS:DOW~1',
+ 'NYS:DPZ', 'NYS:DRI', 'NYS:DTE', 'NYS:DTM', 'NYS:DUK', 'NYS:DVA', 'NYS:DVN', 'NYS:DXC', 'NYS:ECL', 'NYS:ED', 'NYS:EFX',
+ 'NYS:EG', 'NYS:EIX', 'NYS:EL', 'NYS:ELV', 'NYS:EMC', 'NYS:EMN', 'NYS:EMR', 'NYS:EOG', 'NYS:EP', 'NYS:EPAM', 'NYS:EP~1',
+ 'NYS:EQR', 'NYS:EQT', 'NYS:ES', 'NYS:ESS', 'NYS:ETN', 'NYS:ETR', 'NYS:EW', 'NYS:EXPD', 'NYS:EXR', 'NYS:F', 'NYS:FBIN',
+ 'NYS:FCX', 'NYS:FDO', 'NYS:FDS', 'NYS:FDX', 'NYS:FE', 'NYS:FHI', 'NYS:FHN', 'NYS:FI', 'NYS:FICO', 'NYS:FIS', 'NYS:FL',
+ 'NYS:FLR', 'NYS:FLS', 'NYS:FMC', 'NYS:FRT', 'NYS:FTI', 'NYS:FTV', 'NYS:GAS', 'NYS:GD', 'NYS:GDDY', 'NYS:GE', 'NYS:GEV',
+ 'NYS:GGP', 'NYS:GHC', 'NYS:GIS', 'NYS:GL', 'NYS:GLW', 'NYS:GM', 'NYS:GME', 'NYS:GNRC', 'NYS:GNW', 'NYS:GPC', 'NYS:GPN',
+ 'NYS:GR', 'NYS:GRMN', 'NYS:GS', 'NYS:GWW', 'NYS:HAL', 'NYS:HAR', 'NYS:HBI', 'NYS:HCA', 'NYS:HD', 'NYS:HES', 'NYS:HFC',
+ 'NYS:HIG', 'NYS:HII', 'NYS:HLT', 'NYS:HMA', 'NYS:HNZ', 'NYS:HOG', 'NYS:HOT', 'NYS:HP', 'NYS:HPE', 'NYS:HPQ', 'NYS:HRB',
+ 'NYS:HRL', 'NYS:HSH', 'NYS:HSP', 'NYS:HSY', 'NYS:HUBB', 'NYS:HUM', 'NYS:HWM', 'NYS:IBM', 'NYS:ICE', 'NYS:IEX',
+ 'NYS:IFF', 'NYS:INVH', 'NYS:IP', 'NYS:IPG', 'NYS:IQV', 'NYS:IR', 'NYS:IRM', 'NYS:IT', 'NYS:ITT', 'NYS:ITW', 'NYS:IVZ',
+ 'NYS:J', 'NYS:JBL', 'NYS:JCI', 'NYS:JEF', 'NYS:JNJ', 'NYS:JNPR', 'NYS:JNS', 'NYS:JNY', 'NYS:JOY', 'NYS:JPM', 'NYS:JWN',
+ 'NYS:K', 'NYS:KATE', 'NYS:KBH', 'NYS:KEY', 'NYS:KEYS', 'NYS:KIM', 'NYS:KKR', 'NYS:KMB', 'NYS:KMI', 'NYS:KMX', 'NYS:KO',
+ 'NYS:KR', 'NYS:KSS', 'NYS:KVUE', 'NYS:L', 'NYS:LDOS', 'NYS:LEG', 'NYS:LEN', 'NYS:LH', 'NYS:LHX', 'NYS:LLL', 'NYS:LLY',
+ 'NYS:LM', 'NYS:LMT', 'NYS:LNC', 'NYS:LO', 'NYS:LOW', 'NYS:LPX', 'NYS:LUMN', 'NYS:LUV', 'NYS:LVLT', 'NYS:LVS', 'NYS:LW',
+ 'NYS:LXK', 'NYS:LYB', 'NYS:LYV', 'NYS:M', 'NYS:MA', 'NYS:MAA', 'NYS:MAC', 'NYS:MAS', 'NYS:MBI', 'NYS:MCD', 'NYS:MCK',
+ 'NYS:MCO', 'NYS:MDT', 'NYS:MET', 'NYS:MGM', 'NYS:MHK', 'NYS:MHS', 'NYS:MI', 'NYS:MI~1', 'NYS:MJN', 'NYS:MKC',
+ 'NYS:MLM', 'NYS:MMC', 'NYS:MMM', 'NYS:MO', 'NYS:MOH', 'NYS:MOS', 'NYS:MPC', 'NYS:MRK', 'NYS:MRO', 'NYS:MS', 'NYS:MSCI',
+ 'NYS:MSI', 'NYS:MTB', 'NYS:MTD', 'NYS:MTG', 'NYS:MTW', 'NYS:MUR', 'NYS:MWV', 'NYS:MWW', 'NYS:NBL', 'NYS:NBR',
+ 'NYS:NCLH', 'NYS:NEE', 'NYS:NEM', 'NYS:NFX', 'NYS:NI', 'NYS:NKE', 'NYS:NOC', 'NYS:NOV', 'NYS:NOW', 'NYS:NRG',
+ 'NYS:NSC', 'NYS:NUE', 'NYS:NVR', 'NYS:NYT', 'NYS:O', 'NYS:OGN', 'NYS:OI', 'NYS:OKE', 'NYS:OMC', 'NYS:OMX', 'NYS:ONL',
+ 'NYS:ORCL', 'NYS:OTIS', 'NYS:OXY', 'NYS:PAYC', 'NYS:PBI', 'NYS:PCG', 'NYS:PCL', 'NYS:PCP', 'NYS:PEG', 'NYS:PFE',
+ 'NYS:PG', 'NYS:PGR', 'NYS:PH', 'NYS:PHM', 'NYS:PKG', 'NYS:PLD', 'NYS:PM', 'NYS:PNC', 'NYS:PNR', 'NYS:PNW', 'NYS:POM',
+ 'NYS:PPG', 'NYS:PPL', 'NYS:PRGO', 'NYS:PRU', 'NYS:PSA', 'NYS:PSX', 'NYS:PVH', 'NYS:PWR', 'NYS:PX', 'NYS:R', 'NYS:RAI',
+ 'NYS:RCL', 'NYS:RDC', 'NYS:RF', 'NYS:RHI', 'NYS:RHT', 'NYS:RIG', 'NYS:RJF', 'NYS:RL', 'NYS:RMD', 'NYS:ROK', 'NYS:ROL',
+ 'NYS:RRC', 'NYS:RSG', 'NYS:RTN', 'NYS:RTX', 'NYS:RVTY', 'NYS:SCG', 'NYS:SCHW', 'NYS:SEE', 'NYS:SHW', 'NYS:SIG',
+ 'NYS:SITC', 'NYS:SJM', 'NYS:SLB', 'NYS:SLG', 'NYS:SLVM', 'NYS:SNA', 'NYS:SNV', 'NYS:SO', 'NYS:SOLV', 'NYS:SPG',
+ 'NYS:SPGI', 'NYS:SRE', 'NYS:STE', 'NYS:STI', 'NYS:STJ', 'NYS:STR', 'NYS:STR~1', 'NYS:STT', 'NYS:STZ', 'NYS:SVU',
+ 'NYS:SW', 'NYS:SWK', 'NYS:SWN', 'NYS:SWY', 'NYS:SYF', 'NYS:SYK', 'NYS:SYY', 'NYS:T', 'NYS:TAP', 'NYS:TDC', 'NYS:TDG',
+ 'NYS:TDY', 'NYS:TEG', 'NYS:TEL', 'NYS:TEX', 'NYS:TFC', 'NYS:TFX', 'NYS:TGNA', 'NYS:TGT', 'NYS:THC', 'NYS:TIE',
+ 'NYS:TIF', 'NYS:TIN', 'NYS:TJX', 'NYS:TMO', 'NYS:TNL', 'NYS:TPR', 'NYS:TRGP', 'NYS:TRV', 'NYS:TSN', 'NYS:TSS',
+ 'NYS:TT', 'NYS:TUP', 'NYS:TWC', 'NYS:TWX', 'NYS:TXT', 'NYS:TYL', 'NYS:UA', 'NYS:UAA', 'NYS:UBER', 'NYS:UDR', 'NYS:UHS',
+ 'NYS:UIS', 'NYS:UNH', 'NYS:UNM', 'NYS:UNP', 'NYS:UPS', 'NYS:URI', 'NYS:USB', 'NYS:V', 'NYS:VFC', 'NYS:VICI', 'NYS:VLO',
+ 'NYS:VLTO', 'NYS:VMC', 'NYS:VNO', 'NYS:VNT', 'NYS:VSCO', 'NYS:VST', 'NYS:VTR', 'NYS:VYX', 'NYS:VZ', 'NYS:WAB',
+ 'NYS:WAT', 'NYS:WCG', 'NYS:WEC', 'NYS:WELL', 'NYS:WFC', 'NYS:WHR', 'NYS:WM', 'NYS:WMB', 'NYS:WMT', 'NYS:WOR',
+ 'NYS:WRB', 'NYS:WST', 'NYS:WU', 'NYS:WY', 'NYS:X', 'NYS:XOM', 'NYS:XYL', 'NYS:YUM', 'NYS:ZBH', 'NYS:ZTS']
+```
+
+### Examples
+
+```python
+import xarray as xr
+import qnt.ta as qnta
+import qnt.data as qndata
+import qnt.output as qnout
+import qnt.stats as qns
+
+data = qndata.stocks.load_spx_data(min_date="2005-01-01")
+contest_type = "stocks_s&p500"
+
+def calculate_weights(data):
+    close = data.sel(field="close")
+    is_liquid = data.sel(field="is_liquid")
+    sma_slow = qnta.sma(close, 200)
+    sma_fast = qnta.sma(close, 20)
+    # 1 buy; -1 sell; 0 no trade
+    weights = xr.where(sma_slow < sma_fast, 1, 0)
+    weights = weights * is_liquid
+    return weights
+
+weights = calculate_weights(data)
+weights = qnout.clean(weights, data, contest_type)
+
+# calc stats
+stats = qns.calc_stat(data, weights.sel(time=slice("2006-01-01", None)))
+display(stats.to_pandas().tail())
+
+# graph
+performance = stats.to_pandas()["equity"]
+import qnt.graph as qngraph
+
+qngraph.make_plot_filled(performance.index, performance, name="PnL (Equity)", type="log")
+
+weights = weights.sel(time=slice("2006-01-01",None))
+
+qnout.check(weights, data, contest_type, check_correlation=False)
+qnout.write(weights) # to participate in the competition
+```
+
 ## Stocks NASDAQ100
 
 Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beggining of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurence.
