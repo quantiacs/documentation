@@ -54,10 +54,40 @@ new Vue({
     },
     methods: {
         toggleSidebar(to) {
-            this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
+            this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen;
         },
+        addCopyButtons() {
+            const codeBlocks = document.querySelectorAll('.highlight pre');
+            codeBlocks.forEach(block => {
+                const button = document.createElement('button');
+                button.textContent = 'Copy';
+                button.className = 'copy-button';
+
+                button.addEventListener('click', () => {
+                    const code = block.innerText;
+                    navigator.clipboard.writeText(code)
+                        .then(() => {
+                            button.textContent = 'Copied!';
+                            setTimeout(() => button.textContent = 'Copy', 2000);
+                        })
+                        .catch(err => console.error('Copy error:', err));
+                });
+
+                const parent = block.parentElement;
+                if (parent) {
+                    parent.style.position = 'relative';
+                    button.style.position = 'absolute';
+                    button.style.top = '5px';
+                    button.style.right = '5px';
+                    parent.appendChild(button);
+                }
+            });
+        }
     },
+
+
     mounted: function () {
+        this.addCopyButtons();
         const utmName = 'utm_is_exist';
         if (!isUtmExist(utmName)) {
             setUtmInCookie(utmName);
