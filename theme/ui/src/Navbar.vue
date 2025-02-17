@@ -74,18 +74,16 @@
 </template>
 
 <script>
-import SidebarButton from "./vuepress/SidebarButton.vue"
-
 function getCookie(cname) {
   const name = cname + "="
   const decodedCookie = decodeURIComponent(document.cookie)
   let ca = decodedCookie.split(";")
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i]
-    while (c.charAt(0) == " ") {
+    while (c.charAt(0) === " ") {
       c = c.substring(1)
     }
-    if (c.indexOf(name) == 0) {
+    if (c.indexOf(name) === 0) {
       return c.substring(name.length, c.length)
     }
   }
@@ -102,7 +100,6 @@ function setCookie(cname, cvalue, exseconds) {
 
 export default {
   name: "Header",
-  components: {SidebarButton},
   data() {
     return {
       accessToken: getCookie("access_token"),
@@ -481,11 +478,10 @@ header
     left 50%
 
 .langWrapper
-  display flex
-  justify-content space-between
-  align-items center
-  min-width 80px
   max-width 150px
+
+  .usernameHeader
+    display none
 
   .myAccountLink
     color $light_main_color
@@ -499,38 +495,32 @@ header
     display block
 
   .usernameLinkWrapper
-    background $dark_main_color
-    align-items center
     position relative
-    transition all ease-in 300ms
     display flex
+    align-items center
+    background $dark_main_color
+    transition all 300ms ease-in
 
-    .usernameHeader
+    ul
       display none
+      position absolute
+      right -20px
+      top 30px
+      width 150px
+      z-index 1000
 
-    &:hover
-      .chevron
-        color $light_main_color
-        cursor pointer
-        width 20px
-
-      ul
-        z-index 1000
-        display block
-        position absolute
-        background-color $dark_main_color
-        color $light_main_color
-        padding 10px 5px
-        width 150px
-        top 5px
-        right -20px
-        padding-left 10px
+    &:hover ul,
+    ul:hover
+      background-color: #000
+      color: #fff
+      display block
+      margin 0
+      padding 10px 5px 10px 10px
 
     .usernameLink
       color $light_main_color
       cursor pointer
-      padding 0 10px
-      width fit-content
+      padding 0 0 0 10px
       max-width 150px
       text-decoration none
       font-family $average_font
@@ -538,7 +528,6 @@ header
       text-overflow ellipsis
       white-space nowrap
       overflow hidden
-      padding-right 0
 
     .usernameIcon
       display none
@@ -561,6 +550,14 @@ header
         display inline-block
         vertical-align middle
         margin-right 5px
+        pointer-events none
+
+    ul li
+      cursor pointer
+      font-family "Gotham Pro Medium", sans-serif
+      list-style-type none
+      margin 5px
+      text-align center
 
 @media (max-width: 1200px)
   .top_header
