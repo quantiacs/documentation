@@ -6,7 +6,7 @@ RUN apt-get update && apt-get -y install curl bzip2 openssh-client make && \
     rm -rf /tmp/miniconda.sh && \
     conda update conda && \
     conda install -y \
-        'sphinx=6.1' \
+        'sphinx=8.1' \
         'recommonmark=0.6' \
         'conda-forge::sphinx-markdown-tables' \
         'nbsphinx' \
