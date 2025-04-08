@@ -1,32 +1,26 @@
 <template>
   <div class="feedback">
     {{ messageUser }}
-    <a :href=githubUrl target="_blank">
+    <a :href="githubUrl" target="_blank">
       {{ messageEditGitHub }}
     </a>
   </div>
 </template>
 
-<script>
-import LocaleHelper from "./LocaleHelper";
+<script setup>
+import {computed} from 'vue'
+import LocaleHelper from "./LocaleHelper"
 
-export default {
-  computed: {
-    githubUrl() {
-      const baseUrl = 'https://github.com/quantiacs/documentation';
-      const locale = LocaleHelper.getCurrentLocale();
-      const repositoryFile = '/tree/master/' + locale;
-      return baseUrl + repositoryFile;
-    },
-    messageUser() {
-      return 'Caught a mistake or want to contribute to the documentation?';
-    },
-    messageEditGitHub() {
-      return 'Edit this on GitHub!';
-    }
-  }
-}
+const baseUrl = 'https://github.com/quantiacs/documentation'
 
+const githubUrl = computed(() => {
+  const locale = LocaleHelper.getCurrentLocale()
+  const repositoryFile = '/tree/master/' + locale
+  return baseUrl + repositoryFile
+})
+
+const messageUser = 'Caught a mistake or want to contribute to the documentation?'
+const messageEditGitHub = 'Edit this on GitHub!'
 </script>
 
 <style scoped>
