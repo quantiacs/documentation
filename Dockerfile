@@ -11,7 +11,7 @@ RUN apt-get update && apt-get -y install curl bzip2 openssh-client make && \
         'conda-forge::sphinx-markdown-tables' \
         'nbsphinx' \
         'IPython' && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get -y install nodejs && \
     apt-get -y autoremove --purge curl bzip2 openssh-client && \
     rm -rf /var/lib/apt/lists/* /var/log/dpkg.log && \
