@@ -13,8 +13,8 @@
 @require './vuepress/styles/wrapper.styl'
 
 .page
-  padding-top 95px
   padding-bottom 0px
+  padding-top 65px
 
 .page-edit
   @extend $wrapper
@@ -65,4 +65,15 @@
       font-size .8em
       float none
       text-align left
+
+$mobileSidebarWidth = $sidebarWidth * 0.82
+
+@media (max-width: $MQNarrow)
+  .page
+    padding-left $mobileSidebarWidth
+
+@media (max-width: $MQMobile)
+  .page
+    padding-left 0
+    padding-top 95px
 </style>

@@ -1,4 +1,4 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import './vuepress/styles/theme.styl'
 import './sphinx-theme.styl'
 import { utm } from './utm'
@@ -14,23 +14,10 @@ import AboutFeedback from "./AboutFeedback"
 const app = createApp({
     data() {
         return {
-            isSidebarOpen: false,
             swUpdateEvent: null
         }
     },
-    computed: {
-        pageClasses() {
-            return [
-                {
-                    'sidebar-open': this.isSidebarOpen
-                }
-            ]
-        }
-    },
     methods: {
-        toggleSidebar(to) {
-            this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
-        },
         addCopyButtons() {
             const codeBlocks = document.querySelectorAll('.highlight pre')
             codeBlocks.forEach(block => {
@@ -64,7 +51,7 @@ const app = createApp({
             setUtmInCookie(utmName)
         }
         const qn_uid = getCookie('qn_uid')
-        tracker.userInfo({qntId: qn_uid})
+        tracker.userInfo({ qntId: qn_uid })
 
         function isUtmExist(name) {
             const currentUtm = getCookie(name)
@@ -113,4 +100,4 @@ app.component('router-link', {
     template: '<a :href="to"><slot></slot></a>'
 })
 
-app.mount('#app')
+app.mount('#app', true)

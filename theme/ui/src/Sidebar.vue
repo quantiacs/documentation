@@ -1,14 +1,31 @@
 <template>
-  <div class="sidebar">
-    <slot></slot>
+  <div>
+    <transition name="fade">
+      <button v-if="!isOpen" @click="toggleSidebar" class="mobile-menu-button-open">Open Menu</button>
+    </transition>
+    <div class="sidebar" :class="{ 'mobile-sidebar-open': isOpen }">
+      <transition name="fade">
+        <button v-if="isOpen" @click="toggleSidebar" class="mobile-close-button">Close Menu</button>
+      </transition>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script setup>
+import {ref} from 'vue'
+
+const isOpen = ref(false)
+
+function toggleSidebar() {
+  isOpen.value = !isOpen.value
+}
 </script>
 
 <style lang="stylus">
 @import './vuepress/styles/config.styl'
+@import './vuepress/styles/imgMenu.styl'
+$mobileSidebarWidth = $sidebarWidth * 0.82
 
 .sidebar
   padding-left 25px
@@ -32,7 +49,7 @@
 
   a
     display inline-block
-    font-size 1.1em;
+    font-size 1.1em
 
   .nav-links
     display none
@@ -61,24 +78,6 @@
     float right
     border solid 1px #cbd2da
     border-radius 3px
-    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjExIgogICBoZWlnaHQ9IjcuMDYyNjYwMiIKICAgdmlld0JveD0iMCAwIDExIDcuMDYyNjYwMiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNCIKICAgc29kaXBvZGk6ZG9jbmFtZT0iZG93bmxvYWQgKDEpLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4xIHIxNTM3MSI+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMTAiPgogICAgPHJkZjpSREY+CiAgICAgIDxjYzpXb3JrCiAgICAgICAgIHJkZjphYm91dD0iIj4KICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgICAgICA8ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+CiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+CiAgICAgIDwvY2M6V29yaz4KICAgIDwvcmRmOlJERj4KICA8L21ldGFkYXRhPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM4IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMzg0MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIyMDE5IgogICAgIGlkPSJuYW1lZHZpZXc2IgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSJ0cnVlIgogICAgIGlua3NjYXBlOnpvb209IjY3LjQyODU3MSIKICAgICBpbmtzY2FwZTpjeD0iNS43Mjg4MzQ4IgogICAgIGlua3NjYXBlOmN5PSI0LjQwNDY2NDQiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjQzMDYiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii0xNCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzQiIC8+CiAgPHBhdGgKICAgICBkPSJNIDAuMTI5NjUsMS4yNTU1OSAxLjI2MjQxLDAuMTI5NjYgUSAxLjM5MjA2LDAgMS41Njk0OCwwIDEuNzQ2OSwwIDEuODc2NTUsMC4xMjk2NiBMIDUuNSwzLjc1MzEgOS4xMjM0NSwwLjEyOTY2IFEgOS4yNTMxLDAgOS40MzA1MiwwIDkuNjA3OTQsMCA5LjczNzU5LDAuMTI5NjYgbCAxLjEzMjc2LDEuMTI1OTMgUSAxMSwxLjM4NTI0IDExLDEuNTY2MDcgMTEsMS43NDY5IDEwLjg3MDM1LDEuODc2NTUgTCA1LjgwNzA3LDYuOTMzIFEgNS42Nzc0Miw3LjA2MjY2IDUuNSw3LjA2MjY2IDUuMzIyNTgsNy4wNjI2NiA1LjE5MjkzLDYuOTMzIEwgMC4xMjk2NSwxLjg3NjU1IFEgMCwxLjc0NjkgMCwxLjU2NjA3IDAsMS4zODUyNCAwLjEyOTY1LDEuMjU1NTkgWiIKICAgICBpZD0icGF0aDIiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0iZmlsbDojNzU4MDhmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjAwNjgyMzgyIiAvPgo8L3N2Zz4K') no-repeat center
-
-
-  .sidebar_menu_button_close
-    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjExIgogICBoZWlnaHQ9IjcuMDYyNjYwMiIKICAgdmlld0JveD0iMCAwIDExIDcuMDYyNjYwMiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNCIKICAgc29kaXBvZGk6ZG9jbmFtZT0iZG93bmxvYWQgKDEpLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4xIHIxNTM3MSI+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMTAiPgogICAgPHJkZjpSREY+CiAgICAgIDxjYzpXb3JrCiAgICAgICAgIHJkZjphYm91dD0iIj4KICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgICAgICA8ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+CiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+CiAgICAgIDwvY2M6V29yaz4KICAgIDwvcmRmOlJERj4KICA8L21ldGFkYXRhPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM4IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMzg0MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIyMDE5IgogICAgIGlkPSJuYW1lZHZpZXc2IgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSJ0cnVlIgogICAgIGlua3NjYXBlOnpvb209IjY3LjQyODU3MSIKICAgICBpbmtzY2FwZTpjeD0iNS43Mjg4MzQ4IgogICAgIGlua3NjYXBlOmN5PSI0LjQwNDY2NDQiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjQzMDYiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii0xNCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzQiIC8+CiAgPHBhdGgKICAgICBkPSJNIDAuMTI5NjUsMS4yNTU1OSAxLjI2MjQxLDAuMTI5NjYgUSAxLjM5MjA2LDAgMS41Njk0OCwwIDEuNzQ2OSwwIDEuODc2NTUsMC4xMjk2NiBMIDUuNSwzLjc1MzEgOS4xMjM0NSwwLjEyOTY2IFEgOS4yNTMxLDAgOS40MzA1MiwwIDkuNjA3OTQsMCA5LjczNzU5LDAuMTI5NjYgbCAxLjEzMjc2LDEuMTI1OTMgUSAxMSwxLjM4NTI0IDExLDEuNTY2MDcgMTEsMS43NDY5IDEwLjg3MDM1LDEuODc2NTUgTCA1LjgwNzA3LDYuOTMzIFEgNS42Nzc0Miw3LjA2MjY2IDUuNSw3LjA2MjY2IDUuMzIyNTgsNy4wNjI2NiA1LjE5MjkzLDYuOTMzIEwgMC4xMjk2NSwxLjg3NjU1IFEgMCwxLjc0NjkgMCwxLjU2NjA3IDAsMS4zODUyNCAwLjEyOTY1LDEuMjU1NTkgWiIKICAgICBpZD0icGF0aDIiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0iZmlsbDojNzU4MDhmO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjAwNjgyMzgyIiAvPgo8L3N2Zz4K') no-repeat center
-
-  .sidebar_menu_button_open
-    background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjExIgogICBoZWlnaHQ9IjcuMDYyNjYwMiIKICAgdmlld0JveD0iMCAwIDExIDcuMDYyNjYwMiIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnNCIKICAgc29kaXBvZGk6ZG9jbmFtZT0iZG93bmxvYWQgKDEpLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi4xIHIxNTM3MSI+CiAgPG1ldGFkYXRhCiAgICAgaWQ9Im1ldGFkYXRhMTAiPgogICAgPHJkZjpSREY+CiAgICAgIDxjYzpXb3JrCiAgICAgICAgIHJkZjphYm91dD0iIj4KICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgICAgICA8ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+CiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+CiAgICAgIDwvY2M6V29yaz4KICAgIDwvcmRmOlJERj4KICA8L21ldGFkYXRhPgogIDxkZWZzCiAgICAgaWQ9ImRlZnM4IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiCiAgICAgYm9yZGVyb3BhY2l0eT0iMSIKICAgICBvYmplY3R0b2xlcmFuY2U9IjEwIgogICAgIGdyaWR0b2xlcmFuY2U9IjEwIgogICAgIGd1aWRldG9sZXJhbmNlPSIxMCIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOndpbmRvdy13aWR0aD0iMzg0MCIKICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIyMDE5IgogICAgIGlkPSJuYW1lZHZpZXc2IgogICAgIHNob3dncmlkPSJmYWxzZSIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSJ0cnVlIgogICAgIGlua3NjYXBlOnpvb209IjY3LjQyODU3MSIKICAgICBpbmtzY2FwZTpjeD0iOC42NjUyNzU1IgogICAgIGlua3NjYXBlOmN5PSI0LjQwNDY2NDQiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjQzMDYiCiAgICAgaW5rc2NhcGU6d2luZG93LXk9Ii0xNCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzQiIC8+CiAgPHBhdGgKICAgICBkPSJNIDEwLjg3MDM1LDUuODA3MDcgOS43Mzc1OSw2LjkzMyBRIDkuNjA3OTQsNy4wNjI2NiA5LjQzMDUyLDcuMDYyNjYgOS4yNTMxLDcuMDYyNjYgOS4xMjM0NSw2LjkzMyBMIDUuNSwzLjMwOTU2IDEuODc2NTUsNi45MzMgUSAxLjc0NjksNy4wNjI2NiAxLjU2OTQ4LDcuMDYyNjYgMS4zOTIwNiw3LjA2MjY2IDEuMjYyNDEsNi45MzMgTCAwLjEyOTY1LDUuODA3MDcgUSAwLDUuNjc3NDIgMCw1LjQ5NjU5IDAsNS4zMTU3NiAwLjEyOTY1LDUuMTg2MTEgTCA1LjE5MjkzLDAuMTI5NjYgUSA1LjMyMjU4LDAgNS41LDAgNS42Nzc0MiwwIDUuODA3MDcsMC4xMjk2NiBsIDUuMDYzMjgsNS4wNTY0NSBRIDExLDUuMzE1NzYgMTEsNS40OTY1OSAxMSw1LjY3NzQyIDEwLjg3MDM1LDUuODA3MDcgWiIKICAgICBpZD0icGF0aDIiCiAgICAgaW5rc2NhcGU6Y29ubmVjdG9yLWN1cnZhdHVyZT0iMCIKICAgICBzdHlsZT0ic3Ryb2tlLXdpZHRoOjAuMDA2ODIzODI7ZmlsbDojNzU4MDhmO2ZpbGwtb3BhY2l0eToxIiAvPgo8L3N2Zz4K') no-repeat center
-
-
-@media (max-width: $MQMobile)
-  .sidebar
-    .nav-links
-      display block
-
-      .dropdown-wrapper .nav-dropdown .dropdown-item a.router-link-active::after
-        top calc(1rem - 2px)
-
 
 .sidebar-group
   margin-top 1em
@@ -90,14 +89,12 @@
   .sidebar-group
     padding-left 0.5em
 
-
 .sidebar-group .caption
   color #999
   transition color .15s ease
   cursor pointer
   font-size 1.1em
   font-weight bold
-  // text-transform uppercase
   padding 0 1.1rem
   padding-top 5px
   padding-bottom 5px
@@ -113,8 +110,7 @@
     top -0.12em
     left 0.5em
 
-
-.sidebar-group-items /* FIXME sphinx toc equivalent */
+.sidebar-group-items
   transition height .1s ease-out
   overflow hidden
 
@@ -127,8 +123,8 @@
     display inline-block
     color $textColor
     line-height 1.4
-    width: 100%
-    box-sizing: border-box
+    width 100%
+    box-sizing border-box
     border-left 0.5rem solid transparent
 
     &.current
@@ -138,10 +134,8 @@
     &:hover
       color $accentColor
 
-  // /* extra indication of current, since no support to hight current location */
-
   .toctree-l1.current a
-    border-left: .5rem solid lighten($accentColor, 40%)
+    border-left 0.5rem solid lighten($accentColor, 40%)
 
   .toctree-l1 a
     padding 0.35rem 1rem 0.35rem 1.25rem
@@ -152,4 +146,79 @@
   .toctree-l2 a
     padding 0.25rem 1rem 0.25rem 1.75rem
 
+@media (max-width: $MQNarrow)
+  .sidebar
+    font-size 15px
+    width $mobileSidebarWidth
+
+
+@media (max-width: $MQMobile)
+  .sidebar
+    position fixed
+    top $navbarHeight
+    left 0
+    width $mobileSidebarWidth
+    height 100%
+    transform translateX(-100%)
+    transition transform .2s ease
+
+  .sidebar.mobile-sidebar-open
+    transform translateX(0)
+
+
+  .mobile-menu-button-open
+    display block
+    position absolute
+    top 56px
+    left 0
+    width 100%
+    z-index 5
+
+@media (max-width: $MQMobileNarrow)
+  h1
+    font-size 1.9rem
+
+  .content
+    div[class*="language-"]
+      margin 0.85rem -1.5rem
+      border-radius 0
+
+.mobile-menu-button-open
+  background-color $accentColor
+  border none
+  color white
+  padding 0.75rem 1.5rem
+  font-size 0.9em
+  border-radius 5px
+  box-shadow 0 2px 4px rgba(0, 0, 0, 0.1)
+  cursor pointer
+  transition background-color 0.3s ease, transform 0.3s ease
+  position absolute
+
+.mobile-menu-button-open:hover
+  background-color lighten($accentColor, 10%)
+  transform scale(1.05)
+
+.mobile-close-button
+  background-color $accentColor
+  border none
+  color white
+  padding 0.75rem 1.5rem
+  font-size 0.9em
+  border-radius 5px
+  box-shadow 0 2px 4px rgba(0, 0, 0, 0.1)
+  cursor pointer
+  transition background-color 0.3s ease, transform 0.3s ease
+  width 90%
+  margin 1rem auto 0 auto
+
+.mobile-close-button:hover
+  background-color lighten($accentColor, 10%)
+  transform scale(1.05)
+
+.fade-enter-active, .fade-leave-active
+  transition opacity 0.3s ease
+
+.fade-enter, .fade-leave-to
+  opacity 0
 </style>

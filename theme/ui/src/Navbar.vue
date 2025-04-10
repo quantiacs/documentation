@@ -1,22 +1,22 @@
 <template>
   <header>
-    <div class="top_header">
-      <div class="logoWrapper">
+    <div class="top-header">
+      <div class="logo-wrapper">
         <a class="logo quantiacs-logo" href="/">Home</a>
       </div>
-      <nav class="dropdownmenu">
+      <nav class="dropdown-menu">
         <ul>
           <li><a class="nav-link" target="_self" href="/contest">About</a></li>
           <li><a class="nav-link" target="_self" href="/documentation/en/">Documentation</a></li>
           <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
           <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
-          <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
+          <li><a class="nav-link quantiacs-community-link" target="_self" href="/community">Community</a></li>
           <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14 Contests</a>
           </li>
         </ul>
       </nav>
-      <div class="headerWrapper">
+      <div class="header-wrapper">
         <div id="wrapper">
           <label id="nav-icon3" class="menu-icon" for="toggle">
             <span></span>
@@ -33,19 +33,19 @@
               <li><a class="nav-link" rel="noopener noreferrer" href="/contacts" target="_self">Contact</a></li>
               <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li><a class="nav-link" target="_self" href="/leaderboard">Systems</a></li>
-              <li><a class="nav-link quantiacs_community_link" target="_self" href="/community">Community</a></li>
+              <li><a class="nav-link quantiacs-community-link" target="_self" href="/community">Community</a></li>
               <li><a class="nav-link" href="https://legacy.quantiacs.com/Systems.aspx" target="_blank">Q1-Q14
                 Contests</a></li>
             </ul>
           </nav>
         </div>
       </div>
-      <div class="langWrapper">
-        <div v-if="isAuthorizedUser" class="usernameLinkWrapper">
-          <a rel="noopener noreferrer" href="/personalpage/homepage" target="_self" class="usernameLink">{{
+      <div class="lang-wrapper">
+        <div v-if="isAuthorizedUser" class="username-link-wrapper">
+          <a rel="noopener noreferrer" href="/personalpage/homepage" target="_self" class="username-link">{{
               username
             }}</a>
-          <span class="usernameIcon">
+          <span class="username-icon">
             <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="user"
                  class="svg-inline--fa fa-user fa-w-14 fa-fw fa-sm" role="img" xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 448 512">
@@ -55,7 +55,7 @@
           </span>
           <span class="chevron"></span>
           <ul>
-            <li class="usernameHeader">
+            <li class="username-header">
               <a rel="noopener noreferrer" href="/personalpage/homepage" target="_self">{{ username }}</a>
             </li>
             <li>
@@ -65,7 +65,7 @@
           </ul>
         </div>
         <div v-else>
-          <a class="myAccountLink" rel="noopener noreferrer" href="/personalpage/login" target="_self">Sign up / Log
+          <a class="my-account-link" rel="noopener noreferrer" href="/personalpage/login" target="_self">Sign up / Log
             in</a>
         </div>
       </div>
@@ -273,6 +273,7 @@ function logOut() {
 
 <style lang="stylus">
 @require './vuepress/styles/config';
+@import './vuepress/styles/imgGeneral.styl'
 
 $light_main_color = #ffffff;
 $dark_main_color = #020202;
@@ -289,7 +290,7 @@ header
   background-color $dark_main_color
   z-index 10
 
-.top_header
+.top-header
   padding 10px 0
   line-height 30px
   display flex
@@ -299,7 +300,7 @@ header
   max-width 1180px
   margin 0 auto
 
-  .logoWrapper
+  .logo-wrapper
     width 25%
 
     .logo
@@ -313,7 +314,7 @@ header
       text-indent -9999px
       top 2px
 
-.dropdownmenu
+.dropdown-menu
   width 55%
   display flex
   vertical-align middle
@@ -346,14 +347,14 @@ header
     transition all 0.25s ease
     white-space nowrap
 
-  .quantiacs_community_link
+  .quantiacs-community-link
     color #1bbafb
 
   li:hover
     .nav-link
       color $light_font_color
 
-.headerWrapper
+.header-wrapper
   text-align right
   display block
   position absolute
@@ -410,7 +411,7 @@ header
       padding-bottom 20px
       padding-top 0
 
-    .quantiacs_community_link
+    .quantiacs-community-link
       color #1bbafb
 
   .menu-icon
@@ -468,13 +469,13 @@ header
     width 0%
     left 50%
 
-.langWrapper
+.lang-wrapper
   max-width 150px
 
-  .usernameHeader
+  .username-header
     display none
 
-  .myAccountLink
+  .my-account-link
     color $light_main_color
     cursor pointer
     text-decoration none
@@ -485,7 +486,7 @@ header
     white-space nowrap
     display block
 
-  .usernameLinkWrapper
+  .username-link-wrapper
     position relative
     display flex
     align-items center
@@ -508,7 +509,7 @@ header
       margin 0
       padding 10px 5px 10px 10px
 
-    .usernameLink
+    .username-link
       color $light_main_color
       cursor pointer
       padding 0 0 0 10px
@@ -520,7 +521,7 @@ header
       white-space nowrap
       overflow hidden
 
-    .usernameIcon
+    .username-icon
       display none
 
     .chevron
@@ -551,21 +552,21 @@ header
       text-align center
 
 @media (max-width: 1200px)
-  .top_header
+  .top-header
     padding 10px 0px
     width 90%
 
-  .usernameLink
+  .username-link
     display none
 
-  .usernameHeader
+  .username-header
     display block !important
 
     span
       color $contrast_color
       word-break break-word
 
-  .usernameIcon
+  .username-icon
     display block !important
     padding-bottom 3px
 
@@ -573,35 +574,35 @@ header
       color $light_main_color !important
 
 @media only screen and (min-width: 768px)
-  .top_header
-    .headerWrapper
+  .top-header
+    .header-wrapper
       display none
 
-    .dropdownmenu,
-    .myAccountLink
+    .dropdown-menu,
+    .my-account-link
       display block
       max-width 100%
 
 @media only screen and (max-width: 768px)
-  .dropdownmenu
+  .dropdown-menu
     display none !important
 
-  .headerWrapper
+  .header-wrapper
     display block !important
 
-  .top_header
+  .top-header
     padding 10px 30px
 
-    .logoWrapper
+    .logo-wrapper
       width 80%
       text-align center
       padding-left 20%
 
-    .myAccountLink
+    .my-account-link
       margin-left 0 !important
 
 @media only screen and (max-width: 400px)
-  .logoWrapper
+  .logo-wrapper
     width 60% !important
     text-align center
     padding-left calc(50% - 30px) !important
