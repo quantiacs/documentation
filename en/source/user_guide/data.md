@@ -7,7 +7,7 @@ Quantiacs provides historical data for the world's major financial markets. Curr
 
 ----
 ## Stocks
-Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beggining of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurence.
+Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beginning of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurrence.
 
 ### Stocks list
 For getting the list of available stocks, load_ndx_list() method is used. By default, without passing any argument, the method returns only the list of stock objects (dictionaries), which have been index members in last 4 years from now (default, tail=4*365). For filtering the list to some specific period, pass appropriate values to arguments:
@@ -107,7 +107,7 @@ stocks_data = qndata.stocks.load_ndx_data(min_date='2006-01-01', dims=('time', '
 
 - **time**: series of dates in string format 'yyyy-mm-dd'
 - **asset**: list of instruments in string format, combination of first 3 characters of stock exchange and ticker symbol
-- **field**: atribute in End of Day quality
+- **field**: attribute in End of Day quality
 
 
 
