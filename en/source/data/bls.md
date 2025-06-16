@@ -10,7 +10,7 @@ It provides macroeconomic data in several interesting categories:
 - compensation and working conditions and productivity.
 
 Quantiacs has implemented these datasets on its cloud and makes them also available for local use on your machine. For
-more informations on using the Quantiacs toolbox and datasets offline, please read
+more information on using the Quantiacs toolbox and datasets offline, please read
 our [instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html) on local installation.
 
 ```python
