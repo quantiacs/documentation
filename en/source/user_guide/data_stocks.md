@@ -6,7 +6,7 @@ Quantiacs provides data for companies listed on the NYSE and NASDAQ. Here we wil
 - [Fundamental data](#fundamental-data)
 
 ## General information about tickers
-The informations about the available stocks in the last 5 years can be obtained specifying the lookback period in calendar days multiplied by the number of years:
+The information about the available stocks in the last 5 years can be obtained specifying the lookback period in calendar days multiplied by the number of years:
 
 ```python
 import qnt.data as qndata 

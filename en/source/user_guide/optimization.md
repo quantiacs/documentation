@@ -199,14 +199,14 @@ for an interactive chart of the result
 
 ### Stats function
 
-If you want different statistics than the stadard metrics you need to design a function with this skeleton and provide it as input parameter to **optimize_strategy** (example: **stats_function=stats_function**):
+If you want different statistics than the standard metrics you need to design a function with this skeleton and provide it as input parameter to **optimize_strategy** (example: **stats_function=stats_function**):
 ```Python
 def stats_function(data, output):
     """
     Calculates statistics for the iteration output.
     :param data: market data
     :param output: weights
-    :return: dictionary of statisctics
+    :return: dictionary of statistics
     """
 ```
 

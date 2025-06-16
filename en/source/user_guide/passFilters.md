@@ -42,7 +42,7 @@ Here are some common mistakes to look out for:
 * Understanding Quantiles
 
 More information:
-* [Different Sharpe Ratios for Multipass-Backtest and Quantiacs Mulipass Backtest](https://quantiacs.com/community/topic/374/different-sharpe-ratios-for-multipass-backtest-and-quantiacs-mulipass-backtest?_=1687248669560)
+* [Different Sharpe Ratios for Multipass-Backtest and Quantiacs Multipass Backtest](https://quantiacs.com/community/topic/374/different-sharpe-ratios-for-multipass-backtest-and-quantiacs-mulipass-backtest?_=1687248669560)
 
 We **recommend** testing your strategy in **multi-pass** mode. [Here is an example](https://quantiacs.com/documentation/en/examples/trading_system_optimization.html#preventing-forward-looking).
 

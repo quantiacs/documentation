@@ -134,7 +134,7 @@ None, only warning messages will be displayed.
 
 ## Multi-Pass Backtesting
 
-We provide you with a function for performing an optional backtesting which explicitely forbids looking-forward issues
+We provide you with a function for performing an optional backtesting which explicitly forbids looking-forward issues
 with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It
 can be used with:
 
@@ -389,7 +389,7 @@ qnout.write(weights)
 ```
 
 After the weights have been computed, you can calculate the statistics in order to evaluate the algorithm in the
-In-Sample perios using:
+In-Sample periods using:
 
 ```python
 stat = qnstats.calc_stat(data, weights.sel(time=slice("2006-01-01", None)))

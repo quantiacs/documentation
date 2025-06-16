@@ -147,7 +147,7 @@ buy/sell a specific number of shares at a specific price. We calculate
 *slippage* according to the following formula:
 
 ```math
-\label{slappage}
+\label{slippage}
     \text{slippage}[i] = abs(\textbf{pos}[i] - \textbf{pos}[i-1])\cdot \textbf{ATR}(14) \cdot 0.05,
 ```
 where ``$` \textbf{ATR}(14) `$`` - is a market volatility indicator. The Average True Range (``$` \textbf{ATR}(N) `$``) indicator is a moving average (MA) over N
@@ -255,7 +255,7 @@ r_{XY} = \frac{\text{cov}_{\textbf{X}\textbf{Y}}}{\sigma_{\textbf{X}} \sigma_{\t
 
 **Competition**
 
-  The performace of a good algorithm OS does not degradate respect to the IS period.
+  The performance of a good algorithm OS does not degrade compared to the IS period.
 
 ![IS OS](./pictures/home_competition_main_isos.png)
 

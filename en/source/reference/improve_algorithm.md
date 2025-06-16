@@ -2,7 +2,7 @@
 
 ## Exposure improving
 
-If the algorithm does not pass the [exposure filter](https://quantiacs.io/documentation/en/improve/max-sw.html), one may use one of the two options bellow:
+If the algorithm does not pass the [exposure filter](https://quantiacs.io/documentation/en/improve/max-sw.html), one may use one of the two options below:
 
 ### Remove days with high exposures
 
