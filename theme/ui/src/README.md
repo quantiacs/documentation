@@ -1,5 +1,4 @@
+- -> components copied/modified from vuepress
 
-* -> components copied/modified from vuepress
-
-* Navbar.vue
- * SidebarButton.vue
+- Navbar.vue
+- SidebarButton.vue

@@ -1,185 +1,167 @@
 <template>
   <div
-      class="theme-container"
-      :class="pageClasses"
-      @touchstart="onTouchStart"
-      @touchend="onTouchEnd"
+    class="theme-container"
+    :class="pageClasses"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
   >
-    <Navbar
-        v-if="shouldShowNavbar"
-        @toggle-sidebar="toggleSidebar"
-    />
+    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
     <div class="main-container">
+      <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
 
-      <div
-          class="sidebar-mask"
-          @click="toggleSidebar(false)"
-      ></div>
-
-      <Sidebar
-          :items="sidebarItems"
-          @toggle-sidebar="toggleSidebar"
-      >
-        <slot
-            name="sidebar-top"
-            slot="top"
-        />
-        <slot
-            name="sidebar-bottom"
-            slot="bottom"
-        />
+      <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+        <template v-slot:top>
+          <slot name="sidebar-top" />
+        </template>
+        <template v-slot:bottom>
+          <slot name="sidebar-bottom" />
+        </template>
       </Sidebar>
 
-      <div
-          class="custom-layout"
-          v-if="$page.frontmatter.layout"
-      >
-        <component :is="$page.frontmatter.layout"/>
+      <div class="custom-layout" v-if="$page.frontmatter.layout">
+        <component :is="$page.frontmatter.layout" />
       </div>
 
-      <Home v-else-if="$page.frontmatter.home"/>
+      <Home v-else-if="$page.frontmatter.home" />
 
-      <Page
-          v-else
-          :sidebar-items="sidebarItems"
-      >
-        <slot
-            name="page-top"
-            slot="top"
-        />
-        <slot
-            name="page-bottom"
-            slot="bottom"
-        />
+      <Page v-else :sidebar-items="sidebarItems">
+        <template v-slot:top>
+          <slot name="page-top" />
+        </template>
+        <template v-slot:bottom>
+          <slot name="page-bottom" />
+        </template>
       </Page>
 
-      <SWUpdatePopup :updateEvent="swUpdateEvent"/>
+      <SWUpdatePopup :updateEvent="swUpdateEvent" />
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import nprogress from 'nprogress'
-import Home from './Home.vue'
-import Navbar from './Navbar.vue'
-import Page from './Page.vue'
-import Sidebar from './Sidebar.vue'
-import SWUpdatePopup from './SWUpdatePopup.vue'
-import {resolveSidebarItems} from './util'
+import Vue from 'vue';
+import nprogress from 'nprogress';
+import Home from './Home.vue';
+import Navbar from './Navbar.vue';
+import Page from './Page.vue';
+import Sidebar from './Sidebar.vue';
+import SWUpdatePopup from './SWUpdatePopup.vue';
+import eventBus from './eventBus';
+import { resolveSidebarItems } from './util';
 
 export default {
-  components: {Home, Page, Sidebar, Navbar, SWUpdatePopup},
+  components: { Home, Page, Sidebar, Navbar, SWUpdatePopup },
 
   data() {
     return {
       isSidebarOpen: false,
-      swUpdateEvent: null
-    }
+      swUpdateEvent: null,
+    };
   },
 
   computed: {
     shouldShowNavbar() {
-      const {themeConfig} = this.$site
-      const {frontmatter} = this.$page
-      if (
-          frontmatter.navbar === false ||
-          themeConfig.navbar === false) {
-        return false
+      const { themeConfig } = this.$site;
+      const { frontmatter } = this.$page;
+      if (frontmatter.navbar === false || themeConfig.navbar === false) {
+        return false;
       }
       return (
-          this.$title ||
-          themeConfig.logo ||
-          themeConfig.repo ||
-          themeConfig.nav ||
-          this.$themeLocaleConfig.nav
-      )
+        this.$title ||
+        themeConfig.logo ||
+        themeConfig.repo ||
+        themeConfig.nav ||
+        this.$themeLocaleConfig.nav
+      );
     },
 
     shouldShowSidebar() {
-      const {frontmatter} = this.$page
+      const { frontmatter } = this.$page;
       return (
-          !frontmatter.layout &&
-          !frontmatter.home &&
-          frontmatter.sidebar !== false &&
-          this.sidebarItems.length
-      )
+        !frontmatter.layout &&
+        !frontmatter.home &&
+        frontmatter.sidebar !== false &&
+        this.sidebarItems.length
+      );
     },
 
     sidebarItems() {
       return resolveSidebarItems(
-          this.$page,
-          this.$route,
-          this.$site,
-          this.$localePath
-      )
+        this.$page,
+        this.$route,
+        this.$site,
+        this.$localePath
+      );
     },
 
     pageClasses() {
-      const userPageClass = this.$page.frontmatter.pageClass
+      const userPageClass = this.$page.frontmatter.pageClass;
       return [
         {
           'no-navbar': !this.shouldShowNavbar,
           'sidebar-open': this.isSidebarOpen,
-          'no-sidebar': !this.shouldShowSidebar
+          'no-sidebar': !this.shouldShowSidebar,
         },
-        userPageClass
-      ]
-    }
+        userPageClass,
+      ];
+    },
   },
 
   mounted() {
-    window.addEventListener('scroll', this.onScroll)
+    window.addEventListener('scroll', this.onScroll);
 
     // configure progress bar
-    nprogress.configure({showSpinner: false})
+    nprogress.configure({ showSpinner: false });
 
     this.$router.beforeEach((to, from, next) => {
       if (to.path !== from.path && !Vue.component(to.name)) {
-        nprogress.start()
+        nprogress.start();
       }
-      next()
-    })
+      next();
+    });
 
     this.$router.afterEach(() => {
-      nprogress.done()
-      this.isSidebarOpen = false
-    })
+      nprogress.done();
+      this.isSidebarOpen = false;
+    });
 
-    this.$on('sw-updated', this.onSWUpdated)
+    eventBus.on('sw-updated', this.onSWUpdated);
+  },
+  beforeUnmount() {
+    eventBus.off('sw-updated', this.onSWUpdated);
   },
 
   methods: {
     toggleSidebar(to) {
-      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
+      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen;
     },
 
     // side swipe
     onTouchStart(e) {
       this.touchStart = {
         x: e.changedTouches[0].clientX,
-        y: e.changedTouches[0].clientY
-      }
+        y: e.changedTouches[0].clientY,
+      };
     },
 
     onTouchEnd(e) {
-      const dx = e.changedTouches[0].clientX - this.touchStart.x
-      const dy = e.changedTouches[0].clientY - this.touchStart.y
+      const dx = e.changedTouches[0].clientX - this.touchStart.x;
+      const dy = e.changedTouches[0].clientY - this.touchStart.y;
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
         if (dx > 0 && this.touchStart.x <= 80) {
-          this.toggleSidebar(true)
+          this.toggleSidebar(true);
         } else {
-          this.toggleSidebar(false)
+          this.toggleSidebar(false);
         }
       }
     },
 
     onSWUpdated(e) {
-      this.swUpdateEvent = e
-    }
-  }
-}
+      this.swUpdateEvent = e;
+    },
+  },
+};
 </script>
 
 <style lang="css">

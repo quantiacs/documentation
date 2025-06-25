@@ -11,56 +11,56 @@ import * as ttw from './twitter';
 const fullConfig = require('./config.json');
 
 const availableTrackers = {
-    gtag: tgtag,
-    fbp: tfbp,
-    li: tli,
-    ym: tym,
-    vk: tvk,
-    internal: internal,
-    quora: tq,
-    twitter: ttw
+  gtag: tgtag,
+  fbp: tfbp,
+  li: tli,
+  ym: tym,
+  vk: tvk,
+  internal: internal,
+  quora: tq,
+  twitter: ttw,
 };
 
 const activeTrackers = [];
 
 function init() {
-    let {hostname} = window.location;
-    hostname = hostname.toLowerCase();
-    if (hostname.startsWith('www.')) {
-        hostname = hostname.substr(4);
+  let { hostname } = window.location;
+  hostname = hostname.toLowerCase();
+  if (hostname.startsWith('www.')) {
+    hostname = hostname.substr(4);
+  }
+  const accounts = fullConfig.accounts[hostname] || {};
+  for (const k in availableTrackers) {
+    const a = accounts[k];
+    if (a || k == 'internal') {
+      const t = availableTrackers[k];
+      t.init(a, userInfo);
+      activeTrackers.push(availableTrackers[k]);
     }
-    const accounts = fullConfig.accounts[hostname] || {};
-    for (const k in availableTrackers) {
-        const a = accounts[k];
-        if (a || k == 'internal') {
-            const t = availableTrackers[k];
-            t.init(a, userInfo);
-            activeTrackers.push(availableTrackers[k]);
-        }
-    }
+  }
 }
 
-const userInfo = info => {
-    let accumulatedInfo = localStorage.getItem('tracker.userInfo');
-    accumulatedInfo = accumulatedInfo ? JSON.parse(accumulatedInfo) : {};
-    for (const k in info) {
-        if (info[k]) {
-            accumulatedInfo[k] = info[k];
-        }
+const userInfo = (info) => {
+  let accumulatedInfo = localStorage.getItem('tracker.userInfo');
+  accumulatedInfo = accumulatedInfo ? JSON.parse(accumulatedInfo) : {};
+  for (const k in info) {
+    if (info[k]) {
+      accumulatedInfo[k] = info[k];
     }
-    localStorage.setItem('tracker.userInfo', JSON.stringify(accumulatedInfo));
+  }
+  localStorage.setItem('tracker.userInfo', JSON.stringify(accumulatedInfo));
 
-    activeTrackers.forEach(t => t.userInfo(accumulatedInfo));
+  activeTrackers.forEach((t) => t.userInfo(accumulatedInfo));
 };
 
 function hit(url) {
-    activeTrackers.forEach(t => t.hit(url));
+  activeTrackers.forEach((t) => t.hit(url));
 }
 
 function event(name) {
-    activeTrackers.forEach(t => t.event(name));
+  activeTrackers.forEach((t) => t.event(name));
 }
 
 init();
 
-export {userInfo, hit, event};
+export { userInfo, hit, event };

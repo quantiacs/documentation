@@ -14,10 +14,8 @@
 
 /* fix anchor link positioning  for fixed navbar */
 // FIXME this is not enough as it works only for section headers
-$anchorHeight = ($navbarHeight + 0.5rem)
+
 .content .section
-  margin-top -($anchorHeight)
-  padding-top $anchorHeight
   margin-bottom 0
 
   &:hover
@@ -34,10 +32,6 @@ $anchorHeight = ($navbarHeight + 0.5rem)
 
 .content
   // FIXME: sphinx should provide a citation-reference?
-
-  .footnote-reference, .label, dt, p
-    margin-top -($navbarHeight)
-    padding-top $navbarHeight
 
   & a:focus
     // remove outline because padding mess it up

@@ -8,19 +8,20 @@
 </template>
 
 <script setup>
-import {computed} from 'vue'
-import LocaleHelper from "./LocaleHelper"
+import { computed } from 'vue';
+import LocaleHelper from './LocaleHelper';
 
-const baseUrl = 'https://github.com/quantiacs/documentation'
+const baseUrl = 'https://github.com/quantiacs/documentation';
 
 const githubUrl = computed(() => {
-  const locale = LocaleHelper.getCurrentLocale()
-  const repositoryFile = '/tree/master/' + locale
-  return baseUrl + repositoryFile
-})
+  const locale = LocaleHelper.getCurrentLocale();
+  const repositoryFile = '/tree/master/' + locale;
+  return baseUrl + repositoryFile;
+});
 
-const messageUser = 'Caught a mistake or want to contribute to the documentation?'
-const messageEditGitHub = 'Edit this on GitHub!'
+const messageUser =
+  'Caught a mistake or want to contribute to the documentation?';
+const messageEditGitHub = 'Edit this on GitHub!';
 </script>
 
 <style scoped>

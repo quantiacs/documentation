@@ -1,12 +1,11 @@
 <template>
   <div class="page">
-    <slot/>
-    <slot name="bottom"/>
+    <slot />
+    <slot name="bottom" />
   </div>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style lang="stylus">
 @import './vuepress/styles/config.styl'

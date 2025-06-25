@@ -1,11 +1,23 @@
 <template>
   <div>
     <transition name="fade">
-      <button v-if="!isOpen" @click="toggleSidebar" class="mobile-menu-button-open">Open Menu</button>
+      <button
+        v-if="!isOpen"
+        @click="toggleSidebar"
+        class="mobile-menu-button-open"
+      >
+        Open Menu
+      </button>
     </transition>
     <div class="sidebar" :class="{ 'mobile-sidebar-open': isOpen }">
       <transition name="fade">
-        <button v-if="isOpen" @click="toggleSidebar" class="mobile-close-button">Close Menu</button>
+        <button
+          v-if="isOpen"
+          @click="toggleSidebar"
+          class="mobile-close-button"
+        >
+          Close Menu
+        </button>
       </transition>
       <slot></slot>
     </div>
@@ -13,12 +25,12 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue';
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 function toggleSidebar() {
-  isOpen.value = !isOpen.value
+  isOpen.value = !isOpen.value;
 }
 </script>
 

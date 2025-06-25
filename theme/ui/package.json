@@ -5,12 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint --fix && npm run format",
+    "format": "prettier --write \"**/*.{js,ts,vue,jsx,tsx,json,css,scss,md}\""
   },
   "engines": {
     "node": "22.x"
   },
   "dependencies": {
+    "@vue/compiler-sfc": "^3.5.13",
+    "mitt": "^3.0.1",
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -18,9 +21,16 @@
     "@vue/cli-plugin-babel": "^5.0.8",
     "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "@vue/compiler-sfc": "^3.5.13",
+    "axios": "^1.8.4",
+    "dompurify": "^3.2.5",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-vue": "^10.0.0",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.8",
+    "marked-highlight": "^2.2.1",
+    "prettier": "^3.5.3",
     "sass": "^1.86.3",
     "sass-loader": "^16.0.5",
     "stylus": "^0.64.0",
@@ -36,7 +46,7 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:prettier/recommended"
     ],
     "rules": {
       "no-console": "off",

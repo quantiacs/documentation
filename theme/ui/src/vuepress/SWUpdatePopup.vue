@@ -1,11 +1,8 @@
 <template>
   <transition name="sw-update-popup">
-    <div
-      v-if="enabled"
-      class="sw-update-popup"
-    >
-      {{message}}<br>
-      <button @click="reload">{{buttonText}}</button>
+    <div v-if="enabled" class="sw-update-popup">
+      {{ message }}<br />
+      <button @click="reload">{{ buttonText }}</button>
     </div>
   </transition>
 </template>
@@ -15,47 +12,46 @@ export default {
   props: {
     updateEvent: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
 
   computed: {
-    popupConfig () {
+    popupConfig() {
       for (const config of [this.$themeLocaleConfig, this.$site.themeConfig]) {
-        const sw = config.serviceWorker
+        const sw = config.serviceWorker;
         if (sw && sw.updatePopup) {
-          return typeof sw.updatePopup === 'object' ? sw.updatePopup : {}
+          return typeof sw.updatePopup === 'object' ? sw.updatePopup : {};
         }
       }
-      return null
+      return null;
     },
 
-    enabled () {
-      return Boolean(this.popupConfig && this.updateEvent)
+    enabled() {
+      return Boolean(this.popupConfig && this.updateEvent);
     },
 
-    message () {
-      const c = this.popupConfig
-      return (c && c.message) || 'New content is available.'
+    message() {
+      const c = this.popupConfig;
+      return (c && c.message) || 'New content is available.';
     },
 
-    buttonText () {
-      const c = this.popupConfig
-      return (c && c.buttonText) || 'Refresh'
-    }
+    buttonText() {
+      const c = this.popupConfig;
+      return (c && c.buttonText) || 'Refresh';
+    },
   },
 
   methods: {
-    reload () {
+    reload() {
       if (this.updateEvent) {
         this.updateEvent.skipWaiting().then(() => {
-          location.reload(true)
-        })
-        this.updateEvent = null
+          location.reload(true);
+        });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="stylus">

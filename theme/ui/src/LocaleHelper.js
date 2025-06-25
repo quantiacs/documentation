@@ -1,27 +1,26 @@
 export default class LocaleHelper {
-
-    static getCurrentLocale() {
-        const relativeUrl = window.location.pathname;
-        if (relativeUrl.includes('/en/')) {
-            return 'en';
-        }
-        if (relativeUrl.includes('/ru/')) {
-            return 'ru';
-        }
-        return 'ru';
+  static getCurrentLocale() {
+    const relativeUrl = window.location.pathname;
+    if (relativeUrl.includes('/en/')) {
+      return 'en';
     }
-
-    static getUrlRU() {
-        return LocaleHelper.getUrlFor('ru');
+    if (relativeUrl.includes('/ru/')) {
+      return 'ru';
     }
+    return 'ru';
+  }
 
-    static getUrlEN() {
-        return LocaleHelper.getUrlFor('en');
-    }
+  static getUrlRU() {
+    return LocaleHelper.getUrlFor('ru');
+  }
 
-    static getUrlFor(newLocale) {
-        const currentLocale = LocaleHelper.getCurrentLocale();
-        const currentUrl = window.location.pathname;
-        return currentUrl.split(`/${currentLocale}/`).join(`/${newLocale}/`);
-    }
+  static getUrlEN() {
+    return LocaleHelper.getUrlFor('en');
+  }
+
+  static getUrlFor(newLocale) {
+    const currentLocale = LocaleHelper.getCurrentLocale();
+    const currentUrl = window.location.pathname;
+    return currentUrl.split(`/${currentLocale}/`).join(`/${newLocale}/`);
+  }
 }
