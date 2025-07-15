@@ -9,7 +9,6 @@
           />
         </svg>
       </div>
-
       <h2 class="welcome-title">Need help with&nbsp;Quantiacs?</h2>
       <p class="welcome-text">
         Ask any question and the assistant will answer using the documentation.
@@ -19,7 +18,7 @@
     <div class="messages" v-else>
       <div
         v-for="(msg, index) in messages"
-        :key="index"
+        :key="msg.id"
         :class="{
           'user-msg': msg.sender === 'user',
           'ai-msg': msg.sender === 'assistant',
@@ -54,6 +53,14 @@
         placeholder="Type your question about Quantiacs…"
         rows="4"
       ></textarea>
+      <button
+        v-if="loading"
+        class="stop-btn"
+        title="Cancel request"
+        @click="cancelRequest"
+      >
+        ⏹
+      </button>
       <button :disabled="loading || !userInput.trim()" @click="sendMessage">
         Send
       </button>
@@ -78,7 +85,7 @@
     </div>
 
     <div class="notice">
-      Answers are AI‑generated. Data shared here may be used to train models. Do
+      Answers are AI-generated. Data shared here may be used to train models. Do
       not share sensitive data.
     </div>
 
@@ -87,8 +94,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue';
-import { sendChatMessageStream, fetchSuggestions } from './api.js';
+import { ref, onMounted, nextTick, watch, onUnmounted, toRaw } from 'vue';
+import {
+  sendChatMessageStream,
+  fetchSuggestions,
+  cancelStream,
+} from './api.js';
 import {
   saveChatHistory,
   loadChatHistory,
@@ -153,7 +164,18 @@ const copyMessage = (text, idx) =>
     }, 2000);
   });
 
-const updateHistory = () => saveChatHistory(messages.value);
+const updateHistory = () => saveChatHistory(toRaw(messages.value));
+
+const cancelRequest = () => {
+  cancelStream();
+  loading.value = false;
+  error.value = 'Request cancelled';
+  suggestions.value = [];
+};
+
+function simpleId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
 
 const sendMessage = async () => {
   if (loading.value) return;
@@ -161,7 +183,17 @@ const sendMessage = async () => {
   if (!userInput.value.trim() || userInput.value.length > maxLength) return;
   lastSendTime = Date.now();
 
-  messages.value.push({ sender: 'user', content: userInput.value });
+  cancelStream();
+  latestRequest++;
+  suggestions.value = [];
+  error.value = '';
+
+  const userMsg = {
+    id: simpleId(),
+    sender: 'user',
+    content: userInput.value,
+  };
+  messages.value = [...messages.value, userMsg];
   updateHistory();
 
   const formatted = messages.value.map((m) => ({
@@ -170,10 +202,13 @@ const sendMessage = async () => {
   }));
 
   loading.value = true;
-  error.value = '';
-  const assistantMessage = { sender: 'assistant', content: '' };
-  messages.value.push(assistantMessage);
-  suggestions.value = [];
+  const assistantMessage = {
+    id: simpleId(),
+    sender: 'assistant',
+    content: '',
+  };
+  messages.value = [...messages.value, assistantMessage];
+
   try {
     await sendChatMessageStream(
       { role: 'user', content: userInput.value },
@@ -184,8 +219,14 @@ const sendMessage = async () => {
       }
     );
     updateHistory();
-  } catch {
-    error.value = 'Error sending message';
+  } catch (err) {
+    const msg = String(err && err.message ? err.message : '').trim();
+    if (msg.includes('safety/relevance')) {
+      error.value =
+        'Sorry, your request must be related to developing trading strategies.';
+    } else {
+      error.value = 'Network error';
+    }
   } finally {
     loading.value = false;
     userInput.value = '';
@@ -196,6 +237,10 @@ const sendMessage = async () => {
 
 const handleInput = () => {
   clearTimeout(debounceTimer);
+  if (loading.value) {
+    suggestions.value = [];
+    return;
+  }
   const words = userInput.value.trim().split(/\s+/);
   if (words.length > 10 || userInput.value.length <= 3) {
     suggestions.value = [];
@@ -220,6 +265,10 @@ const selectSuggestion = (s) => {
 
 const eraseHistory = () => {
   messages.value = [];
+  error.value = '';
+  suggestions.value = [];
+  copiedIndex.value = null;
+  loading.value = false;
   clearChatHistory();
   nextTick(addCopyButtons);
 };
@@ -227,6 +276,11 @@ const eraseHistory = () => {
 onMounted(() => {
   messages.value = loadChatHistory();
   nextTick(addCopyButtons);
+});
+
+onUnmounted(() => {
+  cancelStream();
+  clearTimeout(debounceTimer);
 });
 
 watch(messages, async () => {
@@ -257,7 +311,6 @@ watch(messages, async () => {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Roboto, sans-serif;
-  max-width: 750px;
 }
 
 .welcome {
@@ -426,14 +479,6 @@ watch(messages, async () => {
   margin-bottom: 12px;
 }
 
-.input-area input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
 .input-area button {
   padding: 10px 16px;
   background: #1976d2;
@@ -447,6 +492,23 @@ watch(messages, async () => {
 .input-area button:disabled {
   background: #90caf9;
   cursor: not-allowed;
+}
+
+.stop-btn {
+  background: #e57373;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  padding: 0 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stop-btn:hover {
+  background: #d32f2f;
 }
 
 .suggestions {
@@ -463,6 +525,7 @@ watch(messages, async () => {
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 4px 0;
+  margin-top: 0;
   z-index: 10;
 }
 
@@ -533,10 +596,9 @@ watch(messages, async () => {
     padding: 12px;
   }
 
-  .input-area input,
+  .input-area textarea,
   .input-area button {
     font-size: 0.9rem;
-    padding: 8px;
   }
 }
 </style>

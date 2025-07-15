@@ -1,21 +1,42 @@
 let streamController = null;
 let suggestionController = null;
 
+const ai_url = '';
+
 const fetchWithAbort = (url, options, controller) =>
   fetch(url, { ...options, signal: controller.signal });
+
+export function cancelStream() {
+  if (streamController) {
+    streamController.abort();
+    streamController = null;
+  }
+  if (suggestionController) {
+    suggestionController.abort();
+    suggestionController = null;
+  }
+}
 
 export async function sendChatMessageStream(userMessage, _messages, onChunk) {
   if (streamController) streamController.abort();
   streamController = new AbortController();
 
-  const response = await fetch('/engine/ai/message/stream', {
+  const response = await fetch(ai_url + '/engine/ai/message/stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: userMessage.content }),
     signal: streamController.signal,
   });
 
-  if (!response.ok || !response.body) throw new Error('Network error');
+  if (!response.ok) {
+    let msg = 'Network error';
+    try {
+      msg = await response.text();
+    } catch {}
+    throw new Error(msg || 'Network error');
+  }
+
+  if (!response.body) throw new Error('Network error');
 
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
@@ -55,7 +76,7 @@ export async function fetchSuggestions(partialMessage) {
   suggestionController = new AbortController();
 
   const response = await fetchWithAbort(
-    '/engine/ai/message/autocomplete',
+    ai_url + '/engine/ai/message/autocomplete',
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
