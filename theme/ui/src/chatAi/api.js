@@ -21,15 +21,15 @@ export async function sendChatMessageStream(userMessage, messages, onChunk) {
   if (streamController) streamController.abort();
   streamController = new AbortController();
 
-  const payload =
-    !messages || messages.length <= 1
-      ? { message: messages?.[0]?.content ?? userMessage.content }
-      : { messages };
+  const text =
+    messages && messages.length > 1
+      ? messages.map((m) => `${m.role}: ${m.content}`).join('\n')
+      : (messages?.[0]?.content ?? userMessage.content);
 
   const response = await fetch(ai_url + '/engine/ai/message/stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ message: text }),
     signal: streamController.signal,
   });
 
