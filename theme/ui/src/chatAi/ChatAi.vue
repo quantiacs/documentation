@@ -111,6 +111,39 @@ import hljs from 'highlight.js';
 import DOMPurify from 'dompurify';
 import 'highlight.js/styles/atom-one-dark.css';
 
+const RECAPTCHA_SITE_KEY = '6LemyjEmAAAAAKqajJUnxmhThU-svok6MxCcuZcP';
+let recaptchaLoaded = false;
+
+function ensureRecaptcha() {
+  return new Promise((resolve) => {
+    if (window.grecaptcha && recaptchaLoaded) return resolve();
+    if (!document.getElementById('recaptcha-script')) {
+      const s = document.createElement('script');
+      s.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+      s.async = true;
+      s.defer = true;
+      s.id = 'recaptcha-script';
+      document.head.appendChild(s);
+    }
+    const check = () => {
+      if (window.grecaptcha) {
+        window.grecaptcha.ready(() => {
+          recaptchaLoaded = true;
+          resolve();
+        });
+      } else {
+        setTimeout(check, 50);
+      }
+    };
+    check();
+  });
+}
+
+const getRecaptchaToken = async (action) => {
+  await ensureRecaptcha();
+  return window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action });
+};
+
 const messages = ref([]);
 const userInput = ref('');
 const loading = ref(false);
@@ -210,13 +243,15 @@ const sendMessage = async () => {
   messages.value = [...messages.value, assistantMessage];
 
   try {
+    const token = await getRecaptchaToken('send_message');
     await sendChatMessageStream(
       { role: 'user', content: userInput.value },
       formatted,
       (chunk) => {
         assistantMessage.content += chunk;
         messages.value = [...messages.value];
-      }
+      },
+      token
     );
     updateHistory();
   } catch (err) {
@@ -250,7 +285,8 @@ const handleInput = () => {
     latestRequest++;
     const curr = latestRequest;
     try {
-      const res = await fetchSuggestions(userInput.value);
+      const token = await getRecaptchaToken('autocomplete');
+      const res = await fetchSuggestions(userInput.value, token);
       if (curr === latestRequest) suggestions.value = res;
     } catch {
       if (curr === latestRequest) suggestions.value = [];
@@ -273,8 +309,9 @@ const eraseHistory = () => {
   nextTick(addCopyButtons);
 };
 
-onMounted(() => {
+onMounted(async () => {
   messages.value = loadChatHistory();
+  await ensureRecaptcha();
   nextTick(addCopyButtons);
 });
 

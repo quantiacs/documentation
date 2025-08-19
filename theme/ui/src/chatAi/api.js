@@ -17,7 +17,12 @@ export function cancelStream() {
   }
 }
 
-export async function sendChatMessageStream(userMessage, messages, onChunk) {
+export async function sendChatMessageStream(
+  userMessage,
+  messages,
+  onChunk,
+  recaptchaToken
+) {
   if (streamController) streamController.abort();
   streamController = new AbortController();
 
@@ -29,7 +34,7 @@ export async function sendChatMessageStream(userMessage, messages, onChunk) {
   const response = await fetch(ai_url + '/engine/ai/message/stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: text }),
+    body: JSON.stringify({ message: text, recaptchaToken }),
     signal: streamController.signal,
   });
 
@@ -76,7 +81,7 @@ export async function sendChatMessageStream(userMessage, messages, onChunk) {
   flush(true);
 }
 
-export async function fetchSuggestions(partialMessage) {
+export async function fetchSuggestions(partialMessage, recaptchaToken) {
   if (suggestionController) suggestionController.abort();
   suggestionController = new AbortController();
 
@@ -85,7 +90,7 @@ export async function fetchSuggestions(partialMessage) {
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: partialMessage }),
+      body: JSON.stringify({ message: partialMessage, recaptchaToken }),
     },
     suggestionController
   );
