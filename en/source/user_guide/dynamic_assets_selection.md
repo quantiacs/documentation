@@ -44,8 +44,8 @@ weights = weights * data.sel(field="is_liquid")
 
 You can choose stocks with different levels of volatility:
 
-Low Volatility: Trade 150 stocks with the lowest volatility over the past 60 days.
-High Volatility: Focus on the 150 most volatile stocks.
+* **Low Volatility**: Trade 150 stocks with the lowest volatility over the past 60 days.
+* **High Volatility**: Focus on the 150 most volatile stocks.
 
 ```python
 import qnt.filter as qnfilter
@@ -100,7 +100,7 @@ def filter_volatility_rolling(data, weights, top_assets, rolling_window, metric=
 asset_filter = filter_volatility_rolling(data, weights, 150, 60, "std", True)
 weights = weights * asset_filter
 
-# Same way calculate Low Volatility
+# Same way to calculate Low Volatility
 # weights = weights * qnfilter.filter_volatility_rolling(data=data,
 #                                                     weights=strategy(data),
 #                                                     top_assets=150,

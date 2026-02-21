@@ -1,10 +1,10 @@
 # Xarray
-Here we give a short overview of important xarray features.
+This section provides a short overview of important xarray features.
 
-For a more detailed documentation on Xarray please go to [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/) or [API-Reference xarray](https://quantiacs.com/documentation/en/reference/operators.html#xarray)
+For a more detailed documentation on Xarray, please go to [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/) or [API-Reference xarray](https://quantiacs.com/documentation/en/reference/operators.html#xarray)
 
 ## Overview
-Consider for example cryptocurrency daily data from the last 5 years:
+Consider, for example, cryptocurrency daily data from the last 5 years:
 ```Python
 import xarray as xr
 import qnt.data as qndata
@@ -20,7 +20,7 @@ data = qndata.cryptodaily_load_data(tail=365*5)
 * **coords**: a dict-like container of arrays (coordinates) that label each point (e.g., 1-dimensional arrays of numbers, datetime objects or strings);
 * **attrs**: a dict to hold arbitrary metadata (attributes).
 
-in our example:
+In our example:
 
 **data.values**
 ```Python
@@ -79,7 +79,7 @@ data.sel(time='2021-10-19').sel(asset='BTC').sel(field='open')
 ## Functions
 A few important xarray functions:
 
-* **new xarray.DataArray with same shapes and dimensions but every value is 0. :**
+* **Create a new xarray.DataArray with the same shapes and dimensions but every value is 0:**
 
 ```python
 xr.zeros_like(data)

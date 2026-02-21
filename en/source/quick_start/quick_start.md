@@ -1,15 +1,15 @@
 ## About the platform
 
-**Quantiacs** hosts quantitative trading contests since 2014 and has allocated more than 30M USD to winning algorithms on futures markets. We are expanding the universe of assets you can use and adding new tools.
+**Quantiacs** has been hosting quantitative trading contests since 2014 and has allocated more than 30M USD to winning algorithms on futures markets. We are expanding the universe of assets you can use and adding new tools.
 
 > We **offer** to users:
 * a space to develop code and test ideas for forecasting global financial markets based on **Jupyter Notebook** and **JupyterLab**;
 * support for **Python**;
 * the power of the full **Anaconda** data science ecosystem;
-* up to free **8 GB of RAM** for each trading strategy;
+* up to **8 GB of free RAM** for each trading strategy;
 * access to historical **data** for futures, the Bitcoin future and cryptocurrencies;
 * trading strategy **templates** for getting started;
-* **prize money**. Participate to our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots. Allocations will be made to winners and quants will receive 10% of the generated profits without any downside risk.
+* **prize money**. Participate in our <a href='/contest' target='_blank'>competitions</a> and take one of the top spots. Allocations will be made to winners and quants will receive 10% of the generated profits without any downside risk.
 
 <p class="tip">Get started with Quantiacs!</p>
 
@@ -19,7 +19,7 @@
 * Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
 
 
-Take a look at the following slides for learning quickly the main steps for taking part to contests (note that, as we are improving the platform constantly and adding new features, the screenshots can be a little bit different from current status):
+Take a look at the following slides for quickly learning about the main steps for taking part in contests (note that as we are constantly improving the platform and adding new features, the screenshots may be slightly different from the current interface):
 
 
 <iframe
@@ -42,7 +42,7 @@ Our platform allows you to develop trading strategies in a simple and compact wa
 
 ### A basic example for futures
 
-**The idea is very simple**: allocate weights according to the price variation of the asset respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+**The idea is very simple**: allocate weights according to the price variation of the asset with respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
 This basic example uses liquid futures contracts:
 
 ```python
@@ -86,7 +86,7 @@ futures = qndata.futures.load_data(min_date='2006-01-01')
 
 **futures** is an xarray.DataArray structure which contains **futures historical data** since January 1, 2006. More details on xarray can be found at [https://xarray.pydata.org/en/stable/](https://xarray.pydata.org/en/stable/) or [User Guide xarray](https://quantiacs.com/documentation/en/user_guide/xarray.html)
 
-As the strategy uses price shifts to define weights, we define two auxiliary variables: the open prices of the assets at two consecutive sessions (the second is the open prices of the assts one day ago):
+As the strategy uses price shifts to define weights, we define two auxiliary variables: the open prices of the assets at two consecutive sessions (the second is the open prices of the assets one day ago):
 
 ```python
 price_open = futures.sel(field='open')
@@ -104,7 +104,7 @@ This example allocates weights proportionally to the **difference** between **pr
 ```python
 strategy = price_open - price_open_one_day_ago
 ```
-and trades all futures contracts which Quantiacs makes available. Note that we **normalize** positions so that we are fully invested:
+and trades all futures contracts that Quantiacs makes available. Note that we **normalize** positions so that we are fully invested:
 
 ```python
 weights = strategy / abs(strategy).sum('asset')
@@ -166,7 +166,7 @@ A detailed explanation can be found inspecting the source code for the library i
 
 ![Statistical indicators](table.png)
 
-Moreover we can produce a chart which shows the cumulative profits and losses:
+Moreover, we can produce a chart which shows the cumulative profits and losses:
 
 ```python
 import qnt.graph as qngraph
@@ -185,12 +185,12 @@ Once you are satisfied with the quality of your algorithm you can submit it. The
 
 The **check** function will **show possible problems** that your strategy has:
 ```python
-output.check(weights, data, 'futures')
+output.check(weights, futures, 'futures')
 ```
 
 The first check is connected to the possible presence of missing values in your algorithm. With the previous call to the **clean** function, this problem is automatically solved.
 
-The second check computes the In-Sample Sharpe ratio of your system. In this case, as the performance is negative, your submission would not be eligible for taking part to a contest. The In-Sample Sharpe ratio must be larger than 0.7.
+The second check computes the In-Sample Sharpe ratio of your system. In this case, as the performance is negative, your submission would not be eligible for taking part in a contest. The In-Sample Sharpe ratio must be larger than 0.7.
 
 The third check controls correlation with existing templates and with all systems submitted to previous contests.
 

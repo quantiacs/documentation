@@ -405,7 +405,7 @@ scale(df, k)<br/><br/><br/><br/><br/><br/>
 <pre lang="python">
 def scale(df, k=1):
     """
-    Scaled time serie.
+    Scaled time series.
     :param df: a pandas.DataFrame.
     :param k: scaling factor.
     :return: a pandas.DataFrame rescaled such that sum(abs(df)) = k

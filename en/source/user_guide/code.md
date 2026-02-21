@@ -22,7 +22,6 @@ When you work inside the Quantiacs Jupyter environment you will have access to a
 Strategies need to pass filters for being accepted to our contests: for example, the In-Sample Sharpe ratio should be larger than 0.7 at submission time.
 We advise you to run this notebook before submitting your **strategy** and fix all ERROR and WARNING messages.
 Use this notebook if you want to submit single-pass implementation.
-If you use multi-pass(qnt.backtest), you this check is not necessary.
+If you use multi-pass (qnt.backtest), this check is not necessary.
 
-- **strategy.ipynb**: This file MUST contain your strategy for submission. We recommend using a separate instance of a jupyter notebook (which you can call for example **research.ipynb**) for development. Once you are ready to submit, you should remove unnecessary components and submit the optimized version coded in the **strategy.ipynb** file.
-
+- **strategy.ipynb**: This file MUST contain your strategy for submission. We recommend using a separate instance of a jupyter notebook (which you can call, for example, **research.ipynb**) for development. Once you are ready to submit, you should remove unnecessary components and submit the optimized version coded in the **strategy.ipynb** file.

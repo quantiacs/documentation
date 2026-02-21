@@ -148,7 +148,7 @@ qnout.write(weights)  # to participate in the competition
 - **Issues with indicators based on stock prices:**
   - If a company conducts a stock split before publishing a report, indicators can show unexpected changes, distorting the analysis.
 
-> The current implementation of Quantiacs partially resolve these issues:
+> The current implementation of Quantiacs partially resolves these issues:
 
 - When constructing an indicator, one formula is used for all companies, allowing them to be compared under "similar" conditions.
 - If key data for calculation is missing, the algorithm tries to restore it using other facts or indicators.

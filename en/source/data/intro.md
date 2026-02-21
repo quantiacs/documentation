@@ -82,12 +82,12 @@ is_liquid = data.sel(field="is_liquid")
 | View a list of all tickers                         | `data.asset.to_pandas().to_list()`                                                                                                                               |
 | See which fields are available                     | `data.field.to_pandas().to_list()`                                                                                                                               |
 | Load specific tickers                              | `data = qndata.stocks.load_spx_data(min_date="2005-06-01", assets=["NAS:AAPL", "NAS:AMZN"])`                                                                     |
-| Select specific tickers after loading all data     | `def get_data_filter(data, assets):`<br>&emsp;`filler= data.sel(asset=assets)`<br>&emsp;`return filler`<br><br>`get_data_filter(data, ["NAS:AAPL", "NAS:AMZN"])` |
-| Loads a list of NASDAQ-listed stocks               | `stocks_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')`                                                                                               |
-| Loads a list of available futures contracts.       | `future_list = qndata.futures.load_list()`                                                                                                                       |
+| Select specific tickers after loading all data     | `def get_data_filter(data, assets):`<br>&emsp;`filtered = data.sel(asset=assets)`<br>&emsp;`return filtered`<br><br>`get_data_filter(data, ["NAS:AAPL", "NAS:AMZN"])` |
+| Load a list of NASDAQ-listed stocks               | `stocks_list = qndata.stocks.load_ndx_list(min_date='2006-01-01')`                                                                                               |
+| Load a list of available futures contracts.       | `future_list = qndata.futures.load_list()`                                                                                                                       |
 | List of sectors.                                   | `sectors = [x['sector'] for x in stocks_list]`                                                                                                                   |
-| Filter list of asset IDs for the specified sector. | `assets_for_sector = [x['id'] for x in stocks_list if x['sector'] == "Energy"]`                                                                                  |
-| Load specific tickers for sector                   | `data = qndata.stocks.load_spx_data(min_date="2005-06-01", assets=assets_for_sector)`                                                                            |
+| Filter a list of asset IDs for the specified sector. | `assets_for_sector = [x['id'] for x in stocks_list if x['sector'] == "Energy"]`                                                                                  |
+| Load specific tickers for a sector                   | `data = qndata.stocks.load_spx_data(min_date="2005-06-01", assets=assets_for_sector)`                                                                            |
 
 ## Xarray
 

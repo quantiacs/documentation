@@ -1,6 +1,6 @@
 # Algorithm quality
 
-Once we have developed an algorithm we can have an idea of its performance by an  inspection of a few statistical indicators, for example the equity chart.
+Once we have developed an algorithm, we can have an idea of its performance by an inspection of a few statistical indicators, for example the equity chart.
 
 Basically there are two main ways to evaluate the performance of your algorithm:
 - [Single-pass Backtesting](#single-pass-backtesting)
@@ -11,7 +11,7 @@ Basically there are two main ways to evaluate the performance of your algorithm:
 
 With single-pass backtesting you give a set of allocation weights (fractions of capital to be invested) for all assets over the entire backtesting period.
 
-This approach evaluates your strategy very quickly, **but you need to be careful** because it cannot check if your algorithm uses data of the future when determining allocation weights.
+This approach evaluates your strategy very quickly, **but you need to be careful** because it cannot check if your algorithm uses future data when determining allocation weights.
 
 Let us consider a simple long-only strategy on the S&P500 Index Futures: we go long once the Simple Moving Average (**qnta.sma**) of the close price over the last 20 trading days is larger than the Simple Moving Average of the close price over the last 150 trading days.
 
@@ -85,7 +85,7 @@ For a more detailed description on evaluating your algorithm with single-pass ba
 ## Multi-Pass Backtesting
 For multi-pass backtesting on the other hand, you define a function that provides a set of allocation weights for the next trading day based on the entire data up to that day.
 
-This approach actively **prevents** looking-in-the-future issues.
+This approach actively **prevents** look-ahead bias issues.
 
 Let us consider a simple long-only strategy on Cryptocurrencies: we go long once the Simple Moving Average (**qnta.sma**) of the close price over the last 20 trading days is larger than the Simple Moving Average of the close price over the last 200 trading days.
 
