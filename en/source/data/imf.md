@@ -110,8 +110,8 @@ display(pd.DataFrame(commodity_list))
 - [Machine Learning - predict futures BTC use IMF Commodity Data](https://github.com/quantiacs/strategy-ml-predict-BTC-use-IMF/blob/master/strategy.ipynb)
   Strategy idea: We will open crypto futures BTC positions as predicted by the RidgeClassifier.
 
-> This strategy leverages IMF data on Gold prices and uses EMA and TRIX indicators to identify trends, generating
-> position weights for Nasdaq 100 stock
+> This strategy uses IMF data on Gold prices with EMA and TRIX indicators to identify trends and produce
+> position weights for Nasdaq 100 stocks.
 
 ```python
 from IPython.display import display
@@ -252,8 +252,8 @@ display(pd.DataFrame(currency_list))
 - [Futures - Using IMF Currency Data](https://github.com/quantiacs/strategy-futures-currency/blob/master/strategy.ipynb)
   This template uses International Monetary Fund currency data and shows an algorithm for futures contracts.
 
-> This strategy leverages IMF data on EUR and uses EMA and TRIX indicators to identify trends, generating
-> position weights for Nasdaq 100 stock
+> This strategy uses IMF data on EUR with EMA and TRIX indicators to identify trends and produce
+> position weights for Nasdaq 100 stocks.
 
 ```python
 from IPython.display import display

@@ -2,17 +2,17 @@
 
 ## QNT Technical Indicators
 
-The **qnt.ta** module is a collection of technical analysis indicators and functions specially optimized for working with qnt, a platform for quantitative finance research and trading strategies. 
+The **qnt.ta** module is a collection of technical analysis indicators and functions built for the qnt platform.
 
 Indicator groups:
 
-1. **Moving Averages**: These indicators calculate the average price over a specified number of periods to help identify trends in the market.
-2. **Oscillators**: These indicators measure the momentum and trend of the market by comparing the current price to its historical average.
-3. **Volatility Indicators**: These indicators help to identify how much the price of an asset is changing over time, which can be useful for managing risk.
-4. **Volume Indicators**: These indicators measure the strength or weakness of a price trend based on the volume of trades occurring in the market.
-5. **Overlap Studies**: These indicators are used to identify potential areas of support and resistance by analyzing the relationship between the current price and its historical moving averages.
-6. **Momentum Indicators**: These indicators measure the rate of change of an asset's price over time to help identify trend reversals.
-7. **Cycle Indicators**: These indicators help identify trends in the market by analyzing repeating patterns over a fixed period of time.
+1. **Moving Averages**: Calculate the average price over a specified number of periods to help identify trends.
+2. **Oscillators**: Measure momentum and trend by comparing the current price to its historical average.
+3. **Volatility Indicators**: Track how much an asset's price changes over time, useful for risk management.
+4. **Volume Indicators**: Measure the strength or weakness of a price trend based on trading volume.
+5. **Overlap Studies**: Identify potential support and resistance areas by comparing the current price to its historical moving averages.
+6. **Momentum Indicators**: Measure the rate of price change over time to help identify trend reversals.
+7. **Cycle Indicators**: Identify trends by analyzing repeating patterns over a fixed period.
 
 ```Python
 import qnt.data as qndata
@@ -140,23 +140,17 @@ print(sma_20, ema_20, wilder_ma_20,
 
 ## TA-Lib Technical Indicators
 
-The **xr_talib.py** is a module from the qnt library that serves as a wrapper for using the popular **TA-Lib library** with xarray. It  provides an extensive collection of technical analysis indicators for analyzing financial market data.
+The **xr_talib.py** module is a wrapper around the **TA-Lib library** for use with xarray. It provides technical analysis indicators for financial market data.
 
 Indicator groups:
 
-1. **Overlap Studies**: Smooth or filter price data for identifying trends and support/resistance levels. (e.g., moving averages, Bollinger Bands)
-
-2. **Momentum Indicators**: Measure price change rate to identify trend strength or reversals. (e.g., RSI, MACD, Stochastic Oscillator)
-
-3. **Volume Indicators**: Analyze the relationship between trading volume and price movements. (e.g., OBV, CMF, MFI)
-
-4. **Volatility Indicators**: Measure price fluctuations to identify high volatility periods. (e.g., ATR, Bollinger Bands, Standard Deviation)
-
-5. **Price Transform**: Apply mathematical transformations to price data. (e.g., Weighted Close, Typical Price, Median Price)
-
-6. **Cycle Indicators**: Identify and measure repeating price patterns and cycles. (e.g., Hilbert Transform, Sine Wave)
-
-7. **Pattern Recognition**: Identify price patterns or candlestick formations signaling trend reversals or continuations. (e.g., Engulfing, Doji, Hammer)
+1. **Overlap Studies**: Smooth or filter price data to find trends and support/resistance levels (e.g. moving averages, Bollinger Bands).
+2. **Momentum Indicators**: Measure rate of price change to gauge trend strength or reversals (e.g. RSI, MACD, Stochastic Oscillator).
+3. **Volume Indicators**: Relate trading volume to price movements (e.g. OBV, CMF, MFI).
+4. **Volatility Indicators**: Measure price fluctuations to spot high-volatility periods (e.g. ATR, Bollinger Bands, Standard Deviation).
+5. **Price Transform**: Apply mathematical transformations to price data (e.g. Weighted Close, Typical Price, Median Price).
+6. **Cycle Indicators**: Detect repeating price patterns and cycles (e.g. Hilbert Transform, Sine Wave).
+7. **Pattern Recognition**: Detect candlestick formations that may signal trend reversals or continuations (e.g. Engulfing, Doji, Hammer).
 
 ### Overlap Studies
 
@@ -566,8 +560,8 @@ print(beta, correl, linearreg, linearreg_angle, linearreg_intercept, linearreg_s
 
 ## Examples
 
-* [Q18 Technical Analysis using Index Data](https://quantiacs.com/documentation/en/examples/q18_technical_analysis_using_index_data.html) - This strategy uses the SP500 index data and technical indicators to trade NASDAQ stocks.
+* [Q18 Technical Analysis using Index Data](https://quantiacs.com/documentation/en/examples/q18_technical_analysis_using_index_data.html) - Uses SP500 index data and technical indicators to trade NASDAQ stocks.
 
-* [Technical Analysis using trix, ema](https://quantiacs.com/documentation/en/examples/technical_analysis_using_trix_ema.html) - The template defines a trading strategy that combines TRIX and EMA technical indicators to calculate weights for NASDAQ 100 stocks.
+* [Technical Analysis using trix, ema](https://quantiacs.com/documentation/en/examples/technical_analysis_using_trix_ema.html) - Combines TRIX and EMA indicators to calculate weights for NASDAQ 100 stocks.
 
-* [Technical Analysis using atr, lwma](https://quantiacs.com/documentation/en/examples/technical_analysis_using_atr_lwma.html) - The template defines a trading strategy that combines ATR and LWMA technical indicators to calculate weights for NASDAQ 100 stocks.
+* [Technical Analysis using atr, lwma](https://quantiacs.com/documentation/en/examples/technical_analysis_using_atr_lwma.html) - Combines ATR and LWMA indicators to calculate weights for NASDAQ 100 stocks.

@@ -78,8 +78,7 @@ btc_data = qndata.cryptodaily.load_data(tail=365 * 8, dims=('time', 'field', 'as
 
 ### Examples
 
-> This trading strategy uses a moving average crossover system for Crypto Daily Long contest, taking long positions when
-> the 10-day LWMA is above the 50-day LWMA, considering the asset's liquidity.
+> This trading strategy uses a moving average crossover system for the Crypto Daily Long contest. It takes long positions when the 10-day LWMA is above the 50-day LWMA, filtered by asset liquidity.
 
 ```python
 # import os
@@ -131,8 +130,7 @@ print(statistics.to_pandas().tail())
 # )
 ```
 
-> This example demonstrates how to use various data sources to predict the stock market. It leverages futures, stocks,
-> and cryptocurrency data to build a strategy.
+> This example uses futures, stocks, and cryptocurrency data together to predict the stock market and build a trading strategy.
 
 ```python
 # import os

@@ -1,22 +1,21 @@
 # Local development of trading strategies
 
-## Using a Conda Environment
+## Using a Conda environment
 
-The Quantiacs library (QNT) is optimized for local strategy development. We recommend using **Conda** for its stability
-and ease of managing dependencies.
+The Quantiacs library (QNT) works well for local strategy development. We recommend **Conda** because it handles
+dependencies reliably.
 
-### Setup Instructions
+### Setup instructions
 
-You can follow these easy steps and create an isolated environment on your machine using **conda** for managing
-dependencies and avoiding conflicts:
+Follow these steps to create an isolated environment on your machine using **conda**:
 
 1. **Install Anaconda**: Download and install Anaconda
-   from [Anaconda's official site](https://www.anaconda.com/products/individual).
+   from [the Anaconda website](https://www.anaconda.com/products/individual).
 
    *Tip: Anaconda comes pre-loaded with all the packages. If you want a smaller footprint on your system, you can
    use [Miniconda](https://docs.conda.io/en/latest/miniconda.html) instead.*
 
-2. **Create a QNT Development Environment**:
+2. **Create a QNT development environment**:
     - Open your terminal and run:
       ```bash
       conda create -n qntdev -c conda-forge 'python>=3.11,<3.14' 'ipywidgets=8.1.7' 'nbformat>=5.10.4' ipykernel ta-lib 'quantiacs-source::qnt' dash
@@ -27,7 +26,7 @@ dependencies and avoiding conflicts:
       conda config --set auto_activate_base false
       ```
 
-3. **API Key Configuration**:
+3. **API key configuration**:
     - Retrieve your API key from your [Quantiacs profile](https://quantiacs.com/personalpage/homepage).
 
    ![key](./pictures/key.png)
@@ -41,7 +40,7 @@ dependencies and avoiding conflicts:
       import os
       os.environ['API_KEY'] = "{your_api_key_here}"
       ```
-4. **Using the Environment**:
+4. **Using the environment**:
     - Activate the environment with:
      ```bash
    conda activate qntdev
@@ -53,7 +52,7 @@ dependencies and avoiding conflicts:
     - Always reactivate when returning to development.
 
 
-5. **Strategy Development**:
+5. **Strategy development**:
     - Develop in your preferred IDE.
     - For Jupyter notebook usage:
       ```bash
@@ -61,12 +60,12 @@ dependencies and avoiding conflicts:
       ```
 
 
-6. **Contest Participation**:
+6. **Contest participation**:
     - Develop and test your strategy, then submit it to Quantiacs contests.
 
 ### Updating the conda environment
 
-- Regularly update the QNT library for the latest features and fixes:
+- Update the QNT library periodically to get the latest features and bug fixes:
 
 ```bash
     ## you can remove the old one before that
@@ -77,16 +76,16 @@ dependencies and avoiding conflicts:
 
 You can see the library updates [here](https://anaconda.org/quantiacs-source/qnt/files).
 
-## Pip Environment
+## Pip environment
 
-> Note: While Conda is recommended, Pip can also be used, especially if Conda is not an option.
+> Note: Conda is recommended, but Pip works too, especially if Conda is not an option.
 
-This one-liner combines the installation of Python, creation of a virtual environment, and installation of necessary
+This one-liner installs Python, creates a virtual environment, and installs the needed
 libraries.
 
-### Single Command Setup
+### Single command setup
 
-1. **One Command Setup**:
+1. **One command setup**:
     - Ensure you have [`pyenv`](https://github.com/pyenv/pyenv)
       and [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) installed.
     - Run the following command in your terminal:
@@ -103,11 +102,11 @@ libraries.
     - Activate the environment for the current directory.
     - Install the Quantiacs toolbox and other necessary Python libraries.
 
-2. **TA-Lib Installation**:
+2. **TA-Lib installation**:
     - The [TA-Lib library](https://github.com/TA-Lib/ta-lib-python) may need to be installed separately due to its
       specific installation requirements.
 
-3. **Setting the API Key**:
+3. **Setting the API key**:
     - Set the Quantiacs API key in your code:
       ```python
       import os
@@ -126,6 +125,7 @@ python -m pip install --upgrade git+https://github.com/quantiacs/toolbox.git
 
 ## Google Colab support
 
+
 If you want to use Google Colab with a hosted runtime, start with this [notebook](../_static/colab.ipynb).
 
 This notebook contains the necessary commands to configure a hosted runtime.
@@ -139,28 +139,26 @@ You can open any strategy on [Quantiacs](https://quantiacs.com) and check depend
 
 1. **Launch Jupyter**: Start Jupyter Notebook or Jupyter Lab.
 
-2. **Open a Strategy File**: Load any `.ipynb` strategy file.
+2. **Open a strategy file**: Load any `.ipynb` strategy file.
 
-3. **List Dependencies**: Execute `!conda list` in a notebook cell to display installed packages.
+3. **List dependencies**: Execute `!conda list` in a notebook cell to display installed packages.
 
-4. **Review Dependencies**: Ensure all required dependencies for your strategy are present and up-to-date.
+4. **Review dependencies**: Make sure all required dependencies for your strategy are present and up to date.
 
-This quick check aids in maintaining a robust environment for your Quantiacs trading strategies.
+This quick check helps keep your Quantiacs development environment in working order.
 
-## How to Check the qnt Library
+## How to check the qnt library
 
-Using the Quantiacs (qnt) library involves a few basic steps to create and run a trading strategy. Here's a guide on how
-to do it:
+To use the Quantiacs (qnt) library, follow these basic steps to create and run a trading strategy.
 
-### Step 1: Create a Strategy
+### Step 1: Create a strategy
 
-The first step in utilizing the qnt library is to define your trading strategy. An example of a simple strategy is
-provided below in the `strategy.py` file. This example demonstrates a basic long-short trading strategy based on the
+First, define your trading strategy. The `strategy.py` file below shows a basic long-short strategy based on the
 crossing of two simple moving averages (SMAs) with lookback periods of 20 and 200 trading days.
 
-### Example Strategy: Simple Moving Average Crossover
+### Example strategy: simple moving average crossover
 
-The following Python code illustrates a straightforward implementation of a trading strategy using the qnt library:
+Here is a trading strategy implemented with the qnt library:
 
 ```python
 # import os
@@ -195,20 +193,18 @@ qnbk.backtest(
 
 ```
 
-### Step 2: Run the Strategy Using the Command
+### Step 2: Run the strategy
 
-After creating your strategy, the next step is to run it using the Python command line. To execute your strategy, you
-can use the following command in your Python environment:
+After creating your strategy, run it from the command line:
 
 ```bash
 python strategy.py
 ```
 
-This command runs the strategy.py script, which contains the defined trading strategy and invokes the backtest function
-from the qnt library. It's important to ensure that the Python environment where you run this command has the qnt
-library installed and is properly set up to access market data.
+This runs the strategy.py script, which calls the backtest function from the qnt library. Make sure the qnt library
+is installed in your Python environment and that the environment is set up to access market data.
 
-**Executing and submitting your strategy:**
+**Submitting your strategy:**
 
 1. When you finish with developing your strategy, you need to upload your code in the **Jupyter Notebook environment on
    the Quantiacs webpage.** There are 2 options:

@@ -1,6 +1,6 @@
 # Evaluation
 
-## Single-Pass Backtesting
+## Single-pass backtesting
 
 This approach allows to evaluate your strategy very fast.
 It is very useful when you use any kind of optimization.
@@ -10,7 +10,7 @@ So it is necessary to test your strategy using multi-pass approach to avoid look
 It is possible to adapt multi-pass strategy for multi-pass backtester.
 See the files in the folder `examples` in the jupyter environment on the platform (or in the package `qnt.examples`).
 
-### Write Weights
+### Write weights
 
 The necessary input for backtesting is a set of allocation **weights** (fractions of capital to be invested) for all
 assets over the backtesting period. Let us suppose that we wrote the code:
@@ -57,7 +57,7 @@ qnt.output.write(weights)
 
 None, the call is mandatory as it will write weights to file used for evaluating performance.
 
-### Clean Weights
+### Clean weights
 
 We provide you with a **clean** function which can be used for performing sanity checks on the defined weights. The
 function can be called before writing:
@@ -95,7 +95,7 @@ it will remove them and leave Bitcoin futures only.
 
 An xarray.DataArray with the cleaned weights ready for submission.
 
-### Check Weights
+### Check weights
 
 In addition to the clean function we provide a **check** function which will return you warnings if issues with weights
 are present. The function can be called before writing:
@@ -132,7 +132,7 @@ If kind="crypto", the code will check in addition if other futures in addition t
 
 None, only warning messages will be displayed.
 
-## Multi-Pass Backtesting
+## Multi-pass backtesting
 
 We provide you with a function for performing an optional backtesting which explicitly forbids looking-forward issues
 with a multi-pass implementation where at timestamp "t" only data until timestamp "t" are available by construction. It
@@ -192,7 +192,7 @@ qnt.backtester.backtest(competition_type, load_data, lookback_period, test_perio
 
 It returns the xarray.DataArray of **weights** and performs automatically calls to **clean**, **check** and **write**.
 
-## Stateful Multi-pass Backtesting
+## Stateful multi-pass backtesting
 
 If you want to pass the state between iterations using the multi-pass backtesting,
 you can do it this way:
@@ -262,20 +262,18 @@ The evaluation of a stateful strategy may be slower
 than the evaluation of a stateless strategy (which does not use states),
 because the evaluator cannot parallelize the running of iterations.
 
-### Stateful Multi-pass Backtest ML
+### Stateful multi-pass backtest ML
 
 [LSTM Neural Network for Predicting Stock Price Movements using
 State](https://github.com/quantiacs/strategy-ml_lstm_state/blob/master/strategy.ipynb)
 
-This repository provides an example of using the **backtest_ml** function with **state**, calculating complex indicators, dynamically selecting stocks for
-trading, and implementing basic risk management measures, such as normalizing and reducing large positions. It also
-includes recommendations for submitting strategies to the competition.
+This repository shows how to use the **backtest_ml** function with **state**. It covers complex indicators, dynamic stock selection, and basic risk management (normalizing and reducing large positions). It also includes recommendations for submitting strategies to the competition.
 
 ## Statistics
 
-### Calculating Statistics
+### Calculating statistics
 
-For estimating the profitability of our algorithm we measure the Sharpe ratio, the most important and popular metric. We
+To estimate the profitability of our algorithm we measure the Sharpe ratio, a widely used metric. We
 use the annualized Sharpe ratio and assume that there are ≈252 trading days on average per year. The annualized Sharpe
 ratio must be larger than 0.7 at submission time for the In-Sample test. The In-Sample period depends on the competition
 kind:
@@ -283,7 +281,7 @@ kind:
 * Futures: since January 1, 2006 to submission time;
 * Bitcoin Futures: since January 1, 2014 to submission time.
 
-The **calc_stat** function allows to calculate the complete statistics of an algorithm including the Sharpe ratio.
+The **calc_stat** function calculates the full statistics of an algorithm, including the Sharpe ratio.
 
 **Function**
 
@@ -388,8 +386,8 @@ qnout.check(weights, data, "futures")
 qnout.write(weights)
 ```
 
-After the weights have been computed, you can calculate the statistics in order to evaluate the algorithm in the
-In-Sample periods using:
+After computing the weights, you can calculate statistics to evaluate the algorithm in the
+In-Sample period:
 
 ```python
 stat = qnstats.calc_stat(data, weights.sel(time=slice("2006-01-01", None)))

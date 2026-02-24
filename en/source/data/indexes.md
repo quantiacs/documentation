@@ -38,7 +38,7 @@ Examples
 
 - [Predicting NASDAQ 100 Stocks Using the SPX Index](https://github.com/quantiacs/strategy-predict-NASDAQ100-use-SPX/blob/master/strategy.ipynb)
 
-> This example demonstrates predicting the stock market using SPX index data to develop a trading strategy.
+> This example predicts stock market movements with SPX index data to build a trading strategy.
 
 Single pass version for faster development
 

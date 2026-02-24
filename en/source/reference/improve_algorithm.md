@@ -1,6 +1,6 @@
 # Improve the strategy
 
-## Exposure improving
+## Improving exposure
 
 If the algorithm does not pass the [exposure filter](https://quantiacs.io/documentation/en/improve/max-sw.html), one may use one of the two options below:
 
@@ -62,7 +62,7 @@ qnstats.check_exposure(out4)
 
 ## Neutralization
 
-We can exclude the market influence by balancing long/short positions for our algorithm. Thus, the total investment in the market will be $0. The neutralization could be done for the whole market or each industry (or smaller group). Mathematically, market neutralization is elementary - one needs to substruct the mean value for each day. The more details are [here](https://quantiacs.io/documentation/en/improve/neutralization.html).
+We can exclude the market influence by balancing long/short positions for our algorithm. The total investment in the market will then be $0. The neutralization can be done for the whole market or each industry (or smaller group). Mathematically, market neutralization is straightforward: subtract the mean value for each day. More details are [here](https://quantiacs.io/documentation/en/improve/neutralization.html).
 
 **Function**
 ```python
@@ -83,7 +83,7 @@ The output is xarray DataArray with neutralized positions among the selected gro
 
 **Example**
 
-We can consider the implementation of the neutralization function on an example of an investing strategy. Each algorithm starts with loading libraries and data:
+Here is an example of how to use the neutralization function with an investing strategy. Each algorithm starts with loading libraries and data:
 
 ```python
 # Basic libraries.

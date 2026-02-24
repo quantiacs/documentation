@@ -1,8 +1,8 @@
 # Algorithm quality
 
-Once we have developed an algorithm, we can have an idea of its performance by an inspection of a few statistical indicators, for example the equity chart.
+After developing an algorithm, you can evaluate its performance using statistical indicators like the equity chart.
 
-Basically there are two main ways to evaluate the performance of your algorithm:
+There are two main ways to evaluate your algorithm:
 - [Single-pass Backtesting](#single-pass-backtesting)
 - [Multi-pass Backtesting](#multi-pass-backtesting)
 ----
@@ -11,7 +11,7 @@ Basically there are two main ways to evaluate the performance of your algorithm:
 
 With single-pass backtesting you give a set of allocation weights (fractions of capital to be invested) for all assets over the entire backtesting period.
 
-This approach evaluates your strategy very quickly, **but you need to be careful** because it cannot check if your algorithm uses future data when determining allocation weights.
+This approach evaluates your strategy quickly, but it cannot check whether your algorithm uses future data when determining allocation weights.
 
 Let us consider a simple long-only strategy on the S&P500 Index Futures: we go long once the Simple Moving Average (**qnta.sma**) of the close price over the last 20 trading days is larger than the Simple Moving Average of the close price over the last 150 trading days.
 
@@ -128,7 +128,7 @@ weights = qnbt.backtest(
     strategy= strategy
 )
 ```
-The backtesting happens when we call **qnbt.backtest()**. After completion it gives us different statistics and graphs, including:
+The backtesting runs when you call **qnbt.backtest()**. After it finishes, you get statistics and graphs, including:
 * it automatically checks the sharpe ratio:
 
 
@@ -136,12 +136,12 @@ The backtesting happens when we call **qnbt.backtest()**. After completion it gi
 
 Please note that a **submission** needs to have an In-Sample Sharpe ratio **larger than 0.7!**
 
-* it provides an overview over key statistic each day with an slidable interface:
+* it shows key statistics for each day in a slidable interface:
 
 
 ![crypto stats](./pictures/crypto_stats.png)
 
-* it also helps with evaluation of your algorithm by automatically visualizing different charts; for example equity, and underwater chart:
+* it also visualizes different charts automatically, for example equity and underwater:
 
 ![equity crypto](./pictures/crypto_equity.png)
 ![underwater crypto](./pictures/crypto_underwater.png)

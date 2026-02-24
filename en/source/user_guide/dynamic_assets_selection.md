@@ -1,12 +1,12 @@
 # Dynamic Assets Selection
 
-This chapter outlines methods for dynamic stock selection designed to enhance trading strategies. You can tailor these
-methods to suit your specific needs, using the provided examples to help you develop your own stock selection criteria.
-It is important to aim for diversity in your portfolio by including a multitude of stocks.
+This chapter covers methods for dynamic stock selection in trading strategies. You can adapt these
+methods to your needs, using the examples below to develop your own stock selection criteria.
+Try to include many stocks in your portfolio to keep it diversified.
 
-## Example Strategy in Python
+## Example strategy in Python
 
-Let's start with a basic strategy that uses moving averages to determine the moments for buying and selling stocks:
+Here is a basic strategy that uses moving averages to decide when to buy and sell stocks:
 
 ```python
 import xarray as xr
@@ -29,18 +29,17 @@ def strategy(data):
 weights = strategy(data)
 ```
 
-## Applying to Liquid Assets
+## Applying to liquid assets
 
-This liquidity filter, focusing specifically on Nasdaq 100 assets, is **the main filter you are highly recommended to
-use**, especially if you plan to
-participate in competitions. It multiplies the strategy weights by a liquidity indicator, effectively filtering out
+This liquidity filter targets Nasdaq 100 assets and is **the main filter you should use**, especially if you plan to
+enter competitions. It multiplies the strategy weights by a liquidity indicator, which removes
 non-liquid stocks:
 
 ```python
 weights = weights * data.sel(field="is_liquid")
 ```
 
-## Trading Stocks with Different Volatilities
+## Trading stocks with different volatilities
 
 You can choose stocks with different levels of volatility:
 
@@ -60,7 +59,7 @@ high_volatility = qnfilter.filter_volatility(data=data, rolling_window=60, top_a
 weights = weights * high_volatility
 ```
 
-## Selecting Stocks by Sharpe Ratio
+## Selecting stocks by Sharpe ratio
 
 Select stocks that show the best results by Sharpe ratio:
 
@@ -81,9 +80,9 @@ weights = weights * asset_filter
 # weights = weights * qnfilter.filter_sharpe_ratio(data, weights, 150) # this can be done in one line
 ```
 
-## Volatility Using a Rolling Window
+## Volatility using a rolling window
 
-This method allows filtering stocks based on volatility calculated over a specified time window:
+This method filters stocks by volatility calculated over a specified time window:
 
 ```python
 import qnt.stats as qnstats
@@ -109,11 +108,11 @@ weights = weights * asset_filter
 #                                                     ascending=True)
 ```
 
-## Filtering Stocks by Normalized Average True Range (NATR)
+## Filtering stocks by normalized average true range (NATR)
 
-The Normalized Average True Range (NATR) is a volatility metric that adjusts the Average True Range (ATR) for the price
-level of the asset, providing a percentage-based measure that makes it easier to compare volatility across different
-priced stocks.
+The Normalized Average True Range (NATR) adjusts the Average True Range (ATR) for the price
+level of the asset. This gives a percentage-based measure, making it easier to compare volatility across stocks
+at different price levels.
 
 ```python
 import qnt.filter as qnfilter
@@ -143,19 +142,19 @@ weights = weights * asset_filter
 
 ```
 
-These methods allow for more flexible and adaptive stock trading strategies, which can significantly enhance the
-efficiency of your portfolio.
+These methods give you more flexibility when building stock trading strategies and can improve
+your portfolio's performance.
 
 # Risk Management
 
-In this section, we explore various risk management strategies to ensure stable and controlled trading outcomes. These
-techniques aim to mitigate financial exposure and optimize portfolio performance through systematic checks and balances.
+This section covers risk management techniques for keeping your trading outcomes stable and controlled. These
+approaches help limit financial exposure and improve portfolio performance through systematic checks.
 
-## Exposure Check
+## Exposure check
 
-Managing the exposure of each asset in a portfolio is a crucial component of risk management. Exposure refers to the
-absolute value of each asset relative to the total value of the portfolio, which is essential for assessing the risk
-each asset contributes.
+Managing each asset's exposure in a portfolio is a key part of risk management. Exposure is the
+absolute value of each asset relative to the total portfolio value, which matters for assessing how much risk
+each asset adds.
 
 Below is an example Python function that calculates the exposure for each position within a portfolio and checks if the
 exposure exceeds predefined limits:
@@ -171,7 +170,7 @@ qnstats.check_exposure(portfolio_history=weights,
                        )
 ```
 
-### How It Works
+### How it works
 
 - **Exposure Calculation**: Computes the ratio of the absolute value of each position to the total portfolio value.
 - **Soft and Hard Limits**: Defines thresholds that should not be exceeded to adequately control risk.
@@ -188,10 +187,10 @@ qnstats.check_exposure(portfolio_history=weights,
   limits, considering the past data specified by `avg_period` (252 days) and `check_period` (1260 days, or 252 days
   multiplied by 5).
 
-### Detailed Function Explanation
+### Detailed function explanation
 
-The `check_exposure` function evaluates portfolio risk by comparing each asset's exposure against established risk
-thresholds. The function performs several checks:
+The `check_exposure` function evaluates portfolio risk by comparing each asset's exposure against set risk
+thresholds. It performs several checks:
 
 - **Maximum Exposure Analysis**: Identifies periods where the exposure of any asset exceeds the soft limit and logs
   these occurrences.
@@ -200,13 +199,12 @@ thresholds. The function performs several checks:
     - Analyzes if the average excess exposure is within the excess tolerance.
     - Ensures that no asset's exposure ever exceeds the hard limit during the check period.
 
-This systematic approach allows for a dynamic and responsive risk management strategy, ensuring that the portfolio
-maintains a balanced risk profile in accordance with predefined risk parameters.
+This approach keeps the portfolio's risk profile balanced according to the predefined risk parameters.
 
-## Applying Exposure Filters
+## Applying exposure filters
 
-Adjusting weights based on exposure checks is crucial for maintaining the desired risk profile. Here are functions that
-help manage exposure by modifying the investment weights:
+Adjusting weights based on exposure checks is important for maintaining the desired risk profile. Here are functions that
+manage exposure by modifying the investment weights:
 
 ### normalize_by_max_exposure
 
@@ -269,10 +267,11 @@ import qnt.exposure as qnexp
 weights_filtered = qnexp.cut_big_positions(weights=weights, max_weight=0.049)
 ```
 
-These methods form an integral part of a robust risk management system, helping to safeguard against market volatility
-and maintain portfolio stability.
+These methods are part of a solid risk management system and help protect against market volatility
+while keeping the portfolio stable.
 
 ## Full code example
+
 
 ```python
 import xarray as xr

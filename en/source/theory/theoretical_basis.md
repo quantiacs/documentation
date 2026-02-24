@@ -1,4 +1,4 @@
-# What is Algorithmic Trading?
+# What is algorithmic trading?
 
 "Algorithmic trading is a process for executing orders utilizing automated and pre-programmed trading instructions to account for variables such as price, timing and volume. An algorithm is a set of directions for solving a problem. Computer algorithms send small portions of the full order to the market over time." - Investopedia.
 
@@ -46,7 +46,7 @@ _Table 3: Final weights of the algorithm._
 
 Thus, $1M·0.6228 = 622,800$ USD were allocated for AAPL on Mar 02, 2020; GOOG and TSLA received $130,100$ USD and $247,200$ USD. The matrix values (3) are called weights of the algorithm.
 
-## Long Position vs. Short Position
+## Long position vs. short position
 
 To sell a stock, one needs simply to assign it a negative weight in the algorithm. Let us assume that you have the following weights:
 
@@ -99,7 +99,7 @@ strongly depends on the *close* price. *Close* is the price at which a
 security last trades on a trading day.
 
 Algorithm results, calculated on historical data, are usually presented
-on an equity graph in order to understand the behaviour of the
+on an equity graph to see the behaviour of the
 cumulative profit. In our platform, we set initial equity to 1, so it
 can be scaled easily.
 
@@ -175,11 +175,11 @@ Now we can introduce the equity formula for the i day:
 
 ## Algorithm quality
 
-Once we have constructed an algorithm and plotted an equity on a historical data, we need to use a set of criteria to evaluate the performance.
+After constructing an algorithm and plotting equity on historical data, we use several criteria to evaluate performance.
 
-### Sharpe Ratio
+### Sharpe ratio
 
-First, to estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the most important and popular metric. For our platform, we use the annualized SR and assume that there is ≈252 trading days on average per year. The annual SR formula for N days is presented below:
+To estimate the profitability of the algorithm, we measure the Sharpe ratio (SR), the main performance metric on our platform. For our platform, we use the annualized SR and assume that there is ≈252 trading days on average per year. The annual SR formula for N days is presented below:
 
 ```math
 \label{SR_final_first}
@@ -193,7 +193,7 @@ The numerator is an average daily return. The book size changes with the size of
 
 The denominator is a standard deviation of the portfolio’s excess return. Another way to think about the denominator is that it means volatility.
 
-Thus, the Sharpe ratio is the return per unit of risk (volatility). The greater the Sharpe ratio, the better (second figure). To submit a strategy successfully, the SR should be higher than 0.7 in the in-sample period.
+The Sharpe ratio is the return per unit of risk (volatility). A higher Sharpe ratio is better (second figure). To submit a strategy, the SR must be higher than 0.7 in the in-sample period.
 
 ![Sharpe low](./pictures/low_sharpe_1.28.PNG)
 ![Sharpe high](./pictures/high_sharpe_7.62.PNG)
@@ -228,17 +228,17 @@ For annual Sharpe ratio one can put T= 252 - trading days per year. We use the a
 
 ### Uniqueness
 
- A good algorithm must minimize the overlap with well-known and already existing signals. Uniqueness can be defined in terms of the maximum correlation of the algorithm to the pool of the existing algorithms: 
+ A good algorithm should minimize its overlap with well-known and existing signals. Uniqueness is measured by the maximum correlation of the algorithm to the pool of existing algorithms:
 
 ```math
 r_{XY} = \frac{\text{cov}_{\textbf{X}\textbf{Y}}}{\sigma_{\textbf{X}} \sigma_{\textbf{Y}}}
 ```
 
-## In Sample and Out of Sample
+## In sample and out of sample
 
-  Overfitting is easy. If one tries a significant amount of algorithm
-  configurations, backtest can be fitted to any desired performance. Overfitting 
-  can be avoided by splitting the data into an In Sample and and an Out of Sample
+  Overfitting is easy. If you try enough algorithm
+  configurations, backtest results can match any desired performance. Overfitting 
+  can be avoided by splitting the data into In Sample and Out of Sample
   slices.
 
 **In sample**
@@ -292,8 +292,7 @@ could be done for the whole market or each industry (or smaller group).
 Mathematically, market neutralization is elementary.
 
 Say, we a have a vector of **weights<sub>i</sub>** for i day, given by
-the algorithm. In order to make the algorithm a market-neutral one, it is
-enough to apply the following equation for each day:
+the algorithm. To make the algorithm market-neutral, apply the following equation for each day:
 
 **neutralized\_weights<sub>i</sub>** = **weights<sub>i</sub>** - mean(**weights<sub>i</sub>**).
 

@@ -1,10 +1,10 @@
 # Optimization
 
-Backesting a trading system amounts to perform a simulation of the trading rules on historical data. All trading rules depend to some extent on a set of parameters. These parameters can be for example the lookback periods used for defining technical indicators or the hyperparameters of a complex machine learning model.
+Backtesting a trading system means simulating the trading rules on historical data. All trading rules depend on some set of parameters, for example the lookback periods for technical indicators or the hyperparameters of a machine learning model.
 
-## Single-pass Strategy Example
+## Single-pass strategy example
 
-Imagine a single-pass strategy where all data is accessed at once. This implementation is very fast and will speed up the parametric scan.
+In a single-pass strategy, all data is accessed at once. This implementation is fast and speeds up the parametric scan.
 
 *You should make sure that your strategy is not implicitly forward looking before submission, see how to [prevent forward looking](https://quantiacs.com/documentation/en/user_guide/functional_quality.html#multi-pass-backtesting).*
 
@@ -115,7 +115,7 @@ weights = qnbt.backtest(
 
 *Note: A parameter choice which maximizes the value of the Sharpe ratio when the simulation is performed on the past data is a source of backtest overfitting and can lead to poor performance on live data.*
 
-## Optimizer Function
+## Optimizer function
 
 
 **Function**
@@ -199,7 +199,7 @@ for an interactive chart of the result
 
 ### Stats function
 
-If you want different statistics than the standard metrics you need to design a function with this skeleton and provide it as input parameter to **optimize_strategy** (example: **stats_function=stats_function**):
+If you want different statistics than the standard metrics, write a function with this skeleton and pass it to **optimize_strategy** (e.g. **stats_function=stats_function**):
 ```Python
 def stats_function(data, output):
     """
@@ -213,7 +213,7 @@ def stats_function(data, output):
 
 ### Stats to weight
 
-If you for example want to optimize over Equity instead of Sharpe Ratio, you can define a function:
+If you want to optimize over Equity instead of Sharpe Ratio, for example, define a function like this:
 ```Python
 import math
 def stats_to_weight_equity(stat):
@@ -233,7 +233,7 @@ and then pass that function to **optimize_strategy** (example: **stats_to_weight
 
 ### Argument generators
 
-Some examples
+Examples:
 ```python
 qnop.full_range_args_generator( #all possible combinations
     wma_period=range(10, 150, 5), # min, max, step

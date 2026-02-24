@@ -1,7 +1,7 @@
 # Introduction
 
-Quantiacs offers historical data for major financial markets, including **stocks**, **futures** (like Bitcoin futures),
-and **cryptocurrencies**. This section provides an overview of the data:
+Quantiacs offers historical data for major financial markets, including stocks, futures (like Bitcoin futures),
+and cryptocurrencies:
 
 - [Stocks](https://quantiacs.com/documentation/en/data/stocks.html): Market data for NASDAQ-listed, S&P500-listed companies, past and
   present.
@@ -21,8 +21,8 @@ Additional Datasets:
 
 ## Working with Data
 
-Quantiacs provides a Python library called `qnt.data` that simplifies the process of loading and working with financial
-data. You can load various types of data using the following functions:
+Quantiacs provides a Python library called `qnt.data` for loading and working with financial
+data. You can load different types of data using the following functions:
 
 ```python
 import qnt.data as qndata
@@ -46,8 +46,8 @@ print(stocks, stocks_nasdaq, cryptodaily, futures, crypto_futures)
 
 ```
 
-All datasets have the same structure, and you can access information about opening and closing prices, high and low
-prices, trading volumes, and other relevant data fields.
+All datasets share the same structure. You can access open and close prices, high and low
+prices, trading volumes, and other data fields.
 
 ```python
 import qnt.data as qndata
@@ -91,10 +91,8 @@ is_liquid = data.sel(field="is_liquid")
 
 ## Xarray
 
-Quantiacs data is stored in [xarray](https://xarray.pydata.org/en/stable/) DataArray format, which provides a powerful
-and flexible way to work with labeled multi-dimensional arrays. You can perform arithmetic operations, mathematical
-functions, broadcasting, aggregations, slicing and selecting data, combining DataArrays, and applying custom functions
-on DataArray objects.
+Quantiacs data is stored in [xarray](https://xarray.pydata.org/en/stable/) DataArray format for working with labeled multi-dimensional arrays. DataArrays support arithmetic operations, mathematical
+functions, broadcasting, aggregations, slicing, combining, and custom functions.
 
 ```python
 import qnt.data as qndata
@@ -143,9 +141,7 @@ close_price_sma_talib = talib.SMA(price_close, 2)
 
 ## Pandas
 
-In addition to xarray, you can also work with pandas data structures by converting the xarray DataArray into a pandas
-DataFrame, perform computations using standard pandas methods, and then convert the result back into an xarray
-DataArray.
+You can also convert xarray DataArrays into pandas DataFrames, run computations with standard pandas methods, and convert the results back to xarray.
 
 ### Example 1
 

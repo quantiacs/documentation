@@ -2,9 +2,9 @@
 
 > An experimental API for additional financial data.
 
-**Quantiacs** offers tools for the analysis of **fundamental data** of companies based on publications from the **sec.gov** website.
+Quantiacs offers tools for analyzing fundamental data of companies based on publications from the sec.gov website.
 
-To construct **fundamental indicators** (equity, EV, EBITDA, etc.) **fundamental facts** are used (e.g., 'us-gaap:Revenues', 'us-gaap:StockholdersEquity', etc.).
+To construct fundamental indicators (equity, EV, EBITDA, etc.), fundamental facts are used (e.g., 'us-gaap:Revenues', 'us-gaap:StockholdersEquity', etc.).
 
 ```python
 import qnt.data as qndata
@@ -61,7 +61,7 @@ display(indicators_data.sel(asset=['NAS:AAPL']).sel(field="roe").to_pandas().tai
 | `liabilities_divide_by_ebitda`      | `FACT_GROUPS['ebitda'] + ['us-gaap:Liabilities', 'us-gaap:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest', 'us-gaap:StockholdersEquity', 'us-gaap:LiabilitiesAndStockholdersEquity'] + FACT_GROUPS['cash_equivalents']` | Total liabilities divided by EBITDA.                                                                   |
 | `net_debt_divide_by_ebitda`         | `FACT_GROUPS['ebitda'] + FACT_GROUPS['debt'] + FACT_GROUPS['cash_equivalents']`                                                                                                                                                                 | Net debt divided by EBITDA.                                                                            |
 
-## Example use Return on Equity (ROE)
+## Example using return on equity (ROE)
 
 The strategy trades liquid stocks from the Nasdaq 100 index that have a positive return on equity (ROE > 0.15)
 
@@ -123,30 +123,30 @@ qnout.write(weights)  # to participate in the competition
 
 ```
 
-## Potential Issues in Working with Fundamental Data:
+## Potential issues when working with fundamental data
 
-- **Inconsistency in fact publication among companies:**
-  - One company might not publish a specific fact but might provide other data from which this fact can be derived. 
-  - Another company, on the contrary, might directly provide the fact, omitting intermediary data.
+- Inconsistency in fact publication among companies:
+  - One company might not publish a specific fact but might provide other data from which this fact can be derived.
+  - Another company might directly provide the fact, omitting intermediary data.
 
-- **Lack of standardized formulas for indicators:**
-  - Not all indicators have standard calculation formulas. 
-  - For some of them, each company decides on its own which fundamental facts should be used to form the indicator. 
-  - This can lead to the same company using different data at different times for one indicator. 
-  - It's not accurate to compare companies based on such indicators.
+- Lack of standardized formulas for indicators:
+  - Not all indicators have standard calculation formulas.
+  - For some of them, each company decides which fundamental facts to use for the indicator.
+  - This can lead to the same company using different data at different times for one indicator.
+  - Comparing companies on such indicators is unreliable.
 
-- **Changing the strategy of indicator construction:**
-  - When updating financial statements, a company may change the methodology or calculation formulas for indicators, introducing an element of uncertainty.
+- Changes to indicator construction:
+  - When updating financial statements, a company may change the methodology or calculation formulas for indicators, introducing uncertainty.
 
-- **Errors and corrections in reports:**
-  - Reports can contain errors, which are corrected later, but the initial data can distort the analysis.
+- Errors and corrections in reports:
+  - Reports can contain errors that are corrected later, but the initial data can distort the analysis.
 
-- **Data omissions:**
+- Data omissions:
   - Some facts might be missing in the reports.
   - Companies might release their reports on different dates.
 
-- **Issues with indicators based on stock prices:**
-  - If a company conducts a stock split before publishing a report, indicators can show unexpected changes, distorting the analysis.
+- Issues with indicators based on stock prices:
+  - If a company conducts a stock split before publishing a report, indicators can show unexpected changes that distort the analysis.
 
 > The current implementation of Quantiacs partially resolves these issues:
 
@@ -158,9 +158,9 @@ qnout.write(weights)  # to participate in the competition
 Discover available attributes  (us-gaap taxonomy) [here](http://xbrlview.fasb.org/yeti/resources/yeti-gwt/Yeti.jsp).
 Introduction to Financial Statements [here](https://www.sec.gov/oiea/reportspubs/investor-publications/beginners-guide-to-financial-statements.html)
 
-## Example create specific financial indicator
+## Example: creating a custom financial indicator
 
-The example demonstrates how to create your own financial indicator.
+This example shows how to create a custom financial indicator.
 You need to specify:
 - what facts are required for its creation;
 - the algorithm for its construction.
@@ -205,9 +205,9 @@ display(indicators_data.sel(asset=['NAS:AAPL']).sel(field="equity").to_pandas().
 ```
 
 
-## Example use specific us-gaap
+## Example using specific US-GAAP facts
 
-This example provides a code for creating a stock trading strategy by downloading and utilizing fundamental data from SEC filings. Users can customize the script to fetch any specific financial fact for companies listed in the NASDAQ 100 index. 
+This example builds a stock trading strategy by downloading fundamental data from SEC filings. You can customize the script to fetch any specific financial fact for companies in the NASDAQ 100 index.
 
 ```python
 

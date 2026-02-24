@@ -4,7 +4,7 @@
 This section contains the detailed API reference documentation. It is intended for users who are already familiar with the Quantiacs platform. First-time users can start at the <a href="/documentation/en/quick_start/quick_start.html">Quick start</a> page.
 </p>
 
-## Inspecting the list of Stocks
+## Inspecting the list of stocks
 
 The available stocks in the NASDAQ100 index can be inspected using the following function:
 
@@ -62,7 +62,7 @@ The output is a list of dictionaries with info on name, sector, symbol, sector a
 ```
 
 
-## Loading Stocks Data
+## Loading stocks data
 
 Stocks data can be loaded using:
 
@@ -139,7 +139,7 @@ open.to_pandas().head()
 2012-06-29 |	20.6429 |	11.2350
 
 
-## Inspecting the list of Futures
+## Inspecting the list of futures
 
 The available futures financial instruments can be inspected using the following function:
 
@@ -436,7 +436,7 @@ The output is a list of dictionaries with info on ticker symbols and assets:
 ```
 
 
-## Loading Futures Data
+## Loading futures data
 
 Futures data can be loaded using:
 
@@ -516,7 +516,7 @@ open.to_pandas().head()
 |2016-01-27|0.7502|21.57|
 |2016-01-30|0.7485|22.11|
 
-## Loading Bitcoin Futures Data
+## Loading Bitcoin futures data
 
 Bitcoin Futures data can be loaded using:
 

@@ -1,11 +1,11 @@
 ## About the platform
 
-**Quantiacs** has been hosting quantitative trading contests since 2014 and has allocated more than 30M USD to winning algorithms on futures markets. We are expanding the universe of assets you can use and adding new tools.
+**Quantiacs** has been hosting quantitative trading contests since 2014 and has allocated over 30M USD to winning algorithms on futures markets. We are expanding the available asset universe and adding new tools.
 
-> We **offer** to users:
+> We offer:
 * a space to develop code and test ideas for forecasting global financial markets based on **Jupyter Notebook** and **JupyterLab**;
 * support for **Python**;
-* the power of the full **Anaconda** data science ecosystem;
+* the full **Anaconda** data science ecosystem;
 * up to **8 GB of free RAM** for each trading strategy;
 * access to historical **data** for futures, the Bitcoin future and cryptocurrencies;
 * trading strategy **templates** for getting started;
@@ -19,7 +19,7 @@
 * Submit strategies and monitor their live performance in your private area. Read carefully the <a href='/contest' target='_blank'>contest</a> page and do not miss the deadline for each contest.
 
 
-Take a look at the following slides for quickly learning about the main steps for taking part in contests (note that as we are constantly improving the platform and adding new features, the screenshots may be slightly different from the current interface):
+The following slides walk through the main steps for taking part in contests (the screenshots may differ slightly from the current interface):
 
 
 <iframe
@@ -36,13 +36,13 @@ target="_blank">Quantiacs</a></strong> </div>
 
 ## Building strategies
 
-Our platform allows you to develop trading strategies in a simple and compact way. The trading algorithm should distribute fractions of the available capital (in other words, allocation weights) to the available assets. Our backtester will take care of simulating the performance of the system.
+The platform lets you develop trading strategies in a few lines of code. Your trading algorithm distributes fractions of the available capital (allocation weights) to the available assets. The backtester then simulates the performance of the system.
 
 <iframe width="100%" height="515" src="https://www.youtube.com/embed/PeFhv7LFHZw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### A basic example for futures
 
-**The idea is very simple**: allocate weights according to the price variation of the asset with respect to the day before. If the price variation is positive, the strategy will allocate a positive weight, going long the asset, otherwise it will allocate a negative weight, shorting the asset.
+The idea is simple: allocate weights according to the price change of the asset relative to the day before. If the price change is positive, the strategy allocates a positive weight (going long). If negative, it allocates a negative weight (shorting the asset).
 This basic example uses liquid futures contracts:
 
 ```python
@@ -136,7 +136,7 @@ For an overview of the xarray.DataArray datastructure please consult [User Guide
 
 **3. Performance estimation**
 
-After we have built the algorithm, we can evaluate its performance **calculating statistics**:
+Once the algorithm is built, we evaluate its performance by calculating statistics:
 
 ```python
 statistics = qnstats.calc_stat(futures, weights)
@@ -166,7 +166,7 @@ A detailed explanation can be found inspecting the source code for the library i
 
 ![Statistical indicators](table.png)
 
-Moreover, we can produce a chart which shows the cumulative profits and losses:
+We can also produce a chart of cumulative profits and losses:
 
 ```python
 import qnt.graph as qngraph
@@ -176,7 +176,7 @@ qngraph.make_plot_filled(performance.index, performance, name='PnL (Equity)')
 
 ![Equity](newplot.png)
 
-For an overview of performance evaluation please consult our [User Guide for Algorithm quality](https://quantiacs.com/documentation/en/user_guide/functional_quality.html)
+For more on performance evaluation, see the [User Guide for Algorithm quality](https://quantiacs.com/documentation/en/user_guide/functional_quality.html)
 
 
 **4. Submit**
@@ -210,6 +210,6 @@ output.write(weights)
 * choose your strategy;
 * **click** on the **Submit** button.
 
-### Ready for More?
+### Next steps
 
-Here we have briefly introduced the most basic features of the Quantiacs platform - the rest of this guide will cover them and other advanced features in more detail, so make sure to read through it all!
+This page covered the basics of the Quantiacs platform. The rest of this guide goes into more detail on each topic, including advanced features.

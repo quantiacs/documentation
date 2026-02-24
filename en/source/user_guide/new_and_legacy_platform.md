@@ -2,7 +2,7 @@
 
 ## Technical changes
 
-The new version of Quantiacs addresses several issues:
+The new version of Quantiacs includes the following changes:
 
 * it includes a private user space for developing code online and test ideas for forecasting global financial markets based on Jupyter Notebook and
   JupyterLab;
@@ -11,12 +11,11 @@ The new version of Quantiacs addresses several issues:
 
 * you have access to historical data for futures, Bitcoin futures and cryptocurrencies;
 
-* we updated open-source libraries for algorithm development, which has become more efficient.
+* we updated open-source libraries for algorithm development.
 
 ## Example
 
-A distinctive feature of the new version of Quantiacs is the simplification of the strategy code, which became much
-easier to read and use. Let us consider a simple strategy based on a crossing of moving averages.
+The new version of Quantiacs simplifies the strategy code, making it easier to read and use. Let us consider a simple strategy based on a crossing of moving averages.
 
 ### Quantiacs Legacy
 

@@ -6,7 +6,7 @@ Quantiacs provides data for companies listed on the NYSE and NASDAQ. Here we wil
 - [Fundamental data](#fundamental-data)
 
 ## General information about tickers
-The information about the available stocks in the last 5 years can be obtained specifying the lookback period in calendar days multiplied by the number of years:
+To get information about available stocks in the last 5 years, specify the lookback period in calendar days multiplied by the number of years:
 
 ```python
 import qnt.data as qndata 
@@ -39,7 +39,7 @@ assets[0]
 
 ## Market data
 
-Market data can be downloaded using the following call:
+Download market data with the following call:
 
 ```python
 import qnt.data as qndata
@@ -146,9 +146,9 @@ price_open.to_pandas().tail()
 
 ## Fundamental data
 
-Fundamental data can be retrieved by using instant or periodic indicators.
+Fundamental data is available through instant or periodic indicators.
 
-### Instant indicators.
+### Instant indicators
 
 Instant indicators reflect the current state of the company.
 
@@ -171,9 +171,9 @@ Instant indicators reflect the current state of the company.
 
 _Table 2. Instant indicators._
 
-### Periodic indicators.
+### Periodic indicators
 
-Periodic indicators correspond to a certain period. For periodic indicators, you can receive information with the quarter, annual frequency, or 'last twelve-month' value.
+Periodic indicators correspond to a certain period. You can get them at quarterly, annual, or "last twelve-month" frequency.
 
 |   Data name  | Description                                |
 | ------------------- | ----------------------------------------- |

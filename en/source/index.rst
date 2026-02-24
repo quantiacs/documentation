@@ -39,7 +39,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: Api Reference
+   :caption: API reference
 
    reference/data_load_functions.md
    reference/evaluation.md

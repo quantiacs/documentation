@@ -1,5 +1,5 @@
 # Financial data
-Quantiacs provides historical data for the world's major financial markets. Currently the dataset includes **stocks**, **futures** (including the Bitcoin futures) and **cryptocurrencies**. This section provides an overview of the data and a documentation for each set:
+Quantiacs provides historical data for the world's major financial markets. The dataset currently includes **stocks**, **futures** (including Bitcoin futures) and **cryptocurrencies**. This section gives an overview of the data and documents each set:
 
 - [Stocks](#stocks)
 - [Futures](#futures)
@@ -7,10 +7,10 @@ Quantiacs provides historical data for the world's major financial markets. Curr
 
 ----
 ## Stocks
-Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beginning of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurrence.
+Quantiacs provides historic, split-adjusted data for more than 250 stocks that have been NASDAQ 100 index constituents at some point since 2001 (the beginning of index membership data). Most of these stocks are still active, but some are not. Delisted stocks are kept in the dataset to avoid survivorship bias.
 
 ### Stocks list
-For getting the list of available stocks, load_ndx_list() method is used. By default, without passing any argument, the method returns only the list of stock objects (dictionaries), which have been index members in last 4 years from now (default, tail=4*365). For filtering the list to some specific period, pass appropriate values to arguments:
+To get the list of available stocks, use the load_ndx_list() method. By default, without any arguments, it returns stock objects (dictionaries) that have been index members in the last 4 years (default: tail=4*365). To filter the list to a specific period, pass the appropriate values:
 - min_date - filters the list from specific date (string, 'yyyy-mm-dd' format)
 - max_date - end date of a period, last date 
 - tail - number of days to lookback in history from now (int) 
@@ -48,7 +48,7 @@ stocks_list[:3]
   'FIGI': 'tts-207966789'}]
 ```
 
-Additional information from the list can be used for further filtering, such as information of sector that certain stock belongs to. We can play around and create simple functions related to sectors, primarily to get the list of sectors:
+You can use the additional information from the list for further filtering, such as the sector a stock belongs to. Here are a few simple functions related to sectors. First, to get the list of sectors:
 ```python
 def get_sectors():
     return {x['sector'] for x in stocks_list}
@@ -97,7 +97,7 @@ finally, output is passed further to specify the set of assets for which we want
 
 
 ### Load stocks dataset
-For each stock got from stocks list, historical data can be obtained. We use load_ndx_data() method for loading the data, and the data could be time sliced by passing the same params as for load_ndx_list method (min_date, tail, max_date), but also can be reduced to return only data for particular assets (e.g. from certain sector).
+For each stock in the stocks list, you can get historical data. Use the load_ndx_data() method to load data. You can slice by time using the same parameters as load_ndx_list (min_date, tail, max_date), and also limit the result to particular assets (e.g. from a specific sector).
 
 ```python
 import qnt.data as qndata
@@ -138,7 +138,7 @@ For more about xarray please check [User Guide xarray](https://quantiacs.com/doc
 
 
 ### Data visualization
-We can use Apple data already defined as **aapl** variable above,  and create a plot for period 2015 - 2020, using plotly library:
+Using the Apple data already defined as **aapl** above, we can create a plot for the period 2015-2020 with the plotly library:
 
 ```python
 aapl = aapl.sel(time=slice("2015-01-01", "2020-12-31")).to_pandas()
@@ -165,7 +165,7 @@ aapl_bars.show()
 ## Futures
 Quantiacs provides data for 78 liquid global futures contracts. The underlying assets are commodities (energy, metals, agricultural goods) and financial assets: stock indices, bonds and currency rates. In addition it provides the Bitcoin futures contract, whose history is extended back in time by patching the futures data with the Bitcoin spot data.
 
-###  List of Futures
+###  List of futures
 The information about available futures contracts can be obtained using:
 
 ```python
@@ -188,9 +188,9 @@ The command returns a list with all available futures contracts, with their iden
 ```
 
 
-###  Using the Data
+###  Using the data
 
-Suppose that we want to use the data for the last 15 years. We can use:
+Suppose we want the data for the last 15 years:
 
 ```python
 import qnt.data as qndata
@@ -257,9 +257,9 @@ fig.show()
 ![GBP_USD](./pictures/GBP_USD.PNG)
 
 
-###  Using the BTC Futures
+###  Using the BTC futures
 
-For a more detailed description on loading and accessing BTC Futures consult our API-Reference: [Loading BTC Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-bitcoin-futures-data)
+For a more detailed description on loading and accessing BTC futures, see the API reference: [Loading BTC Futures Data](https://quantiacs.com/documentation/en/reference/data_load_functions.html#loading-bitcoin-futures-data)
 
 The Bitcoin Futures data for the last 8 years (history extended with Bitcoin spot price) can be loaded using:
 
@@ -271,7 +271,7 @@ btc_data = qndata.cryptofutures.load_data(tail = 365*8, dims = ('time', 'field',
 
 
 
-### Front Contracts and Different Maturity Contracts
+### Front contracts and different maturity contracts
 
 As several Futures contracts with the same underlying instrument but different expiration dates (maturities) are traded on financial exchange at the same time, we provide the option to load continuous front contracts (closest expiration date), next-to-front contracts (next-to-closest expiration date) and next-to-next-to-front contracts (next-to-next-to-closest expiration date):
 
@@ -285,7 +285,7 @@ Note that the default choice (no offset specified) selects front contracts. All 
 All three continuous contracts can be used as indicators, but only the front contracts will be used for the backtesting and real trading.
 
 
-### Spot Currency Data
+### Spot currency data
 
 Currency rates taken from the [International Monetary Fund](https://www.imf.org/en/Home) page can be inspected using:
 
@@ -306,7 +306,7 @@ euro_currency = qndata.imf_load_currency_data(assets=['EUR'], tail=365 * 5)
 ```
 
 
-### Spot Commodity Data
+### Spot commodity data
 
 Commodity data taken from the [International Monetary Fund](https://www.imf.org/en/Home) page can be inspected using:
 
@@ -329,7 +329,7 @@ gold = qndata.imf_load_commodity_data(assets=['PGOLD'], tail=365)
 
 ## Cryptocurrencies
 
-### Cryptocurrency Daily Data
+### Cryptocurrency daily data
 Quantiacs provides up-to-date daily data for 54 cryptocurrencies:
 
 ```python
@@ -379,7 +379,7 @@ crypto_data.sel(field = 'low').sel(asset = 'BTC')
 
 
 
-### Cryptocurrency Hourly Data
+### Cryptocurrency hourly data
 Quantiacs provides up-to-date hourly data - price and volume - for the following cryptocurrencies:
 
 * Bitcoin (BTC);

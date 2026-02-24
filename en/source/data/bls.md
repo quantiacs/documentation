@@ -3,15 +3,15 @@
 The [U.S. Bureau of Labor Statistics](https://www.bls.gov) is the principal agency for the U.S. government in the field
 of labor economics and statistics.
 
-It provides macroeconomic data in several interesting categories:
+It provides macroeconomic data in several categories:
 
 - prices,
 - employment and unemployment,
 - compensation and working conditions and productivity.
 
-Quantiacs has implemented these datasets on its cloud and makes them also available for local use on your machine. For
-more information on using the Quantiacs toolbox and datasets offline, please read
-our [instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html) on local installation.
+Quantiacs hosts these datasets on its cloud and also makes them available for local use. For
+more information on using the Quantiacs toolbox and datasets offline, see
+the [instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html) on local installation.
 
 ```python
 import pandas as pd
@@ -59,11 +59,11 @@ display(pd.DataFrame(dbs))
 | 33  | CE  | Employment, Hours, and Earnings from the Current Employment Statistics survey |
 | 34  | LN  | Labor Force Statistics from the Current Population Survey                     |
 
-For each dataset an identifier, the name and the date of the last available update are displayed. Each dataset contains
-several time series which can be used as indicators. For example let us consider AP, Average consumer Prices. They are
-calculated for household fuel, motor fuel and food items from prices collected for defining the Consumer Price Index.
+Each dataset has an identifier and a name. Each dataset contains
+several time series that can be used as indicators. For example, consider AP (Average consumer Prices). These are
+calculated for household fuel, motor fuel, and food items from prices collected for the Consumer Price Index.
 
-The time series contained in the AP dataset can be displayed using:
+You can list the time series in the AP dataset with:
 
 ```python
 import pandas as pd
@@ -267,8 +267,8 @@ For AP Consumer Price Index - Average Price Data available:
 - [Futures - BLS Macro Data](https://github.com/quantiacs/strategy-futures-bls/blob/master/strategy.ipynb) This template
   uses data from the Bureau of Labor Statistics for trading futures contracts.
 
-> This strategy leverages BLS data on flour prices and uses EMA and TRIX indicators to identify trends, generating
-> position weights for Nasdaq 100 stock
+> This strategy uses BLS data on flour prices with EMA and TRIX indicators to identify trends and produce
+> position weights for Nasdaq 100 stocks.
 
 ```python
 from IPython.display import display

@@ -1,6 +1,6 @@
 # Macroeconomic data
 
-Quantiacs provides historical macroeconomic datasets. Currently the datasets from the [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) are included. Statistics published by the Bureau of Labor Statistics include data about consumer prices, employment and unemployment, compensation and working conditions and productivity.
+Quantiacs provides historical macroeconomic datasets. Currently datasets from the [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) are included, covering consumer prices, employment and unemployment, compensation, working conditions, and productivity.
 
 - [Bureau of Labor Statistics data](#bureau-of-labor-statistics)
 
@@ -8,13 +8,13 @@ Quantiacs provides historical macroeconomic datasets. Currently the datasets fro
 
 ## Bureau of Labor Statistics data
 
-The [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) is the principal agency for the U.S. government in the field of labor economics and statistics. It provides macroeconomic data in several interesting categories: prices, employment and unemployment, compensation and working conditions and productivity. Quantiacs has implemented these datasets on its cloud and makes them also available for local use on your machine. For more information on using the Quantiacs toolbox and datasets offline, please read our [instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html) on local installation.
+The [**U.S. Bureau of Labor Statistics**](https://www.bls.gov) is the main U.S. government agency for labor economics and statistics. It publishes macroeconomic data on prices, employment and unemployment, compensation, working conditions, and productivity. Quantiacs hosts these datasets on its cloud and also makes them available for local use. For more on using the Quantiacs toolbox offline, see the [local installation instructions](https://quantiacs.com/documentation/en/user_guide/local_development.html).
 
 ----
 
 
 ###  Loading the data
-The information about available data can be obtained using:
+To see what data is available:
 
 ```python
 import pandas as pd
@@ -27,7 +27,7 @@ which returns the list of datasets:
 
 ![datasets](./pictures/datasets_new.png)
 
-For each dataset an identifier, the name and the date of the last available update are displayed. Each dataset contains several time series which can be used as indicators. For example let us consider AP, Average consumer Prices. They are calculated for household fuel, motor fuel and food items from prices collected for defining the Consumer Price Index.
+Each dataset shows an identifier, a name, and the date of the last update. Each dataset contains several time series that can be used as indicators. For example, AP (Average Consumer Prices) covers household fuel, motor fuel, and food items from prices collected for the Consumer Price Index.
 
 The time series contained in the AP dataset can be displayed using:
 
@@ -40,13 +40,13 @@ which returns:
 
 ![AP](./pictures/AP.png)
 
-For inspecting the metadata we refer to the template we made available at our GitHub page [here](https://github.com/quantiacs/strategy-futures-bls/blob/master/strategy.ipynb) and in your user space in the Examples section.
+To inspect the metadata, see the template on our [GitHub page](https://github.com/quantiacs/strategy-futures-bls/blob/master/strategy.ipynb) or in the Examples section of your user space.
 
 ----
 
 ###  Preprocessing the data
 
-Macroeconomic data should be preprocessed. Let us continue with the previous example. We can select global data for the U.S. selecting the associated area code as follows:
+Macroeconomic data should be preprocessed. Continuing with the previous example, we can select global U.S. data by its area code:
 
 ```python
 us_series_list = [s for s in series_list if s['area_code'] == '0000']

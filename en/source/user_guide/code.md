@@ -1,6 +1,6 @@
 # Your environment
 
-When you work inside the Quantiacs Jupyter environment you will have access to a root directory with several sub-directories and files.
+When you work inside the Quantiacs Jupyter environment, you have access to a root directory with several sub-directories and files.
 
 - **data-cache**: This directory stores loaded data for a faster evaluation.
 

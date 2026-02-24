@@ -2,7 +2,7 @@
 
 ## Stocks S&P500
 
-Quantiacs provides historic, split adjusted, data for more than 750 stocks, all have been **S&P500** index constituents at some point from 2006.
+Quantiacs provides historic, split-adjusted data for more than 750 stocks that have been S&P 500 index constituents at some point since 2006.
 
 ```python
 import qnt.data as qndata
@@ -130,7 +130,7 @@ qnout.write(weights) # to participate in the competition
 
 ## Stocks NASDAQ100
 
-Quantiacs provides historic, split adjusted, data for more than 250 stocks, all have been **NASDAQ100** index constituents at some point from 2001. (the beginning of index membership data). Most of stocks from the set are still active, but part of them aren't, and the main reason for keeping them still is to avoid survivorship bias occurrence.
+Quantiacs provides historic, split-adjusted data for more than 250 stocks that have been NASDAQ 100 index constituents at some point since 2001 (the beginning of index membership data). Most of these stocks are still active, but some are not. Delisted stocks are kept in the dataset to avoid survivorship bias.
 
 ```python
 import qnt.data as qndata
