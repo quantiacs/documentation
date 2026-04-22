@@ -55,6 +55,7 @@ export default {
   padding 0.7rem 1.5rem
   line-height $navbarHeight - 1.4rem
   position relative
+  font-family $header_font, $header_font_fallback
   a, span, img
     display inline-block
   .logo
@@ -64,11 +65,14 @@ export default {
     vertical-align top
   .site-name
     font-size 1.3rem
-    font-weight 600
+    font-family $header_font, $header_font_fallback
+    font-weight $header_font_weight
     color $textColor
     position relative
   .links
-    font-size 0.9rem
+    font-size 14px
+    font-family $header_font, $header_font_fallback
+    font-weight $header_font_weight
     position absolute
     right 1.5rem
     top 0.7rem

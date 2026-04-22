@@ -47,6 +47,8 @@ export default {
 @import './styles/config.styl'
 
 .algolia-search-wrapper
+  font-family $average_font, $average_font_fallback
+
   & > span
     vertical-align middle
 
@@ -87,7 +89,8 @@ export default {
         margin-top 0
         background $accentColor
         color #fff
-        font-weight 600
+        font-family $header_font, $header_font_fallback
+        font-weight $header_font_weight
 
         .algolia-docsearch-suggestion--highlight
           background rgba(255, 255, 255, 0.6)
@@ -96,7 +99,8 @@ export default {
         padding 0
 
       .algolia-docsearch-suggestion--title
-        font-weight 600
+        font-family $header_font, $header_font_fallback
+        font-weight $header_font_weight
         margin-bottom 0
         color $textColor
 

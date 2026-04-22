@@ -11,10 +11,14 @@
 
 .nav-links
   display inline-block
+  font-family $header_font, $header_font_fallback
+  font-weight $header_font_weight
 
   a
     line-height 1.4rem
     color inherit
+    font-family inherit
+    font-weight inherit
 
     &:hover, &.router-link-active
       color $accentColor

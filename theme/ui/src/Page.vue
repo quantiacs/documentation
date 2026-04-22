@@ -25,7 +25,7 @@
     display inline-block
 
     a
-      color lighten($textColor, 25%)
+      color var(--theme-text-muted)
       margin-right 0.25rem
 
   .last-updated
@@ -34,11 +34,11 @@
 
     .prefix
       font-weight 500
-      color lighten($textColor, 25%)
+      color var(--theme-text-muted)
 
     .time
       font-weight 400
-      color #aaa
+      color var(--theme-text-soft)
 
 .page-nav
   @extend $wrapper
@@ -48,7 +48,7 @@
   .inner
     min-height 2rem
     margin-top 0
-    border-top 1px solid $borderColor
+    border-top 1px solid var(--theme-border)
     padding-top 1rem
     overflow auto
 

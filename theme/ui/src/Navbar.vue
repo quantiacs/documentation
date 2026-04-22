@@ -1,113 +1,270 @@
 <template>
   <header>
-    <div class="top-header">
-      <div class="logo-wrapper">
-        <a class="logo quantiacs-logo" href="/">Home</a>
+    <div class="top_header">
+      <div class="logo_wrapper">
+        <a class="logo quantiacs_logo" href="/">Home</a>
       </div>
-      <nav class="dropdown-menu">
+      <nav class="dropdownmenu">
         <ul>
-          <li><a class="nav-link" target="_self" href="/contest">About</a></li>
           <li>
-            <a class="nav-link" target="_self" href="/documentation/en/"
-              >Documentation</a
+            <a class="nav_link" href="/contest" target="_self">Contest</a>
+          </li>
+          <li>
+            <a class="nav_link" href="/leaderboard" target="_self"
+              >Leaderboard</a
             >
           </li>
           <li>
             <a
-              class="nav-link"
-              rel="noopener noreferrer"
-              href="/contacts"
+              class="nav_link"
+              href="/documentation/en/user_guide/data.html"
               target="_self"
-              >Contact</a
+              >Data</a
             >
           </li>
-          <li><a class="nav-link" target="_self" href="/faq">FAQ</a></li>
           <li>
-            <a class="nav-link" target="_self" href="/leaderboard">Systems</a>
+            <a class="nav_link" href="/documentation/en/" target="_self"
+              >Docs</a
+            >
           </li>
           <li>
             <a
-              class="nav-link quantiacs-community-link"
-              target="_self"
+              class="nav_link quantiacs_community_link"
               href="/community"
+              target="_self"
               >Community</a
-            >
-          </li>
-          <li>
-            <a
-              class="nav-link"
-              href="https://legacy.quantiacs.com/Systems.aspx"
-              target="_blank"
-              >Q1-Q14 Contests</a
             >
           </li>
         </ul>
       </nav>
-      <div class="header-wrapper">
-        <div id="wrapper">
-          <label id="nav-icon3" class="menu-icon" for="toggle">
+      <div class="header_wrapper">
+        <div class="wrapper">
+          <button
+            id="nav_icon3"
+            type="button"
+            class="menu_icon"
+            :class="{ open: isMobileOpen }"
+            :aria-expanded="isMobileOpen"
+            aria-controls="mobile_menu"
+            aria-label="Toggle navigation menu"
+            @click="toggleMobileMenu"
+          >
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-          </label>
-          <input type="checkbox" id="toggle" />
-          <nav>
+          </button>
+          <input type="checkbox" id="toggle" :checked="isMobileOpen" readonly />
+          <div class="mobile_overlay" @click="closeMobileMenu"></div>
+          <nav id="mobile_menu" @click="closeMobileMenu">
             <ul>
-              <li><a class="nav-link" href="/" target="_self">Home</a></li>
               <li>
-                <a class="nav-link" href="/contest" target="_self">About</a>
+                <a class="nav_link" href="/"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                  Home</a
+                >
               </li>
               <li>
-                <a class="nav-link" href="/documentation/en/" target="_self"
-                  >Documentation</a
+                <a class="nav_link" href="/contest"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                    <path d="M4 22h16" />
+                    <path
+                      d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+                    />
+                    <path
+                      d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+                    />
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                  </svg>
+                  Contest</a
+                >
+              </li>
+              <li>
+                <a class="nav_link" href="/leaderboard"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                  Leaderboard</a
                 >
               </li>
               <li>
                 <a
-                  class="nav-link"
-                  rel="noopener noreferrer"
-                  href="/contacts"
-                  target="_self"
-                  >Contact</a
+                  class="nav_link"
+                  href="/documentation/en/user_guide/data.html"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <ellipse cx="12" cy="5" rx="9" ry="3" />
+                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                  </svg>
+                  Data</a
                 >
               </li>
-              <li><a class="nav-link" href="/faq" target="_self">FAQ</a></li>
               <li>
-                <a class="nav-link" target="_self" href="/leaderboard"
-                  >Systems</a
+                <a class="nav_link" href="/documentation/en/"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <path
+                      d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+                    />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <line x1="10" y1="9" x2="8" y2="9" />
+                  </svg>
+                  Docs</a
                 >
               </li>
               <li>
-                <a
-                  class="nav-link quantiacs-community-link"
-                  target="_self"
-                  href="/community"
-                  >Community</a
+                <a class="nav_link" href="/community"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  Community</a
                 >
               </li>
               <li>
-                <a
-                  class="nav-link"
-                  href="https://legacy.quantiacs.com/Systems.aspx"
-                  target="_blank"
-                  >Q1-Q14 Contests</a
+                <a class="nav_link" href="/faq"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                  </svg>
+                  FAQ</a
+                >
+              </li>
+              <li>
+                <a class="nav_link" href="/contacts"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="menu_item_icon"
+                  >
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                  </svg>
+                  Contact</a
                 >
               </li>
             </ul>
           </nav>
         </div>
       </div>
-      <div class="lang-wrapper">
-        <div v-if="isAuthorizedUser" class="username-link-wrapper">
-          <a
-            rel="noopener noreferrer"
-            href="/personalpage/homepage"
-            target="_self"
-            class="username-link"
-            >{{ username }}</a
-          >
-          <span class="username-icon">
+      <div
+        class="lang_wrapper"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <a
+          class="my_account_link"
+          rel="noopener noreferrer"
+          :style="{ display: signInDisplay }"
+          :href="`${origin}/personalpage/login`"
+          target="_self"
+          >Sign up / Log in</a
+        >
+        <div
+          class="username_link_wrapper"
+          :style="{ display: usernameDisplay }"
+        >
+          <span class="username_link">{{ username }}</span>
+          <span class="username_icon">
             <svg
               aria-hidden="true"
               focusable="false"
@@ -126,33 +283,31 @@
           </span>
           <span class="chevron"></span>
           <ul>
-            <li class="username-header">
-              <a
-                rel="noopener noreferrer"
-                href="/personalpage/homepage"
-                target="_self"
-                >{{ username }}</a
-              >
+            <li class="username_header">
+              <span style="color: #d66d36">{{ username }}</span>
             </li>
             <li>
               <a
                 rel="noopener noreferrer"
-                href="/personalpage/homepage"
+                :href="`${origin}/personalpage/homepage`"
                 target="_self"
                 >My account</a
               >
             </li>
-            <li><span @click="logOut">Log out</span></li>
+            <li v-if="isAdmin">
+              <a
+                rel="noopener noreferrer"
+                :href="`${origin}/controlpanel/#statistics`"
+                target="_self"
+                >Admin panel</a
+              >
+            </li>
+            <li>
+              <button type="button" class="logout_button" @click="logOut">
+                Log out
+              </button>
+            </li>
           </ul>
-        </div>
-        <div v-else>
-          <a
-            class="my-account-link"
-            rel="noopener noreferrer"
-            href="/personalpage/login"
-            target="_self"
-            >Sign up / Log in</a
-          >
         </div>
       </div>
     </div>
@@ -160,7 +315,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 
 function getCookie(cname) {
   const name = cname + '=';
@@ -193,9 +348,14 @@ const authorities = ref([]);
 const signInDisplay = ref(getCookie('username') ? 'none' : 'block');
 const usernameDisplay = ref(getCookie('username') ? 'flex' : 'none');
 const intervalId = ref(null);
+const isMobileOpen = ref(false);
 const MAX_ATTEMPTS = 3;
+const origin = typeof window !== 'undefined' ? window.location.origin : '';
 
-const isAuthorizedUser = computed(() => accessToken.value && username.value);
+const isAdmin = computed(
+  () =>
+    authorities.value.includes('ADMIN') || authorities.value.includes('MANAGER')
+);
 
 if (accessToken.value || refreshToken.value) {
   checkAccess();
@@ -209,6 +369,9 @@ onBeforeUnmount(() => {
   if (intervalId.value) {
     clearInterval(intervalId.value);
   }
+  if (typeof document !== 'undefined') {
+    document.body.style.overflow = 'unset';
+  }
 });
 
 function delay(ms) {
@@ -219,6 +382,8 @@ function clearAuth() {
   setCookie('access_token', '', 0);
   setCookie('refresh_token', '', 0);
   setCookie('username', '', 0);
+  setCookie('color', '', 0);
+  setCookie('qn_uid', '', 0);
   accessToken.value = '';
   refreshToken.value = '';
   username.value = '';
@@ -251,7 +416,7 @@ async function fetchAccountWithRetry(tokenData, rememberMe, attempt = 0) {
     setCookie('access_token', tokenData.access_token, tokenData.expires_in);
     setCookie('username', accountData.username, tokenData.expires_in);
     const tenDays = 10 * 24 * 60 * 60;
-    if (rememberMe && tokenData.refresh_token) {
+    if (rememberMe) {
       setCookie('refresh_token', tokenData.refresh_token, tenDays);
     }
     username.value = accountData.username;
@@ -355,38 +520,73 @@ async function checkAccess() {
 function logOut() {
   clearAuth();
 }
+
+function toggleMobileMenu() {
+  isMobileOpen.value = !isMobileOpen.value;
+}
+
+function closeMobileMenu() {
+  isMobileOpen.value = false;
+}
+
+watch(isMobileOpen, (val) => {
+  if (typeof document !== 'undefined') {
+    if (val) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }
+});
 </script>
 
 <style lang="stylus">
 @require './vuepress/styles/config';
 @import './vuepress/styles/imgGeneral.styl'
 
-$light_main_color = #ffffff;
-$dark_main_color = #020202;
-$middle_main_color = #f0f5f7;
-$light_border = #cccccc;
-$contrast_color = #d66d36;
-$additional_color = #1395ba;
-$light_font_color = #999999;
+$light_main_color = #ffffff
+$dark_main_color = #020202
+$middle_main_color = #f0f5f7
+$light_border = #cccccc
+$contrast_color = #d66d36
+$additional_color = #1395ba
+$light_font_color = #999999
+$global_p_color = rgb(210, 218, 230)
+$transition_fast = 150ms ease
+$transition_slow = 400ms ease
+$radius_sm = 6px
+$radius_md = 10px
+$shadow_lg = 0 8px 30px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.15)
 
 header
+  display block
   width 100%
   position fixed
   top 0
-  background-color $dark_main_color
+  background-color #0b192b
+  backdrop-filter blur(16px)
+  -webkit-backdrop-filter blur(16px)
   z-index 10
+  box-shadow 0 4px 30px rgba(0, 0, 0, 0.2)
+  border-bottom 1px solid rgba(255, 255, 255, 0.08)
 
-.top-header
+@media (max-width: 900px)
+  header
+    background-color rgba(8, 17, 28, 0.95)
+    border-bottom 1px solid rgba(255, 255, 255, 0.1)
+
+.top_header
   padding 10px 0
   line-height 30px
   display flex
   justify-content space-between
-  align-items flex-start
-  background-color $dark_main_color
+  align-items center
   max-width 1180px
   margin 0 auto
+  box-sizing border-box
 
-  .logo-wrapper
+  .logo_wrapper
+    padding-left 5px
     width 25%
 
     .logo
@@ -397,304 +597,452 @@ header
       position relative
       background-size contain
       width 149px
-      text-indent -9999px
-      top 2px
-
-.dropdown-menu
-  width 55%
-  display flex
-  vertical-align middle
-  justify-content space-between
-
-  ul, li
-    margin 0
-    padding 0
-
-  ul
-    list-style none
-    width 100%
-    display flex
-    justify-content space-around
-
-  li
-    float left
-    position relative
-    width auto
-
-  a
-    background inherit
-    color $light_main_color
-    display block
-    font-family $header_font
-    padding 0 2.5px
-    text-align center
-    text-decoration none
-    font-size 14px
-    transition all 0.25s ease
-    white-space nowrap
-
-  .quantiacs-community-link
-    color #1bbafb
-
-  li:hover
-    .nav-link
-      color $light_font_color
-
-.header-wrapper
-  text-align right
-  display block
-  position absolute
-  left 40px
-  padding 0
-
-  #toggle
-    display none
-
-    &:not(:checked) + nav
-      width 0
       overflow hidden
+      text-indent -9999px
 
-    &:checked + nav
-      width 300px
-      overflow visible
+  .dropdownmenu
+    width 55%
+    display flex
+    vertical-align middle
+    justify-content space-between
 
-    &:checked + nav li
-      opacity 1
-
-  nav
-    position fixed
-    top 50px
-    background $dark_main_color
-    left 0
-    z-index 10
-    transition 0.5s
-    height calc(100vh - 50px)
-    width 300px
-
-    ul
+    ul, li
+      margin 0
       padding 0
 
+    ul
+      list-style none
+      width 100%
+      display flex
+      justify-content space-around
+
     li
-      opacity 0
-      transition opacity 0.4s ease
-      list-style-type none
+      float left
+      position relative
+      width auto
 
-    .nav-link
+    a
       background inherit
-      color #ffffff
+      color #ffffffd9
       display block
-      font-family $header_font
-      padding 10px 25px
-      text-align left
-      text-transform uppercase
-      text-decoration none
+      font-family $header_font, $header_font_fallback
       font-size 14px
-      transition all 0.25s ease
-      height 50px
-      line-height 50px
-      padding-left 50px
-      border-bottom 1px solid #383838
-      padding-bottom 20px
-      padding-top 0
+      font-weight $header_font_weight
+      padding 6px 12px
+      text-align center
+      text-decoration none
+      border-radius 8px
+      transition all .15s ease
+      white-space nowrap
 
-    .quantiacs-community-link
-      color #1bbafb
+    .quantiacs_community_link
+      color #7fd3ff
 
-  .menu-icon
-    cursor pointer
-    float right
-    padding 0
-    user-select none
+    li:hover
+      .nav_link
+        color #ffffff
+        background rgba(255, 255, 255, 0.05)
+        text-shadow 0 0 12px rgba(59, 130, 246, 0.5)
 
-  #nav-icon3
-    width 30px
-    height 20px
-    margin-top 5px
-    position relative
-    transform rotate(0deg)
-    transition 0.5s ease-in-out
-    cursor pointer
+      .quantiacs_community_link
+        color #ffffff
+        background rgba(127, 211, 255, 0.1)
+        text-shadow 0 0 12px rgba(127, 211, 255, 0.5)
 
-  #nav-icon3 span
+  .header_wrapper
+    text-align right
     display block
     position absolute
-    height 3px
-    width 100%
-    background $light_main_color
-    border-radius 9px
-    opacity 1
-    left 0
-    transform rotate(0deg)
-    transition 0.25s ease-in-out
+    left 40px
+    padding 0
 
-  #nav-icon3 span:nth-child(1)
-    top 0px
-
-  #nav-icon3:hover span
-    background $light_font_color
-
-  #nav-icon3 span:nth-child(2), #nav-icon3 span:nth-child(3)
-    top 9px
-
-  #nav-icon3 span:nth-child(4)
-    top 18px
-
-  #nav-icon3.open span:nth-child(1)
-    top 9px
-    width 0%
-    left 50%
-
-  #nav-icon3.open span:nth-child(2)
-    transform rotate(45deg)
-
-  #nav-icon3.open span:nth-child(3)
-    transform rotate(-45deg)
-
-  #nav-icon3.open span:nth-child(4)
-    top 9px
-    width 0%
-    left 50%
-
-.lang-wrapper
-  max-width 150px
-
-  .username-header
-    display none
-
-  .my-account-link
-    color $light_main_color
-    cursor pointer
-    text-decoration none
-    font-family $header_font
-    font-size 14px
-    transition all 300ms ease-in
-    margin-left 20px
-    white-space nowrap
-    display block
-
-  .username-link-wrapper
-    position relative
-    display flex
-    align-items center
-    background $dark_main_color
-    transition all 300ms ease-in
-
-    ul
+    #toggle
       display none
-      position absolute
-      right -20px
-      top 30px
-      width 150px
-      z-index 1000
 
-    &:hover ul,
-    ul:hover
-      background-color: #000
-      color: #fff
+      &:not(:checked) + .mobile_overlay + nav
+        width 0
+        overflow hidden
+
+      &:checked + .mobile_overlay + nav
+        width 300px
+        overflow visible
+
+        @media (max-width: 400px)
+          width 100%
+
+      &:checked + .mobile_overlay + nav li
+        opacity 1
+
+      &:checked + .mobile_overlay
+        display block
+
+    .mobile_overlay
+      position fixed
+      top 0
+      left 0
+      width 100vw
+      height 100vh
+      background rgba(0, 0, 0, 0.5)
+      z-index 9
+      display none
+
+    nav
+      position fixed
+      top 50px
+      background rgba(8, 17, 28, 0.95)
+      backdrop-filter blur(16px)
+      -webkit-backdrop-filter blur(16px)
+      left 0
+      z-index 10
+      transition width $transition_slow
+      height calc(100vh - 50px)
+      width 300px
+      border-right 1px solid rgba(255, 255, 255, 0.08)
+
+      @media (max-width: 400px)
+        width 100%
+        border-right none
+
+      ul
+        padding 0
+
+      li
+        opacity 0
+        transition opacity 0.4s ease
+        list-style-type none
+
+      .nav_link
+        background inherit
+        color $global_p_color
+        display flex
+        align-items center
+        gap 12px
+        font-family $header_font, $header_font_fallback
+        font-weight $header_font_weight
+        text-align left
+        text-transform uppercase
+        text-decoration none
+        font-size 15px
+        transition all .15s ease
+        height 50px
+        line-height 50px
+        border-bottom 1px solid rgba(255, 255, 255, 0.06)
+        padding 0 25px 2px 30px
+
+        &:hover
+          color #ffffff
+          background rgba(59, 130, 246, 0.1)
+          text-shadow 0 0 8px rgba(59, 130, 246, 0.4)
+
+      .quantiacs_community_link
+        color #1bbafb
+
+    .menu_icon
+      cursor pointer
+      float right
+      padding 0
+      user-select none
+      background transparent
+      border 0
+
+    #nav_icon3
+      width 30px
+      height 20px
+      margin-top 5px
+      position relative
+      transform rotate(0deg)
+      transition 0.5s ease-in-out
+      cursor pointer
+
+    #nav_icon3 span
       display block
-      margin 0
-      padding 10px 5px 10px 10px
+      position absolute
+      height 2px
+      width 100%
+      background $global_p_color
+      border-radius 9px
+      opacity 1
+      left 0
+      transition 0.25s ease-in-out
 
-    .username-link
-      color $light_main_color
+    #nav_icon3 span:nth-child(1)
+      top 0px
+
+    #nav_icon3:hover
+      span
+        background $light_main_color
+
+    #nav_icon3 span:nth-child(2),
+    #nav_icon3 span:nth-child(3)
+      top 9px
+
+    #nav_icon3 span:nth-child(4)
+      top 18px
+
+    #nav_icon3.open span:nth-child(1)
+      top 9px
+      width 0%
+      left 50%
+
+    #nav_icon3.open span:nth-child(2)
+      transform rotate(45deg)
+
+    #nav_icon3.open span:nth-child(3)
+      transform rotate(-45deg)
+
+    #nav_icon3.open span:nth-child(4)
+      top 9px
+      width 0%
+      left 50%
+
+  .lang_wrapper
+    max-width 150px
+    display flex
+    justify-content space-between
+    align-items center
+
+    .my_account_link
+      color #cfe6ff
       cursor pointer
-      padding 0 0 0 10px
-      max-width 150px
       text-decoration none
-      font-family $average_font
-      margin-left 10px
-      text-overflow ellipsis
+      font-family $header_font, $header_font_fallback
+      font-size 14px
+      font-weight $header_font_weight
+      transition all .15s ease
+      margin-left 20px
       white-space nowrap
-      overflow hidden
+      padding 8px 16px
+      border-radius 8px
+      background rgba(59, 130, 246, 0.1)
+      border 1px solid rgba(59, 130, 246, 0.3)
 
-    .username-icon
-      display none
+      &:hover
+        color #ffffff
+        background rgba(59, 130, 246, 0.2)
+        border-color rgba(59, 130, 246, 0.6)
+        box-shadow 0 4px 12px rgba(59, 130, 246, 0.2)
 
-    .chevron
-      color $light_main_color
-      cursor pointer
-      width 20px
+    .username_link_wrapper
+      align-items center
+      justify-content flex-end
+      position relative
+      transition all $transition_fast
+      padding 8px 16px 8px 0
+      margin -8px -16px -8px 0
 
       &::after
-        position absolute
-        right 0
-        top 50%
         content ''
-        width 0
-        height 0
-        border-left 4px solid transparent
-        border-right 4px solid transparent
-        border-top 4px solid $light_main_color
-        display inline-block
-        vertical-align middle
-        margin-right 5px
+        position absolute
+        top 100%
+        right 0
+        width 100%
+        height 12px
+
+      .username_header
+        display none
+
+      &:hover
+        .chevron
+          color $light_main_color
+          cursor pointer
+          width 20px
+
+          &::after
+            position absolute
+            right 0
+            top 30%
+            content ''
+            width 0
+            height 0
+            border-left 4px solid transparent
+            border-right 4px solid transparent
+            border-bottom 4px solid $light_main_color
+            border-top 4px solid transparent
+            display inline-block
+            vertical-align middle
+            margin-right 5px
+            pointer-events none
+
+        ul
+          z-index 1000
+          opacity 1
+          visibility visible
+          pointer-events auto
+          transform translateY(0)
+
+          li
+            list-style-type none
+            margin 2px 0
+            cursor pointer
+            font-family $header_font, $header_font_fallback
+            font-weight $header_font_weight
+            text-align center
+            border-radius 8px
+            transition background .15s ease, color .15s ease
+
+            a,
+            span,
+            .logout_button
+              color #cfe6ff
+              font-family $header_font, $header_font_fallback
+              font-weight $header_font_weight
+              text-decoration none
+              font-size 14px
+              background transparent
+              border 0
+              padding 8px 12px
+              display block
+              width 100%
+              box-sizing border-box
+              text-align center
+
+            &:hover
+              background rgba(59, 130, 246, 0.1)
+
+              a,
+              span,
+              .logout_button
+                color #ffffff
+
+      .username_link
+        color $light_main_color
+        cursor pointer
+        width fit-content
+        max-width 150px
+        text-decoration none
+        margin-left 10px
+        text-overflow ellipsis
+        white-space nowrap
+        overflow hidden
+        padding 0 0 0 10px
+
+      .username_icon
+        display none
+
+      .chevron
+        color $light_main_color
+        cursor pointer
+        width 20px
+
+        &::after
+          position absolute
+          right 0
+          top 50%
+          content ''
+          width 0
+          height 0
+          border-left 4px solid transparent
+          border-right 4px solid transparent
+          border-top 4px solid $light_main_color
+          display inline-block
+          vertical-align middle
+          margin-right 5px
+
+      ul
+        position absolute
+        top calc(100% + 8px)
+        right 0
+        width 180px
+        padding 8px
+        margin 0
+        background rgba(8, 17, 28, 0.95)
+        backdrop-filter blur(16px)
+        -webkit-backdrop-filter blur(16px)
+        border 1px solid rgba(255, 255, 255, 0.08)
+        border-radius 12px
+        color $light_main_color
+        box-shadow 0 10px 30px rgba(0, 0, 0, 0.3)
+        opacity 0
+        visibility hidden
         pointer-events none
+        transform translateY(6px)
+        transition opacity $transition_fast, transform $transition_fast, visibility $transition_fast
 
-    ul li
-      cursor pointer
-      font-family "Gotham Pro Medium", sans-serif
-      list-style-type none
-      margin 5px
-      text-align center
+      .logout_button
+        cursor pointer
 
-@media (max-width: 1200px)
-  .top-header
+@media (max-width: 650px)
+  .top_header
     padding 10px 0px
     width 90%
 
-  .username-link
+  .username_link
     display none
 
-  .username-header
+  .username_header
     display block !important
 
     span
       color $contrast_color
       word-break break-word
 
-  .username-icon
+  .username_icon
     display block !important
     padding-bottom 3px
 
     path
-      color $light_main_color !important
+      fill $light_main_color !important
 
 @media only screen and (min-width: 768px)
-  .top-header
-    .header-wrapper
+  .top_header
+    .header_wrapper
       display none
 
-    .dropdown-menu,
-    .my-account-link
+    .lang_wrapper
+      width 20%
+
+    .dropdownmenu,
+    .my_account_link
       display block
       max-width 100%
 
-@media only screen and (max-width: 768px)
-  .dropdown-menu
+@media only screen and (max-width: 900px)
+  .dropdownmenu
     display none !important
 
-  .header-wrapper
+  .header_wrapper
     display block !important
 
-  .top-header
+  .top_header
     padding 10px 30px
+    width 100%
 
-    .logo-wrapper
+    .logo_wrapper
       width 80%
       text-align center
       padding-left 20%
 
-    .my-account-link
+    .my_account_link
       margin-left 0 !important
 
-@media only screen and (max-width: 400px)
-  .logo-wrapper
-    width 60% !important
-    text-align center
-    padding-left calc(50% - 30px) !important
+@media only screen and (max-width: 450px)
+  .top_header
+    position relative
+    padding 10px !important
+    width 100% !important
 
-    .logo
-      min-width 30px !important
-      max-width 30px !important
-      background-size cover !important
+    .logo_wrapper
+      position absolute
+      left 50%
+      transform translateX(-50%)
+      width auto !important
+      padding-left 0 !important
+      text-align center
+
+      .logo
+        min-width 30px !important
+        max-width 30px !important
+        background-size cover !important
+
+    .header_wrapper
+      left 10px !important
+
+    .lang_wrapper
+      width auto !important
+      margin-left auto !important
+
+      .my_account_link
+        padding 6px 8px !important
+        font-size 12px !important
+        margin-left 5px !important
 </style>

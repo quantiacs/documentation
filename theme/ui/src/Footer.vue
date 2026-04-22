@@ -215,8 +215,8 @@ const currentYear = computed(() => new Date().getFullYear());
 </script>
 
 <style lang="stylus">
-average_font = "Gotham Pro Regular"
-light_font = 'Gotham Pro Light'
+@require './vuepress/styles/config'
+
 light_main_color = #ffffff
 icons_vk = #44668d
 icons_tg = #35ade1
@@ -228,7 +228,8 @@ light_font_color = #999999
 
 footer
   background dark_main_color
-  font-family average_font
+  font-family $average_font, $average_font_fallback
+  font-weight $average_font_weight
   clear both
   position relative
   height auto
@@ -254,7 +255,7 @@ footer
       .copywrite
         color light_border !important
         font-size 16px
-        font-family average_font !important
+        font-family $average_font, $average_font_fallback !important
 
   .main_footerWrapper
     display flex
@@ -291,7 +292,7 @@ footer
         a
           text-align center
           font-size 16px
-          font-family average_font
+          font-family $average_font, $average_font_fallback
 
       ul
         list-style none
@@ -331,7 +332,7 @@ footer
         background inherit
         margin-bottom 15px
         display block
-        font-family average_font
+        font-family $average_font, $average_font_fallback
         padding 10px
         text-align left
         text-decoration none

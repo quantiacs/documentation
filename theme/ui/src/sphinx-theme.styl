@@ -86,7 +86,7 @@ ul.breadcrumbs
   line-height 1.25
   font-size 1.65rem
   padding-bottom .3rem
-  border-bottom 1px solid $borderColor
+  border-bottom 1px solid var(--theme-border)
 
 
 /** footer **/
@@ -95,7 +95,7 @@ ul.breadcrumbs
   min-height 2rem
   padding-top 1rem
   overflow auto
-  color grey
+  color var(--theme-footer-text)
   font-size small
   line-height 1.5rem
 
@@ -115,47 +115,59 @@ ul.breadcrumbs
 
 /*** admonitions based on custom-blocks.styl */
 .admonition
-  padding .1rem 1.5rem
-  border-left-width .5rem
+  padding 1.25rem 1.5rem
+  border 1px solid var(--theme-border)
+  border-left-width 4px
   border-left-style solid
-  margin 1rem 0
-  // default color
-  background-color #e2e2e2
-  border-color #787878
+  margin 1.5rem 0
+  border-radius 12px
+  background-color var(--theme-admonition-bg)
+  backdrop-filter blur(8px)
+  border-left-color var(--theme-blockquote-border)
+  box-shadow 0 2px 4px -1px rgba(0,0,0,0.03)
 
   .admonition-title
+    font-family $header_font, $header_font_fallback
     font-weight 600
-    margin-bottom -0.4rem
+    margin-bottom 0.5rem
+    color var(--theme-admonition-title)
+
+  p, li
+    color var(--theme-admonition-text)
 
   &.tip, &.hint
-    background-color #f3f5f7
-    border-color #42b983
+    background-color var(--theme-admonition-tip-bg)
+    border-color var(--theme-admonition-tip-border)
+    border-left-color var(--theme-admonition-tip-accent)
 
   &.important, &.note
-    background-color #e5f1fb
-    border-color #5faaea
+    background-color var(--theme-admonition-note-bg)
+    border-color var(--theme-admonition-note-border)
+    border-left-color var(--theme-admonition-note-accent)
 
   &.warning, &.caution
-    background-color rgba(255, 229, 100, .3)
-    border-color darken(#ffe564, 35%)
-    color darken(#ffe564, 70%)
+    background-color var(--theme-admonition-warning-bg)
+    border-color var(--theme-admonition-warning-border)
+    border-left-color var(--theme-admonition-warning-accent)
+    color var(--theme-admonition-title)
 
     .custom-block-title
-      color darken(#ffe564, 50%)
+      color var(--theme-admonition-title)
 
     a
-      color $textColor
+      color var(--theme-text)
 
   &.danger, &.error
-    background-color #ffe6e6
-    border-color darken(red, 20%)
-    color darken(red, 70%)
+    background-color var(--theme-admonition-danger-bg)
+    border-color var(--theme-admonition-danger-border)
+    border-left-color var(--theme-admonition-danger-accent)
+    color var(--theme-admonition-title)
 
     .custom-block-title
-      color darken(red, 40%)
+      color var(--theme-admonition-title)
 
     a
-      color $textColor
+      color var(--theme-text)
 
 blockquote
   margin-left -0.4rem

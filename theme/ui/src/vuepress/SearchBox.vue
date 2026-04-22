@@ -159,9 +159,11 @@ export default {
     width 10rem
     color lighten($textColor, 25%)
     display inline-block
+    font-family $header_font, $header_font_fallback
+    font-weight $average_font_weight
     border 1px solid darken($borderColor, 10%)
     border-radius 2rem
-    font-size 0.9rem
+    font-size 14px
     line-height 2rem
     padding 0 0.5rem 0 2rem
     outline none
@@ -190,7 +192,8 @@ export default {
     a
       color lighten($textColor, 35%)
       .page-title
-        font-weight 600
+        font-family $header_font, $header_font_fallback
+        font-weight $header_font_weight
       .header
         font-size 0.9em
         margin-left 0.25em

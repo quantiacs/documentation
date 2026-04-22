@@ -11,6 +11,9 @@ import Page from './Page.vue';
 import Footer from './Footer.vue';
 import AboutFeedback from './AboutFeedback';
 import ChatAi from '@/chatAi/ChatAi.vue';
+import { initTheme } from './theme';
+
+initTheme();
 
 const app = createApp({
   data() {
@@ -37,10 +40,7 @@ const app = createApp({
         });
         const parent = block.parentElement;
         if (parent) {
-          parent.style.position = 'relative';
-          button.style.position = 'absolute';
-          button.style.top = '5px';
-          button.style.right = '5px';
+          parent.classList.add('has-copy-btn');
           parent.appendChild(button);
         }
       });

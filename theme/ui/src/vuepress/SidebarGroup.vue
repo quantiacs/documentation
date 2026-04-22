@@ -28,6 +28,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './styles/config.styl'
+
 .sidebar-group
   &:not(.first)
     margin-top 1em
@@ -43,7 +45,8 @@ export default {
   transition color .15s ease
   cursor pointer
   font-size 1.1em
-  font-weight bold
+  font-family $header_font, $header_font_fallback
+  font-weight $header_font_weight
   // text-transform uppercase
   padding 0 1.5rem
   margin-top 0
