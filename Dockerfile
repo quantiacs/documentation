@@ -1,5 +1,7 @@
 FROM --platform=linux/amd64 debian:11.6-slim as builder
 
+ENV CONDA_PLUGINS_AUTO_ACCEPT_TOS=yes
+
 RUN apt-get update && apt-get -y install curl bzip2 openssh-client make && \
     curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh && \
     bash /tmp/miniconda.sh -bfp /usr/local && \
